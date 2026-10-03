@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package entity;
+
+option csharp_namespace = "App.Protobuf.Entity";
+
+message RequestDetails {
+	string request_package_name = 1;
+	int64 timestamp_millis = 2;
+}
+
+message AppIntegrity {
+	string app_recognition_verdict = 1;
+	string package_name = 2;
+	repeated string certificate_sha256_digest = 3;
+	int64 version_code = 4;
+}
+
+message DeviceIntegrity {
+	repeated string device_recognition_verdict = 1;
+}
+
+message AccountDetails {
+	string app_licensing_verdict = 1;
+}

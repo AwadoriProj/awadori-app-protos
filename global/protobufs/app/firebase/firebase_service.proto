@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+import "entity/method_options/method_options.proto";
+
+package app.firebase;
+
+option csharp_namespace = "App.Protobuf.Firebase";
+
+message FirebaseAppCheckRequest {
+}
+
+message FirebaseAppCheckResponse {
+}
+
+service FirebaseService {
+	rpc FirebaseAppCheck (.app.firebase.FirebaseAppCheckRequest) returns (.app.firebase.FirebaseAppCheckResponse) {
+		option (entity.method_options.skip_authentication) = true;
+	}
+}

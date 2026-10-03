@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+import "entity/resource.proto";
+
+package entity;
+
+option csharp_namespace = "App.Protobuf.Entity";
+
+message RewardResource {
+	ResourceType resource_type = 1;
+	int64 resource_id = 2;
+	int32 resource_count = 3;
+}

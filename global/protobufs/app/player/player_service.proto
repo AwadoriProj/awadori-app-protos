@@ -1,0 +1,279 @@
+syntax = "proto3";
+
+import "entity/friend.proto";
+import "entity/gem.proto";
+import "entity/invitation.proto";
+import "entity/limitation.proto";
+import "entity/liveboost.proto";
+import "entity/method_options/method_options.proto";
+import "entity/notification.proto";
+import "entity/player.proto";
+import "entity/player_profile.proto";
+import "google/protobuf/empty.proto";
+
+package app.player;
+
+option csharp_namespace = "App.Protobuf.Player";
+
+message RegisterRequest {
+	string initial_data_group = 1;
+}
+
+message RegisterResponse {
+	.entity.PlayerCredential credential = 1;
+	int64 profile_id = 2;
+}
+
+message WhoamiRequest {
+}
+
+message WhoamiResponse {
+	string player_id = 1;
+}
+
+message GetPlayerDataRequest {
+}
+
+message GetPlayerDataResponse {
+	.entity.PlayerData player_data = 1;
+	.entity.Notification notification = 2;
+	.entity.Limitation limitation = 3;
+	.entity.Friends friends = 4;
+	.entity.Invitation invitation = 5;
+	int64 accountid = 6;
+	int64 world_room_id = 7;
+	string iap_google_account_binding = 8;
+	string iap_apple_account_binding = 9;
+	int32 chat_report_used_today = 100;
+	repeated int64 room_ids = 101;
+}
+
+message EditProfileRequest {
+	string name = 1;
+}
+
+message EditProfileResponse {
+}
+
+message ChangeFavoriteMemberRequest {
+	int64 member_id = 1;
+}
+
+message ChangeFavoriteMemberResponse {
+}
+
+message RegisterDeviceRequest {
+}
+
+message RegisterDeviceResponse {
+	.entity.PlayerCredential credential = 1;
+}
+
+message RegisterPasswordRequest {
+	string password = 1;
+}
+
+message RegisterPasswordResponse {
+	.entity.Notification notification = 1;
+}
+
+message GetPlayerByPasswordRequest {
+	int64 id = 1;
+	string password = 2;
+}
+
+message GetPlayerByPasswordResponse {
+	string nickname = 1;
+	int32 player_rank = 2;
+	int64 profile_id = 3;
+}
+
+message RegisterDeviceByPasswordRequest {
+	int64 id = 1;
+	string password = 2;
+}
+
+message RegisterDeviceByPasswordResponse {
+	.entity.PlayerCredential credential = 1;
+}
+
+message RegisterLinkedAccountRequest {
+	.entity.LinkedAccountType account_type = 1;
+	string id_token = 2;
+}
+
+message RegisterLinkedAccountResponse {
+	.entity.Notification notification = 1;
+}
+
+message UnregisterLinkedAccountRequest {
+	.entity.LinkedAccountType account_type = 1;
+}
+
+message UnregisterLinkedAccountResponse {
+}
+
+message UnlinkBushiroadIdRequest {
+	string token = 1;
+}
+
+message GetLinkedPlayerRequest {
+	.entity.LinkedAccountType account_type = 1;
+	string id_token = 2;
+}
+
+message GetLinkedPlayerResponse {
+	string nickname = 1;
+	int32 player_rank = 2;
+	int64 profile_id = 3;
+}
+
+message RegisterDeviceForLinkedPlayerRequest {
+	.entity.LinkedAccountType account_type = 1;
+	string id_token = 2;
+}
+
+message RegisterDeviceForLinkedPlayerResponse {
+	.entity.PlayerCredential credential = 1;
+}
+
+message GameCenterCredential {
+	string team_player_id = 1;
+	string public_key_url = 2;
+	string signature = 3;
+	string salt = 4;
+	uint64 timestamp = 5;
+}
+
+message RegisterGameCenterAccountRequest {
+	GameCenterCredential credential = 1;
+}
+
+message RegisterGameCenterAccountResponse {
+	.entity.Notification notification = 1;
+}
+
+message GetPlayerByGameCenterRequest {
+	GameCenterCredential credential = 1;
+}
+
+message GetPlayerByGameCenterResponse {
+	string nickname = 1;
+	int32 player_rank = 2;
+	int64 profile_id = 3;
+}
+
+message RegisterDeviceByGameCenterRequest {
+	GameCenterCredential credential = 1;
+}
+
+message RegisterDeviceByGameCenterResponse {
+	.entity.PlayerCredential credential = 1;
+}
+
+message CheckNgWordRequest {
+	string word = 1;
+}
+
+message CheckNgWordResponse {
+}
+
+message RemovePlayerDataRequest {
+}
+
+message RemovePlayerDataResponse {
+}
+
+message UpdatePlayerFavoriteRequest {
+	string player_id = 1;
+	bool is_cancel = 2;
+}
+
+message UpdatePlayerFavoriteResponse {
+}
+
+message GetCharacterOrdersRequest {
+}
+
+message GetCharacterOrdersResponse {
+	repeated int64 character_orders = 1;
+}
+
+message SaveCharacterOrdersRequest {
+	repeated int64 character_orders = 1;
+}
+
+message SaveCharacterOrdersResponse {
+}
+
+message SetNotificationSettingRequest {
+	bool is_night_notice_off = 1;
+}
+
+message SetNotificationSettingResponse {
+}
+
+message GetPlayerFavoriteStatusRequest {
+	string player_id = 1;
+}
+
+message GetPlayerFavoriteStatusResponse {
+	int64 total_favorite = 1;
+	bool is_sent_favorite = 2;
+}
+
+service PlayerService {
+	rpc Register (.app.player.RegisterRequest) returns (.app.player.RegisterResponse) {
+		option (entity.method_options.skip_authentication) = true;
+	}
+
+	rpc Whoami (.app.player.WhoamiRequest) returns (.app.player.WhoamiResponse);
+	rpc GetPlayerData (.app.player.GetPlayerDataRequest) returns (.app.player.GetPlayerDataResponse);
+	rpc FinishTutorial (.google.protobuf.Empty) returns (.google.protobuf.Empty);
+	rpc EditProfile (.app.player.EditProfileRequest) returns (.app.player.EditProfileResponse);
+	rpc ChangeFavoriteMember (.app.player.ChangeFavoriteMemberRequest) returns (.app.player.ChangeFavoriteMemberResponse);
+
+	rpc CheckNgWord (.app.player.CheckNgWordRequest) returns (.app.player.CheckNgWordResponse) {
+		option (entity.method_options.skip_authentication) = true;
+	}
+
+	rpc RemovePlayerData (.app.player.RemovePlayerDataRequest) returns (.app.player.RemovePlayerDataResponse);
+	rpc RegisterDevice (.app.player.RegisterDeviceRequest) returns (.app.player.RegisterDeviceResponse);
+	rpc RegisterPassword (.app.player.RegisterPasswordRequest) returns (.app.player.RegisterPasswordResponse);
+
+	rpc GetPlayerByPassword (.app.player.GetPlayerByPasswordRequest) returns (.app.player.GetPlayerByPasswordResponse) {
+		option (entity.method_options.skip_authentication) = true;
+	}
+
+	rpc RegisterDeviceByPassword (.app.player.RegisterDeviceByPasswordRequest) returns (.app.player.RegisterDeviceByPasswordResponse) {
+		option (entity.method_options.skip_authentication) = true;
+	}
+
+	rpc RegisterLinkedAccount (.app.player.RegisterLinkedAccountRequest) returns (.app.player.RegisterLinkedAccountResponse);
+	rpc UnregisterLinkedAccount (.app.player.UnregisterLinkedAccountRequest) returns (.app.player.UnregisterLinkedAccountResponse);
+
+	rpc GetLinkedPlayer (.app.player.GetLinkedPlayerRequest) returns (.app.player.GetLinkedPlayerResponse) {
+		option (entity.method_options.skip_authentication) = true;
+	}
+
+	rpc RegisterDeviceForLinkedPlayer (.app.player.RegisterDeviceForLinkedPlayerRequest) returns (.app.player.RegisterDeviceForLinkedPlayerResponse) {
+		option (entity.method_options.skip_authentication) = true;
+	}
+
+	rpc RegisterGameCenterAccount (.app.player.RegisterGameCenterAccountRequest) returns (.app.player.RegisterGameCenterAccountResponse);
+
+	rpc GetPlayerByGameCenter (.app.player.GetPlayerByGameCenterRequest) returns (.app.player.GetPlayerByGameCenterResponse) {
+		option (entity.method_options.skip_authentication) = true;
+	}
+
+	rpc RegisterDeviceByGameCenter (.app.player.RegisterDeviceByGameCenterRequest) returns (.app.player.RegisterDeviceByGameCenterResponse) {
+		option (entity.method_options.skip_authentication) = true;
+	}
+
+	rpc UpdatePlayerFavorite (.app.player.UpdatePlayerFavoriteRequest) returns (.app.player.UpdatePlayerFavoriteResponse);
+	rpc UnlinkBushiroadId (.app.player.UnlinkBushiroadIdRequest) returns (.google.protobuf.Empty);
+	rpc GetCharacterOrders (.app.player.GetCharacterOrdersRequest) returns (.app.player.GetCharacterOrdersResponse);
+	rpc SaveCharacterOrders (.app.player.SaveCharacterOrdersRequest) returns (.app.player.SaveCharacterOrdersResponse);
+	rpc SetNotificationSetting (.app.player.SetNotificationSettingRequest) returns (.app.player.SetNotificationSettingResponse);
+	rpc GetPlayerFavoriteStatus (.app.player.GetPlayerFavoriteStatusRequest) returns (.app.player.GetPlayerFavoriteStatusResponse);
+}

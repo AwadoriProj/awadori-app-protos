@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+import "entity/supports_terms.proto";
+
+package app.supports_terms;
+
+option csharp_namespace = "App.Protobuf.SupportsTerms";
+
+message GetFaqRequest {
+}
+
+message GetFaqResponse {
+	repeated .entity.Faqs faqs = 1;
+}
+
+message TermsAgreementRequest {
+	repeated .entity.TermsIds terms_ids = 1;
+}
+
+message TermsAgreementResponse {
+}
+
+message TermsAgreementHistoriesRequest {
+}
+
+message TermsAgreementHistoriesResponse {
+	repeated .entity.TermsHistories histories = 1;
+}
+
+service SupportsTermsService {
+	rpc GetFaq (.app.supports_terms.GetFaqRequest) returns (.app.supports_terms.GetFaqResponse);
+	rpc TermsAgreement (.app.supports_terms.TermsAgreementRequest) returns (.app.supports_terms.TermsAgreementResponse);
+	rpc TermsAgreementHistories (.app.supports_terms.TermsAgreementHistoriesRequest) returns (.app.supports_terms.TermsAgreementHistoriesResponse);
+}

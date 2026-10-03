@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+import "entity/memory.proto";
+
+package app.memory;
+
+option csharp_namespace = "App.Protobuf.Memory";
+
+message UnlockMemoryMusicRequest {
+}
+
+message UnlockMemoryMusicResponse {
+	repeated .entity.MemoryMusics memory_musics = 1;
+}
+
+message UnlockMemoryMemberRequest {
+}
+
+message UnlockMemoryMemberResponse {
+	repeated .entity.MemoryMembers memory_members = 1;
+}
+
+message UnlockMemorySupportsRequest {
+}
+
+message UnlockMemorySupportsResponse {
+	repeated .entity.MemorySupports memory_supports = 1;
+}
+
+service MemoryService {
+	rpc UnlockMemoryMusic (.app.memory.UnlockMemoryMusicRequest) returns (.app.memory.UnlockMemoryMusicResponse);
+	rpc UnlockMemoryMember (.app.memory.UnlockMemoryMemberRequest) returns (.app.memory.UnlockMemoryMemberResponse);
+	rpc UnlockMemorySupports (.app.memory.UnlockMemorySupportsRequest) returns (.app.memory.UnlockMemorySupportsResponse);
+}

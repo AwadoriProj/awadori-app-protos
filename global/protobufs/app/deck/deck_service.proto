@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+import "entity/deck.proto";
+import "entity/notification.proto";
+
+package app.deck;
+
+option csharp_namespace = "App.Protobuf.Deck";
+
+message SaveDecksRequest {
+	repeated .entity.Deck decks = 1;
+	int32 main_deck = 2;
+}
+
+message SaveDecksResponse {
+	.entity.Notification notification = 1;
+}
+
+service DeckService {
+	rpc SaveDecks (.app.deck.SaveDecksRequest) returns (.app.deck.SaveDecksResponse);
+}

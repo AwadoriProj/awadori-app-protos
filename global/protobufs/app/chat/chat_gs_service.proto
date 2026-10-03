@@ -1,0 +1,129 @@
+syntax = "proto3";
+
+import "app/chat/chat_common.proto";
+
+package app.chat;
+
+option csharp_namespace = "App.Protobuf.Chat";
+
+message RPCGMChatOptReq {
+	int64 AccountID = 1;
+	gmChatOpt Opt = 2;
+	int64 EndTime = 3;
+}
+
+message RPCGMChatOptNoti {
+	int32 Ret = 1;
+	int64 EndTime = 2;
+}
+
+message RPCInitWorldRoomReq {
+	int32 ZoneID = 1;
+	int64 AccountID = 2;
+}
+
+message RPCEnterWorldRoomReq {
+	int32 ZoneID = 1;
+	int64 AccountID = 2;
+	int32 GatesvrID = 3;
+}
+
+message RPCEnterWorldRoomNoti {
+	int32 Ret = 1;
+	int64 WorldRoomID = 2;
+}
+
+message RPCGetWorldRoomListReq {
+	int32 ZoneID = 1;
+	int64 AccountID = 2;
+}
+
+message RPCGetWorldRoomListNoti {
+	int32 Ret = 1;
+	repeated WorldRoomInfo RoomInfos = 2;
+}
+
+message RPCSwitchWorldRoomReq {
+	int32 ZoneID = 1;
+	int64 AccountID = 2;
+	int64 TargetRoomID = 3;
+}
+
+message RPCSwitchWorldRoomNoti {
+	int32 Ret = 1;
+	int64 WorldRoomID = 2;
+}
+
+message RPCEnterIMReq {
+	int64 AccountID = 1;
+	repeated int64 RoomIDs = 2;
+	int32 GatesvrID = 3;
+}
+
+message RPCMigrateIMReq {
+	int64 AccountID = 1;
+	repeated int64 RoomIDs = 2;
+	int32 GatesvrID = 3;
+}
+
+message RPCLeaveIMReq {
+	int64 AccountID = 1;
+	bool IsSpec = 2;
+}
+
+message RPCEnterIMRoomReq {
+	int64 AccountID = 1;
+	int64 RoomID = 2;
+}
+
+message RPCLeaveIMRoomReq {
+	int64 AccountID = 1;
+	int64 RoomID = 2;
+}
+
+message RPCGenIMRoomIDReq {
+	int64 AccountID = 1;
+	int32 ChatRoomType = 2;
+}
+
+message RPCGenIMRoomIDNoti {
+	int32 Ret = 1;
+	int64 RoomID = 2;
+}
+
+message RPCSendIMMsgReq {
+	IMMsg Msg = 1;
+}
+
+message RPCSyncMsgReq {
+	int32 Type = 1;
+	int64 AccountID = 2;
+	int64 LastMsgID = 3;
+	int64 Receiver = 4;
+}
+
+message RPCSyncMsgNoti {
+	int32 Ret = 1;
+}
+
+message RPCCloseConnReq {
+	int64 AccountID = 1;
+	int32 GatesvrID = 2;
+}
+
+service IMService {
+	rpc Ping (.app.chat.GRPCPing) returns (.app.chat.GRPCPing);
+	rpc ServiceGMChatOpt (.app.chat.RPCGMChatOptReq) returns (.app.chat.RPCGMChatOptNoti);
+	rpc ServiceInitWorldRoom (.app.chat.RPCInitWorldRoomReq) returns (.app.chat.RPCCommonNoti);
+	rpc ServiceEnterWorldRoom (.app.chat.RPCEnterWorldRoomReq) returns (.app.chat.RPCEnterWorldRoomNoti);
+	rpc ServiceGetWorldRoomList (.app.chat.RPCGetWorldRoomListReq) returns (.app.chat.RPCGetWorldRoomListNoti);
+	rpc ServiceSwitchWorldRoom (.app.chat.RPCSwitchWorldRoomReq) returns (.app.chat.RPCSwitchWorldRoomNoti);
+	rpc ServiceLeaveIM (.app.chat.RPCLeaveIMReq) returns (.app.chat.RPCCommonNoti);
+	rpc ServiceEnterIM (.app.chat.RPCEnterIMReq) returns (.app.chat.RPCCommonNoti);
+	rpc ServiceEnterIMRoom (.app.chat.RPCEnterIMRoomReq) returns (.app.chat.RPCCommonNoti);
+	rpc ServiceLeaveIMRoom (.app.chat.RPCLeaveIMRoomReq) returns (.app.chat.RPCCommonNoti);
+	rpc ServiceGenIMRoomID (.app.chat.RPCGenIMRoomIDReq) returns (.app.chat.RPCGenIMRoomIDNoti);
+	rpc ServiceSendIMMsg (.app.chat.RPCSendIMMsgReq) returns (.app.chat.RPCCommonNoti);
+	rpc ServiceSyncMsg (.app.chat.RPCSyncMsgReq) returns (.app.chat.RPCSyncMsgNoti);
+	rpc ServiceCloseConn (.app.chat.RPCCloseConnReq) returns (.app.chat.RPCCommonNoti);
+}

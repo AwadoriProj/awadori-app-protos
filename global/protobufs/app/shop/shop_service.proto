@@ -1,0 +1,119 @@
+syntax = "proto3";
+
+import "entity/method_options/method_options.proto";
+import "entity/notification.proto";
+import "entity/shop.proto";
+
+package app.shop;
+
+option csharp_namespace = "App.Protobuf.Shop";
+
+enum PaymentResult {
+	PAYMENT_UNSPECIFIED = 0;
+	PAYMENT_SUCCESS = 1;
+	PAYMENT_PENDING = 2;
+	PAYMENT_CANCELED = 3;
+	PAYMENT_REJECTED = 4;
+}
+
+message FetchRequest {
+}
+
+message FetchResponse {
+	repeated .entity.ShopProduct products = 1;
+	int32 year = 2;
+	int32 month = 3;
+	int32 monthly_total_payment = 4;
+}
+
+message PurchaseCashRequest {
+	int64 shop_id = 1;
+	string signature = 2;
+	string receipt = 3;
+}
+
+message PurchaseRequest {
+	int64 shop_id = 1;
+	int32 purchase_count = 2;
+}
+
+message PurchaseCMRequest {
+	int64 shop_id = 1;
+}
+
+message SaveBirthRequest {
+	int32 year = 1;
+	int32 month = 2;
+}
+
+message SaveBirthResponse {
+}
+
+message PurchaseResponse {
+	.entity.Notification notification = 1;
+}
+
+message ResumeResult {
+	int64 shop_id = 1;
+	PaymentResult result = 2;
+}
+
+message PurchaseCashResponse {
+	PaymentResult result = 1;
+	.entity.Notification notification = 2;
+}
+
+message HistoryRequest {
+}
+
+message HistoryResponse {
+	repeated .entity.ShopPurchaseHistory histories = 1;
+}
+
+message CheckMaintenanceShopRequest {
+}
+
+message CheckMaintenanceShopResponse {
+}
+
+message ResumeRequest {
+}
+
+message ResumeResponse {
+	repeated ResumeResult results = 1;
+	.entity.Notification notification = 2;
+}
+
+service ShopService {
+	rpc Fetch (.app.shop.FetchRequest) returns (.app.shop.FetchResponse) {
+		option (entity.method_options.maintenance_features).shop = true;
+	}
+
+	rpc SaveBirth (.app.shop.SaveBirthRequest) returns (.app.shop.SaveBirthResponse) {
+		option (entity.method_options.maintenance_features).shop = true;
+	}
+
+	rpc PurchaseCash (.app.shop.PurchaseCashRequest) returns (.app.shop.PurchaseCashResponse) {
+		option (entity.method_options.maintenance_features).shop = true;
+	}
+
+	rpc PurchaseCM (.app.shop.PurchaseCMRequest) returns (.app.shop.PurchaseResponse) {
+		option (entity.method_options.maintenance_features).shop = true;
+	}
+
+	rpc Purchase (.app.shop.PurchaseRequest) returns (.app.shop.PurchaseResponse) {
+		option (entity.method_options.maintenance_features).shop = true;
+	}
+
+	rpc History (.app.shop.HistoryRequest) returns (.app.shop.HistoryResponse) {
+		option (entity.method_options.maintenance_features).shop = true;
+	}
+
+	rpc CheckMaintenanceShop (.app.shop.CheckMaintenanceShopRequest) returns (.app.shop.CheckMaintenanceShopResponse) {
+		option (entity.method_options.maintenance_features).shop = true;
+	}
+
+	rpc Resume (.app.shop.ResumeRequest) returns (.app.shop.ResumeResponse) {
+		option (entity.method_options.maintenance_features).shop = true;
+	}
+}

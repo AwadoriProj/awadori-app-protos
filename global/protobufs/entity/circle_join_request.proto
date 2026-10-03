@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+import "entity/player_profile.proto";
+
+package entity;
+
+option csharp_namespace = "App.Protobuf.Entity";
+
+message CircleJoinRequest {
+	string player_id = 1;
+	PlayerSimpleProfile profile = 2;
+}

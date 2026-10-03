@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+import "entity/circle_rank_up_reward.proto";
+import "entity/method_options/method_options.proto";
+import "google/protobuf/empty.proto";
+
+package app.circlerankupreward;
+
+option csharp_namespace = "App.Protobuf.CircleRankUpReward";
+
+message GetCircleRankUpRewardReceivedResponse {
+	.entity.CircleRankUpRewardReceived circle_rank_up_reward_received = 1;
+}
+
+message ReceiveCircleRankUpRewardResponse {
+	repeated .entity.CircleRankUpRewardDetail rewards = 1;
+}
+
+service CircleRankUpRewardService {
+	rpc GetCircleRankUpRewardReceived (.google.protobuf.Empty) returns (.app.circlerankupreward.GetCircleRankUpRewardReceivedResponse) {
+		option (entity.method_options.maintenance_features).circle = true;
+	}
+
+	rpc ReceiveCircleRankUpReward (.google.protobuf.Empty) returns (.app.circlerankupreward.ReceiveCircleRankUpRewardResponse) {
+		option (entity.method_options.maintenance_features).circle = true;
+	}
+}

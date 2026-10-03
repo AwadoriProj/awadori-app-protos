@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+import "entity/sendchat.proto";
+import "google/protobuf/empty.proto";
+
+package app.sendchat;
+
+option csharp_namespace = "App.Protobuf.sendchat";
+
+message SendChatRequest {
+	.entity.SendChat params = 1;
+}
+
+service SendChatService {
+	rpc SendMessage (.app.sendchat.SendChatRequest) returns (.google.protobuf.Empty);
+}

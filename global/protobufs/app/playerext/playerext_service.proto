@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+import "entity/gem.proto";
+import "entity/liveboost.proto";
+import "entity/player_profile.proto";
+
+package app.playerext;
+
+option csharp_namespace = "App.Protobuf.PlayerExt";
+
+message SyncDataRequest {
+}
+
+message SyncDataResponse {
+	int64 accountid = 1;
+	int64 world_room_id = 2;
+	.entity.Gem gem = 3;
+	.entity.LiveBoost live_boost = 4;
+}
+
+message GetPlayerListRequest {
+	repeated int64 account_ids = 1;
+}
+
+message GetPlayerListResponse {
+	repeated .entity.PlayerBriefInfo players = 1;
+}
+
+service PlayerExtService {
+	rpc SyncData (.app.playerext.SyncDataRequest) returns (.app.playerext.SyncDataResponse);
+	rpc GetPlayerList (.app.playerext.GetPlayerListRequest) returns (.app.playerext.GetPlayerListResponse);
+}

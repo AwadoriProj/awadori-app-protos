@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+import "entity/announcement.proto";
+import "entity/friend.proto";
+import "entity/invitation.proto";
+import "entity/login_bonus.proto";
+import "entity/monthly_pass.proto";
+import "entity/notification.proto";
+import "entity/personal_notification.proto";
+
+package app.home;
+
+option csharp_namespace = "App.Protobuf.Home";
+
+message GetHomeRequest {
+}
+
+message GetHomeResponse {
+	repeated .entity.Announcement announcements = 1;
+	repeated .entity.LoginBonusSheet login_bonus_update = 2;
+	.entity.Notification notification = 3;
+	.entity.Friends friends = 4;
+	repeated .entity.InvitationProfile invitations = 5;
+	int32 player_favorite = 6;
+	repeated .entity.MonthlyPassState monthly_passes = 8;
+	repeated .entity.MonthlyPassDailyReward monthly_pass_daily_rewards = 9;
+	.entity.PersonalNotification personal_notification = 10;
+
+	reserved 7;
+}
+
+service HomeService {
+	rpc Get (.app.home.GetHomeRequest) returns (.app.home.GetHomeResponse);
+}

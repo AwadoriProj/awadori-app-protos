@@ -1,0 +1,95 @@
+syntax = "proto3";
+
+import "entity/method_options/method_options.proto";
+import "google/protobuf/empty.proto";
+
+package app.external_payments;
+
+option csharp_namespace = "App.Protobuf.ExternalPayments";
+
+enum PaymentDenyReason {
+	DENY_REASON_NONE = 0;
+	DENY_REASON_LIMIT_REACHED = 1;
+	DENY_REASON_BY_OTHER_PAYMENT = 2;
+	DENY_REASON_TIME_LIMIT = 3;
+}
+
+enum ShopResetType {
+	SHOP_RESET_TYPE_NONE = 0;
+	SHOP_RESET_TYPE_TOTAL = 1;
+	SHOP_RESET_TYPE_DAILY = 2;
+	SHOP_RESET_TYPE_WEEKLY = 3;
+	SHOP_RESET_TYPE_MONTHLY = 4;
+}
+
+message CheckMaintenanceRequest {
+}
+
+message CheckMaintenanceResponse {
+	bool is_maint = 1;
+}
+
+message ItemStatusRequest {
+	int64 shop_item_id = 1;
+}
+
+message ItemStatusResponse {
+	PaymentDenyReason status = 1;
+	int64 remain_count = 2;
+	ShopResetType reset_type = 3;
+}
+
+message ExecutePaymentRequest {
+	int64 shop_item_id = 1;
+}
+
+message ExecutePaymentResponse {
+	PaymentDenyReason status = 1;
+}
+
+message GetProductListRequest {
+}
+
+message ProductListItem {
+	int64 shop_item_id = 1;
+	PaymentDenyReason status = 2;
+	int32 remain_count = 3;
+	int32 required_player_rank = 4;
+	int32 required_vip_rank = 5;
+	string item_name = 6;
+	int32 price = 7;
+	string description_text = 8;
+	int32 priority = 9;
+	string start_at = 10;
+	string end_at = 11;
+	int32 limit_consume_count = 12;
+	ShopResetType reset_type = 13;
+	string banner = 14;
+	string notes_text = 15;
+}
+
+message GetProductListResponse {
+	repeated ProductListItem items = 1;
+}
+
+service ExternalPaymentsService {
+	rpc Nop (.google.protobuf.Empty) returns (.google.protobuf.Empty) {
+		option (entity.method_options.external_payments) = true;
+		option (entity.method_options.skip_authentication) = true;
+	}
+
+	rpc ItemStatus (.app.external_payments.ItemStatusRequest) returns (.app.external_payments.ItemStatusResponse) {
+		option (entity.method_options.external_payments) = true;
+		option (entity.method_options.skip_authentication) = true;
+	}
+
+	rpc ExecutePayment (.app.external_payments.ExecutePaymentRequest) returns (.app.external_payments.ExecutePaymentResponse) {
+		option (entity.method_options.external_payments) = true;
+		option (entity.method_options.skip_authentication) = true;
+	}
+
+	rpc GetProductList (.app.external_payments.GetProductListRequest) returns (.app.external_payments.GetProductListResponse) {
+		option (entity.method_options.external_payments) = true;
+		option (entity.method_options.skip_authentication) = true;
+	}
+}

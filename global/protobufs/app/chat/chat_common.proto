@@ -1,0 +1,126 @@
+syntax = "proto3";
+
+package app.chat;
+
+option csharp_namespace = "App.Protobuf.Chat";
+
+enum gmChatOpt {
+	ChatOpt_None = 0;
+	ChatOpt_GetForbid = 1;
+	ChatOpt_SetForbid = 2;
+}
+
+enum MessageType {
+	MessageType_Chat_Emoji = 0;
+	MessageType_Chat_Text = 1;
+	MessageType_Chat_TextFromSound = 2;
+	MessageType_Chat_InviteTeam = 3;
+	MessageType_Chat_InviteLeague = 4;
+	MessageType_Chat_RoomDismiss = 5;
+	MessageType_System_FriendAdded = 6;
+}
+
+enum EIMType {
+	IM_Peer = 0;
+	IM_Room = 4;
+}
+
+message GRPCCommonResponse {
+	int32 code = 1;
+	string message = 2;
+}
+
+message GRPCPing {
+	int32 timestamp = 1;
+}
+
+message BaseNoti {
+	int32 RetCode = 1;
+	string RetMsg = 2;
+}
+
+message RPCCommonNoti {
+	int32 Ret = 1;
+}
+
+message MessageRetNoti {
+	BaseNoti Base = 3;
+}
+
+message CSCommonMessage {
+	string Msgkey = 2;
+	bytes Msgbody = 3;
+}
+
+message ChatText {
+	int32 ID = 1;
+	string Text = 2;
+}
+
+message ChatEmoji {
+	int32 ID = 1;
+	int32 EmojiID = 2;
+}
+
+message ChatTextFromSound {
+	int32 ID = 1;
+	string Text = 2;
+	string SoundUrl = 3;
+}
+
+message ChatJoinLeagueAccepted {
+	int32 ID = 1;
+}
+
+message IMMsg {
+	int64 MsgID = 2;
+	int64 Sender = 3;
+	int64 Receiver = 4;
+	repeated int64 Receivers = 9;
+	int32 Type = 5;
+	int32 MsgType = 6;
+	string Content = 7;
+	int64 Time = 8;
+}
+
+message IMMsgs {
+	repeated IMMsg Msgs = 1;
+}
+
+message MessageIMNoti {
+	repeated IMMsg Msgs = 3;
+}
+
+message MessageNewMsgNoti {
+	int64 MsgID = 2;
+	int64 Receiver = 3;
+}
+
+message MessageGroupMsgNoti {
+	IMMsg Msg = 1;
+	repeated int64 AccountIDs = 5;
+}
+
+message WorldRoomInfo {
+	int64 RoomID = 1;
+	int32 MemberNum = 2;
+	int32 MaxMemberNum = 3;
+}
+
+message NotificationReward {
+	int32 resource_type = 1;
+	int64 resource_id = 2;
+	int32 resource_count = 3;
+}
+
+message NotificationInfo {
+	int64 id = 1;
+	int32 notification_type = 2;
+	string title = 3;
+	string content = 4;
+	int64 expire_at = 5;
+	bool has_rewards = 6;
+	bool claimed = 7;
+	repeated NotificationReward rewards = 8;
+	int64 created_at = 9;
+}

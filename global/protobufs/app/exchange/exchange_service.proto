@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+import "entity/notification.proto";
+
+package app.exchange;
+
+option csharp_namespace = "App.Protobuf.Exchange";
+
+message ExchangeRequest {
+	int64 product_id = 1;
+	int32 amount = 2;
+}
+
+message ExchangeResponse {
+	.entity.Notification notification = 1;
+}
+
+service ExchangeService {
+	rpc Exchange (.app.exchange.ExchangeRequest) returns (.app.exchange.ExchangeResponse);
+}

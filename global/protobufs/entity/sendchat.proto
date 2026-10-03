@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package entity;
+
+option csharp_namespace = "App.Protobuf.Entity";
+
+enum ChatType {
+	CHAT_TYPE_UNSPECIFIED = 0;
+	ALL = 1;
+	CIRCLE = 2;
+	FRIEND = 3;
+	SYSTEM = 4;
+	IMPORTANT = 5;
+}
+
+message SendChat {
+	ChatType chat_type = 1;
+	optional int64 friend_profile_id = 2;
+	optional string text = 3;
+	optional uint32 stamp_id = 4;
+}

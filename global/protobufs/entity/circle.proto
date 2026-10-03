@@ -1,0 +1,79 @@
+syntax = "proto3";
+
+import "entity/circle_player.proto";
+import "entity/player_profile.proto";
+
+package entity;
+
+option csharp_namespace = "App.Protobuf.Entity";
+
+enum MemberRange {
+	MEMBER_RANGE_UNSPECIFIED = 0;
+	MEMBER_RANGE_1 = 1;
+	MEMBER_RANGE_2 = 2;
+	MEMBER_RANGE_3 = 3;
+}
+
+enum JoinRule {
+	JOIN_RULE_UNSPECIFIED = 0;
+	AUTO = 1;
+	REQUEST = 2;
+	INVITE = 3;
+}
+
+enum PlayStyle {
+	PLAY_STYLE_UNSPECIFIED = 0;
+	FREE = 1;
+	CASUAL = 2;
+	HARD = 3;
+	BEGINNER = 4;
+}
+
+message Circle {
+	uint64 id = 1;
+	string name = 2;
+	string description = 3;
+	uint32 join_rule = 4;
+	uint32 play_style = 5;
+	uint32 total_point = 6;
+	uint32 weekly_total_point = 7;
+	uint32 member_count = 8;
+	int64 master_last_login_at = 9;
+	optional uint32 current_rank = 10;
+	optional uint32 next_rank_point = 11;
+}
+
+message SaveCircleParams {
+	optional string name = 1;
+	optional string description = 2;
+	optional JoinRule join_rule = 3;
+	optional PlayStyle play_style = 4;
+}
+
+message SearchOptions {
+	string name = 1;
+	MemberRange member_range = 2;
+	JoinRule join_rule = 3;
+	PlayStyle play_style = 4;
+}
+
+message CircleDetailWithPlayerList {
+	Circle detail = 1;
+	repeated CirclePlayer players = 2;
+	int32 circle_ranking = 3;
+}
+
+message CircleWithMasterPlayer {
+	Circle circle = 1;
+	PlayerSimpleProfile profile = 4;
+}
+
+message UpdateCircleTop {
+	Circle circle = 1;
+	CirclePlayer current_player = 2;
+	repeated CirclePlayer players = 3;
+	int32 circle_mission_reward_count = 4;
+	int32 circle_ranking = 5;
+	uint32 circle_rank_reward_received = 6;
+	optional string new_master_player_id = 7;
+}

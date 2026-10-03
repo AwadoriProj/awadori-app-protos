@@ -1,0 +1,156 @@
+syntax = "proto3";
+
+import "entity/player_profile.proto";
+import "entity/reward.proto";
+
+package entity;
+
+option csharp_namespace = "App.Protobuf.Entity";
+
+enum GekisouRankigType {
+	GEKISOU_RANKING_TYPE_UNSPECIFIED = 0;
+	GEKISOU_RANKING_TYPE_SCORE = 1;
+	GEKISOU_RANKING_TYPE_01 = 2;
+	GEKISOU_RANKING_TYPE_02 = 3;
+	GEKISOU_RANKING_TYPE_03 = 4;
+}
+
+enum GekisouRankingRewardState {
+	GEKISOU_RANKING_REWARD_UNSPECIFIED = 0;
+	GEKISOU_RANKING_REWARD_COMPLETE_SUCCESSFULLY = 1;
+	GEKISOU_RANKING_REWARD_COMPLETE_TIMEOUT = 2;
+	GEKISOU_RANKING_REWARD_COMPLETED = 3;
+}
+
+message LiveScore {
+	int32 high_score = 1;
+	int32 clear_status = 2;
+	int64 music_id = 3;
+	int32 difficulty = 4;
+	int32 mode = 5;
+	int32 max_combo = 6;
+}
+
+message LiveMusicReward {
+	int64 music_id = 1;
+	int32 score_rank_reward_gained = 2;
+	int32 combo_reward_gained = 3;
+}
+
+message LiveMusicComboReward {
+	int64 music_id = 1;
+	int32 difficulty = 2;
+	int32 combo_reward_gained = 3;
+}
+
+message LiveSkip {
+	int32 count = 1;
+	int64 last_skip = 2;
+}
+
+message LiveMusic {
+	int64 music_id = 1;
+	int64 got_at = 2;
+}
+
+message LiveGekisouSkill {
+	int64 member_id = 1;
+	int64 skill_id = 2;
+}
+
+message LiveGekisouSupportSkill {
+	int64 support_card_id = 1;
+	int64 skill_id = 2;
+}
+
+message LiveSupportSkill {
+	int64 support_card_id = 1;
+	int64 skill_id = 2;
+}
+
+message LiveFinish {
+	int32 clear_status = 1;
+	int32 solo_score = 2;
+	int32 combo = 3;
+	repeated int32 judgements = 4 [deprecated = true];
+	repeated LiveSupportSkill support_skills = 5;
+	repeated LiveGekisouSkill gekisou_skills = 6;
+	repeated LiveGekisouSupportSkill gekisou_support_skills = 7;
+	repeated JudgementCount judgement_counts = 9;
+	int32 current_deck_total_power = 10;
+	string live_unique_id = 11;
+	bytes live_score_report = 12;
+}
+
+message JudgementCount {
+	int32 judgement = 1;
+	int32 total_count = 2;
+}
+
+message JudgementSummary {
+	int32 clear_status = 1;
+	int32 solo_score = 2;
+	int32 combo = 3;
+	repeated JudgementCount judgement_counts = 4;
+}
+
+message BattleLivePlayerResult {
+	string player_id = 1;
+	int32 battle_live_score = 2;
+	repeated int32 gekisou_score = 3;
+	bytes battle_live_log = 4;
+	JudgementSummary judgement = 5;
+}
+
+message GekisouRankingPlayer {
+	string player_id = 1;
+	int32 rank = 2;
+}
+
+message GekisouRanking {
+	GekisouRankigType ranking_type = 1;
+	repeated GekisouRankingPlayer ranking = 2;
+}
+
+message BattleLiveRewardResource {
+	RewardResource resource = 1;
+	GekisouRankigType ranking_type = 2;
+}
+
+message LiveSetting {
+	bytes setting_all = 1;
+}
+
+message LiveLaneSkin {
+	int64 master_id = 1;
+}
+
+message LiveNoteSkin {
+	int64 master_id = 1;
+}
+
+message LiveNoteEffectSkin {
+	int64 master_id = 1;
+}
+
+message LiveNoteSeGroup {
+	int64 master_id = 1;
+}
+
+message LiveStampReward {
+	int32 live_completed = 1;
+	int32 reward_gained = 2;
+	int64 last_live_completed_at = 3;
+}
+
+message BandHighScoreRatingReward {
+	int64 band_id = 1;
+	repeated int64 reward_ids = 2;
+}
+
+message BattleLiveInvitation {
+	PlayerSimpleProfile sender = 1;
+	int64 lobby_id = 2;
+	int64 send_at = 3;
+	PlayerSimpleProfile host = 4;
+}

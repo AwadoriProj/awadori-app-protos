@@ -1,0 +1,259 @@
+syntax = "proto3";
+
+import "entity/live.proto";
+import "entity/member_card.proto";
+import "entity/present.proto";
+import "entity/support_card.proto";
+import "google/protobuf/empty.proto";
+
+package app.debug;
+
+option csharp_namespace = "App.Protobuf.Debug";
+
+message GainItemRequest {
+	map<int64, int32> items = 1;
+}
+
+message GainItemResponse {
+}
+
+message GainGemRequest {
+	int32 free = 1;
+	int32 paid = 2;
+	int32 ex = 3;
+}
+
+message GainGemResponse {
+}
+
+message GainPlayerRankExpRequest {
+	int32 add_exp = 1;
+}
+
+message GainPlayerRankExpResponse {
+	int32 prev_exp = 1;
+	int32 current_exp = 2;
+}
+
+message GainMusicRequest {
+	repeated int64 music_id = 1;
+}
+
+message GainMusicResponse {
+}
+
+message GainMemberCardRequest {
+	repeated int64 member_card_master_ids = 1;
+	repeated .entity.MemberCard member_cards = 2;
+}
+
+message GainMemberCardResponse {
+}
+
+message GainSupportCardRequest {
+	repeated int64 support_card_master_ids = 1;
+	repeated .entity.SupportCard support_cards = 2;
+}
+
+message UpdateSupportCardRequest {
+	repeated UpdateSupportCard update_support_cards = 1;
+}
+
+message UpdateSupportCard {
+	int64 support_card_master_id = 1;
+	int32 count = 2;
+}
+
+message GainSupportCardResponse {
+}
+
+message GainCharacterRankExpRequest {
+	int64 character_id = 1;
+	int32 add_exp = 2;
+}
+
+message GainCharacterRankExpResponse {
+}
+
+message GainCharacterFriendshipRankExpRequest {
+	int64 character_id_a = 1;
+	int64 character_id_b = 2;
+	int32 add_exp = 3;
+}
+
+message GainCharacterFriendshipRankExpResponse {
+}
+
+message PostPresentRequest {
+	int64 present_type_id = 1;
+	string present_param_1 = 2;
+	string present_param_2 = 3;
+	repeated .entity.PresentResource resources = 4;
+}
+
+message PostPresentResponse {
+}
+
+message UpdateLoginbonusRequest {
+	repeated int64 reset_bonus_ids = 1;
+	repeated int64 unlock_bonus_ids = 2;
+	repeated int64 yesterday_bonus_ids = 3;
+	bool set_yesterday_all = 4;
+}
+
+message UpdateShopTriggerProgress {
+	int64 shop_id = 1;
+	int64 trigger_id = 2;
+	int64 start_count_value = 3;
+	bool is_completed = 4;
+}
+
+message UpdateShopRequest {
+	int64 buy_shop_id = 1;
+	repeated int64 counter_reset_shop_ids = 2;
+	repeated UpdateShopTriggerProgress shop_trigger_progress = 3;
+	repeated int64 trigger_reset_shop_ids = 4;
+}
+
+message UpdateMissionRequest {
+	bool reset_all = 1;
+	bool unload_daily = 2;
+	bool normal_completion = 3;
+	repeated int64 clear_mission_ids = 4;
+	repeated int64 limited_mission_ids = 5;
+	bool init_start_count_zero = 6;
+}
+
+message UpdateMissionCounter {
+	int32 mission_type = 1;
+	int64 mission_param_1 = 2;
+	int64 mission_param_2 = 3;
+	int64 update_progress_value = 4;
+}
+
+message SetAnyValueLiveScoreRequest {
+	int64 live_music_id = 1;
+	int32 mode = 2;
+	int32 difficulty = 3;
+	int32 score = 4;
+	int32 combo = 5;
+}
+
+message SetAnyValueLiveScoreResponse {
+	repeated .entity.LiveScore live_score = 1;
+}
+
+message GainSeasonpassPointRequest {
+	int64 seasonpass_id = 1;
+	int32 point = 2;
+}
+
+message GainVipPointRequest {
+	int32 point = 1;
+}
+
+message GainOfflinebonusUnitExpRequest {
+	int64 offline_bonus_unit_id = 1;
+	int32 exp = 2;
+}
+
+message UpdateMissionCounterRequest {
+	repeated UpdateMissionCounter upd = 1;
+}
+
+message BulkInsertSupportCardRequest {
+}
+
+message BulkInsertMemberCardRequest {
+}
+
+message EmptyResponse {
+}
+
+message DeleteWithdrawalRequest {
+}
+
+message DeleteWithdrawalResponse {
+}
+
+message UpdateAllCircleMasterLoginAtRequest {
+}
+
+message UpdateAllCircleMasterLoginAtResponse {
+}
+
+message AddCircleTotalPointRequest {
+	uint32 add_point = 1;
+}
+
+message AddCircleTotalPointResponse {
+}
+
+message ResetCircleRankRequest {
+}
+
+message ResetCircleRankResponse {
+}
+
+message ResetCircleRankUpRewardReceivedRequest {
+}
+
+message ResetCircleRankUpRewardReceivedResponse {
+}
+
+message UpdateCircleMissionCounterRequest {
+	int64 mission_id = 1;
+	int64 count = 2;
+}
+
+message UpdateAllCircleMissionCounterRequest {
+	bool is_daily = 1;
+	bool is_clear = 2;
+}
+
+message AddPlayerCirclePointRequest {
+	uint32 add_point = 1;
+}
+
+message GainGachaPointRequest {
+	int64 gacha_id = 1;
+	int32 point = 2;
+}
+
+message GainGachaPointResponse {
+}
+
+service DebugService {
+	rpc GainItem (.app.debug.GainItemRequest) returns (.app.debug.GainItemResponse);
+	rpc GainGem (.app.debug.GainGemRequest) returns (.app.debug.GainGemResponse);
+	rpc GainPlayerRankExp (.app.debug.GainPlayerRankExpRequest) returns (.app.debug.GainPlayerRankExpResponse);
+	rpc GainMusic (.app.debug.GainMusicRequest) returns (.app.debug.GainMusicResponse);
+	rpc GainMemberCard (.app.debug.GainMemberCardRequest) returns (.app.debug.GainMemberCardResponse);
+	rpc GainSupportCard (.app.debug.GainSupportCardRequest) returns (.app.debug.GainSupportCardResponse);
+	rpc GainCharacterRankExp (.app.debug.GainCharacterRankExpRequest) returns (.app.debug.GainCharacterRankExpResponse);
+	rpc GainCharacterFriendshipRankExp (.app.debug.GainCharacterFriendshipRankExpRequest) returns (.app.debug.GainCharacterFriendshipRankExpResponse);
+	rpc PostPresent (.app.debug.PostPresentRequest) returns (.app.debug.PostPresentResponse);
+	rpc UpdateLoginbonus (.app.debug.UpdateLoginbonusRequest) returns (.app.debug.EmptyResponse);
+	rpc UpdateShop (.app.debug.UpdateShopRequest) returns (.app.debug.EmptyResponse);
+	rpc UpdateMissionCounter (.app.debug.UpdateMissionCounterRequest) returns (.app.debug.EmptyResponse);
+	rpc UpdateMission (.app.debug.UpdateMissionRequest) returns (.app.debug.EmptyResponse);
+	rpc UpdateSupportCard (.app.debug.UpdateSupportCardRequest) returns (.app.debug.EmptyResponse);
+	rpc SetAnyValueLiveScore (.app.debug.SetAnyValueLiveScoreRequest) returns (.app.debug.SetAnyValueLiveScoreResponse);
+	rpc GainSeasonpassPoint (.app.debug.GainSeasonpassPointRequest) returns (.app.debug.EmptyResponse);
+	rpc GainVipPoint (.app.debug.GainVipPointRequest) returns (.app.debug.EmptyResponse);
+	rpc GainOfflinebonusUnitExp (.app.debug.GainOfflinebonusUnitExpRequest) returns (.app.debug.EmptyResponse);
+	rpc DeleteWithdrawal (.app.debug.DeleteWithdrawalRequest) returns (.app.debug.DeleteWithdrawalResponse);
+	rpc UpdateAllCircleMasterLoginAt (.app.debug.UpdateAllCircleMasterLoginAtRequest) returns (.app.debug.EmptyResponse);
+	rpc AddCircleTotalPoint (.app.debug.AddCircleTotalPointRequest) returns (.app.debug.AddCircleTotalPointResponse);
+	rpc ResetCircleRank (.app.debug.ResetCircleRankRequest) returns (.app.debug.ResetCircleRankResponse);
+	rpc ResetCircleRankUpRewardReceived (.app.debug.ResetCircleRankUpRewardReceivedRequest) returns (.app.debug.ResetCircleRankUpRewardReceivedResponse);
+	rpc UpdateCircleMissionCounter (.app.debug.UpdateCircleMissionCounterRequest) returns (.google.protobuf.Empty);
+	rpc UpdateAllCircleMissionCounter (.app.debug.UpdateAllCircleMissionCounterRequest) returns (.google.protobuf.Empty);
+	rpc AddPlayerCirclePoint (.app.debug.AddPlayerCirclePointRequest) returns (.google.protobuf.Empty);
+	rpc ResetPlayerTotalCirclePoint (.google.protobuf.Empty) returns (.google.protobuf.Empty);
+	rpc ResetPlayerWeeklyCirclePoint (.google.protobuf.Empty) returns (.google.protobuf.Empty);
+	rpc ResetCircleWeeklyPoint (.google.protobuf.Empty) returns (.google.protobuf.Empty);
+	rpc ResetAllCircleWeeklyPoint (.google.protobuf.Empty) returns (.google.protobuf.Empty);
+	rpc ResetCircleRankingRewardReceived (.google.protobuf.Empty) returns (.google.protobuf.Empty);
+	rpc GainGachaPoint (.app.debug.GainGachaPointRequest) returns (.app.debug.GainGachaPointResponse);
+}

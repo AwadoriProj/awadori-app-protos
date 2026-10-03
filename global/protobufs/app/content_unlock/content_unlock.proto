@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package app.content_unlock;
+
+option csharp_namespace = "App.Protobuf.ContentUnlock";
+
+message ShownRequest {
+	repeated int64 master_ids = 1;
+}
+
+message ShownResponse {
+}
+
+service ContentUnlockService {
+	rpc Shown (.app.content_unlock.ShownRequest) returns (.app.content_unlock.ShownResponse);
+}

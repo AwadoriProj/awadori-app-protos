@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+import "entity/character.proto";
+import "entity/notification.proto";
+
+package app.character;
+
+option csharp_namespace = "App.Protobuf.Character";
+
+message GainFriendshipRankRewardRequest {
+	repeated .entity.CharacterFriendshipRankReward rewards = 1;
+}
+
+message GainFriendshipRankRewardResponse {
+	.entity.Notification notification = 1;
+}
+
+service CharacterService {
+	rpc GainFriendshipRankReward (.app.character.GainFriendshipRankRewardRequest) returns (.app.character.GainFriendshipRankRewardResponse);
+}

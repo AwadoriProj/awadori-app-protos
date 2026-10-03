@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+package app.callback;
+
+option csharp_namespace = "App.Protobuf.Callback";
+
+message PaySdkCallbackRequest {
+	string data = 1;
+}
+
+message PaySdkSchedulingForwardingRequest {
+	string data = 1;
+}
+
+message PaySdkSchedulingForwardingResponse {
+	bool IsSuccess = 1;
+}
+
+service CallbackService {
+	rpc PaySdkCallback (.app.callback.PaySdkCallbackRequest) returns (.google.protobuf.Empty);
+	rpc PaySdkSchedulingForwarding (.app.callback.PaySdkSchedulingForwardingRequest) returns (.app.callback.PaySdkSchedulingForwardingResponse);
+}

@@ -1,0 +1,109 @@
+syntax = "proto3";
+
+import "entity/arena.proto";
+
+package app.arena;
+
+option csharp_namespace = "App.Protobuf.Arena";
+
+message ReportPenaltyRequest {
+	int32 penalty = 1;
+}
+
+message ReportPenaltyResponse {
+}
+
+message ArenaTopRequest {
+	int64 arena_season_id = 1;
+}
+
+message ArenaTopResponse {
+	.entity.ArenaTopLastStatus latest_status = 1;
+	int64 mp = 2;
+	repeated .entity.ArenaLp lp = 3;
+	repeated .entity.ArenaTopDailyRewards daily_rewards = 4;
+	int32 penalty_count = 5;
+	int64 before_season_id = 6;
+	bool is_show_season_result = 7;
+	repeated int64 arena_promotion_reward_ids = 8;
+	repeated .entity.ArenaLpRankDiff lp_rank_diff = 9;
+	repeated .entity.ArenaDedicatedDecks arena_dedicated_decks = 10;
+}
+
+message ConsecutiveWinsRequest {
+	int64 arena_season_id = 1;
+}
+
+message ConsecutiveWinsResponse {
+	repeated .entity.ArenaConsecutiveWins arena_consecutive_wins = 1;
+}
+
+message DeckTrendRequest {
+	int64 music_id = 1;
+	int64 arena_season_id = 2;
+}
+
+message DeckTrendResponse {
+	repeated .entity.ArenaDeckTrendMemberCard leaders = 1;
+	repeated .entity.ArenaDeckTrendMemberCard members = 2;
+	repeated .entity.ArenaDeckTrendSupportCard supports = 3;
+}
+
+message ArenaRewardsRequest {
+	int64 arena_season_id = 1;
+}
+
+message ArenaRewardsResponse {
+	.entity.ArenaSeason season = 1;
+	.entity.ArenaMasterRanking master_ranking = 2;
+	repeated .entity.ArenaBandRankings band_rankings = 3;
+	repeated .entity.ArenaMasterPromotionRewards master_promotion_rewards = 4;
+	repeated .entity.ArenaBandPromotionRewards band_promotion_rewards = 5;
+}
+
+message ArenaRankingRequest {
+	int64 arena_season_id = 1;
+	optional int64 band_id = 2;
+	int64 ranking_start = 3;
+	int64 ranking_end = 4;
+}
+
+message ArenaRankingResponse {
+	repeated .entity.ArenaRankingEntry ranking = 1;
+	int64 max_rank = 2;
+}
+
+message ArenaMyRankRequest {
+	int64 arena_season_id = 1;
+}
+
+message ArenaMyRankResponse {
+	.entity.ArenaMyRankMasterPoint mp = 1;
+	repeated .entity.ArenaMyRankLeaguePoint lp = 2;
+}
+
+message MatchingHistoriesRequest {
+}
+
+message MatchingHistoriesResponse {
+	repeated .entity.ArenaMatchingHistories matching_histories = 1;
+}
+
+message SaveDedicatedDecksRequest {
+	.entity.ArenaDedicatedDecks deck = 1;
+}
+
+message SaveDedicatedDecksResponse {
+}
+
+service ArenaService {
+	rpc ReportPenalty (.app.arena.ReportPenaltyRequest) returns (.app.arena.ReportPenaltyResponse);
+	rpc ArenaTop (.app.arena.ArenaTopRequest) returns (.app.arena.ArenaTopResponse);
+	rpc ConsecutiveWins (.app.arena.ConsecutiveWinsRequest) returns (.app.arena.ConsecutiveWinsResponse);
+	rpc DeckTrend (.app.arena.DeckTrendRequest) returns (.app.arena.DeckTrendResponse);
+	rpc ArenaRewards (.app.arena.ArenaRewardsRequest) returns (.app.arena.ArenaRewardsResponse);
+	rpc ArenaRanking (.app.arena.ArenaRankingRequest) returns (.app.arena.ArenaRankingResponse);
+	rpc ArenaMyRank (.app.arena.ArenaMyRankRequest) returns (.app.arena.ArenaMyRankResponse);
+	rpc MatchingHistories (.app.arena.MatchingHistoriesRequest) returns (.app.arena.MatchingHistoriesResponse);
+	rpc SaveDedicatedDecks (.app.arena.SaveDedicatedDecksRequest) returns (.app.arena.SaveDedicatedDecksResponse);
+}

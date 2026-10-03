@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+import "entity/method_options/method_options.proto";
+
+package app.feature_switch;
+
+option csharp_namespace = "App.Protobuf.FeatureSwitch";
+
+message GetRequest {
+}
+
+message GetResponse {
+	map<string, bool> switches = 1;
+}
+
+service FeatureSwitchService {
+	rpc Get (.app.feature_switch.GetRequest) returns (.app.feature_switch.GetResponse) {
+		option (entity.method_options.skip_authentication) = true;
+	}
+}

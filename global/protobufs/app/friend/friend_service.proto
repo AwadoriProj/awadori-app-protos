@@ -1,0 +1,76 @@
+syntax = "proto3";
+
+import "entity/notification.proto";
+import "entity/player_profile.proto";
+
+package app.friend;
+
+option csharp_namespace = "App.Protobuf.Friend";
+
+message FriendApprovalRequest {
+	string target_player_id = 1;
+	string search_route = 2;
+}
+
+message FriendApprovalResponse {
+	bool is_accepted = 2;
+	.entity.Notification notification = 3;
+	.entity.PlayerSimpleProfile player_profile = 4;
+
+	reserved 1;
+}
+
+message FriendRequestWithdrawalRequest {
+	string target_player_id = 1;
+}
+
+message FriendRequestWithdrawalResponse {
+}
+
+message FriendAnswerRequest {
+	repeated string target_player_ids = 1;
+	bool answer = 2;
+}
+
+message FriendAnswerResponse {
+	.entity.Notification notification = 2;
+	repeated .entity.PlayerSimpleProfile player_profiles = 3;
+
+	reserved 1;
+}
+
+message FriendUnlinkRequest {
+	string friend_player_id = 1;
+}
+
+message FriendUnlinkResponse {
+	.entity.Notification notification = 1;
+}
+
+message PlayerReportRequest {
+	string target_player_id = 1;
+	int32 report_type = 2;
+	repeated int64 report_ids = 3;
+}
+
+message PlayerReportResponse {
+}
+
+message FindByProfileIDRequest {
+	int64 player_profile_id = 1;
+}
+
+message FindByProfileIDResponse {
+	.entity.PlayerSimpleProfile player_profile = 2;
+
+	reserved 1;
+}
+
+service FriendService {
+	rpc FriendRequest (.app.friend.FriendApprovalRequest) returns (.app.friend.FriendApprovalResponse);
+	rpc FriendRequestWithdrawal (.app.friend.FriendRequestWithdrawalRequest) returns (.app.friend.FriendRequestWithdrawalResponse);
+	rpc FriendAnswer (.app.friend.FriendAnswerRequest) returns (.app.friend.FriendAnswerResponse);
+	rpc FriendUnlink (.app.friend.FriendUnlinkRequest) returns (.app.friend.FriendUnlinkResponse);
+	rpc PlayerReport (.app.friend.PlayerReportRequest) returns (.app.friend.PlayerReportResponse);
+	rpc FindByProfileID (.app.friend.FindByProfileIDRequest) returns (.app.friend.FindByProfileIDResponse);
+}

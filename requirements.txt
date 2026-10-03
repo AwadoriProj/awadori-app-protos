@@ -1,0 +1,7 @@
+requests==2.32.4
+cryptography==45.0.5
+capstone==5.0.7
+pyelftools==0.31
+protobuf==5.29.5
+grpcio-tools==1.70.0
+pyaxmlparser

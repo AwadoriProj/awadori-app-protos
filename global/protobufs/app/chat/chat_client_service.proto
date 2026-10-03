@@ -1,0 +1,132 @@
+syntax = "proto3";
+
+import "app/chat/chat_common.proto";
+import "entity/method_options/method_options.proto";
+
+package app.chat;
+
+option csharp_namespace = "App.Protobuf.Chat";
+
+message ClientSendIMMsgRequest {
+	IMMsg Msg = 1;
+}
+
+message ClientSendIMMsgResponse {
+	int32 Ret = 1;
+	string Content = 2;
+}
+
+message ClientSyncMsgRequest {
+	int32 Type = 1;
+	int64 LastMsgID = 2;
+	int64 Receiver = 3;
+}
+
+message ClientSyncMsgResponse {
+	int32 Ret = 1;
+}
+
+message ClientGetWorldRoomListRequest {
+}
+
+message ClientGetWorldRoomListResponse {
+	int32 Ret = 1;
+	repeated WorldRoomInfo RoomInfos = 2;
+}
+
+message ClientSwitchWorldRoomRequest {
+	int64 TargetRoomID = 1;
+}
+
+message ClientSwitchWorldRoomResponse {
+	int32 Ret = 1;
+	int64 WorldRoomID = 2;
+}
+
+message TopicSetting {
+	int64 topic_id = 1;
+	bool visible = 2;
+}
+
+message ChatDisplaySettings {
+	bool world_channel_visible = 1;
+	bool world_filter_text = 2;
+	bool world_filter_stamp = 3;
+	bool world_filter_entertain = 4;
+	repeated TopicSetting topics = 5;
+}
+
+message ClientSetChatSettingsRequest {
+	repeated int64 special_focus_account_ids = 1;
+	int64 chat_theme_id = 2;
+	int64 chat_bubble_id = 3;
+	int64 chat_frame_id = 4;
+	ChatDisplaySettings display_settings = 5;
+}
+
+message ClientSetChatSettingsResponse {
+	int32 Ret = 1;
+}
+
+message ClientGetChatSettingsRequest {
+}
+
+message ClientGetChatSettingsResponse {
+	int32 Ret = 1;
+	repeated int64 special_focus_account_ids = 2;
+	int64 chat_theme_id = 3;
+	int64 chat_bubble_id = 4;
+	int64 chat_frame_id = 5;
+	ChatDisplaySettings display_settings = 6;
+}
+
+message GetNotificationsRequest {
+}
+
+message GetNotificationsResponse {
+	repeated NotificationInfo notifications = 1;
+}
+
+message ClaimNotificationRequest {
+	int64 notification_id = 1;
+}
+
+message ClaimNotificationResponse {
+	int32 Ret = 1;
+	string message = 2;
+}
+
+message ChatReportRequest {
+	int64 target_player_id = 1;
+	string message = 2;
+	optional string reason = 3;
+}
+
+message ChatReportResponse {
+	int32 ret = 1;
+	int32 chat_report_used_today = 2;
+}
+
+service ClientChatService {
+	rpc SendIMMsg (.app.chat.ClientSendIMMsgRequest) returns (.app.chat.ClientSendIMMsgResponse) {
+		option (entity.method_options.maintenance_features).chat = true;
+	}
+
+	rpc SyncMsg (.app.chat.ClientSyncMsgRequest) returns (.app.chat.ClientSyncMsgResponse) {
+		option (entity.method_options.maintenance_features).chat = true;
+	}
+
+	rpc GetWorldRoomList (.app.chat.ClientGetWorldRoomListRequest) returns (.app.chat.ClientGetWorldRoomListResponse) {
+		option (entity.method_options.maintenance_features).chat = true;
+	}
+
+	rpc SwitchWorldRoom (.app.chat.ClientSwitchWorldRoomRequest) returns (.app.chat.ClientSwitchWorldRoomResponse) {
+		option (entity.method_options.maintenance_features).chat = true;
+	}
+
+	rpc SetChatSettings (.app.chat.ClientSetChatSettingsRequest) returns (.app.chat.ClientSetChatSettingsResponse);
+	rpc GetChatSettings (.app.chat.ClientGetChatSettingsRequest) returns (.app.chat.ClientGetChatSettingsResponse);
+	rpc GetNotifications (.app.chat.GetNotificationsRequest) returns (.app.chat.GetNotificationsResponse);
+	rpc ClaimNotification (.app.chat.ClaimNotificationRequest) returns (.app.chat.ClaimNotificationResponse);
+	rpc Report (.app.chat.ChatReportRequest) returns (.app.chat.ChatReportResponse);
+}

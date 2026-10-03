@@ -1,0 +1,284 @@
+syntax = "proto3";
+
+import "entity/event.proto";
+import "entity/live.proto";
+import "entity/method_options/method_options.proto";
+import "entity/notification.proto";
+import "entity/reward.proto";
+import "google/protobuf/empty.proto";
+
+package app.live;
+
+option csharp_namespace = "App.Protobuf.Live";
+
+message StartFreeRequest {
+	int64 music_id = 1;
+	int32 difficulty = 2;
+	int32 boost = 3;
+	int32 deck_id = 4;
+}
+
+message StartFreeResponse {
+}
+
+message FinishFreeRequest {
+	int32 clear_status = 1;
+	int32 score = 2;
+	int32 combo = 3;
+	.entity.LiveFinish live_finish = 4;
+}
+
+message FinishFreeResponse {
+	repeated int64 reward_id = 1;
+	repeated .entity.LiveEventReward event_reward = 2;
+	repeated int64 total_highscore_rating_reward_ids = 3;
+	repeated .entity.BandHighScoreRatingReward band_highscore_rating_rewards = 4;
+	repeated .entity.RewardResource music_rewards = 5;
+	.entity.Notification notification = 6;
+}
+
+message StartChallengeLiveRequest {
+	int64 challenge_music_id = 1;
+	int32 difficulty = 2;
+	int32 consume_challenge_point = 3;
+	int32 deck_id = 4;
+}
+
+message StartChallengeLiveResponse {
+}
+
+message FinishChallengeLiveRequest {
+	int64 event_id = 1;
+	.entity.LiveFinish live_finish = 2;
+}
+
+message FinishChallengeLiveResponse {
+	repeated int64 reward_id = 1;
+	repeated .entity.LiveEventReward event_reward = 2;
+	repeated int64 total_highscore_rating_reward_ids = 3;
+	repeated .entity.BandHighScoreRatingReward band_highscore_rating_rewards = 4;
+	repeated .entity.RewardResource music_rewards = 5;
+	.entity.Notification notification = 6;
+}
+
+message StartBattleLiveRequest {
+	int64 music_id = 1;
+	int32 difficulty = 2;
+	int32 boost = 3;
+	int32 deck_id = 4;
+	string room_id = 5;
+	int64 lobby_id = 6;
+}
+
+message StartBattleLiveResponse {
+}
+
+message FinishBattleLiveRequest {
+	.entity.LiveFinish live_finish = 1;
+	.entity.BattleLivePlayerResult player_result = 2;
+	repeated .entity.GekisouRanking gekisou_rankings = 3;
+	int32 player_count = 4;
+}
+
+message FinishBattleLiveResponse {
+	repeated int64 reward_id = 1;
+	repeated .entity.LiveEventReward event_reward = 2 [deprecated = true];
+	repeated int64 highscore_reward_id = 3 [deprecated = true];
+	repeated .entity.RewardResource music_rewards = 4;
+	.entity.Notification notification = 5;
+	repeated int64 battle_live_reward_ids = 6 [deprecated = true];
+	repeated int64 battle_live_gekisou_reward_ids = 7 [deprecated = true];
+	repeated int64 total_highscore_rating_reward_ids = 8;
+	repeated .entity.BandHighScoreRatingReward band_highscore_rating_rewards = 9;
+}
+
+message GetBattleLiveResultRequest {
+}
+
+message GetBattleLiveResultResponse {
+	repeated .entity.BattleLivePlayerResult player_result = 1;
+	repeated int64 battle_live_gekisou_reward_ids = 2;
+	.entity.GekisouRankingRewardState reward_state = 3;
+	repeated int64 battle_live_reward_ids = 4;
+	repeated .entity.LiveEventReward event_reward = 5;
+	.entity.Notification notification = 6;
+	repeated .entity.BattleLiveRewardResource battle_live_rewards = 7;
+}
+
+message SkipFreeRequest {
+	int64 music_id = 1;
+	int32 difficulty = 2;
+	int32 boost = 3;
+	int32 deck_id = 4;
+	int32 current_deck_total_power = 5;
+}
+
+message SkipFreeResponse {
+	repeated int64 reward_id = 1;
+	repeated .entity.LiveEventReward event_reward = 2;
+	.entity.Notification notification = 3;
+}
+
+message SkipChallengeLiveRequest {
+	int64 challenge_music_id = 1;
+	int32 difficulty = 2;
+	int32 consume_challenge_point = 3;
+	int32 deck_id = 4;
+	int32 current_deck_total_power = 5;
+}
+
+message SkipChallengeLiveResponse {
+	repeated int64 reward_id = 1;
+	repeated .entity.LiveEventReward event_reward = 2;
+	.entity.Notification notification = 3;
+}
+
+message SaveSettingRequest {
+	bytes setting_all = 1;
+}
+
+message SaveSettingResponse {
+}
+
+message GetBattleLiveSearchIdRequest {
+}
+
+message GetBattleLiveSearchIdResponse {
+	int32 search_id = 1;
+}
+
+message CheckMaintenanceCasualMatchRequest {
+}
+
+message CheckMaintenanceCasualMatchResponse {
+}
+
+message CheckMaintenanceRankMatchRequest {
+}
+
+message CheckMaintenanceRankMatchResponse {
+}
+
+message CheckMaintenanceFreeRequest {
+}
+
+message CheckMaintenanceFreeResponse {
+}
+
+message RemoveBattleLiveInvitationRequest {
+	int64 lobby_id = 1;
+}
+
+message GainStampRewardRequest {
+	int64 reward_id = 1;
+}
+
+message GainStampRewardResponse {
+	.entity.Notification notification = 1;
+}
+
+message SendBattleLiveInvitationRequest {
+	int64 lobby_id = 1;
+	repeated string target_player_ids = 2;
+	string host_player_id = 3;
+}
+
+message FetchBattleLiveInvitationResponse {
+	repeated .entity.BattleLiveInvitation invitations = 1;
+}
+
+message StartArenaLiveRequest {
+	int64 arena_season_id = 1;
+	int64 arena_music_id = 2;
+	int32 difficulty = 3;
+	int32 boost = 4;
+	int32 arena_dedicated_deck_id = 5;
+	string room_id = 6;
+	repeated int64 arena_support_item_ids = 7;
+	int64 lobby_id = 8;
+}
+
+message StartArenaLiveResponse {
+}
+
+message FinishArenaLiveRequest {
+	int64 arena_season_id = 1;
+	int64 arena_music_id = 2;
+	.entity.LiveFinish live_finish = 3;
+	.entity.BattleLivePlayerResult player_result = 4;
+	repeated .entity.GekisouRanking gekisou_rankings = 5;
+	int32 player_count = 6;
+}
+
+message FinishArenaLiveResponse {
+	repeated int64 reward_id = 1;
+	repeated .entity.LiveEventReward event_reward = 2;
+	repeated .entity.RewardResource music_rewards = 3;
+	.entity.Notification notification = 4;
+	repeated int64 total_highscore_rating_reward_ids = 5;
+	repeated .entity.BandHighScoreRatingReward band_highscore_rating_rewards = 6;
+}
+
+message GetArenaLiveResultRequest {
+	int64 arena_season_id = 1;
+	int64 arena_music_id = 2;
+	int64 arena_league_id = 3;
+}
+
+message GetArenaLiveResultResponse {
+	repeated .entity.BattleLivePlayerResult player_result = 1;
+	repeated int64 arena_live_gekisou_reward_ids = 2;
+	.entity.GekisouRankingRewardState reward_state = 3;
+	repeated int64 arena_promotion_reward_ids = 4;
+	repeated int64 arena_live_reward_ids = 5;
+	int64 arena_daily_reward = 6;
+	int64 current_league_point = 7;
+	int64 diff_league_point = 8;
+	int64 current_master_point = 9;
+	int64 diff_master_point = 10;
+	repeated .entity.LiveEventReward event_reward = 11;
+}
+
+service LiveService {
+	rpc StartFree (.app.live.StartFreeRequest) returns (.app.live.StartFreeResponse) {
+		option (entity.method_options.maintenance_features).personal_live = true;
+	}
+
+	rpc FinishFree (.app.live.FinishFreeRequest) returns (.app.live.FinishFreeResponse);
+	rpc StartChallengeLive (.app.live.StartChallengeLiveRequest) returns (.app.live.StartChallengeLiveResponse);
+	rpc FinishChallengeLive (.app.live.FinishChallengeLiveRequest) returns (.app.live.FinishChallengeLiveResponse);
+	rpc SkipFree (.app.live.SkipFreeRequest) returns (.app.live.SkipFreeResponse);
+	rpc SkipChallengeLive (.app.live.SkipChallengeLiveRequest) returns (.app.live.SkipChallengeLiveResponse);
+
+	rpc StartBattleLive (.app.live.StartBattleLiveRequest) returns (.app.live.StartBattleLiveResponse) {
+		option (entity.method_options.maintenance_features).casual_match = true;
+	}
+
+	rpc CheckMaintenanceCasualMatch (.app.live.CheckMaintenanceCasualMatchRequest) returns (.app.live.CheckMaintenanceCasualMatchResponse) {
+		option (entity.method_options.maintenance_features).casual_match = true;
+	}
+
+	rpc CheckMaintenanceRankMatch (.app.live.CheckMaintenanceRankMatchRequest) returns (.app.live.CheckMaintenanceRankMatchResponse) {
+		option (entity.method_options.maintenance_features).rank_match = true;
+	}
+
+	rpc CheckMaintenanceFree (.app.live.CheckMaintenanceFreeRequest) returns (.app.live.CheckMaintenanceFreeResponse) {
+		option (entity.method_options.maintenance_features).personal_live = true;
+	}
+
+	rpc FinishBattleLive (.app.live.FinishBattleLiveRequest) returns (.app.live.FinishBattleLiveResponse);
+	rpc GetBattleLiveResult (.app.live.GetBattleLiveResultRequest) returns (.app.live.GetBattleLiveResultResponse);
+	rpc SaveSetting (.app.live.SaveSettingRequest) returns (.app.live.SaveSettingResponse);
+	rpc GainStampReward (.app.live.GainStampRewardRequest) returns (.app.live.GainStampRewardResponse);
+	rpc GetBattleLiveSearchId (.app.live.GetBattleLiveSearchIdRequest) returns (.app.live.GetBattleLiveSearchIdResponse);
+	rpc SendBattleLiveInvitation (.app.live.SendBattleLiveInvitationRequest) returns (.google.protobuf.Empty);
+	rpc FetchBattleLiveInvitation (.google.protobuf.Empty) returns (.app.live.FetchBattleLiveInvitationResponse);
+	rpc RemoveBattleLiveInvitation (.app.live.RemoveBattleLiveInvitationRequest) returns (.google.protobuf.Empty);
+
+	rpc StartArenaLive (.app.live.StartArenaLiveRequest) returns (.app.live.StartArenaLiveResponse) {
+		option (entity.method_options.maintenance_features).rank_match = true;
+	}
+
+	rpc FinishArenaLive (.app.live.FinishArenaLiveRequest) returns (.app.live.FinishArenaLiveResponse);
+	rpc GetArenaLiveResult (.app.live.GetArenaLiveResultRequest) returns (.app.live.GetArenaLiveResultResponse);
+}

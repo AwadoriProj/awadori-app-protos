@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+import "entity/personal_notification.proto";
+import "google/protobuf/empty.proto";
+
+package app.personal_notification;
+
+option csharp_namespace = "App.Protobuf.PersonalNotification";
+
+message FetchResponse {
+	.entity.PersonalNotification unread_notifications = 1;
+}
+
+message ClaimRequest {
+	repeated int64 claim_id = 1;
+}
+
+service PersonalNotificationService {
+	rpc Fetch (.google.protobuf.Empty) returns (.app.personal_notification.FetchResponse);
+	rpc Claim (.app.personal_notification.ClaimRequest) returns (.google.protobuf.Empty);
+}

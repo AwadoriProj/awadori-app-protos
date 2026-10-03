@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+import "entity/circle_player.proto";
+import "entity/method_options/method_options.proto";
+import "google/protobuf/empty.proto";
+
+package app.circleplayer;
+
+option csharp_namespace = "App.Protobuf.CirclePlayer";
+
+message AutoTransferMasterResponse {
+	optional string player_id = 1;
+}
+
+message GetPlayerAuthResponse {
+	.entity.CircleAuth auth = 1;
+}
+
+service CirclePlayerService {
+	rpc AutoTransferMaster (.google.protobuf.Empty) returns (.app.circleplayer.AutoTransferMasterResponse) {
+		option (entity.method_options.maintenance_features).circle = true;
+	}
+
+	rpc GetPlayerAuth (.google.protobuf.Empty) returns (.app.circleplayer.GetPlayerAuthResponse) {
+		option (entity.method_options.maintenance_features).circle = true;
+	}
+}

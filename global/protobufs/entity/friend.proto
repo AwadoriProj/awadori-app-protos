@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+import "entity/player_profile.proto";
+
+package entity;
+
+option csharp_namespace = "App.Protobuf.Entity";
+
+message Friends {
+	FriendProfiles accepted = 1;
+	FriendProfiles pending_sent = 2;
+	FriendProfiles receive = 3;
+}
+
+message FriendProfiles {
+	int32 limit = 2;
+	repeated PlayerSimpleProfile player_profiles = 3;
+
+	reserved 1;
+}

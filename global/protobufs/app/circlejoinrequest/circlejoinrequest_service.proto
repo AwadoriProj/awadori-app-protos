@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+import "entity/circle_join_request.proto";
+import "entity/method_options/method_options.proto";
+import "google/protobuf/empty.proto";
+
+package app.circlejoinrequest;
+
+option csharp_namespace = "App.Protobuf.CircleJoinRequest";
+
+message CircleJoinReqRequest {
+	optional uint64 circle_id = 1;
+}
+
+message CircleJoinReqResponse {
+	optional uint64 circle_id = 1;
+}
+
+message CircleJoinApproveRequest {
+	optional string player_id = 1;
+}
+
+message CircleJoinApproveResponse {
+}
+
+message CircleJoinRevokeRequest {
+	optional string player_id = 1;
+}
+
+message CircleJoinRevokeResponse {
+}
+
+message GetCircleJoinRequestListResponse {
+	repeated .entity.CircleJoinRequest circle_join_requests = 1;
+}
+
+service CircleJoinReqService {
+	rpc CircleJoinReq (.app.circlejoinrequest.CircleJoinReqRequest) returns (.app.circlejoinrequest.CircleJoinReqResponse) {
+		option (entity.method_options.maintenance_features).circle = true;
+	}
+
+	rpc CircleJoinApprove (.app.circlejoinrequest.CircleJoinApproveRequest) returns (.app.circlejoinrequest.CircleJoinApproveResponse) {
+		option (entity.method_options.maintenance_features).circle = true;
+	}
+
+	rpc CircleJoinRevoke (.app.circlejoinrequest.CircleJoinRevokeRequest) returns (.app.circlejoinrequest.CircleJoinRevokeResponse) {
+		option (entity.method_options.maintenance_features).circle = true;
+	}
+
+	rpc GetCircleJoinRequestList (.google.protobuf.Empty) returns (.app.circlejoinrequest.GetCircleJoinRequestListResponse) {
+		option (entity.method_options.maintenance_features).circle = true;
+	}
+}

@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package app.activity;
+
+option csharp_namespace = "App.Protobuf.Activity";
+
+message ActivityConfig {
+	int64 activity_id = 1;
+	string name = 2;
+	int32 type = 3;
+	int64 start_at = 4;
+	int64 end_at = 5;
+	int32 display = 6;
+	int32 icon_seq_id = 7;
+}
+
+message GetAllActivitiesRequest {
+}
+
+message GetAllActivitiesResponse {
+	repeated ActivityConfig activities = 1;
+}
+
+service ActivityService {
+	rpc GetAllActivities (.app.activity.GetAllActivitiesRequest) returns (.app.activity.GetAllActivitiesResponse);
+}

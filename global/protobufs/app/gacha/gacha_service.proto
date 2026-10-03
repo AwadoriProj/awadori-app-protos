@@ -1,0 +1,98 @@
+syntax = "proto3";
+
+import "entity/gacha.proto";
+import "entity/method_options/method_options.proto";
+import "entity/notification.proto";
+
+package app.gacha;
+
+option csharp_namespace = "App.Protobuf.Gacha";
+
+message ExecuteRequest {
+	int64 gacha_id = 1;
+	int64 product_id = 2;
+	repeated int64 selected_pick_up = 3;
+}
+
+message ExecuteResponse {
+	repeated int64 prize_id = 1;
+	repeated int64 bonus_lot_id = 2;
+	.entity.Notification notification = 3;
+}
+
+message ExecuteVipRequest {
+	int64 gacha_id = 1;
+	int64 product_id = 2;
+	repeated int64 selected_pick_up = 3;
+	int32 draw_count = 4;
+}
+
+message ExecuteVipResponse {
+	repeated int64 prize_id = 1;
+	repeated int64 bonus_lot_id = 2;
+	.entity.Notification notification = 3;
+}
+
+message HistoryRequest {
+}
+
+message HistoryResponse {
+	repeated .entity.GachaHistory history = 1 [deprecated = true];
+	repeated .entity.GachaExecutionHistory execution_history = 2;
+}
+
+message ConvertPointRequest {
+	repeated int64 exchange_id = 1;
+}
+
+message ConvertPointResponse {
+	.entity.Notification notification = 1;
+}
+
+message CheckMaintenanceGachaRequest {
+}
+
+message CheckMaintenanceGachaResponse {
+}
+
+message ProbabilityRequest {
+	int64 gacha_id = 1;
+	int64 product_id = 2 [deprecated = true];
+	repeated int64 selected_pick_up = 3;
+}
+
+message ProbabilityResponse {
+	repeated .entity.LotProbability lot = 1 [deprecated = true];
+	repeated .entity.PrizeProbability prize = 2 [deprecated = true];
+	repeated .entity.LotProbability ensured_lot = 3 [deprecated = true];
+	repeated .entity.PrizeProbability ensured_prize = 4 [deprecated = true];
+	map<int32, .entity.Probability> probabilities = 5;
+	map<int64, int32> products = 6;
+	map<int64, int32> ensured_products = 7;
+}
+
+service GachaService {
+	rpc Execute (.app.gacha.ExecuteRequest) returns (.app.gacha.ExecuteResponse) {
+		option (entity.method_options.maintenance_features).gacha = true;
+	}
+
+	rpc ExecuteVip (.app.gacha.ExecuteVipRequest) returns (.app.gacha.ExecuteVipResponse) {
+		option (entity.method_options.maintenance_features).gacha = true;
+	}
+
+	rpc History (.app.gacha.HistoryRequest) returns (.app.gacha.HistoryResponse) {
+		option (entity.method_options.maintenance_features).gacha = true;
+	}
+
+	rpc ConvertPoint (.app.gacha.ConvertPointRequest) returns (.app.gacha.ConvertPointResponse) {
+		option (entity.method_options.maintenance_features).gacha = true;
+	}
+
+	rpc CheckMaintenanceGacha (.app.gacha.CheckMaintenanceGachaRequest) returns (.app.gacha.CheckMaintenanceGachaResponse) {
+		option (entity.method_options.maintenance_features).gacha = true;
+	}
+
+	rpc Probability (.app.gacha.ProbabilityRequest) returns (.app.gacha.ProbabilityResponse) {
+		option (entity.method_options.maintenance_features).gacha = true;
+	}
+}

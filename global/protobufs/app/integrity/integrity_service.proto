@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+import "entity/integrity.proto";
+import "entity/method_options/method_options.proto";
+
+package app.integrity;
+
+option csharp_namespace = "App.Protobuf.Integrity";
+
+message IntegrityCheckRequest {
+	string token = 1;
+}
+
+message IntegrityCheckResponse {
+	.entity.RequestDetails request_details = 1;
+	.entity.AppIntegrity app_integrity = 2;
+	.entity.DeviceIntegrity device_integrity = 3;
+	.entity.AccountDetails account_details = 4;
+}
+
+service IntegrityService {
+	rpc IntegrityCheck (.app.integrity.IntegrityCheckRequest) returns (.app.integrity.IntegrityCheckResponse) {
+		option (entity.method_options.skip_authentication) = true;
+	}
+}

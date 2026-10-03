@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+import "entity/resource.proto";
+
+package entity;
+
+option csharp_namespace = "App.Protobuf.Entity";
+
+message SerialCodeRewards {
+	ResourceType resource_type = 1;
+	int64 resource_id = 2;
+	int64 count = 3;
+}
+
+message SerialCode {
+	string id = 1;
+	string serial_code = 2;
+	int32 serial_code_type = 3;
+	int64 reward_group = 4;
+	string start_at = 5;
+	string end_at = 6;
+}

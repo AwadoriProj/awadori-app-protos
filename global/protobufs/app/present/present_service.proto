@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+import "entity/notification.proto";
+import "entity/present.proto";
+
+package app.present;
+
+option csharp_namespace = "App.Protobuf.Present";
+
+message FetchRequest {
+}
+
+message FetchResponse {
+	repeated .entity.Present presents = 1;
+}
+
+message OpenRequest {
+	repeated uint64 present_ids = 1;
+}
+
+message OpenResponse {
+	repeated .entity.PresentUnreceived unreceived = 1;
+	.entity.Notification notification = 2;
+}
+
+message HistoryRequest {
+}
+
+message HistoryResponse {
+	repeated .entity.PresentHistory histories = 1;
+}
+
+service PresentService {
+	rpc Fetch (.app.present.FetchRequest) returns (.app.present.FetchResponse);
+	rpc Open (.app.present.OpenRequest) returns (.app.present.OpenResponse);
+	rpc History (.app.present.HistoryRequest) returns (.app.present.HistoryResponse);
+}

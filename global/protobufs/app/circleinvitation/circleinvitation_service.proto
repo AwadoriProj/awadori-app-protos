@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+import "entity/circle_invitation.proto";
+import "entity/method_options/method_options.proto";
+import "entity/player_profile.proto";
+import "google/protobuf/empty.proto";
+
+package app.circleinvitation;
+
+option csharp_namespace = "App.Protobuf.CircleInvitation";
+
+message InviteCircleRequest {
+	optional string player_id = 1;
+}
+
+message RevokeCircleInvitationRequest {
+	optional string player_id = 1;
+}
+
+message GetInvitationListRequest {
+}
+
+message GetInvitationListResponse {
+	repeated .entity.CircleInvitation invitations = 1;
+}
+
+message GetCircleInvitationRecommendListResponse {
+	repeated .entity.PlayerSimpleProfile player_basic_profiles = 1;
+}
+
+message GetInvitablePlayerRequest {
+	optional string player_id = 1;
+}
+
+message GetInvitablePlayerResponse {
+	.entity.PlayerSimpleProfile player_basic_profile = 1;
+}
+
+message GetInvitingPlayerResponse {
+	repeated .entity.PlayerSimpleProfile player_basic_profiles = 1;
+}
+
+service CircleInvitationService {
+	rpc InviteCircle (.app.circleinvitation.InviteCircleRequest) returns (.google.protobuf.Empty) {
+		option (entity.method_options.maintenance_features).circle = true;
+	}
+
+	rpc RevokeCircleInvitation (.app.circleinvitation.RevokeCircleInvitationRequest) returns (.google.protobuf.Empty) {
+		option (entity.method_options.maintenance_features).circle = true;
+	}
+
+	rpc GetInvitationList (.app.circleinvitation.GetInvitationListRequest) returns (.app.circleinvitation.GetInvitationListResponse) {
+		option (entity.method_options.maintenance_features).circle = true;
+	}
+
+	rpc GetCircleInvitationRecommendList (.google.protobuf.Empty) returns (.app.circleinvitation.GetCircleInvitationRecommendListResponse) {
+		option (entity.method_options.maintenance_features).circle = true;
+	}
+
+	rpc GetInvitablePlayer (.app.circleinvitation.GetInvitablePlayerRequest) returns (.app.circleinvitation.GetInvitablePlayerResponse) {
+		option (entity.method_options.maintenance_features).circle = true;
+	}
+
+	rpc GetInvitingPlayer (.google.protobuf.Empty) returns (.app.circleinvitation.GetInvitingPlayerResponse) {
+		option (entity.method_options.maintenance_features).circle = true;
+	}
+}

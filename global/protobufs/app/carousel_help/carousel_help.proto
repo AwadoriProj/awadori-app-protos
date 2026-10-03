@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package app.carousel_help;
+
+option csharp_namespace = "App.Protobuf.CarouselHelp";
+
+message ShownRequest {
+	repeated int64 master_ids = 1;
+}
+
+message ShownResponse {
+}
+
+service CarouselHelpService {
+	rpc Shown (.app.carousel_help.ShownRequest) returns (.app.carousel_help.ShownResponse);
+}

@@ -1,0 +1,96 @@
+syntax = "proto3";
+
+import "entity/deck.proto";
+import "entity/player_profile.proto";
+
+package entity;
+
+option csharp_namespace = "App.Protobuf.Entity";
+
+message ArenaLp {
+	int64 band_id = 1;
+	int64 point = 2;
+}
+
+message ArenaLpRankDiff {
+	int64 band_id = 1;
+	int64 before_rank_id = 2;
+	int64 after_rank_id = 3;
+}
+
+message ArenaTopLastStatus {
+	optional int64 band_id = 1;
+}
+
+message ArenaTopDailyRewards {
+	int64 arena_daily_reward_id = 1;
+}
+
+message ArenaConsecutiveWins {
+	int64 band_id = 1;
+	int32 count = 2;
+}
+
+message ArenaDeckTrendMemberCard {
+	int64 member_card_id = 1;
+}
+
+message ArenaDeckTrendSupportCard {
+	int64 support_card_id = 1;
+}
+
+message ArenaSeason {
+	int64 mp = 1;
+	repeated ArenaLp lp = 2;
+	int64 max_point = 3;
+}
+
+message ArenaMasterRanking {
+	int64 my_rank = 1;
+	int64 max_rank = 2;
+}
+
+message ArenaBandRankings {
+	int64 band_id = 1;
+	int64 my_rank = 2;
+	int64 max_rank = 3;
+}
+
+message ArenaMasterPromotionRewards {
+	int64 arena_promotion_reward_id = 1;
+}
+
+message ArenaBandPromotionRewards {
+	int64 band_id = 1;
+	int64 arena_promotion_reward_id = 2;
+}
+
+message ArenaRankingEntry {
+	PlayerSimpleProfile profile = 1;
+	DeckDetail deck = 2;
+	int32 rank = 3;
+	int32 point = 4;
+}
+
+message ArenaMyRankMasterPoint {
+	int64 point = 1;
+	int32 rank = 2;
+}
+
+message ArenaMyRankLeaguePoint {
+	int64 band_id = 1;
+	int64 point = 2;
+	int32 rank = 3;
+}
+
+message ArenaMatchingHistories {
+	string matching_at = 1;
+	repeated string matching_players = 2;
+}
+
+message ArenaDedicatedDecks {
+	int32 arena_dedicated_deck_id = 1;
+	string name = 2;
+	repeated DeckCard cards = 3;
+	bool is_new = 4;
+}

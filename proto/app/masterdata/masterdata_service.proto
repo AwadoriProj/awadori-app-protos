@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package app.masterdata;
+
+option go_package = "private-notes/game/proto/app/masterdata;masterdatapb";
+
+message VersionRequest {}
+
+message VersionResponse {
+  string version = 1;
+  string resource_version = 2;
+}
+
+service MasterdataService {
+  rpc Version(VersionRequest) returns (VersionResponse);
+}

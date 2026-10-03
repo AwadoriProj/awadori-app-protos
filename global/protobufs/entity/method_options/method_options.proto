@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+import "entity/admin_user.proto";
+import "entity/maintenance.proto";
+import "google/protobuf/descriptor.proto";
+
+package entity.method_options;
+
+option csharp_namespace = "App.Protobuf.Entity";
+
+extend google.protobuf.MethodOptions {
+	bool skip_authentication = 50001;
+	.entity.MaintenanceFeatures maintenance_features = 50002;
+	bool external_payments = 50003;
+	bool skip_authentication_for_admin = 60001;
+	.entity.AdminRole required_admin_role = 60002;
+}

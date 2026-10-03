@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+import "entity/deck.proto";
+import "entity/profilecard.proto";
+
+package entity;
+
+option csharp_namespace = "App.Protobuf.Entity";
+
+message PlayerSimpleProfile {
+	string id = 1;
+	string name = 2;
+	int32 rank_exp = 3;
+	int64 last_updated_at = 4;
+	DeckMemberCardDetail favorite_member_card = 5;
+	int64 profile_id = 6;
+	int64 favorite_member_card_master_id = 7;
+	SimpleProfileCard profile_card = 8;
+}
+
+message PlayerDetailProfile {
+	string id = 1;
+	string name = 2;
+	int32 rank_exp = 3;
+	int64 last_updated_at = 4;
+	DeckMemberCardDetail favorite_member_card = 5;
+	int64 profile_id = 6;
+	int64 favorite_member_card_master_id = 7;
+}
+
+message PlayerBriefInfo {
+	int64 account_id = 1;
+	string player_id = 2;
+	string nickname = 3;
+	int32 level = 4;
+	int64 chat_frame_id = 5;
+	int64 chat_bubble_id = 6;
+	int64 chat_theme_id = 7;
+	int64 avatar_id = 8;
+}

@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+import "entity/notification.proto";
+import "entity/vip.proto";
+
+package app.vip;
+
+option csharp_namespace = "App.Protobuf.Vip";
+
+message FetchVipRequest {
+}
+
+message FetchVipResponse {
+	.entity.Vip vip = 1;
+	repeated int32 purchased_vip_pack_ranks = 2;
+}
+
+message ReceivePointRequest {
+	int32 consecutive_login_count = 1;
+}
+
+message ReceivePointResponse {
+	.entity.Vip vip = 1;
+	.entity.Notification notification = 2;
+}
+
+message ReceiveRankupRewardRequest {
+	int32 vip_rank = 1;
+}
+
+message ReceiveRankupRewardResponse {
+	.entity.Vip vip = 1;
+	.entity.Notification notification = 2;
+}
+
+message ReceiveRewardRequest {
+	int32 vip_rank = 1;
+	int32 day_number = 2;
+}
+
+message ReceiveRewardResponse {
+	.entity.Vip vip = 1;
+	.entity.Notification notification = 2;
+}
+
+message PurchaseRankPackRequest {
+	int32 vip_rank = 1;
+}
+
+message PurchaseRankPackResponse {
+	.entity.Vip vip = 1;
+	repeated int32 purchased_vip_pack_ranks = 2;
+	.entity.Notification notification = 3;
+}
+
+service VipService {
+	rpc Fetch (.app.vip.FetchVipRequest) returns (.app.vip.FetchVipResponse);
+	rpc ReceivePoint (.app.vip.ReceivePointRequest) returns (.app.vip.ReceivePointResponse);
+	rpc ReceiveReward (.app.vip.ReceiveRewardRequest) returns (.app.vip.ReceiveRewardResponse);
+	rpc PurchaseRankPack (.app.vip.PurchaseRankPackRequest) returns (.app.vip.PurchaseRankPackResponse);
+	rpc ReceiveRankupReward (.app.vip.ReceiveRankupRewardRequest) returns (.app.vip.ReceiveRankupRewardResponse);
+}

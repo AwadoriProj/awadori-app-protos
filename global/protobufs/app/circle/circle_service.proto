@@ -1,0 +1,139 @@
+syntax = "proto3";
+
+import "entity/circle.proto";
+import "entity/circle_player.proto";
+import "entity/method_options/method_options.proto";
+import "entity/notification.proto";
+import "google/protobuf/empty.proto";
+
+package app.circle;
+
+option csharp_namespace = "App.Protobuf.Circle";
+
+message SaveCircleRequest {
+	.entity.SaveCircleParams params = 1;
+}
+
+message CreateCircleResponse {
+	uint64 circle_id = 1;
+	optional uint64 circle_chat_room_id = 2;
+	.entity.Notification notification = 3;
+}
+
+message GetCircleSettingRequest {
+}
+
+message GetCircleSettingResponse {
+	.entity.Circle circle = 1;
+	.entity.CirclePlayer circle_player = 2;
+	int32 circle_mission_reward_count = 3;
+	.entity.Notification notification = 4;
+}
+
+message EditCircleResponse {
+}
+
+message SearchRequest {
+	.entity.SearchOptions options = 1;
+}
+
+message SearchResponse {
+	repeated .entity.CircleWithMasterPlayer circles = 1;
+}
+
+message GetRecommendedCircleListRequest {
+}
+
+message GetRecommendedCircleListResponse {
+	repeated .entity.CircleWithMasterPlayer circles = 1;
+}
+
+message GetCircleRequest {
+	uint64 circle_id = 1;
+}
+
+message GetCircleResponse {
+	.entity.CircleDetailWithPlayerList circle = 1;
+}
+
+message ChangeAuthRequest {
+	string player_id = 1;
+}
+
+message ChangeAuthResponse {
+}
+
+message RemovePlayerRequest {
+	string player_id = 1;
+}
+
+message RemovePlayerResponse {
+}
+
+message ExitCircleRequest {
+}
+
+message ExitCircleResponse {
+}
+
+message UpdateCircleTopResponse {
+	.entity.UpdateCircleTop circle_top = 1;
+}
+
+service CircleService {
+	rpc CreateCircle (.app.circle.SaveCircleRequest) returns (.app.circle.CreateCircleResponse) {
+		option (entity.method_options.maintenance_features).circle = true;
+	}
+
+	rpc GetCircle (.app.circle.GetCircleSettingRequest) returns (.app.circle.GetCircleSettingResponse) {
+		option (entity.method_options.maintenance_features).circle = true;
+	}
+
+	rpc EditCircle (.app.circle.SaveCircleRequest) returns (.app.circle.EditCircleResponse) {
+		option (entity.method_options.maintenance_features).circle = true;
+	}
+
+	rpc Search (.app.circle.SearchRequest) returns (.app.circle.SearchResponse) {
+		option (entity.method_options.maintenance_features).circle = true;
+	}
+
+	rpc GetRecommendedCircleList (.app.circle.GetRecommendedCircleListRequest) returns (.app.circle.GetRecommendedCircleListResponse) {
+		option (entity.method_options.maintenance_features).circle = true;
+	}
+
+	rpc GetCircleDetail (.app.circle.GetCircleRequest) returns (.app.circle.GetCircleResponse) {
+		option (entity.method_options.maintenance_features).circle = true;
+	}
+
+	rpc TransferMaster (.app.circle.ChangeAuthRequest) returns (.app.circle.ChangeAuthResponse) {
+		option (entity.method_options.maintenance_features).circle = true;
+	}
+
+	rpc TransferSubmaster (.app.circle.ChangeAuthRequest) returns (.app.circle.ChangeAuthResponse) {
+		option (entity.method_options.maintenance_features).circle = true;
+	}
+
+	rpc SetSubmaster (.app.circle.ChangeAuthRequest) returns (.app.circle.ChangeAuthResponse) {
+		option (entity.method_options.maintenance_features).circle = true;
+	}
+
+	rpc UnsetSubmaster (.app.circle.ChangeAuthRequest) returns (.app.circle.ChangeAuthResponse) {
+		option (entity.method_options.maintenance_features).circle = true;
+	}
+
+	rpc RemovePlayer (.app.circle.RemovePlayerRequest) returns (.app.circle.RemovePlayerResponse) {
+		option (entity.method_options.maintenance_features).circle = true;
+	}
+
+	rpc ExitCircle (.app.circle.ExitCircleRequest) returns (.app.circle.ExitCircleResponse) {
+		option (entity.method_options.maintenance_features).circle = true;
+	}
+
+	rpc DeleteCircle (.google.protobuf.Empty) returns (.google.protobuf.Empty) {
+		option (entity.method_options.maintenance_features).circle = true;
+	}
+
+	rpc UpdateCircleTop (.google.protobuf.Empty) returns (.app.circle.UpdateCircleTopResponse) {
+		option (entity.method_options.maintenance_features).circle = true;
+	}
+}

@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+import "entity/mission.proto";
+import "entity/notification.proto";
+
+package app.mission;
+
+option csharp_namespace = "App.Protobuf.Present";
+
+message FetchMissionRequest {
+}
+
+message FetchMissionResponse {
+	repeated .entity.MissionCounter mission_counters = 1;
+	repeated .entity.MissionProgress normal_missions = 2;
+	repeated .entity.MissionProgress limited_missions = 3;
+	repeated .entity.CharacterMissionReceived character_missions = 4;
+}
+
+message ReceiveRequest {
+	repeated int64 mission_ids = 1;
+}
+
+message ReceiveResponse {
+	.entity.Notification notification = 1;
+}
+
+message ReceiveLimitedRequest {
+	repeated int64 mission_ids = 1;
+}
+
+message ReceiveLimitedResponse {
+	.entity.Notification notification = 1;
+}
+
+message ReceiveCharacterRequest {
+	int64 character_id = 1;
+	repeated int64 mission_ids = 2;
+}
+
+message ReceiveCharacterResponse {
+	.entity.Notification notification = 1;
+}
+
+message FetchEventMissionRequest {
+	int64 event_id = 1;
+}
+
+message FetchEventMissionResponse {
+	repeated .entity.MissionCounter mission_counters = 1;
+	repeated .entity.MissionProgress mission_progresses = 2;
+	.entity.Notification notification = 3;
+}
+
+message ReceiveEventMissionRequest {
+	repeated int64 mission_ids = 1;
+}
+
+message ReceiveEventMissionResponse {
+	.entity.Notification notification = 1;
+}
+
+service MissionService {
+	rpc Fetch (.app.mission.FetchMissionRequest) returns (.app.mission.FetchMissionResponse);
+	rpc Receive (.app.mission.ReceiveRequest) returns (.app.mission.ReceiveResponse);
+	rpc ReceiveLimited (.app.mission.ReceiveLimitedRequest) returns (.app.mission.ReceiveLimitedResponse);
+	rpc ReceiveCharacter (.app.mission.ReceiveCharacterRequest) returns (.app.mission.ReceiveCharacterResponse);
+	rpc FetchEvent (.app.mission.FetchEventMissionRequest) returns (.app.mission.FetchEventMissionResponse);
+	rpc ReceiveEvent (.app.mission.ReceiveEventMissionRequest) returns (.app.mission.ReceiveEventMissionResponse);
+}

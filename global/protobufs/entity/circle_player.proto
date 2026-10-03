@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+import "entity/player_profile.proto";
+
+package entity;
+
+option csharp_namespace = "App.Protobuf.Entity";
+
+enum CircleAuth {
+	NORMAL = 0;
+	SUBMASTER = 1;
+	MASTER = 2;
+}
+
+message CirclePlayer {
+	string player_id = 1;
+	uint64 circle_id = 2;
+	uint32 auth = 3;
+	uint32 point = 4;
+	uint32 weekly_total_point = 5;
+	PlayerSimpleProfile profile = 7;
+}

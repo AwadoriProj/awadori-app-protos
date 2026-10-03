@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+import "entity/circle.proto";
+import "entity/player_profile.proto";
+
+package entity;
+
+option csharp_namespace = "App.Protobuf.Entity";
+
+message CircleInvitation {
+	uint64 circle_id = 1;
+	string player_id = 2;
+	Circle circle_detail = 3;
+	PlayerSimpleProfile profile = 4;
+}

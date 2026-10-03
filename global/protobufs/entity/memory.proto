@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package entity;
+
+option csharp_namespace = "App.Protobuf.Entity";
+
+message MemoryMusics {
+	int64 memory_music_bonus_group = 1;
+}
+
+message MemoryMembers {
+	int64 member_card_id = 1;
+}
+
+message MemorySupports {
+	int64 support_card_id = 1;
+}
+
+message MemoryStatus {
+	repeated MemoryMusics memory_musics = 1;
+	repeated MemoryMembers memory_members = 2;
+	repeated MemorySupports memory_supports = 3;
+}

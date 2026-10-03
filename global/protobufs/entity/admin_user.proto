@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package entity;
+
+option csharp_namespace = "App.Protobuf.Entity";
+
+enum AdminRole {
+	ADMINROLE_DEVELOPER = 0;
+	ADMINROLE_OPERATORADMIN = 1;
+	ADMINROLE_OPERATOR = 2;
+	ADMINROLE_SPECIFIC = 3;
+	ADMINROLE_VIEWONLY = 4;
+}
+
+message AdminUser {
+	string mail_address = 1;
+	string name = 2;
+	AdminRole role = 3;
+	uint32 access_token_count = 4;
+	string google_id = 5;
+}

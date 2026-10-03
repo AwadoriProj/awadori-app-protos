@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package entity;
+
+option csharp_namespace = "App.Protobuf.Entity";
+
+message Faqs {
+	int64 id = 1;
+	string title = 2;
+	string detail = 3;
+}
+
+message TermsIds {
+	string id = 1;
+}
+
+message TermsHistories {
+	string id = 1;
+	string agreed_version = 2;
+}

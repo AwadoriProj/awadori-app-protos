@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+import "entity/deck.proto";
+import "entity/livemusic.proto";
+import "entity/player_profile.proto";
+import "google/protobuf/empty.proto";
+
+package app.livemusic;
+
+option csharp_namespace = "App.Protobuf.LiveMusic";
+
+message SaveFavoriteRequest {
+	int64 live_music_master_id = 1;
+	bool is_favorite_1 = 2;
+	bool is_favorite_2 = 3;
+	bool is_favorite_3 = 4;
+}
+
+message SaveFavoriteResponse {
+}
+
+message SavePuzzleRequest {
+	.entity.MusicPuzzle puzzle = 1;
+}
+
+message GetRankingRequest {
+	int64 music_id = 1;
+}
+
+message LiveRankingPlayer {
+	.entity.PlayerSimpleProfile player_data = 1;
+	int32 score = 3;
+	.entity.DeckDetail high_score_deck = 4;
+}
+
+message GetRankingResponse {
+	repeated LiveRankingPlayer players = 1;
+	int32 my_rank = 2;
+}
+
+service LiveMusicService {
+	rpc SaveFavorite (.app.livemusic.SaveFavoriteRequest) returns (.app.livemusic.SaveFavoriteResponse);
+	rpc SavePuzzle (.app.livemusic.SavePuzzleRequest) returns (.google.protobuf.Empty);
+	rpc GetRanking (.app.livemusic.GetRankingRequest) returns (.app.livemusic.GetRankingResponse);
+}

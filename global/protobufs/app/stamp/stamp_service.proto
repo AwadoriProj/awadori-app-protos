@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+import "entity/stamp.proto";
+
+package app.stamp;
+
+option csharp_namespace = "App.Protobuf.Stamp";
+
+message UpdateStampFavoritesRequest {
+	repeated .entity.UpdateStampFavorite favorites = 1;
+}
+
+message UpdateStampFavoritesResponse {
+}
+
+message UpdateStampFavoriteNameRequest {
+	int32 favorite_id = 1;
+	string name = 2;
+}
+
+message UpdateStampFavoriteNameResponse {
+}
+
+service StampService {
+	rpc UpdateStampFavorites (.app.stamp.UpdateStampFavoritesRequest) returns (.app.stamp.UpdateStampFavoritesResponse);
+	rpc UpdateStampFavoriteName (.app.stamp.UpdateStampFavoriteNameRequest) returns (.app.stamp.UpdateStampFavoriteNameResponse);
+}

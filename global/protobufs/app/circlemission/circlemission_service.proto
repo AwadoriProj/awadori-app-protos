@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+import "entity/circle_mission.proto";
+import "entity/method_options/method_options.proto";
+import "entity/notification.proto";
+import "google/protobuf/empty.proto";
+
+package app.circlemission;
+
+option csharp_namespace = "App.Protobuf.CircleMission";
+
+message FetchCircleMissionResponse {
+	repeated .entity.CircleMissionProgress normal_missions = 1;
+	repeated .entity.CircleMissionProgress daily_missions = 2;
+}
+
+message ReceiveRequest {
+	repeated int64 mission_ids = 1;
+}
+
+message ReceiveResponse {
+	.entity.Notification notification = 1;
+}
+
+service CircleMissionService {
+	rpc Fetch (.google.protobuf.Empty) returns (.app.circlemission.FetchCircleMissionResponse) {
+		option (entity.method_options.maintenance_features).circle = true;
+	}
+
+	rpc Receive (.app.circlemission.ReceiveRequest) returns (.app.circlemission.ReceiveResponse) {
+		option (entity.method_options.maintenance_features).circle = true;
+	}
+}

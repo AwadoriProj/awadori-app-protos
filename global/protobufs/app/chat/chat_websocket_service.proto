@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+import "app/chat/chat_common.proto";
+
+package app.chat;
+
+option csharp_namespace = "App.Protobuf.Chat";
+
+message MessageLoginIMReq {
+	int64 AccountID = 2;
+	string UserToken = 3;
+	string ClientIP = 4;
+}
+
+message MessageLoginIMResp {
+	int64 ID = 1;
+	int32 Ret = 2;
+	int64 AccountID = 3;
+	int64 WorldChatRoomID = 4;
+}
+
+message MessageCloseConn {
+	int64 AccountID = 2;
+	string UserToken = 3;
+}

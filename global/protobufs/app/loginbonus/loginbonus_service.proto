@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+import "entity/login_bonus.proto";
+import "entity/notification.proto";
+
+package app.loginbonus;
+
+option csharp_namespace = "App.Protobuf.Present";
+
+message UpdateLoginbonusRequest {
+}
+
+message UpdateLoginbonusResponse {
+	repeated .entity.LoginBonusSheet received = 1;
+	repeated .entity.LoginBonusSheet not_received = 2;
+	.entity.Notification notification = 3;
+}
+
+service LoginBonusService {
+	rpc Update (.app.loginbonus.UpdateLoginbonusRequest) returns (.app.loginbonus.UpdateLoginbonusResponse);
+}

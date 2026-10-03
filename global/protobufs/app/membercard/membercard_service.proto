@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+import "entity/notification.proto";
+
+package app.membercard;
+
+option csharp_namespace = "App.Protobuf.MemberCard";
+
+message LevelUpRequest {
+	int64 member_card_master_id = 1;
+	int32 to_level = 2;
+	int32 highest_total_power = 3;
+}
+
+message LevelUpResponse {
+	.entity.Notification notification = 1;
+}
+
+message AwakeRequest {
+	int64 member_card_master_id = 1;
+	int32 to_awake_count = 2;
+	int32 highest_total_power = 3;
+}
+
+message AwakeResponse {
+	.entity.Notification notification = 1;
+}
+
+message SkillLevelUpRequest {
+	int64 member_card_master_id = 1;
+	int32 to_level = 2;
+	int32 highest_total_power = 3;
+}
+
+message SkillLevelUpResponse {
+	.entity.Notification notification = 1;
+}
+
+message RankUpRequest {
+	int64 member_card_master_id = 1;
+	int32 to_card_rank = 2;
+	repeated RankUpUseItem use_items = 3;
+	int32 highest_total_power = 4;
+}
+
+message RankUpUseItem {
+	int64 id = 1;
+	int32 amount = 2;
+	int32 type = 3;
+}
+
+message RankUpResponse {
+	.entity.Notification notification = 1;
+}
+
+service MemberCardService {
+	rpc LevelUp (.app.membercard.LevelUpRequest) returns (.app.membercard.LevelUpResponse);
+	rpc Awake (.app.membercard.AwakeRequest) returns (.app.membercard.AwakeResponse);
+	rpc LeaderSkillLevelUp (.app.membercard.SkillLevelUpRequest) returns (.app.membercard.SkillLevelUpResponse);
+	rpc LinkSkillLevelUp (.app.membercard.SkillLevelUpRequest) returns (.app.membercard.SkillLevelUpResponse);
+	rpc LiveSkillLevelUp (.app.membercard.SkillLevelUpRequest) returns (.app.membercard.SkillLevelUpResponse);
+	rpc PerformanceSkillLevelUp (.app.membercard.SkillLevelUpRequest) returns (.app.membercard.SkillLevelUpResponse);
+	rpc GekisouSkillLevelUp (.app.membercard.SkillLevelUpRequest) returns (.app.membercard.SkillLevelUpResponse);
+	rpc RankUp (.app.membercard.RankUpRequest) returns (.app.membercard.RankUpResponse);
+}

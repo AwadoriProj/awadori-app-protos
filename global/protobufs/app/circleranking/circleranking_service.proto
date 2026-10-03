@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+import "entity/method_options/method_options.proto";
+import "google/protobuf/empty.proto";
+
+package app.circleranking;
+
+option csharp_namespace = "App.Protobuf.CircleRanking";
+
+message GetCircleRankingResponse {
+	uint64 circle_ranking = 1;
+}
+
+service CircleRankingService {
+	rpc GetCircleRanking (.google.protobuf.Empty) returns (.app.circleranking.GetCircleRankingResponse) {
+		option (entity.method_options.maintenance_features).circle = true;
+	}
+}

@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package entity;
+
+option csharp_namespace = "App.Protobuf.Entity";
+
+message CircleRankUpRewardReceived {
+	string player_id = 1;
+	uint64 circle_id = 2;
+	uint32 circle_rank = 3;
+}
+
+message CircleRankUpRewardDetail {
+	uint64 id = 1;
+}

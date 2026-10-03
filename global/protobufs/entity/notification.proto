@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+import "entity/item.proto";
+import "entity/mission.proto";
+import "entity/present.proto";
+
+package entity;
+
+option csharp_namespace = "App.Protobuf.Entity";
+
+message VipPointChange {
+	int32 before = 1;
+	int32 after = 2;
+}
+
+message ConvertedResource {
+	PresentResource original_resource = 1;
+	PresentResource converted_resource = 2;
+}
+
+message OfflineBonusStartAt {
+	int64 offline_bonus_unit_id = 1;
+	int64 start_at = 2;
+}
+
+message Notification {
+	repeated Present posted_presents = 1;
+	repeated MissionCounter mission_counter_diffs = 2;
+	repeated MissionCounter mission_counter_updates = 3;
+	repeated Item item_diffs = 4;
+	VipPointChange vip_point_change = 5;
+	repeated ConvertedResource converted_resources = 6;
+	bool has_exceeded_present = 7;
+	repeated OfflineBonusStartAt offline_bonus_start_ats = 8;
+	repeated PresentResource discarded_resources = 10;
+}
