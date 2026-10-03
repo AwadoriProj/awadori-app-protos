@@ -240,6 +240,8 @@ def dump_protobufs(library_path: Path, dump_file: Path, literals_file: Path) -> 
 
 
 def generate_go_bindings() -> int:
+    import grpc_tools
+
     proto_files = source_proto_files()
     mappings = []
     for path in proto_files:
@@ -267,6 +269,7 @@ def generate_go_bindings() -> int:
         sys.executable,
         "-m",
         "grpc_tools.protoc",
+        f"-I{Path(grpc_tools.__file__).parent / '_proto'}",
         f"-I{PROTO_DIR}",
         f"--plugin=protoc-gen-go={go_plugin}",
         f"--plugin=protoc-gen-go-grpc={grpc_plugin}",
