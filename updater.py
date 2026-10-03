@@ -67,6 +67,27 @@ def source_proto_files() -> list[Path]:
     )
 
 
+def validate_proto_imports() -> None:
+    import grpc_tools
+
+    builtin_proto_root = Path(grpc_tools.__file__).parent / "_proto"
+    known = {path.relative_to(PROTO_DIR).as_posix() for path in PROTO_DIR.rglob("*.proto")}
+    missing: list[tuple[str, str]] = []
+    import_pattern = re.compile(r'^import\s+(?:(?:public|weak)\s+)?"([^"]+)"\s*;', re.M)
+    for path in source_proto_files():
+        relative = path.relative_to(PROTO_DIR).as_posix()
+        for imported in import_pattern.findall(path.read_text(encoding="utf-8")):
+            if imported not in known and not (builtin_proto_root / imported).is_file():
+                missing.append((relative, imported))
+    if missing:
+        details = "\n".join(f"  {source} imports missing {target}" for source, target in missing)
+        raise RuntimeError(
+            "protobuf dump is incomplete; imported schema files are missing:\n"
+            f"{details}\n"
+            "Run the updater with --force to redump the latest client."
+        )
+
+
 def stored_metadata() -> dict:
     try:
         return json.loads(VERSION_FILE.read_text(encoding="utf-8"))
@@ -314,6 +335,7 @@ def main() -> None:
     session = request_session()
     version_name, location = probe_latest(session)
     if not args.force and version_name == stored_version() and PROTO_DIR.is_dir():
+        validate_proto_imports()
         metadata = stored_metadata()
         required = int(metadata.get("proto_file_count", len(source_proto_files())))
         existing = len(list((ROOT / "proto").rglob("*.pb.go")))
@@ -336,6 +358,7 @@ def main() -> None:
     decrypted_metadata, decrypted_library = decrypt_inputs(metadata_path, library_path)
     dump_file, literals_file = dump_il2cpp(decrypted_metadata, decrypted_library)
     count = dump_protobufs(decrypted_library, dump_file, literals_file)
+    validate_proto_imports()
     generated_count = generate_go_bindings()
     REGION.mkdir(parents=True, exist_ok=True)
     VERSION_FILE.write_text(json.dumps({

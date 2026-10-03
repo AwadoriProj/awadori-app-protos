@@ -225,6 +225,20 @@ def _chunk_groups(bin_: Binary, va: int, end: int) -> list[list[tuple[int, str]]
             page.pop(ops[0].reg, None)
             continue
 
+        if mn == "bl":
+            # Newer IL2CPP builds may pass base64 chunks directly to String.Concat
+            # instead of storing them in a string array. Capture string arguments
+            # at calls as another candidate group; non-descriptor calls are ignored
+            # when the decoded bytes fail FileDescriptorProto parsing.
+            args: dict[int, str] = {}
+            for reg, value in carry.items():
+                name = ins.reg_name(reg)
+                match = re.fullmatch(r"x([0-7])", name)
+                if match:
+                    args[int(match.group(1))] = value
+            if 0 in args and len(args) >= 2 and all(i in args for i in range(max(args) + 1)):
+                groups.append([(i, args[i]) for i in range(max(args) + 1)])
+
         # any other write clears tracked registers
         try:
             for r in ins.regs_access()[1]:
