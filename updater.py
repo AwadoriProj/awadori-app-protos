@@ -19,7 +19,7 @@ import requests
 
 ROOT = Path(__file__).resolve().parent
 PACKAGE = "com.bilibili.sirius"
-DOWNLOAD_URL = f"https://d.apkpure.com/b/XAPK/{PACKAGE}?version=latest"
+DOWNLOAD_URL = f"https://d.apkpure.net/b/XAPK/{PACKAGE}?version=latest"
 REGION = ROOT / "global"
 PROTO_DIR = REGION / "protobufs"
 VERSION_FILE = REGION / "appver.json"
@@ -39,7 +39,9 @@ def probe_latest(session: requests.Session) -> tuple[str, str]:
     response = session.get(DOWNLOAD_URL, allow_redirects=False, stream=True, timeout=45)
     try:
         if response.status_code not in (301, 302, 303, 307, 308):
-            raise RuntimeError(f"APKPure latest endpoint returned HTTP {response.status_code}")
+            raise RuntimeError(
+                f"APKPure latest endpoint {DOWNLOAD_URL} returned HTTP {response.status_code}"
+            )
         location = response.headers.get("Location", "")
     finally:
         response.close()
