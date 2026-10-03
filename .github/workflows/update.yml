@@ -40,9 +40,39 @@ jobs:
         run: python updater.py
 
       - name: Commit updated schemas
+        id: git_commit
         shell: bash
         run: |
           git config user.name 'github-actions[bot]'
-          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add global/ proto/
-          git diff --staged --quiet || (git commit -m 'refresh Our Notes protobuf dump' && git push)
+          if git diff --staged --quiet; then
+            echo "changes=false" >> $GITHUB_OUTPUT
+            echo "No protobuf changes detected."
+          else
+            git commit -m 'refresh Our Notes protobuf dump'
+            git push
+            echo "changes=true" >> $GITHUB_OUTPUT
+          fi
+
+      # --- DISCORD NOTIFICATION STEPS ---
+
+      - name: Discord Notification - Success (New Changes Pushed)
+        if: success() && steps.git_commit.outputs.changes == 'true'
+        uses: sandro-g/discord-webhook-action@v2
+        with:
+          url: ${{ secrets.DISCORD_WEBHOOK }}
+          title: "✅ Protobuf Successfully Refreshed!"
+          description: "New protobuf schemas have been successfully dumped, committed, and pushed to the repository."
+          severity: "info"
+          color: "#00ff00"
+
+      - name: Discord Notification - Workflow Failed
+        if: failure()
+        uses: sandro-g/discord-webhook-action@v2
+        with:
+          url: ${{ secrets.DISCORD_WEBHOOK }}
+          title: "❌ Workflow Failed: Refresh Protobufs"
+          description: "An error occurred while executing the protobuf automation. Please review your GitHub Actions execution logs."
+          severity: "error"
+          color: "#ff0000"
