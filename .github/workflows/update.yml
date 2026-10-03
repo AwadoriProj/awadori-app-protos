@@ -59,20 +59,40 @@ jobs:
 
       - name: Discord Notification - Success (New Changes Pushed)
         if: success() && steps.git_commit.outputs.changes == 'true'
-        uses: sandro-g/discord-webhook-action@v2
-        with:
-          url: ${{ secrets.DISCORD_WEBHOOK }}
-          title: "✅ Protobuf Successfully Refreshed!"
-          description: "New protobuf schemas have been successfully dumped, committed, and pushed to the repository."
-          severity: "info"
-          color: "#00ff00"
+        shell: pwsh
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          if (-not $env:DISCORD_WEBHOOK) {
+            Write-Host 'DISCORD_WEBHOOK secret is not configured; skipping notification.'
+            exit 0
+          }
+          $payload = @{
+            embeds = @(@{
+              title = '✅ Protobuf Successfully Refreshed!'
+              description = "New protobuf schemas were dumped, committed, and pushed.`n[View workflow run]($env:RUN_URL)"
+              color = 65280
+            })
+          } | ConvertTo-Json -Depth 5
+          Invoke-RestMethod -Uri $env:DISCORD_WEBHOOK -Method Post -ContentType 'application/json' -Body $payload
 
       - name: Discord Notification - Workflow Failed
         if: failure()
-        uses: sandro-g/discord-webhook-action@v2
-        with:
-          url: ${{ secrets.DISCORD_WEBHOOK }}
-          title: "❌ Workflow Failed: Refresh Protobufs"
-          description: "An error occurred while executing the protobuf automation. Please review your GitHub Actions execution logs."
-          severity: "error"
-          color: "#ff0000"
+        shell: pwsh
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          if (-not $env:DISCORD_WEBHOOK) {
+            Write-Host 'DISCORD_WEBHOOK secret is not configured; skipping notification.'
+            exit 0
+          }
+          $payload = @{
+            embeds = @(@{
+              title = '❌ Workflow Failed: Refresh Protobufs'
+              description = "An error occurred while updating the protobufs.`n[View workflow run]($env:RUN_URL)"
+              color = 16711680
+            })
+          } | ConvertTo-Json -Depth 5
+          Invoke-RestMethod -Uri $env:DISCORD_WEBHOOK -Method Post -ContentType 'application/json' -Body $payload
