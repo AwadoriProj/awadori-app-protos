@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package entity;
+
+option csharp_namespace = "App.Protobuf.Entity";
+
+message StoryEpisode {
+	int64 episode_id = 1;
+	bool is_skipped = 2;
+	int64 last_read_at = 3;
+}

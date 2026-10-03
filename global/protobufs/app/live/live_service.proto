@@ -35,6 +35,7 @@ message FinishFreeResponse {
 	repeated .entity.BandHighScoreRatingReward band_highscore_rating_rewards = 4;
 	repeated .entity.RewardResource music_rewards = 5;
 	.entity.Notification notification = 6;
+	repeated .entity.RewardResource campaign_drop_rewards = 7;
 }
 
 message StartChallengeLiveRequest {
@@ -59,6 +60,7 @@ message FinishChallengeLiveResponse {
 	repeated .entity.BandHighScoreRatingReward band_highscore_rating_rewards = 4;
 	repeated .entity.RewardResource music_rewards = 5;
 	.entity.Notification notification = 6;
+	repeated .entity.RewardResource campaign_drop_rewards = 7;
 }
 
 message StartBattleLiveRequest {
@@ -103,6 +105,7 @@ message GetBattleLiveResultResponse {
 	repeated .entity.LiveEventReward event_reward = 5;
 	.entity.Notification notification = 6;
 	repeated .entity.BattleLiveRewardResource battle_live_rewards = 7;
+	repeated .entity.RewardResource campaign_drop_rewards = 8;
 }
 
 message SkipFreeRequest {
@@ -117,6 +120,7 @@ message SkipFreeResponse {
 	repeated int64 reward_id = 1;
 	repeated .entity.LiveEventReward event_reward = 2;
 	.entity.Notification notification = 3;
+	repeated .entity.RewardResource campaign_drop_rewards = 4;
 }
 
 message SkipChallengeLiveRequest {
@@ -131,6 +135,7 @@ message SkipChallengeLiveResponse {
 	repeated int64 reward_id = 1;
 	repeated .entity.LiveEventReward event_reward = 2;
 	.entity.Notification notification = 3;
+	repeated .entity.RewardResource campaign_drop_rewards = 4;
 }
 
 message SaveSettingRequest {
@@ -237,6 +242,7 @@ message GetArenaLiveResultResponse {
 	int64 current_master_point = 9;
 	int64 diff_master_point = 10;
 	repeated .entity.LiveEventReward event_reward = 11;
+	repeated .entity.RewardResource campaign_drop_rewards = 12;
 }
 
 service LiveService {

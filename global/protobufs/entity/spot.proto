@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package entity;
+
+option csharp_namespace = "App.Protobuf.Entity";
+
+message Spot {
+	int64 id = 1;
+	optional int64 got_at = 2;
+}

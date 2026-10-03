@@ -1,0 +1,5006 @@
+message app {
+	message activity {
+		message ActivityConfig {
+			int64 activity_id = 1;
+			string name = 2;
+			int32 type = 3;
+			int64 start_at = 4;
+			int64 end_at = 5;
+			int32 display = 6;
+			int32 icon_seq_id = 7;
+		}
+
+		message GetAllActivitiesRequest {
+		}
+
+		message GetAllActivitiesResponse {
+			repeated ActivityConfig activities = 1;
+		}
+
+		service ActivityService {
+			rpc GetAllActivities (.app.activity.GetAllActivitiesRequest) returns (.app.activity.GetAllActivitiesResponse);
+		}
+	}
+
+	message announcement {
+		enum Tab {
+			ALL = 0;
+			OPENING_EVENTS = 1;
+			BUG = 2;
+		}
+
+		message GetListRequest {
+			Tab selected_tab = 1;
+		}
+
+		message GetListResponse {
+			repeated .entity.Announcement announcements = 1;
+			repeated .entity.AnnouncementExternalContent external_contents = 2;
+		}
+
+		message GetRequest {
+			int64 id = 1;
+		}
+
+		message GetResponse {
+			.entity.Announcement announcement = 1;
+		}
+
+		service AnnouncementService {
+			rpc GetList (.app.announcement.GetListRequest) returns (.app.announcement.GetListResponse) {
+				option (entity.method_options.skip_authentication) = true;
+			}
+
+			rpc Get (.app.announcement.GetRequest) returns (.app.announcement.GetResponse) {
+				option (entity.method_options.skip_authentication) = true;
+			}
+		}
+	}
+
+	message arena {
+		message ReportPenaltyRequest {
+			int32 penalty = 1;
+		}
+
+		message ReportPenaltyResponse {
+		}
+
+		message ArenaTopRequest {
+			int64 arena_season_id = 1;
+		}
+
+		message ArenaTopResponse {
+			.entity.ArenaTopLastStatus latest_status = 1;
+			int64 mp = 2;
+			repeated .entity.ArenaLp lp = 3;
+			repeated .entity.ArenaTopDailyRewards daily_rewards = 4;
+			int32 penalty_count = 5;
+			int64 before_season_id = 6;
+			bool is_show_season_result = 7;
+			repeated int64 arena_promotion_reward_ids = 8;
+			repeated .entity.ArenaLpRankDiff lp_rank_diff = 9;
+			repeated .entity.ArenaDedicatedDecks arena_dedicated_decks = 10;
+		}
+
+		message ConsecutiveWinsRequest {
+			int64 arena_season_id = 1;
+		}
+
+		message ConsecutiveWinsResponse {
+			repeated .entity.ArenaConsecutiveWins arena_consecutive_wins = 1;
+		}
+
+		message DeckTrendRequest {
+			int64 music_id = 1;
+			int64 arena_season_id = 2;
+		}
+
+		message DeckTrendResponse {
+			repeated .entity.ArenaDeckTrendMemberCard leaders = 1;
+			repeated .entity.ArenaDeckTrendMemberCard members = 2;
+			repeated .entity.ArenaDeckTrendSupportCard supports = 3;
+		}
+
+		message ArenaRewardsRequest {
+			int64 arena_season_id = 1;
+		}
+
+		message ArenaRewardsResponse {
+			.entity.ArenaSeason season = 1;
+			.entity.ArenaMasterRanking master_ranking = 2;
+			repeated .entity.ArenaBandRankings band_rankings = 3;
+			repeated .entity.ArenaMasterPromotionRewards master_promotion_rewards = 4;
+			repeated .entity.ArenaBandPromotionRewards band_promotion_rewards = 5;
+		}
+
+		message ArenaRankingRequest {
+			int64 arena_season_id = 1;
+			optional int64 band_id = 2;
+			int64 ranking_start = 3;
+			int64 ranking_end = 4;
+		}
+
+		message ArenaRankingResponse {
+			repeated .entity.ArenaRankingEntry ranking = 1;
+			int64 max_rank = 2;
+		}
+
+		message ArenaMyRankRequest {
+			int64 arena_season_id = 1;
+		}
+
+		message ArenaMyRankResponse {
+			.entity.ArenaMyRankMasterPoint mp = 1;
+			repeated .entity.ArenaMyRankLeaguePoint lp = 2;
+		}
+
+		message MatchingHistoriesRequest {
+		}
+
+		message MatchingHistoriesResponse {
+			repeated .entity.ArenaMatchingHistories matching_histories = 1;
+		}
+
+		message SaveDedicatedDecksRequest {
+			.entity.ArenaDedicatedDecks deck = 1;
+		}
+
+		message SaveDedicatedDecksResponse {
+		}
+
+		service ArenaService {
+			rpc ReportPenalty (.app.arena.ReportPenaltyRequest) returns (.app.arena.ReportPenaltyResponse);
+			rpc ArenaTop (.app.arena.ArenaTopRequest) returns (.app.arena.ArenaTopResponse);
+			rpc ConsecutiveWins (.app.arena.ConsecutiveWinsRequest) returns (.app.arena.ConsecutiveWinsResponse);
+			rpc DeckTrend (.app.arena.DeckTrendRequest) returns (.app.arena.DeckTrendResponse);
+			rpc ArenaRewards (.app.arena.ArenaRewardsRequest) returns (.app.arena.ArenaRewardsResponse);
+			rpc ArenaRanking (.app.arena.ArenaRankingRequest) returns (.app.arena.ArenaRankingResponse);
+			rpc ArenaMyRank (.app.arena.ArenaMyRankRequest) returns (.app.arena.ArenaMyRankResponse);
+			rpc MatchingHistories (.app.arena.MatchingHistoriesRequest) returns (.app.arena.MatchingHistoriesResponse);
+			rpc SaveDedicatedDecks (.app.arena.SaveDedicatedDecksRequest) returns (.app.arena.SaveDedicatedDecksResponse);
+		}
+	}
+
+	message banditem {
+		message LevelUpRequest {
+			int64 band_item_master_id = 1;
+			int32 to_level = 2;
+		}
+
+		message LevelUpResponse {
+			.entity.Notification notification = 1;
+		}
+
+		service BandItemService {
+			rpc LevelUp (.app.banditem.LevelUpRequest) returns (.app.banditem.LevelUpResponse);
+		}
+	}
+
+	message callback {
+		message PaySdkCallbackRequest {
+			string data = 1;
+		}
+
+		message PaySdkSchedulingForwardingRequest {
+			string data = 1;
+		}
+
+		message PaySdkSchedulingForwardingResponse {
+			bool IsSuccess = 1;
+		}
+
+		service CallbackService {
+			rpc PaySdkCallback (.app.callback.PaySdkCallbackRequest) returns (.google.protobuf.Empty);
+			rpc PaySdkSchedulingForwarding (.app.callback.PaySdkSchedulingForwardingRequest) returns (.app.callback.PaySdkSchedulingForwardingResponse);
+		}
+	}
+
+	message carousel_help {
+		message ShownRequest {
+			repeated int64 master_ids = 1;
+		}
+
+		message ShownResponse {
+		}
+
+		service CarouselHelpService {
+			rpc Shown (.app.carousel_help.ShownRequest) returns (.app.carousel_help.ShownResponse);
+		}
+	}
+
+	message character {
+		message GainFriendshipRankRewardRequest {
+			repeated .entity.CharacterFriendshipRankReward rewards = 1;
+		}
+
+		message GainFriendshipRankRewardResponse {
+			.entity.Notification notification = 1;
+		}
+
+		service CharacterService {
+			rpc GainFriendshipRankReward (.app.character.GainFriendshipRankRewardRequest) returns (.app.character.GainFriendshipRankRewardResponse);
+		}
+	}
+
+	message chat {
+		message ClientSendIMMsgRequest {
+			IMMsg Msg = 1;
+		}
+
+		message ClientSendIMMsgResponse {
+			int32 Ret = 1;
+			string Content = 2;
+		}
+
+		message ClientSyncMsgRequest {
+			int32 Type = 1;
+			int64 LastMsgID = 2;
+			int64 Receiver = 3;
+		}
+
+		message ClientSyncMsgResponse {
+			int32 Ret = 1;
+		}
+
+		message ClientGetWorldRoomListRequest {
+		}
+
+		message ClientGetWorldRoomListResponse {
+			int32 Ret = 1;
+			repeated WorldRoomInfo RoomInfos = 2;
+		}
+
+		message ClientSwitchWorldRoomRequest {
+			int64 TargetRoomID = 1;
+		}
+
+		message ClientSwitchWorldRoomResponse {
+			int32 Ret = 1;
+			int64 WorldRoomID = 2;
+		}
+
+		message TopicSetting {
+			int64 topic_id = 1;
+			bool visible = 2;
+		}
+
+		message ChatDisplaySettings {
+			bool world_channel_visible = 1;
+			bool world_filter_text = 2;
+			bool world_filter_stamp = 3;
+			bool world_filter_entertain = 4;
+			repeated TopicSetting topics = 5;
+		}
+
+		message ClientSetChatSettingsRequest {
+			repeated int64 special_focus_account_ids = 1;
+			int64 chat_theme_id = 2;
+			int64 chat_bubble_id = 3;
+			int64 chat_frame_id = 4;
+			ChatDisplaySettings display_settings = 5;
+		}
+
+		message ClientSetChatSettingsResponse {
+			int32 Ret = 1;
+		}
+
+		message ClientGetChatSettingsRequest {
+		}
+
+		message ClientGetChatSettingsResponse {
+			int32 Ret = 1;
+			repeated int64 special_focus_account_ids = 2;
+			int64 chat_theme_id = 3;
+			int64 chat_bubble_id = 4;
+			int64 chat_frame_id = 5;
+			ChatDisplaySettings display_settings = 6;
+		}
+
+		message GetNotificationsRequest {
+		}
+
+		message GetNotificationsResponse {
+			repeated NotificationInfo notifications = 1;
+		}
+
+		message ClaimNotificationRequest {
+			int64 notification_id = 1;
+		}
+
+		message ClaimNotificationResponse {
+			int32 Ret = 1;
+			string message = 2;
+		}
+
+		message ChatReportRequest {
+			int64 target_player_id = 1;
+			string message = 2;
+			optional string reason = 3;
+		}
+
+		message ChatReportResponse {
+			int32 ret = 1;
+			int32 chat_report_used_today = 2;
+		}
+
+		service ClientChatService {
+			rpc SendIMMsg (.app.chat.ClientSendIMMsgRequest) returns (.app.chat.ClientSendIMMsgResponse) {
+				option (entity.method_options.maintenance_features).chat = true;
+			}
+
+			rpc SyncMsg (.app.chat.ClientSyncMsgRequest) returns (.app.chat.ClientSyncMsgResponse) {
+				option (entity.method_options.maintenance_features).chat = true;
+			}
+
+			rpc GetWorldRoomList (.app.chat.ClientGetWorldRoomListRequest) returns (.app.chat.ClientGetWorldRoomListResponse) {
+				option (entity.method_options.maintenance_features).chat = true;
+			}
+
+			rpc SwitchWorldRoom (.app.chat.ClientSwitchWorldRoomRequest) returns (.app.chat.ClientSwitchWorldRoomResponse) {
+				option (entity.method_options.maintenance_features).chat = true;
+			}
+
+			rpc SetChatSettings (.app.chat.ClientSetChatSettingsRequest) returns (.app.chat.ClientSetChatSettingsResponse);
+			rpc GetChatSettings (.app.chat.ClientGetChatSettingsRequest) returns (.app.chat.ClientGetChatSettingsResponse);
+			rpc GetNotifications (.app.chat.GetNotificationsRequest) returns (.app.chat.GetNotificationsResponse);
+			rpc ClaimNotification (.app.chat.ClaimNotificationRequest) returns (.app.chat.ClaimNotificationResponse);
+			rpc Report (.app.chat.ChatReportRequest) returns (.app.chat.ChatReportResponse);
+		}
+
+		enum gmChatOpt {
+			ChatOpt_None = 0;
+			ChatOpt_GetForbid = 1;
+			ChatOpt_SetForbid = 2;
+		}
+
+		enum MessageType {
+			MessageType_Chat_Emoji = 0;
+			MessageType_Chat_Text = 1;
+			MessageType_Chat_TextFromSound = 2;
+			MessageType_Chat_InviteTeam = 3;
+			MessageType_Chat_InviteLeague = 4;
+			MessageType_Chat_RoomDismiss = 5;
+			MessageType_System_FriendAdded = 6;
+		}
+
+		enum EIMType {
+			IM_Peer = 0;
+			IM_Room = 4;
+		}
+
+		message GRPCCommonResponse {
+			int32 code = 1;
+			string message = 2;
+		}
+
+		message GRPCPing {
+			int32 timestamp = 1;
+		}
+
+		message BaseNoti {
+			int32 RetCode = 1;
+			string RetMsg = 2;
+		}
+
+		message RPCCommonNoti {
+			int32 Ret = 1;
+		}
+
+		message MessageRetNoti {
+			BaseNoti Base = 3;
+		}
+
+		message CSCommonMessage {
+			string Msgkey = 2;
+			bytes Msgbody = 3;
+		}
+
+		message ChatText {
+			int32 ID = 1;
+			string Text = 2;
+		}
+
+		message ChatEmoji {
+			int32 ID = 1;
+			int32 EmojiID = 2;
+		}
+
+		message ChatTextFromSound {
+			int32 ID = 1;
+			string Text = 2;
+			string SoundUrl = 3;
+		}
+
+		message ChatJoinLeagueAccepted {
+			int32 ID = 1;
+		}
+
+		message IMMsg {
+			int64 MsgID = 2;
+			int64 Sender = 3;
+			int64 Receiver = 4;
+			repeated int64 Receivers = 9;
+			int32 Type = 5;
+			int32 MsgType = 6;
+			string Content = 7;
+			int64 Time = 8;
+		}
+
+		message IMMsgs {
+			repeated IMMsg Msgs = 1;
+		}
+
+		message MessageIMNoti {
+			repeated IMMsg Msgs = 3;
+		}
+
+		message MessageNewMsgNoti {
+			int64 MsgID = 2;
+			int64 Receiver = 3;
+		}
+
+		message MessageGroupMsgNoti {
+			IMMsg Msg = 1;
+			repeated int64 AccountIDs = 5;
+		}
+
+		message WorldRoomInfo {
+			int64 RoomID = 1;
+			int32 MemberNum = 2;
+			int32 MaxMemberNum = 3;
+		}
+
+		message NotificationReward {
+			int32 resource_type = 1;
+			int64 resource_id = 2;
+			int32 resource_count = 3;
+		}
+
+		message NotificationInfo {
+			int64 id = 1;
+			int32 notification_type = 2;
+			string title = 3;
+			string content = 4;
+			int64 expire_at = 5;
+			bool has_rewards = 6;
+			bool claimed = 7;
+			repeated NotificationReward rewards = 8;
+			int64 created_at = 9;
+		}
+
+		message RPCGMChatOptReq {
+			int64 AccountID = 1;
+			gmChatOpt Opt = 2;
+			int64 EndTime = 3;
+		}
+
+		message RPCGMChatOptNoti {
+			int32 Ret = 1;
+			int64 EndTime = 2;
+		}
+
+		message RPCInitWorldRoomReq {
+			int32 ZoneID = 1;
+			int64 AccountID = 2;
+		}
+
+		message RPCEnterWorldRoomReq {
+			int32 ZoneID = 1;
+			int64 AccountID = 2;
+			int32 GatesvrID = 3;
+		}
+
+		message RPCEnterWorldRoomNoti {
+			int32 Ret = 1;
+			int64 WorldRoomID = 2;
+		}
+
+		message RPCGetWorldRoomListReq {
+			int32 ZoneID = 1;
+			int64 AccountID = 2;
+		}
+
+		message RPCGetWorldRoomListNoti {
+			int32 Ret = 1;
+			repeated WorldRoomInfo RoomInfos = 2;
+		}
+
+		message RPCSwitchWorldRoomReq {
+			int32 ZoneID = 1;
+			int64 AccountID = 2;
+			int64 TargetRoomID = 3;
+		}
+
+		message RPCSwitchWorldRoomNoti {
+			int32 Ret = 1;
+			int64 WorldRoomID = 2;
+		}
+
+		message RPCEnterIMReq {
+			int64 AccountID = 1;
+			repeated int64 RoomIDs = 2;
+			int32 GatesvrID = 3;
+		}
+
+		message RPCMigrateIMReq {
+			int64 AccountID = 1;
+			repeated int64 RoomIDs = 2;
+			int32 GatesvrID = 3;
+		}
+
+		message RPCLeaveIMReq {
+			int64 AccountID = 1;
+			bool IsSpec = 2;
+		}
+
+		message RPCEnterIMRoomReq {
+			int64 AccountID = 1;
+			int64 RoomID = 2;
+		}
+
+		message RPCLeaveIMRoomReq {
+			int64 AccountID = 1;
+			int64 RoomID = 2;
+		}
+
+		message RPCGenIMRoomIDReq {
+			int64 AccountID = 1;
+			int32 ChatRoomType = 2;
+		}
+
+		message RPCGenIMRoomIDNoti {
+			int32 Ret = 1;
+			int64 RoomID = 2;
+		}
+
+		message RPCSendIMMsgReq {
+			IMMsg Msg = 1;
+		}
+
+		message RPCSyncMsgReq {
+			int32 Type = 1;
+			int64 AccountID = 2;
+			int64 LastMsgID = 3;
+			int64 Receiver = 4;
+		}
+
+		message RPCSyncMsgNoti {
+			int32 Ret = 1;
+		}
+
+		message RPCCloseConnReq {
+			int64 AccountID = 1;
+			int32 GatesvrID = 2;
+		}
+
+		service IMService {
+			rpc Ping (.app.chat.GRPCPing) returns (.app.chat.GRPCPing);
+			rpc ServiceGMChatOpt (.app.chat.RPCGMChatOptReq) returns (.app.chat.RPCGMChatOptNoti);
+			rpc ServiceInitWorldRoom (.app.chat.RPCInitWorldRoomReq) returns (.app.chat.RPCCommonNoti);
+			rpc ServiceEnterWorldRoom (.app.chat.RPCEnterWorldRoomReq) returns (.app.chat.RPCEnterWorldRoomNoti);
+			rpc ServiceGetWorldRoomList (.app.chat.RPCGetWorldRoomListReq) returns (.app.chat.RPCGetWorldRoomListNoti);
+			rpc ServiceSwitchWorldRoom (.app.chat.RPCSwitchWorldRoomReq) returns (.app.chat.RPCSwitchWorldRoomNoti);
+			rpc ServiceLeaveIM (.app.chat.RPCLeaveIMReq) returns (.app.chat.RPCCommonNoti);
+			rpc ServiceEnterIM (.app.chat.RPCEnterIMReq) returns (.app.chat.RPCCommonNoti);
+			rpc ServiceEnterIMRoom (.app.chat.RPCEnterIMRoomReq) returns (.app.chat.RPCCommonNoti);
+			rpc ServiceLeaveIMRoom (.app.chat.RPCLeaveIMRoomReq) returns (.app.chat.RPCCommonNoti);
+			rpc ServiceGenIMRoomID (.app.chat.RPCGenIMRoomIDReq) returns (.app.chat.RPCGenIMRoomIDNoti);
+			rpc ServiceSendIMMsg (.app.chat.RPCSendIMMsgReq) returns (.app.chat.RPCCommonNoti);
+			rpc ServiceSyncMsg (.app.chat.RPCSyncMsgReq) returns (.app.chat.RPCSyncMsgNoti);
+			rpc ServiceCloseConn (.app.chat.RPCCloseConnReq) returns (.app.chat.RPCCommonNoti);
+		}
+
+		message MessageLoginIMReq {
+			int64 AccountID = 2;
+			string UserToken = 3;
+			string ClientIP = 4;
+		}
+
+		message MessageLoginIMResp {
+			int64 ID = 1;
+			int32 Ret = 2;
+			int64 AccountID = 3;
+			int64 WorldChatRoomID = 4;
+		}
+
+		message MessageCloseConn {
+			int64 AccountID = 2;
+			string UserToken = 3;
+		}
+	}
+
+	message circle {
+		message SaveCircleRequest {
+			.entity.SaveCircleParams params = 1;
+		}
+
+		message CreateCircleResponse {
+			uint64 circle_id = 1;
+			optional uint64 circle_chat_room_id = 2;
+			.entity.Notification notification = 3;
+		}
+
+		message GetCircleSettingRequest {
+		}
+
+		message GetCircleSettingResponse {
+			.entity.Circle circle = 1;
+			.entity.CirclePlayer circle_player = 2;
+			int32 circle_mission_reward_count = 3;
+			.entity.Notification notification = 4;
+		}
+
+		message EditCircleResponse {
+		}
+
+		message SearchRequest {
+			.entity.SearchOptions options = 1;
+		}
+
+		message SearchResponse {
+			repeated .entity.CircleWithMasterPlayer circles = 1;
+		}
+
+		message GetRecommendedCircleListRequest {
+		}
+
+		message GetRecommendedCircleListResponse {
+			repeated .entity.CircleWithMasterPlayer circles = 1;
+		}
+
+		message GetCircleRequest {
+			uint64 circle_id = 1;
+		}
+
+		message GetCircleResponse {
+			.entity.CircleDetailWithPlayerList circle = 1;
+		}
+
+		message ChangeAuthRequest {
+			string player_id = 1;
+		}
+
+		message ChangeAuthResponse {
+		}
+
+		message RemovePlayerRequest {
+			string player_id = 1;
+		}
+
+		message RemovePlayerResponse {
+		}
+
+		message ExitCircleRequest {
+		}
+
+		message ExitCircleResponse {
+		}
+
+		message UpdateCircleTopResponse {
+			.entity.UpdateCircleTop circle_top = 1;
+		}
+
+		service CircleService {
+			rpc CreateCircle (.app.circle.SaveCircleRequest) returns (.app.circle.CreateCircleResponse) {
+				option (entity.method_options.maintenance_features).circle = true;
+			}
+
+			rpc GetCircle (.app.circle.GetCircleSettingRequest) returns (.app.circle.GetCircleSettingResponse) {
+				option (entity.method_options.maintenance_features).circle = true;
+			}
+
+			rpc EditCircle (.app.circle.SaveCircleRequest) returns (.app.circle.EditCircleResponse) {
+				option (entity.method_options.maintenance_features).circle = true;
+			}
+
+			rpc Search (.app.circle.SearchRequest) returns (.app.circle.SearchResponse) {
+				option (entity.method_options.maintenance_features).circle = true;
+			}
+
+			rpc GetRecommendedCircleList (.app.circle.GetRecommendedCircleListRequest) returns (.app.circle.GetRecommendedCircleListResponse) {
+				option (entity.method_options.maintenance_features).circle = true;
+			}
+
+			rpc GetCircleDetail (.app.circle.GetCircleRequest) returns (.app.circle.GetCircleResponse) {
+				option (entity.method_options.maintenance_features).circle = true;
+			}
+
+			rpc TransferMaster (.app.circle.ChangeAuthRequest) returns (.app.circle.ChangeAuthResponse) {
+				option (entity.method_options.maintenance_features).circle = true;
+			}
+
+			rpc TransferSubmaster (.app.circle.ChangeAuthRequest) returns (.app.circle.ChangeAuthResponse) {
+				option (entity.method_options.maintenance_features).circle = true;
+			}
+
+			rpc SetSubmaster (.app.circle.ChangeAuthRequest) returns (.app.circle.ChangeAuthResponse) {
+				option (entity.method_options.maintenance_features).circle = true;
+			}
+
+			rpc UnsetSubmaster (.app.circle.ChangeAuthRequest) returns (.app.circle.ChangeAuthResponse) {
+				option (entity.method_options.maintenance_features).circle = true;
+			}
+
+			rpc RemovePlayer (.app.circle.RemovePlayerRequest) returns (.app.circle.RemovePlayerResponse) {
+				option (entity.method_options.maintenance_features).circle = true;
+			}
+
+			rpc ExitCircle (.app.circle.ExitCircleRequest) returns (.app.circle.ExitCircleResponse) {
+				option (entity.method_options.maintenance_features).circle = true;
+			}
+
+			rpc DeleteCircle (.google.protobuf.Empty) returns (.google.protobuf.Empty) {
+				option (entity.method_options.maintenance_features).circle = true;
+			}
+
+			rpc UpdateCircleTop (.google.protobuf.Empty) returns (.app.circle.UpdateCircleTopResponse) {
+				option (entity.method_options.maintenance_features).circle = true;
+			}
+		}
+	}
+
+	message circleinvitation {
+		message InviteCircleRequest {
+			optional string player_id = 1;
+		}
+
+		message RevokeCircleInvitationRequest {
+			optional string player_id = 1;
+		}
+
+		message GetInvitationListRequest {
+		}
+
+		message GetInvitationListResponse {
+			repeated .entity.CircleInvitation invitations = 1;
+		}
+
+		message GetCircleInvitationRecommendListResponse {
+			repeated .entity.PlayerSimpleProfile player_basic_profiles = 1;
+		}
+
+		message GetInvitablePlayerRequest {
+			optional string player_id = 1;
+		}
+
+		message GetInvitablePlayerResponse {
+			.entity.PlayerSimpleProfile player_basic_profile = 1;
+		}
+
+		message GetInvitingPlayerResponse {
+			repeated .entity.PlayerSimpleProfile player_basic_profiles = 1;
+		}
+
+		service CircleInvitationService {
+			rpc InviteCircle (.app.circleinvitation.InviteCircleRequest) returns (.google.protobuf.Empty) {
+				option (entity.method_options.maintenance_features).circle = true;
+			}
+
+			rpc RevokeCircleInvitation (.app.circleinvitation.RevokeCircleInvitationRequest) returns (.google.protobuf.Empty) {
+				option (entity.method_options.maintenance_features).circle = true;
+			}
+
+			rpc GetInvitationList (.app.circleinvitation.GetInvitationListRequest) returns (.app.circleinvitation.GetInvitationListResponse) {
+				option (entity.method_options.maintenance_features).circle = true;
+			}
+
+			rpc GetCircleInvitationRecommendList (.google.protobuf.Empty) returns (.app.circleinvitation.GetCircleInvitationRecommendListResponse) {
+				option (entity.method_options.maintenance_features).circle = true;
+			}
+
+			rpc GetInvitablePlayer (.app.circleinvitation.GetInvitablePlayerRequest) returns (.app.circleinvitation.GetInvitablePlayerResponse) {
+				option (entity.method_options.maintenance_features).circle = true;
+			}
+
+			rpc GetInvitingPlayer (.google.protobuf.Empty) returns (.app.circleinvitation.GetInvitingPlayerResponse) {
+				option (entity.method_options.maintenance_features).circle = true;
+			}
+		}
+	}
+
+	message circlejoinrequest {
+		message CircleJoinReqRequest {
+			optional uint64 circle_id = 1;
+		}
+
+		message CircleJoinReqResponse {
+			optional uint64 circle_id = 1;
+		}
+
+		message CircleJoinApproveRequest {
+			optional string player_id = 1;
+		}
+
+		message CircleJoinApproveResponse {
+		}
+
+		message CircleJoinRevokeRequest {
+			optional string player_id = 1;
+		}
+
+		message CircleJoinRevokeResponse {
+		}
+
+		message GetCircleJoinRequestListResponse {
+			repeated .entity.CircleJoinRequest circle_join_requests = 1;
+		}
+
+		service CircleJoinReqService {
+			rpc CircleJoinReq (.app.circlejoinrequest.CircleJoinReqRequest) returns (.app.circlejoinrequest.CircleJoinReqResponse) {
+				option (entity.method_options.maintenance_features).circle = true;
+			}
+
+			rpc CircleJoinApprove (.app.circlejoinrequest.CircleJoinApproveRequest) returns (.app.circlejoinrequest.CircleJoinApproveResponse) {
+				option (entity.method_options.maintenance_features).circle = true;
+			}
+
+			rpc CircleJoinRevoke (.app.circlejoinrequest.CircleJoinRevokeRequest) returns (.app.circlejoinrequest.CircleJoinRevokeResponse) {
+				option (entity.method_options.maintenance_features).circle = true;
+			}
+
+			rpc GetCircleJoinRequestList (.google.protobuf.Empty) returns (.app.circlejoinrequest.GetCircleJoinRequestListResponse) {
+				option (entity.method_options.maintenance_features).circle = true;
+			}
+		}
+	}
+
+	message circlemission {
+		message FetchCircleMissionResponse {
+			repeated .entity.CircleMissionProgress normal_missions = 1;
+			repeated .entity.CircleMissionProgress daily_missions = 2;
+		}
+
+		message ReceiveRequest {
+			repeated int64 mission_ids = 1;
+		}
+
+		message ReceiveResponse {
+			.entity.Notification notification = 1;
+		}
+
+		service CircleMissionService {
+			rpc Fetch (.google.protobuf.Empty) returns (.app.circlemission.FetchCircleMissionResponse) {
+				option (entity.method_options.maintenance_features).circle = true;
+			}
+
+			rpc Receive (.app.circlemission.ReceiveRequest) returns (.app.circlemission.ReceiveResponse) {
+				option (entity.method_options.maintenance_features).circle = true;
+			}
+		}
+	}
+
+	message circleplayer {
+		message AutoTransferMasterResponse {
+			optional string player_id = 1;
+		}
+
+		message GetPlayerAuthResponse {
+			.entity.CircleAuth auth = 1;
+		}
+
+		service CirclePlayerService {
+			rpc AutoTransferMaster (.google.protobuf.Empty) returns (.app.circleplayer.AutoTransferMasterResponse) {
+				option (entity.method_options.maintenance_features).circle = true;
+			}
+
+			rpc GetPlayerAuth (.google.protobuf.Empty) returns (.app.circleplayer.GetPlayerAuthResponse) {
+				option (entity.method_options.maintenance_features).circle = true;
+			}
+		}
+	}
+
+	message circleranking {
+		message GetCircleRankingResponse {
+			uint64 circle_ranking = 1;
+		}
+
+		service CircleRankingService {
+			rpc GetCircleRanking (.google.protobuf.Empty) returns (.app.circleranking.GetCircleRankingResponse) {
+				option (entity.method_options.maintenance_features).circle = true;
+			}
+		}
+	}
+
+	message circlerankupreward {
+		message GetCircleRankUpRewardReceivedResponse {
+			.entity.CircleRankUpRewardReceived circle_rank_up_reward_received = 1;
+		}
+
+		message ReceiveCircleRankUpRewardResponse {
+			repeated .entity.CircleRankUpRewardDetail rewards = 1;
+		}
+
+		service CircleRankUpRewardService {
+			rpc GetCircleRankUpRewardReceived (.google.protobuf.Empty) returns (.app.circlerankupreward.GetCircleRankUpRewardReceivedResponse) {
+				option (entity.method_options.maintenance_features).circle = true;
+			}
+
+			rpc ReceiveCircleRankUpReward (.google.protobuf.Empty) returns (.app.circlerankupreward.ReceiveCircleRankUpRewardResponse) {
+				option (entity.method_options.maintenance_features).circle = true;
+			}
+		}
+	}
+
+	message content_unlock {
+		message ShownRequest {
+			repeated int64 master_ids = 1;
+		}
+
+		message ShownResponse {
+		}
+
+		service ContentUnlockService {
+			rpc Shown (.app.content_unlock.ShownRequest) returns (.app.content_unlock.ShownResponse);
+		}
+	}
+
+	message debug {
+		message GainItemRequest {
+			map<int64, int32> items = 1;
+		}
+
+		message GainItemResponse {
+		}
+
+		message GainGemRequest {
+			int32 free = 1;
+			int32 paid = 2;
+			int32 ex = 3;
+		}
+
+		message GainGemResponse {
+		}
+
+		message GainPlayerRankExpRequest {
+			int32 add_exp = 1;
+		}
+
+		message GainPlayerRankExpResponse {
+			int32 prev_exp = 1;
+			int32 current_exp = 2;
+		}
+
+		message GainMusicRequest {
+			repeated int64 music_id = 1;
+		}
+
+		message GainMusicResponse {
+		}
+
+		message GainMemberCardRequest {
+			repeated int64 member_card_master_ids = 1;
+			repeated .entity.MemberCard member_cards = 2;
+		}
+
+		message GainMemberCardResponse {
+		}
+
+		message GainSupportCardRequest {
+			repeated int64 support_card_master_ids = 1;
+			repeated .entity.SupportCard support_cards = 2;
+		}
+
+		message UpdateSupportCardRequest {
+			repeated UpdateSupportCard update_support_cards = 1;
+		}
+
+		message UpdateSupportCard {
+			int64 support_card_master_id = 1;
+			int32 count = 2;
+		}
+
+		message GainSupportCardResponse {
+		}
+
+		message GainCharacterRankExpRequest {
+			int64 character_id = 1;
+			int32 add_exp = 2;
+		}
+
+		message GainCharacterRankExpResponse {
+		}
+
+		message GainCharacterFriendshipRankExpRequest {
+			int64 character_id_a = 1;
+			int64 character_id_b = 2;
+			int32 add_exp = 3;
+		}
+
+		message GainCharacterFriendshipRankExpResponse {
+		}
+
+		message PostPresentRequest {
+			int64 present_type_id = 1;
+			string present_param_1 = 2;
+			string present_param_2 = 3;
+			repeated .entity.PresentResource resources = 4;
+		}
+
+		message PostPresentResponse {
+		}
+
+		message UpdateLoginbonusRequest {
+			repeated int64 reset_bonus_ids = 1;
+			repeated int64 unlock_bonus_ids = 2;
+			repeated int64 yesterday_bonus_ids = 3;
+			bool set_yesterday_all = 4;
+		}
+
+		message UpdateShopTriggerProgress {
+			int64 shop_id = 1;
+			int64 trigger_id = 2;
+			int64 start_count_value = 3;
+			bool is_completed = 4;
+		}
+
+		message UpdateShopRequest {
+			int64 buy_shop_id = 1;
+			repeated int64 counter_reset_shop_ids = 2;
+			repeated UpdateShopTriggerProgress shop_trigger_progress = 3;
+			repeated int64 trigger_reset_shop_ids = 4;
+		}
+
+		message UpdateMissionRequest {
+			bool reset_all = 1;
+			bool unload_daily = 2;
+			bool normal_completion = 3;
+			repeated int64 clear_mission_ids = 4;
+			repeated int64 limited_mission_ids = 5;
+			bool init_start_count_zero = 6;
+		}
+
+		message UpdateMissionCounter {
+			int32 mission_type = 1;
+			int64 mission_param_1 = 2;
+			int64 mission_param_2 = 3;
+			int64 update_progress_value = 4;
+		}
+
+		message SetAnyValueLiveScoreRequest {
+			int64 live_music_id = 1;
+			int32 mode = 2;
+			int32 difficulty = 3;
+			int32 score = 4;
+			int32 combo = 5;
+		}
+
+		message SetAnyValueLiveScoreResponse {
+			repeated .entity.LiveScore live_score = 1;
+		}
+
+		message GainSeasonpassPointRequest {
+			int64 seasonpass_id = 1;
+			int32 point = 2;
+		}
+
+		message GainVipPointRequest {
+			int32 point = 1;
+		}
+
+		message GainOfflinebonusUnitExpRequest {
+			int64 offline_bonus_unit_id = 1;
+			int32 exp = 2;
+		}
+
+		message UpdateMissionCounterRequest {
+			repeated UpdateMissionCounter upd = 1;
+		}
+
+		message BulkInsertSupportCardRequest {
+		}
+
+		message BulkInsertMemberCardRequest {
+		}
+
+		message EmptyResponse {
+		}
+
+		message DeleteWithdrawalRequest {
+		}
+
+		message DeleteWithdrawalResponse {
+		}
+
+		message UpdateAllCircleMasterLoginAtRequest {
+		}
+
+		message UpdateAllCircleMasterLoginAtResponse {
+		}
+
+		message AddCircleTotalPointRequest {
+			uint32 add_point = 1;
+		}
+
+		message AddCircleTotalPointResponse {
+		}
+
+		message ResetCircleRankRequest {
+		}
+
+		message ResetCircleRankResponse {
+		}
+
+		message ResetCircleRankUpRewardReceivedRequest {
+		}
+
+		message ResetCircleRankUpRewardReceivedResponse {
+		}
+
+		message UpdateCircleMissionCounterRequest {
+			int64 mission_id = 1;
+			int64 count = 2;
+		}
+
+		message UpdateAllCircleMissionCounterRequest {
+			bool is_daily = 1;
+			bool is_clear = 2;
+		}
+
+		message AddPlayerCirclePointRequest {
+			uint32 add_point = 1;
+		}
+
+		message GainGachaPointRequest {
+			int64 gacha_id = 1;
+			int32 point = 2;
+		}
+
+		message GainGachaPointResponse {
+		}
+
+		message SetChallengePointRequest {
+			int64 event_id = 1;
+			int32 point = 2;
+		}
+
+		service DebugService {
+			rpc GainItem (.app.debug.GainItemRequest) returns (.app.debug.GainItemResponse);
+			rpc GainGem (.app.debug.GainGemRequest) returns (.app.debug.GainGemResponse);
+			rpc GainPlayerRankExp (.app.debug.GainPlayerRankExpRequest) returns (.app.debug.GainPlayerRankExpResponse);
+			rpc GainMusic (.app.debug.GainMusicRequest) returns (.app.debug.GainMusicResponse);
+			rpc GainMemberCard (.app.debug.GainMemberCardRequest) returns (.app.debug.GainMemberCardResponse);
+			rpc GainSupportCard (.app.debug.GainSupportCardRequest) returns (.app.debug.GainSupportCardResponse);
+			rpc GainCharacterRankExp (.app.debug.GainCharacterRankExpRequest) returns (.app.debug.GainCharacterRankExpResponse);
+			rpc GainCharacterFriendshipRankExp (.app.debug.GainCharacterFriendshipRankExpRequest) returns (.app.debug.GainCharacterFriendshipRankExpResponse);
+			rpc PostPresent (.app.debug.PostPresentRequest) returns (.app.debug.PostPresentResponse);
+			rpc UpdateLoginbonus (.app.debug.UpdateLoginbonusRequest) returns (.app.debug.EmptyResponse);
+			rpc UpdateShop (.app.debug.UpdateShopRequest) returns (.app.debug.EmptyResponse);
+			rpc UpdateMissionCounter (.app.debug.UpdateMissionCounterRequest) returns (.app.debug.EmptyResponse);
+			rpc UpdateMission (.app.debug.UpdateMissionRequest) returns (.app.debug.EmptyResponse);
+			rpc UpdateSupportCard (.app.debug.UpdateSupportCardRequest) returns (.app.debug.EmptyResponse);
+			rpc SetAnyValueLiveScore (.app.debug.SetAnyValueLiveScoreRequest) returns (.app.debug.SetAnyValueLiveScoreResponse);
+			rpc GainSeasonpassPoint (.app.debug.GainSeasonpassPointRequest) returns (.app.debug.EmptyResponse);
+			rpc GainVipPoint (.app.debug.GainVipPointRequest) returns (.app.debug.EmptyResponse);
+			rpc GainOfflinebonusUnitExp (.app.debug.GainOfflinebonusUnitExpRequest) returns (.app.debug.EmptyResponse);
+			rpc DeleteWithdrawal (.app.debug.DeleteWithdrawalRequest) returns (.app.debug.DeleteWithdrawalResponse);
+			rpc UpdateAllCircleMasterLoginAt (.app.debug.UpdateAllCircleMasterLoginAtRequest) returns (.app.debug.EmptyResponse);
+			rpc AddCircleTotalPoint (.app.debug.AddCircleTotalPointRequest) returns (.app.debug.AddCircleTotalPointResponse);
+			rpc ResetCircleRank (.app.debug.ResetCircleRankRequest) returns (.app.debug.ResetCircleRankResponse);
+			rpc ResetCircleRankUpRewardReceived (.app.debug.ResetCircleRankUpRewardReceivedRequest) returns (.app.debug.ResetCircleRankUpRewardReceivedResponse);
+			rpc UpdateCircleMissionCounter (.app.debug.UpdateCircleMissionCounterRequest) returns (.google.protobuf.Empty);
+			rpc UpdateAllCircleMissionCounter (.app.debug.UpdateAllCircleMissionCounterRequest) returns (.google.protobuf.Empty);
+			rpc AddPlayerCirclePoint (.app.debug.AddPlayerCirclePointRequest) returns (.google.protobuf.Empty);
+			rpc ResetPlayerTotalCirclePoint (.google.protobuf.Empty) returns (.google.protobuf.Empty);
+			rpc ResetPlayerWeeklyCirclePoint (.google.protobuf.Empty) returns (.google.protobuf.Empty);
+			rpc ResetCircleWeeklyPoint (.google.protobuf.Empty) returns (.google.protobuf.Empty);
+			rpc ResetAllCircleWeeklyPoint (.google.protobuf.Empty) returns (.google.protobuf.Empty);
+			rpc ResetCircleRankingRewardReceived (.google.protobuf.Empty) returns (.google.protobuf.Empty);
+			rpc GainGachaPoint (.app.debug.GainGachaPointRequest) returns (.app.debug.GainGachaPointResponse);
+			rpc SetChallengePoint (.app.debug.SetChallengePointRequest) returns (.app.debug.EmptyResponse);
+		}
+	}
+
+	message deck {
+		message SaveDecksRequest {
+			repeated .entity.Deck decks = 1;
+			int32 main_deck = 2;
+		}
+
+		message SaveDecksResponse {
+			.entity.Notification notification = 1;
+		}
+
+		service DeckService {
+			rpc SaveDecks (.app.deck.SaveDecksRequest) returns (.app.deck.SaveDecksResponse);
+		}
+	}
+
+	message event {
+		message ExecuteBoxGachaRequest {
+			int64 event_id = 1;
+			int32 count = 2;
+		}
+
+		message ExecuteBoxGachaResponse {
+			repeated int64 reward_id = 1;
+			.entity.Notification notification = 2;
+		}
+
+		message ResetBoxGachaRequest {
+			int64 event_id = 1;
+		}
+
+		message ResetBoxGachaResponse {
+		}
+
+		message GetRankRequest {
+			int64 event_id = 1;
+		}
+
+		message GetRankResponse {
+			int32 rank = 1;
+		}
+
+		message GetDeckRequest {
+			string player_id = 1;
+			int64 event_id = 2;
+		}
+
+		message GetDeckResponse {
+			.entity.DeckDetail deck = 1;
+		}
+
+		message GetRankingListRequest {
+			int64 event_id = 1;
+			repeated int32 ranks = 2;
+		}
+
+		message EventRankingEntry {
+			.entity.PlayerSimpleProfile profile = 1;
+			int32 rank = 2;
+			int32 point = 3;
+		}
+
+		message GetRankingListResponse {
+			repeated EventRankingEntry ranking = 1;
+		}
+
+		message GetChallengeMusicRankingRequest {
+			int64 challenge_music_id = 1;
+		}
+
+		message ChallengeLiveRankingPlayer {
+			.entity.PlayerSimpleProfile player_data = 1;
+			int32 score = 3;
+			.entity.DeckDetail high_score_deck = 4;
+		}
+
+		message GetChallengeMusicRankingResponse {
+			repeated ChallengeLiveRankingPlayer players = 1;
+			int32 my_rank = 2;
+			int32 my_score = 3;
+		}
+
+		service EventService {
+			rpc ExecuteBoxGacha (.app.event.ExecuteBoxGachaRequest) returns (.app.event.ExecuteBoxGachaResponse);
+			rpc ResetBoxGacha (.app.event.ResetBoxGachaRequest) returns (.app.event.ResetBoxGachaResponse);
+			rpc GetRank (.app.event.GetRankRequest) returns (.app.event.GetRankResponse);
+			rpc GetDeck (.app.event.GetDeckRequest) returns (.app.event.GetDeckResponse);
+			rpc GetRankingList (.app.event.GetRankingListRequest) returns (.app.event.GetRankingListResponse);
+			rpc GetChallengeMusicRanking (.app.event.GetChallengeMusicRankingRequest) returns (.app.event.GetChallengeMusicRankingResponse);
+		}
+	}
+
+	message exchange {
+		message ExchangeRequest {
+			int64 product_id = 1;
+			int32 amount = 2;
+		}
+
+		message ExchangeResponse {
+			.entity.Notification notification = 1;
+		}
+
+		service ExchangeService {
+			rpc Exchange (.app.exchange.ExchangeRequest) returns (.app.exchange.ExchangeResponse);
+		}
+	}
+
+	message external_payments {
+		enum PaymentDenyReason {
+			DENY_REASON_NONE = 0;
+			DENY_REASON_LIMIT_REACHED = 1;
+			DENY_REASON_BY_OTHER_PAYMENT = 2;
+			DENY_REASON_TIME_LIMIT = 3;
+		}
+
+		enum ShopResetType {
+			SHOP_RESET_TYPE_NONE = 0;
+			SHOP_RESET_TYPE_TOTAL = 1;
+			SHOP_RESET_TYPE_DAILY = 2;
+			SHOP_RESET_TYPE_WEEKLY = 3;
+			SHOP_RESET_TYPE_MONTHLY = 4;
+		}
+
+		message CheckMaintenanceRequest {
+		}
+
+		message CheckMaintenanceResponse {
+			bool is_maint = 1;
+		}
+
+		message ItemStatusRequest {
+			int64 shop_item_id = 1;
+		}
+
+		message ItemStatusResponse {
+			PaymentDenyReason status = 1;
+			int64 remain_count = 2;
+			ShopResetType reset_type = 3;
+		}
+
+		message ExecutePaymentRequest {
+			int64 shop_item_id = 1;
+		}
+
+		message ExecutePaymentResponse {
+			PaymentDenyReason status = 1;
+		}
+
+		message GetProductListRequest {
+		}
+
+		message ProductListItem {
+			int64 shop_item_id = 1;
+			PaymentDenyReason status = 2;
+			int32 remain_count = 3;
+			int32 required_player_rank = 4;
+			int32 required_vip_rank = 5;
+			string item_name = 6;
+			int32 price = 7;
+			string description_text = 8;
+			int32 priority = 9;
+			string start_at = 10;
+			string end_at = 11;
+			int32 limit_consume_count = 12;
+			ShopResetType reset_type = 13;
+			string banner = 14;
+			string notes_text = 15;
+		}
+
+		message GetProductListResponse {
+			repeated ProductListItem items = 1;
+		}
+
+		service ExternalPaymentsService {
+			rpc Nop (.google.protobuf.Empty) returns (.google.protobuf.Empty) {
+				option (entity.method_options.external_payments) = true;
+				option (entity.method_options.skip_authentication) = true;
+			}
+
+			rpc ItemStatus (.app.external_payments.ItemStatusRequest) returns (.app.external_payments.ItemStatusResponse) {
+				option (entity.method_options.external_payments) = true;
+				option (entity.method_options.skip_authentication) = true;
+			}
+
+			rpc ExecutePayment (.app.external_payments.ExecutePaymentRequest) returns (.app.external_payments.ExecutePaymentResponse) {
+				option (entity.method_options.external_payments) = true;
+				option (entity.method_options.skip_authentication) = true;
+			}
+
+			rpc GetProductList (.app.external_payments.GetProductListRequest) returns (.app.external_payments.GetProductListResponse) {
+				option (entity.method_options.external_payments) = true;
+				option (entity.method_options.skip_authentication) = true;
+			}
+		}
+	}
+
+	message feature_switch {
+		message GetRequest {
+		}
+
+		message GetResponse {
+			map<string, bool> switches = 1;
+		}
+
+		service FeatureSwitchService {
+			rpc Get (.app.feature_switch.GetRequest) returns (.app.feature_switch.GetResponse) {
+				option (entity.method_options.skip_authentication) = true;
+			}
+		}
+	}
+
+	message firebase {
+		message FirebaseAppCheckRequest {
+		}
+
+		message FirebaseAppCheckResponse {
+		}
+
+		service FirebaseService {
+			rpc FirebaseAppCheck (.app.firebase.FirebaseAppCheckRequest) returns (.app.firebase.FirebaseAppCheckResponse) {
+				option (entity.method_options.skip_authentication) = true;
+			}
+		}
+	}
+
+	message friend {
+		message FriendApprovalRequest {
+			string target_player_id = 1;
+			string search_route = 2;
+		}
+
+		message FriendApprovalResponse {
+			bool is_accepted = 2;
+			.entity.Notification notification = 3;
+			.entity.PlayerSimpleProfile player_profile = 4;
+
+			reserved 1;
+		}
+
+		message FriendRequestWithdrawalRequest {
+			string target_player_id = 1;
+		}
+
+		message FriendRequestWithdrawalResponse {
+		}
+
+		message FriendAnswerRequest {
+			repeated string target_player_ids = 1;
+			bool answer = 2;
+		}
+
+		message FriendAnswerResponse {
+			.entity.Notification notification = 2;
+			repeated .entity.PlayerSimpleProfile player_profiles = 3;
+
+			reserved 1;
+		}
+
+		message FriendUnlinkRequest {
+			string friend_player_id = 1;
+		}
+
+		message FriendUnlinkResponse {
+			.entity.Notification notification = 1;
+		}
+
+		message PlayerReportRequest {
+			string target_player_id = 1;
+			int32 report_type = 2;
+			repeated int64 report_ids = 3;
+		}
+
+		message PlayerReportResponse {
+		}
+
+		message FindByProfileIDRequest {
+			int64 player_profile_id = 1;
+		}
+
+		message FindByProfileIDResponse {
+			.entity.PlayerSimpleProfile player_profile = 2;
+
+			reserved 1;
+		}
+
+		service FriendService {
+			rpc FriendRequest (.app.friend.FriendApprovalRequest) returns (.app.friend.FriendApprovalResponse);
+			rpc FriendRequestWithdrawal (.app.friend.FriendRequestWithdrawalRequest) returns (.app.friend.FriendRequestWithdrawalResponse);
+			rpc FriendAnswer (.app.friend.FriendAnswerRequest) returns (.app.friend.FriendAnswerResponse);
+			rpc FriendUnlink (.app.friend.FriendUnlinkRequest) returns (.app.friend.FriendUnlinkResponse);
+			rpc PlayerReport (.app.friend.PlayerReportRequest) returns (.app.friend.PlayerReportResponse);
+			rpc FindByProfileID (.app.friend.FindByProfileIDRequest) returns (.app.friend.FindByProfileIDResponse);
+		}
+	}
+
+	message gacha {
+		message ExecuteRequest {
+			int64 gacha_id = 1;
+			int64 product_id = 2;
+			repeated int64 selected_pick_up = 3;
+		}
+
+		message ExecuteResponse {
+			repeated int64 prize_id = 1;
+			repeated int64 bonus_lot_id = 2;
+			.entity.Notification notification = 3;
+		}
+
+		message ExecuteVipRequest {
+			int64 gacha_id = 1;
+			int64 product_id = 2;
+			repeated int64 selected_pick_up = 3;
+			int32 draw_count = 4;
+		}
+
+		message ExecuteVipResponse {
+			repeated int64 prize_id = 1;
+			repeated int64 bonus_lot_id = 2;
+			.entity.Notification notification = 3;
+		}
+
+		message HistoryRequest {
+		}
+
+		message HistoryResponse {
+			repeated .entity.GachaHistory history = 1 [deprecated = true];
+			repeated .entity.GachaExecutionHistory execution_history = 2;
+		}
+
+		message ConvertPointRequest {
+			repeated int64 exchange_id = 1;
+		}
+
+		message ConvertPointResponse {
+			.entity.Notification notification = 1;
+		}
+
+		message CheckMaintenanceGachaRequest {
+		}
+
+		message CheckMaintenanceGachaResponse {
+		}
+
+		message ProbabilityRequest {
+			int64 gacha_id = 1;
+			int64 product_id = 2 [deprecated = true];
+			repeated int64 selected_pick_up = 3;
+		}
+
+		message ProbabilityResponse {
+			repeated .entity.LotProbability lot = 1 [deprecated = true];
+			repeated .entity.PrizeProbability prize = 2 [deprecated = true];
+			repeated .entity.LotProbability ensured_lot = 3 [deprecated = true];
+			repeated .entity.PrizeProbability ensured_prize = 4 [deprecated = true];
+			map<int32, .entity.Probability> probabilities = 5;
+			map<int64, int32> products = 6;
+			map<int64, int32> ensured_products = 7;
+		}
+
+		service GachaService {
+			rpc Execute (.app.gacha.ExecuteRequest) returns (.app.gacha.ExecuteResponse) {
+				option (entity.method_options.maintenance_features).gacha = true;
+			}
+
+			rpc ExecuteVip (.app.gacha.ExecuteVipRequest) returns (.app.gacha.ExecuteVipResponse) {
+				option (entity.method_options.maintenance_features).gacha = true;
+			}
+
+			rpc History (.app.gacha.HistoryRequest) returns (.app.gacha.HistoryResponse) {
+				option (entity.method_options.maintenance_features).gacha = true;
+			}
+
+			rpc ConvertPoint (.app.gacha.ConvertPointRequest) returns (.app.gacha.ConvertPointResponse) {
+				option (entity.method_options.maintenance_features).gacha = true;
+			}
+
+			rpc CheckMaintenanceGacha (.app.gacha.CheckMaintenanceGachaRequest) returns (.app.gacha.CheckMaintenanceGachaResponse) {
+				option (entity.method_options.maintenance_features).gacha = true;
+			}
+
+			rpc Probability (.app.gacha.ProbabilityRequest) returns (.app.gacha.ProbabilityResponse) {
+				option (entity.method_options.maintenance_features).gacha = true;
+			}
+		}
+	}
+
+	message gem {
+		message HistoryRequest {
+		}
+
+		message HistoryResponse {
+			repeated .entity.GemHistory histories = 1;
+		}
+
+		service GemService {
+			rpc History (.app.gem.HistoryRequest) returns (.app.gem.HistoryResponse);
+		}
+	}
+
+	message home {
+		message GetHomeRequest {
+		}
+
+		message GetHomeResponse {
+			repeated .entity.Announcement announcements = 1;
+			repeated .entity.LoginBonusSheet login_bonus_update = 2;
+			.entity.Notification notification = 3;
+			.entity.Friends friends = 4;
+			repeated .entity.InvitationProfile invitations = 5;
+			int32 player_favorite = 6;
+			repeated .entity.MonthlyPassState monthly_passes = 8;
+			repeated .entity.MonthlyPassDailyReward monthly_pass_daily_rewards = 9;
+			.entity.PersonalNotification personal_notification = 10;
+
+			reserved 7;
+		}
+
+		service HomeService {
+			rpc Get (.app.home.GetHomeRequest) returns (.app.home.GetHomeResponse);
+		}
+	}
+
+	message integrity {
+		message IntegrityCheckRequest {
+			string token = 1;
+		}
+
+		message IntegrityCheckResponse {
+			.entity.RequestDetails request_details = 1;
+			.entity.AppIntegrity app_integrity = 2;
+			.entity.DeviceIntegrity device_integrity = 3;
+			.entity.AccountDetails account_details = 4;
+		}
+
+		service IntegrityService {
+			rpc IntegrityCheck (.app.integrity.IntegrityCheckRequest) returns (.app.integrity.IntegrityCheckResponse) {
+				option (entity.method_options.skip_authentication) = true;
+			}
+		}
+	}
+
+	message invitation {
+		message GenerateInvitationCodeRequest {
+		}
+
+		message GenerateInvitationCodeResponse {
+			string invitation_code = 1;
+		}
+
+		message InputInvitationCodeRequest {
+			string invitation_code = 1;
+		}
+
+		message InputInvitationCodeResponse {
+			bool is_establishment = 1;
+		}
+
+		message UpdateInvitationViewRequest {
+			repeated string target_player_ids = 1;
+		}
+
+		message UpdateInvitationViewResponse {
+		}
+
+		service InvitationService {
+			rpc GenerateInvitationCode (.app.invitation.GenerateInvitationCodeRequest) returns (.app.invitation.GenerateInvitationCodeResponse);
+			rpc InputInvitationCode (.app.invitation.InputInvitationCodeRequest) returns (.app.invitation.InputInvitationCodeResponse);
+			rpc UpdateInvitationView (.app.invitation.UpdateInvitationViewRequest) returns (.app.invitation.UpdateInvitationViewResponse);
+		}
+	}
+
+	message live {
+		message StartFreeRequest {
+			int64 music_id = 1;
+			int32 difficulty = 2;
+			int32 boost = 3;
+			int32 deck_id = 4;
+		}
+
+		message StartFreeResponse {
+		}
+
+		message FinishFreeRequest {
+			int32 clear_status = 1;
+			int32 score = 2;
+			int32 combo = 3;
+			.entity.LiveFinish live_finish = 4;
+		}
+
+		message FinishFreeResponse {
+			repeated int64 reward_id = 1;
+			repeated .entity.LiveEventReward event_reward = 2;
+			repeated int64 total_highscore_rating_reward_ids = 3;
+			repeated .entity.BandHighScoreRatingReward band_highscore_rating_rewards = 4;
+			repeated .entity.RewardResource music_rewards = 5;
+			.entity.Notification notification = 6;
+			repeated .entity.RewardResource campaign_drop_rewards = 7;
+		}
+
+		message StartChallengeLiveRequest {
+			int64 challenge_music_id = 1;
+			int32 difficulty = 2;
+			int32 consume_challenge_point = 3;
+			int32 deck_id = 4;
+		}
+
+		message StartChallengeLiveResponse {
+		}
+
+		message FinishChallengeLiveRequest {
+			int64 event_id = 1;
+			.entity.LiveFinish live_finish = 2;
+		}
+
+		message FinishChallengeLiveResponse {
+			repeated int64 reward_id = 1;
+			repeated .entity.LiveEventReward event_reward = 2;
+			repeated int64 total_highscore_rating_reward_ids = 3;
+			repeated .entity.BandHighScoreRatingReward band_highscore_rating_rewards = 4;
+			repeated .entity.RewardResource music_rewards = 5;
+			.entity.Notification notification = 6;
+			repeated .entity.RewardResource campaign_drop_rewards = 7;
+		}
+
+		message StartBattleLiveRequest {
+			int64 music_id = 1;
+			int32 difficulty = 2;
+			int32 boost = 3;
+			int32 deck_id = 4;
+			string room_id = 5;
+			int64 lobby_id = 6;
+		}
+
+		message StartBattleLiveResponse {
+		}
+
+		message FinishBattleLiveRequest {
+			.entity.LiveFinish live_finish = 1;
+			.entity.BattleLivePlayerResult player_result = 2;
+			repeated .entity.GekisouRanking gekisou_rankings = 3;
+			int32 player_count = 4;
+		}
+
+		message FinishBattleLiveResponse {
+			repeated int64 reward_id = 1;
+			repeated .entity.LiveEventReward event_reward = 2 [deprecated = true];
+			repeated int64 highscore_reward_id = 3 [deprecated = true];
+			repeated .entity.RewardResource music_rewards = 4;
+			.entity.Notification notification = 5;
+			repeated int64 battle_live_reward_ids = 6 [deprecated = true];
+			repeated int64 battle_live_gekisou_reward_ids = 7 [deprecated = true];
+			repeated int64 total_highscore_rating_reward_ids = 8;
+			repeated .entity.BandHighScoreRatingReward band_highscore_rating_rewards = 9;
+		}
+
+		message GetBattleLiveResultRequest {
+		}
+
+		message GetBattleLiveResultResponse {
+			repeated .entity.BattleLivePlayerResult player_result = 1;
+			repeated int64 battle_live_gekisou_reward_ids = 2;
+			.entity.GekisouRankingRewardState reward_state = 3;
+			repeated int64 battle_live_reward_ids = 4;
+			repeated .entity.LiveEventReward event_reward = 5;
+			.entity.Notification notification = 6;
+			repeated .entity.BattleLiveRewardResource battle_live_rewards = 7;
+			repeated .entity.RewardResource campaign_drop_rewards = 8;
+		}
+
+		message SkipFreeRequest {
+			int64 music_id = 1;
+			int32 difficulty = 2;
+			int32 boost = 3;
+			int32 deck_id = 4;
+			int32 current_deck_total_power = 5;
+		}
+
+		message SkipFreeResponse {
+			repeated int64 reward_id = 1;
+			repeated .entity.LiveEventReward event_reward = 2;
+			.entity.Notification notification = 3;
+			repeated .entity.RewardResource campaign_drop_rewards = 4;
+		}
+
+		message SkipChallengeLiveRequest {
+			int64 challenge_music_id = 1;
+			int32 difficulty = 2;
+			int32 consume_challenge_point = 3;
+			int32 deck_id = 4;
+			int32 current_deck_total_power = 5;
+		}
+
+		message SkipChallengeLiveResponse {
+			repeated int64 reward_id = 1;
+			repeated .entity.LiveEventReward event_reward = 2;
+			.entity.Notification notification = 3;
+			repeated .entity.RewardResource campaign_drop_rewards = 4;
+		}
+
+		message SaveSettingRequest {
+			bytes setting_all = 1;
+		}
+
+		message SaveSettingResponse {
+		}
+
+		message GetBattleLiveSearchIdRequest {
+		}
+
+		message GetBattleLiveSearchIdResponse {
+			int32 search_id = 1;
+		}
+
+		message CheckMaintenanceCasualMatchRequest {
+		}
+
+		message CheckMaintenanceCasualMatchResponse {
+		}
+
+		message CheckMaintenanceRankMatchRequest {
+		}
+
+		message CheckMaintenanceRankMatchResponse {
+		}
+
+		message CheckMaintenanceFreeRequest {
+		}
+
+		message CheckMaintenanceFreeResponse {
+		}
+
+		message RemoveBattleLiveInvitationRequest {
+			int64 lobby_id = 1;
+		}
+
+		message GainStampRewardRequest {
+			int64 reward_id = 1;
+		}
+
+		message GainStampRewardResponse {
+			.entity.Notification notification = 1;
+		}
+
+		message SendBattleLiveInvitationRequest {
+			int64 lobby_id = 1;
+			repeated string target_player_ids = 2;
+			string host_player_id = 3;
+		}
+
+		message FetchBattleLiveInvitationResponse {
+			repeated .entity.BattleLiveInvitation invitations = 1;
+		}
+
+		message StartArenaLiveRequest {
+			int64 arena_season_id = 1;
+			int64 arena_music_id = 2;
+			int32 difficulty = 3;
+			int32 boost = 4;
+			int32 arena_dedicated_deck_id = 5;
+			string room_id = 6;
+			repeated int64 arena_support_item_ids = 7;
+			int64 lobby_id = 8;
+		}
+
+		message StartArenaLiveResponse {
+		}
+
+		message FinishArenaLiveRequest {
+			int64 arena_season_id = 1;
+			int64 arena_music_id = 2;
+			.entity.LiveFinish live_finish = 3;
+			.entity.BattleLivePlayerResult player_result = 4;
+			repeated .entity.GekisouRanking gekisou_rankings = 5;
+			int32 player_count = 6;
+		}
+
+		message FinishArenaLiveResponse {
+			repeated int64 reward_id = 1;
+			repeated .entity.LiveEventReward event_reward = 2;
+			repeated .entity.RewardResource music_rewards = 3;
+			.entity.Notification notification = 4;
+			repeated int64 total_highscore_rating_reward_ids = 5;
+			repeated .entity.BandHighScoreRatingReward band_highscore_rating_rewards = 6;
+		}
+
+		message GetArenaLiveResultRequest {
+			int64 arena_season_id = 1;
+			int64 arena_music_id = 2;
+			int64 arena_league_id = 3;
+		}
+
+		message GetArenaLiveResultResponse {
+			repeated .entity.BattleLivePlayerResult player_result = 1;
+			repeated int64 arena_live_gekisou_reward_ids = 2;
+			.entity.GekisouRankingRewardState reward_state = 3;
+			repeated int64 arena_promotion_reward_ids = 4;
+			repeated int64 arena_live_reward_ids = 5;
+			int64 arena_daily_reward = 6;
+			int64 current_league_point = 7;
+			int64 diff_league_point = 8;
+			int64 current_master_point = 9;
+			int64 diff_master_point = 10;
+			repeated .entity.LiveEventReward event_reward = 11;
+			repeated .entity.RewardResource campaign_drop_rewards = 12;
+		}
+
+		service LiveService {
+			rpc StartFree (.app.live.StartFreeRequest) returns (.app.live.StartFreeResponse) {
+				option (entity.method_options.maintenance_features).personal_live = true;
+			}
+
+			rpc FinishFree (.app.live.FinishFreeRequest) returns (.app.live.FinishFreeResponse);
+			rpc StartChallengeLive (.app.live.StartChallengeLiveRequest) returns (.app.live.StartChallengeLiveResponse);
+			rpc FinishChallengeLive (.app.live.FinishChallengeLiveRequest) returns (.app.live.FinishChallengeLiveResponse);
+			rpc SkipFree (.app.live.SkipFreeRequest) returns (.app.live.SkipFreeResponse);
+			rpc SkipChallengeLive (.app.live.SkipChallengeLiveRequest) returns (.app.live.SkipChallengeLiveResponse);
+
+			rpc StartBattleLive (.app.live.StartBattleLiveRequest) returns (.app.live.StartBattleLiveResponse) {
+				option (entity.method_options.maintenance_features).casual_match = true;
+			}
+
+			rpc CheckMaintenanceCasualMatch (.app.live.CheckMaintenanceCasualMatchRequest) returns (.app.live.CheckMaintenanceCasualMatchResponse) {
+				option (entity.method_options.maintenance_features).casual_match = true;
+			}
+
+			rpc CheckMaintenanceRankMatch (.app.live.CheckMaintenanceRankMatchRequest) returns (.app.live.CheckMaintenanceRankMatchResponse) {
+				option (entity.method_options.maintenance_features).rank_match = true;
+			}
+
+			rpc CheckMaintenanceFree (.app.live.CheckMaintenanceFreeRequest) returns (.app.live.CheckMaintenanceFreeResponse) {
+				option (entity.method_options.maintenance_features).personal_live = true;
+			}
+
+			rpc FinishBattleLive (.app.live.FinishBattleLiveRequest) returns (.app.live.FinishBattleLiveResponse);
+			rpc GetBattleLiveResult (.app.live.GetBattleLiveResultRequest) returns (.app.live.GetBattleLiveResultResponse);
+			rpc SaveSetting (.app.live.SaveSettingRequest) returns (.app.live.SaveSettingResponse);
+			rpc GainStampReward (.app.live.GainStampRewardRequest) returns (.app.live.GainStampRewardResponse);
+			rpc GetBattleLiveSearchId (.app.live.GetBattleLiveSearchIdRequest) returns (.app.live.GetBattleLiveSearchIdResponse);
+			rpc SendBattleLiveInvitation (.app.live.SendBattleLiveInvitationRequest) returns (.google.protobuf.Empty);
+			rpc FetchBattleLiveInvitation (.google.protobuf.Empty) returns (.app.live.FetchBattleLiveInvitationResponse);
+			rpc RemoveBattleLiveInvitation (.app.live.RemoveBattleLiveInvitationRequest) returns (.google.protobuf.Empty);
+
+			rpc StartArenaLive (.app.live.StartArenaLiveRequest) returns (.app.live.StartArenaLiveResponse) {
+				option (entity.method_options.maintenance_features).rank_match = true;
+			}
+
+			rpc FinishArenaLive (.app.live.FinishArenaLiveRequest) returns (.app.live.FinishArenaLiveResponse);
+			rpc GetArenaLiveResult (.app.live.GetArenaLiveResultRequest) returns (.app.live.GetArenaLiveResultResponse);
+		}
+	}
+
+	message liveboost {
+		message LiveBoostRecoveryRequest {
+			int32 type = 1;
+			int32 star_amount = 2;
+			map<int64, int32> items = 3;
+		}
+
+		message LiveBoostRecoveryResponse {
+			.entity.LiveBoost live_boost = 1;
+			.entity.Notification notification = 2;
+		}
+
+		message LiveBoostReqCheckResponse {
+			uint32 time_limit = 1;
+		}
+
+		message LiveBoostHelpRequest {
+			uint64 request_id = 1;
+		}
+
+		service LiveBoostService {
+			rpc Recovery (.app.liveboost.LiveBoostRecoveryRequest) returns (.app.liveboost.LiveBoostRecoveryResponse);
+			rpc LiveBoostReqCheck (.google.protobuf.Empty) returns (.app.liveboost.LiveBoostReqCheckResponse);
+			rpc LiveBoostReq (.google.protobuf.Empty) returns (.google.protobuf.Empty);
+			rpc LiveBoostHelp (.app.liveboost.LiveBoostHelpRequest) returns (.google.protobuf.Empty);
+		}
+	}
+
+	message livemusic {
+		message SaveFavoriteRequest {
+			int64 live_music_master_id = 1;
+			bool is_favorite_1 = 2;
+			bool is_favorite_2 = 3;
+			bool is_favorite_3 = 4;
+		}
+
+		message SaveFavoriteResponse {
+		}
+
+		message SavePuzzleRequest {
+			.entity.MusicPuzzle puzzle = 1;
+		}
+
+		message GetRankingRequest {
+			int64 music_id = 1;
+		}
+
+		message LiveRankingPlayer {
+			.entity.PlayerSimpleProfile player_data = 1;
+			int32 score = 3;
+			.entity.DeckDetail high_score_deck = 4;
+		}
+
+		message GetRankingResponse {
+			repeated LiveRankingPlayer players = 1;
+			int32 my_rank = 2;
+		}
+
+		service LiveMusicService {
+			rpc SaveFavorite (.app.livemusic.SaveFavoriteRequest) returns (.app.livemusic.SaveFavoriteResponse);
+			rpc SavePuzzle (.app.livemusic.SavePuzzleRequest) returns (.google.protobuf.Empty);
+			rpc GetRanking (.app.livemusic.GetRankingRequest) returns (.app.livemusic.GetRankingResponse);
+		}
+	}
+
+	message loginbonus {
+		message UpdateLoginbonusRequest {
+		}
+
+		message UpdateLoginbonusResponse {
+			repeated .entity.LoginBonusSheet received = 1;
+			repeated .entity.LoginBonusSheet not_received = 2;
+			.entity.Notification notification = 3;
+		}
+
+		service LoginBonusService {
+			rpc Update (.app.loginbonus.UpdateLoginbonusRequest) returns (.app.loginbonus.UpdateLoginbonusResponse);
+		}
+	}
+
+	message masterdata {
+		message VersionRequest {
+		}
+
+		message VersionResponse {
+			string version = 1;
+			string resource_version = 2;
+		}
+
+		service MasterdataService {
+			rpc Version (.app.masterdata.VersionRequest) returns (.app.masterdata.VersionResponse) {
+				option (entity.method_options.skip_authentication) = true;
+			}
+		}
+	}
+
+	message membercard {
+		message LevelUpRequest {
+			int64 member_card_master_id = 1;
+			int32 to_level = 2;
+			int32 highest_total_power = 3;
+		}
+
+		message LevelUpResponse {
+			.entity.Notification notification = 1;
+		}
+
+		message AwakeRequest {
+			int64 member_card_master_id = 1;
+			int32 to_awake_count = 2;
+			int32 highest_total_power = 3;
+		}
+
+		message AwakeResponse {
+			.entity.Notification notification = 1;
+		}
+
+		message SkillLevelUpRequest {
+			int64 member_card_master_id = 1;
+			int32 to_level = 2;
+			int32 highest_total_power = 3;
+		}
+
+		message SkillLevelUpResponse {
+			.entity.Notification notification = 1;
+		}
+
+		message RankUpRequest {
+			int64 member_card_master_id = 1;
+			int32 to_card_rank = 2;
+			repeated RankUpUseItem use_items = 3;
+			int32 highest_total_power = 4;
+		}
+
+		message RankUpUseItem {
+			int64 id = 1;
+			int32 amount = 2;
+			int32 type = 3;
+		}
+
+		message RankUpResponse {
+			.entity.Notification notification = 1;
+		}
+
+		service MemberCardService {
+			rpc LevelUp (.app.membercard.LevelUpRequest) returns (.app.membercard.LevelUpResponse);
+			rpc Awake (.app.membercard.AwakeRequest) returns (.app.membercard.AwakeResponse);
+			rpc LeaderSkillLevelUp (.app.membercard.SkillLevelUpRequest) returns (.app.membercard.SkillLevelUpResponse);
+			rpc LinkSkillLevelUp (.app.membercard.SkillLevelUpRequest) returns (.app.membercard.SkillLevelUpResponse);
+			rpc LiveSkillLevelUp (.app.membercard.SkillLevelUpRequest) returns (.app.membercard.SkillLevelUpResponse);
+			rpc PerformanceSkillLevelUp (.app.membercard.SkillLevelUpRequest) returns (.app.membercard.SkillLevelUpResponse);
+			rpc GekisouSkillLevelUp (.app.membercard.SkillLevelUpRequest) returns (.app.membercard.SkillLevelUpResponse);
+			rpc RankUp (.app.membercard.RankUpRequest) returns (.app.membercard.RankUpResponse);
+		}
+	}
+
+	message memory {
+		message UnlockMemoryMusicRequest {
+		}
+
+		message UnlockMemoryMusicResponse {
+			repeated .entity.MemoryMusics memory_musics = 1;
+		}
+
+		message UnlockMemoryMemberRequest {
+		}
+
+		message UnlockMemoryMemberResponse {
+			repeated .entity.MemoryMembers memory_members = 1;
+		}
+
+		message UnlockMemorySupportsRequest {
+		}
+
+		message UnlockMemorySupportsResponse {
+			repeated .entity.MemorySupports memory_supports = 1;
+		}
+
+		service MemoryService {
+			rpc UnlockMemoryMusic (.app.memory.UnlockMemoryMusicRequest) returns (.app.memory.UnlockMemoryMusicResponse);
+			rpc UnlockMemoryMember (.app.memory.UnlockMemoryMemberRequest) returns (.app.memory.UnlockMemoryMemberResponse);
+			rpc UnlockMemorySupports (.app.memory.UnlockMemorySupportsRequest) returns (.app.memory.UnlockMemorySupportsResponse);
+		}
+	}
+
+	message mission {
+		message FetchMissionRequest {
+		}
+
+		message FetchMissionResponse {
+			repeated .entity.MissionCounter mission_counters = 1;
+			repeated .entity.MissionProgress normal_missions = 2;
+			repeated .entity.MissionProgress limited_missions = 3;
+			repeated .entity.CharacterMissionReceived character_missions = 4;
+		}
+
+		message ReceiveRequest {
+			repeated int64 mission_ids = 1;
+		}
+
+		message ReceiveResponse {
+			.entity.Notification notification = 1;
+		}
+
+		message ReceiveLimitedRequest {
+			repeated int64 mission_ids = 1;
+		}
+
+		message ReceiveLimitedResponse {
+			.entity.Notification notification = 1;
+		}
+
+		message ReceiveCharacterRequest {
+			int64 character_id = 1;
+			repeated int64 mission_ids = 2;
+		}
+
+		message ReceiveCharacterResponse {
+			.entity.Notification notification = 1;
+		}
+
+		message FetchEventMissionRequest {
+			int64 event_id = 1;
+		}
+
+		message FetchEventMissionResponse {
+			repeated .entity.MissionCounter mission_counters = 1;
+			repeated .entity.MissionProgress mission_progresses = 2;
+			.entity.Notification notification = 3;
+		}
+
+		message ReceiveEventMissionRequest {
+			repeated int64 mission_ids = 1;
+		}
+
+		message ReceiveEventMissionResponse {
+			.entity.Notification notification = 1;
+		}
+
+		service MissionService {
+			rpc Fetch (.app.mission.FetchMissionRequest) returns (.app.mission.FetchMissionResponse);
+			rpc Receive (.app.mission.ReceiveRequest) returns (.app.mission.ReceiveResponse);
+			rpc ReceiveLimited (.app.mission.ReceiveLimitedRequest) returns (.app.mission.ReceiveLimitedResponse);
+			rpc ReceiveCharacter (.app.mission.ReceiveCharacterRequest) returns (.app.mission.ReceiveCharacterResponse);
+			rpc FetchEvent (.app.mission.FetchEventMissionRequest) returns (.app.mission.FetchEventMissionResponse);
+			rpc ReceiveEvent (.app.mission.ReceiveEventMissionRequest) returns (.app.mission.ReceiveEventMissionResponse);
+		}
+	}
+
+	message offlinebonus {
+		message StatusRequest {
+		}
+
+		message StatusResponse {
+			.entity.OfflineBonus offline_bonus = 1;
+			repeated .entity.OfflineBonusUnitLite offline_bonus_units = 2;
+		}
+
+		message DetailRequest {
+			int64 offline_bonus_unit_id = 1;
+		}
+
+		message DetailResponse {
+			.entity.OfflineBonusUnit offline_bonus_unit = 1;
+		}
+
+		message ReceiveRequest {
+			repeated int64 offline_bonus_unit_ids = 1;
+		}
+
+		message ReceiveResponse {
+			repeated .entity.OfflineBonusUnitResult unit_results = 1;
+			.entity.Notification notification = 2;
+		}
+
+		message SkipRequest {
+			int64 offline_bonus_unit_id = 1;
+			int32 type = 2;
+			int64 item_master_id = 3;
+		}
+
+		message SkipResponse {
+			.entity.OfflineBonus offline_bonus = 1;
+			.entity.OfflineBonusUnitResult unit_result = 2;
+			.entity.Notification notification = 3;
+		}
+
+		message ReceiveStockRequest {
+			int64 offline_bonus_unit_id = 1;
+		}
+
+		message ReceiveStockResponse {
+			.entity.OfflineBonusUnitResult unit_result = 1;
+			.entity.Notification notification = 2;
+		}
+
+		service OfflineBonusService {
+			rpc Status (.app.offlinebonus.StatusRequest) returns (.app.offlinebonus.StatusResponse);
+			rpc Detail (.app.offlinebonus.DetailRequest) returns (.app.offlinebonus.DetailResponse);
+			rpc Receive (.app.offlinebonus.ReceiveRequest) returns (.app.offlinebonus.ReceiveResponse);
+			rpc Skip (.app.offlinebonus.SkipRequest) returns (.app.offlinebonus.SkipResponse);
+			rpc ReceiveStock (.app.offlinebonus.ReceiveStockRequest) returns (.app.offlinebonus.ReceiveStockResponse);
+		}
+	}
+
+	message order {
+		message CreateOrderRequest {
+			string playerId = 1;
+			string userName = 2;
+			uint32 mallItemId = 3;
+			uint32 quantity = 4;
+			string provider = 5;
+			string pay_currency = 6;
+		}
+
+		message PaymentSuccessPollingRequest {
+			string playerId = 1;
+			string outTradeNo = 2;
+			string transactionId = 3;
+			string orderNo = 4;
+			uint32 globalChannelId = 5;
+			uint32 brandId = 6;
+			uint32 areaId = 7;
+		}
+
+		message CreateOrderResponse {
+			string outTradeNo = 1;
+			string extension_info = 2;
+			string notify_url = 3;
+			string order_sign = 4;
+			string product_id = 5;
+			string product_name = 6;
+			string product_desc = 7;
+			int64 amount = 8;
+			int64 game_money = 9;
+			string pay_type = 10;
+		}
+
+		message PaymentSuccessPollingResponse {
+			string outTradeNo = 1;
+			string playerId = 2;
+			uint32 mallItemId = 3;
+			string provider = 4;
+			string transactionId = 5;
+			string status = 6;
+		}
+
+		service OrderService {
+			rpc CreateOrder (.app.order.CreateOrderRequest) returns (.app.order.CreateOrderResponse);
+			rpc PaymentSuccessPolling (.app.order.PaymentSuccessPollingRequest) returns (.app.order.PaymentSuccessPollingResponse);
+		}
+	}
+
+	message personal_notification {
+		message FetchResponse {
+			.entity.PersonalNotification unread_notifications = 1;
+		}
+
+		message ClaimRequest {
+			repeated int64 claim_id = 1;
+		}
+
+		service PersonalNotificationService {
+			rpc Fetch (.google.protobuf.Empty) returns (.app.personal_notification.FetchResponse);
+			rpc Claim (.app.personal_notification.ClaimRequest) returns (.google.protobuf.Empty);
+		}
+	}
+
+	message pieceexchange {
+		message PieceExchangeRequest {
+			repeated Piece pieces = 1;
+			repeated DuplicateSupportCard support_cards = 2;
+		}
+
+		message PieceExchangeResponse {
+			.entity.Notification notification = 1;
+		}
+
+		message Piece {
+			int64 id = 1;
+			int32 count = 2;
+		}
+
+		message DuplicateSupportCard {
+			int64 support_card_master_id = 1;
+			int32 count = 2;
+		}
+
+		service PieceExchangeService {
+			rpc Exchange (.app.pieceexchange.PieceExchangeRequest) returns (.app.pieceexchange.PieceExchangeResponse);
+		}
+	}
+
+	message player {
+		message RegisterRequest {
+			string initial_data_group = 1;
+		}
+
+		message RegisterResponse {
+			.entity.PlayerCredential credential = 1;
+			int64 profile_id = 2;
+		}
+
+		message WhoamiRequest {
+		}
+
+		message WhoamiResponse {
+			string player_id = 1;
+		}
+
+		message GetPlayerDataRequest {
+		}
+
+		message GetPlayerDataResponse {
+			.entity.PlayerData player_data = 1;
+			.entity.Notification notification = 2;
+			.entity.Limitation limitation = 3;
+			.entity.Friends friends = 4;
+			.entity.Invitation invitation = 5;
+			int64 accountid = 6;
+			int64 world_room_id = 7;
+			string iap_google_account_binding = 8;
+			string iap_apple_account_binding = 9;
+			int32 chat_report_used_today = 100;
+			repeated int64 room_ids = 101;
+		}
+
+		message EditProfileRequest {
+			string name = 1;
+		}
+
+		message EditProfileResponse {
+		}
+
+		message ChangeFavoriteMemberRequest {
+			int64 member_id = 1;
+		}
+
+		message ChangeFavoriteMemberResponse {
+		}
+
+		message RegisterDeviceRequest {
+		}
+
+		message RegisterDeviceResponse {
+			.entity.PlayerCredential credential = 1;
+		}
+
+		message RegisterPasswordRequest {
+			string password = 1;
+		}
+
+		message RegisterPasswordResponse {
+			.entity.Notification notification = 1;
+		}
+
+		message GetPlayerByPasswordRequest {
+			int64 id = 1;
+			string password = 2;
+		}
+
+		message GetPlayerByPasswordResponse {
+			string nickname = 1;
+			int32 player_rank = 2;
+			int64 profile_id = 3;
+		}
+
+		message RegisterDeviceByPasswordRequest {
+			int64 id = 1;
+			string password = 2;
+		}
+
+		message RegisterDeviceByPasswordResponse {
+			.entity.PlayerCredential credential = 1;
+		}
+
+		message RegisterLinkedAccountRequest {
+			.entity.LinkedAccountType account_type = 1;
+			string id_token = 2;
+		}
+
+		message RegisterLinkedAccountResponse {
+			.entity.Notification notification = 1;
+		}
+
+		message UnregisterLinkedAccountRequest {
+			.entity.LinkedAccountType account_type = 1;
+		}
+
+		message UnregisterLinkedAccountResponse {
+		}
+
+		message UnlinkBushiroadIdRequest {
+			string token = 1;
+		}
+
+		message GetLinkedPlayerRequest {
+			.entity.LinkedAccountType account_type = 1;
+			string id_token = 2;
+		}
+
+		message GetLinkedPlayerResponse {
+			string nickname = 1;
+			int32 player_rank = 2;
+			int64 profile_id = 3;
+		}
+
+		message RegisterDeviceForLinkedPlayerRequest {
+			.entity.LinkedAccountType account_type = 1;
+			string id_token = 2;
+		}
+
+		message RegisterDeviceForLinkedPlayerResponse {
+			.entity.PlayerCredential credential = 1;
+		}
+
+		message GameCenterCredential {
+			string team_player_id = 1;
+			string public_key_url = 2;
+			string signature = 3;
+			string salt = 4;
+			uint64 timestamp = 5;
+		}
+
+		message RegisterGameCenterAccountRequest {
+			GameCenterCredential credential = 1;
+		}
+
+		message RegisterGameCenterAccountResponse {
+			.entity.Notification notification = 1;
+		}
+
+		message GetPlayerByGameCenterRequest {
+			GameCenterCredential credential = 1;
+		}
+
+		message GetPlayerByGameCenterResponse {
+			string nickname = 1;
+			int32 player_rank = 2;
+			int64 profile_id = 3;
+		}
+
+		message RegisterDeviceByGameCenterRequest {
+			GameCenterCredential credential = 1;
+		}
+
+		message RegisterDeviceByGameCenterResponse {
+			.entity.PlayerCredential credential = 1;
+		}
+
+		message CheckNgWordRequest {
+			string word = 1;
+		}
+
+		message CheckNgWordResponse {
+		}
+
+		message RemovePlayerDataRequest {
+		}
+
+		message RemovePlayerDataResponse {
+		}
+
+		message UpdatePlayerFavoriteRequest {
+			string player_id = 1;
+			bool is_cancel = 2;
+		}
+
+		message UpdatePlayerFavoriteResponse {
+		}
+
+		message GetCharacterOrdersRequest {
+		}
+
+		message GetCharacterOrdersResponse {
+			repeated int64 character_orders = 1;
+		}
+
+		message SaveCharacterOrdersRequest {
+			repeated int64 character_orders = 1;
+		}
+
+		message SaveCharacterOrdersResponse {
+		}
+
+		message SetNotificationSettingRequest {
+			bool is_night_notice_off = 1;
+		}
+
+		message SetNotificationSettingResponse {
+		}
+
+		message GetPlayerFavoriteStatusRequest {
+			string player_id = 1;
+		}
+
+		message GetPlayerFavoriteStatusResponse {
+			int64 total_favorite = 1;
+			bool is_sent_favorite = 2;
+		}
+
+		message SetCurrentCostumesRequest {
+			repeated .entity.CharacterCurrentCostume character_current_costumes = 1;
+		}
+
+		message SetCurrentCostumesResponse {
+		}
+
+		service PlayerService {
+			rpc Register (.app.player.RegisterRequest) returns (.app.player.RegisterResponse) {
+				option (entity.method_options.skip_authentication) = true;
+			}
+
+			rpc Whoami (.app.player.WhoamiRequest) returns (.app.player.WhoamiResponse);
+			rpc GetPlayerData (.app.player.GetPlayerDataRequest) returns (.app.player.GetPlayerDataResponse);
+			rpc FinishTutorial (.google.protobuf.Empty) returns (.google.protobuf.Empty);
+			rpc EditProfile (.app.player.EditProfileRequest) returns (.app.player.EditProfileResponse);
+			rpc ChangeFavoriteMember (.app.player.ChangeFavoriteMemberRequest) returns (.app.player.ChangeFavoriteMemberResponse);
+
+			rpc CheckNgWord (.app.player.CheckNgWordRequest) returns (.app.player.CheckNgWordResponse) {
+				option (entity.method_options.skip_authentication) = true;
+			}
+
+			rpc RemovePlayerData (.app.player.RemovePlayerDataRequest) returns (.app.player.RemovePlayerDataResponse);
+			rpc RegisterDevice (.app.player.RegisterDeviceRequest) returns (.app.player.RegisterDeviceResponse);
+			rpc RegisterPassword (.app.player.RegisterPasswordRequest) returns (.app.player.RegisterPasswordResponse);
+
+			rpc GetPlayerByPassword (.app.player.GetPlayerByPasswordRequest) returns (.app.player.GetPlayerByPasswordResponse) {
+				option (entity.method_options.skip_authentication) = true;
+			}
+
+			rpc RegisterDeviceByPassword (.app.player.RegisterDeviceByPasswordRequest) returns (.app.player.RegisterDeviceByPasswordResponse) {
+				option (entity.method_options.skip_authentication) = true;
+			}
+
+			rpc RegisterLinkedAccount (.app.player.RegisterLinkedAccountRequest) returns (.app.player.RegisterLinkedAccountResponse);
+			rpc UnregisterLinkedAccount (.app.player.UnregisterLinkedAccountRequest) returns (.app.player.UnregisterLinkedAccountResponse);
+
+			rpc GetLinkedPlayer (.app.player.GetLinkedPlayerRequest) returns (.app.player.GetLinkedPlayerResponse) {
+				option (entity.method_options.skip_authentication) = true;
+			}
+
+			rpc RegisterDeviceForLinkedPlayer (.app.player.RegisterDeviceForLinkedPlayerRequest) returns (.app.player.RegisterDeviceForLinkedPlayerResponse) {
+				option (entity.method_options.skip_authentication) = true;
+			}
+
+			rpc RegisterGameCenterAccount (.app.player.RegisterGameCenterAccountRequest) returns (.app.player.RegisterGameCenterAccountResponse);
+
+			rpc GetPlayerByGameCenter (.app.player.GetPlayerByGameCenterRequest) returns (.app.player.GetPlayerByGameCenterResponse) {
+				option (entity.method_options.skip_authentication) = true;
+			}
+
+			rpc RegisterDeviceByGameCenter (.app.player.RegisterDeviceByGameCenterRequest) returns (.app.player.RegisterDeviceByGameCenterResponse) {
+				option (entity.method_options.skip_authentication) = true;
+			}
+
+			rpc UpdatePlayerFavorite (.app.player.UpdatePlayerFavoriteRequest) returns (.app.player.UpdatePlayerFavoriteResponse);
+			rpc UnlinkBushiroadId (.app.player.UnlinkBushiroadIdRequest) returns (.google.protobuf.Empty);
+			rpc GetCharacterOrders (.app.player.GetCharacterOrdersRequest) returns (.app.player.GetCharacterOrdersResponse);
+			rpc SaveCharacterOrders (.app.player.SaveCharacterOrdersRequest) returns (.app.player.SaveCharacterOrdersResponse);
+			rpc SetNotificationSetting (.app.player.SetNotificationSettingRequest) returns (.app.player.SetNotificationSettingResponse);
+			rpc GetPlayerFavoriteStatus (.app.player.GetPlayerFavoriteStatusRequest) returns (.app.player.GetPlayerFavoriteStatusResponse);
+			rpc SetCurrentCostumes (.app.player.SetCurrentCostumesRequest) returns (.app.player.SetCurrentCostumesResponse);
+		}
+	}
+
+	message playerext {
+		message SyncDataRequest {
+		}
+
+		message SyncDataResponse {
+			int64 accountid = 1;
+			int64 world_room_id = 2;
+			.entity.Gem gem = 3;
+			.entity.LiveBoost live_boost = 4;
+		}
+
+		message GetPlayerListRequest {
+			repeated int64 account_ids = 1;
+		}
+
+		message GetPlayerListResponse {
+			repeated .entity.PlayerBriefInfo players = 1;
+		}
+
+		service PlayerExtService {
+			rpc SyncData (.app.playerext.SyncDataRequest) returns (.app.playerext.SyncDataResponse);
+			rpc GetPlayerList (.app.playerext.GetPlayerListRequest) returns (.app.playerext.GetPlayerListResponse);
+		}
+	}
+
+	message playerlogin {
+		message PlayerLoginRequest {
+			string sdkUid = 1;
+			string sdkAccessToken = 2;
+			uint32 platform = 3;
+			string deviceModel = 4;
+			string operatingSystem = 5;
+			string clientVersion = 6;
+			PlayerUuid uuid = 7;
+			string clientPackage = 8;
+			string initial_data_group = 9;
+			uint32 globalChannelId = 10;
+			uint32 brandId = 11;
+			uint32 areaId = 12;
+			string idToken = 13;
+		}
+
+		message PlayerUuid {
+			string adId = 1;
+			string identifier = 2;
+		}
+
+		message PlayerLoginResponse {
+			.entity.PlayerCredential credential = 1;
+			string cpServerId = 2;
+			string cpServerName = 3;
+			uint32 isNewUser = 4;
+		}
+
+		message PlayerPreLoginResponse {
+			bool isAccountCreated = 1;
+		}
+
+		message GetServerListRequest {
+		}
+
+		message ServerInfo {
+			string name = 1;
+			string cdnRoot = 2;
+			string apiServerRoot = 3;
+			string chatServerRoot = 4;
+			string atServerRoot = 5;
+			string liveServer = 6;
+			string displayName = 7;
+			string areaID = 8;
+			string ageIconSpriteName = 9;
+		}
+
+		message GetServerListResponse {
+			repeated ServerInfo servers = 1;
+		}
+
+		service PlayerLoginService {
+			rpc PlayerLogin (.app.playerlogin.PlayerLoginRequest) returns (.app.playerlogin.PlayerLoginResponse) {
+				option (entity.method_options.skip_authentication) = true;
+			}
+
+			rpc PlayerPreLogin (.app.playerlogin.PlayerLoginRequest) returns (.app.playerlogin.PlayerPreLoginResponse) {
+				option (entity.method_options.skip_authentication) = true;
+			}
+
+			rpc GetServerList (.app.playerlogin.GetServerListRequest) returns (.app.playerlogin.GetServerListResponse) {
+				option (entity.method_options.skip_authentication) = true;
+			}
+		}
+	}
+
+	message present {
+		message FetchRequest {
+		}
+
+		message FetchResponse {
+			repeated .entity.Present presents = 1;
+		}
+
+		message OpenRequest {
+			repeated uint64 present_ids = 1;
+		}
+
+		message OpenResponse {
+			repeated .entity.PresentUnreceived unreceived = 1;
+			.entity.Notification notification = 2;
+		}
+
+		message HistoryRequest {
+		}
+
+		message HistoryResponse {
+			repeated .entity.PresentHistory histories = 1;
+		}
+
+		service PresentService {
+			rpc Fetch (.app.present.FetchRequest) returns (.app.present.FetchResponse);
+			rpc Open (.app.present.OpenRequest) returns (.app.present.OpenResponse);
+			rpc History (.app.present.HistoryRequest) returns (.app.present.HistoryResponse);
+		}
+	}
+
+	message profilecard {
+		message SaveProfileCardRequest {
+			int32 slot = 1;
+			int32 index = 2;
+			string profile_object_json = 3;
+			string key = 4;
+			int32 disp_order = 5;
+		}
+
+		message SaveProfileCardResponse {
+			int32 slot = 1;
+			.entity.ProfileObject profile_object = 2;
+			.entity.Notification notification = 3;
+		}
+
+		message EditProfileCardSlotRequest {
+			int32 slot = 1;
+			string name = 2;
+		}
+
+		message EditProfileCardSlotResponse {
+		}
+
+		message SettingProfileCardRequest {
+			int32 slot = 1;
+			bool is_setting = 2;
+		}
+
+		message SettingProfileCardResponse {
+		}
+
+		message ObjectForPut {
+			string key = 1;
+			bytes body = 2;
+			string content_type = 3;
+		}
+
+		message PutObjectsRequest {
+			repeated ObjectForPut objects = 1;
+		}
+
+		message PutObjectsResponse {
+			repeated string errors = 1;
+			repeated string thumbnail_urls = 2;
+		}
+
+		message UpdateProfileCardDispOrderRequest {
+			int32 slot = 1;
+			repeated int32 disp_orders = 2;
+		}
+
+		message UpdateProfileCardDispOrderResponse {
+		}
+
+		message RemoveProfileCardRequest {
+			int32 slot = 1;
+			int32 index = 2;
+		}
+
+		message RemoveProfileCardResponse {
+		}
+
+		service ProfileCardService {
+			rpc SaveProfileCard (.app.profilecard.SaveProfileCardRequest) returns (.app.profilecard.SaveProfileCardResponse);
+			rpc EditProfileCardSlot (.app.profilecard.EditProfileCardSlotRequest) returns (.app.profilecard.EditProfileCardSlotResponse);
+			rpc SettingProfileCard (.app.profilecard.SettingProfileCardRequest) returns (.app.profilecard.SettingProfileCardResponse);
+			rpc PutObjects (.app.profilecard.PutObjectsRequest) returns (.app.profilecard.PutObjectsResponse);
+			rpc UpdateProfileCardDispOrder (.app.profilecard.UpdateProfileCardDispOrderRequest) returns (.app.profilecard.UpdateProfileCardDispOrderResponse);
+			rpc RemoveProfileCard (.app.profilecard.RemoveProfileCardRequest) returns (.app.profilecard.RemoveProfileCardResponse);
+		}
+	}
+
+	message seasonpass {
+		message FetchSeasonPassRequest {
+		}
+
+		message FetchSeasonPassResponse {
+			repeated .entity.MissionCounter mission_counters = 1;
+			repeated .entity.SeasonPassDetail season_passes = 2;
+		}
+
+		message ReceiveMissionRequest {
+			int64 season_pass_id = 1;
+			repeated int64 season_pass_mission_ids = 2;
+		}
+
+		message ReceiveMissionResponse {
+		}
+
+		message ReceiveRewardRequest {
+			int64 season_pass_id = 1;
+		}
+
+		message ReceiveRewardResponse {
+			.entity.Notification notification = 1;
+		}
+
+		message PurchaseRequest {
+			int64 season_pass_id = 1;
+			int32 before_point = 2;
+			int32 after_point = 3;
+		}
+
+		message PurchaseResponse {
+			.entity.Notification notification = 1;
+		}
+
+		service SeasonPassService {
+			rpc Fetch (.app.seasonpass.FetchSeasonPassRequest) returns (.app.seasonpass.FetchSeasonPassResponse);
+			rpc ReceiveMission (.app.seasonpass.ReceiveMissionRequest) returns (.app.seasonpass.ReceiveMissionResponse);
+			rpc ReceiveReward (.app.seasonpass.ReceiveRewardRequest) returns (.app.seasonpass.ReceiveRewardResponse);
+			rpc Purchase (.app.seasonpass.PurchaseRequest) returns (.app.seasonpass.PurchaseResponse);
+		}
+	}
+
+	message sendchat {
+		message SendChatRequest {
+			.entity.SendChat params = 1;
+		}
+
+		service SendChatService {
+			rpc SendMessage (.app.sendchat.SendChatRequest) returns (.google.protobuf.Empty);
+		}
+	}
+
+	message serial_code {
+		message RedeemSerialCodeRequest {
+			string serial_code = 1;
+		}
+
+		message RedeemSerialCodeResponse {
+			string status = 1;
+			repeated .entity.SerialCodeRewards rewards = 2;
+			.entity.Notification notification = 3;
+		}
+
+		service SerialCodeService {
+			rpc RedeemSerialCode (.app.serial_code.RedeemSerialCodeRequest) returns (.app.serial_code.RedeemSerialCodeResponse);
+		}
+	}
+
+	message shop {
+		enum PaymentResult {
+			PAYMENT_UNSPECIFIED = 0;
+			PAYMENT_SUCCESS = 1;
+			PAYMENT_PENDING = 2;
+			PAYMENT_CANCELED = 3;
+			PAYMENT_REJECTED = 4;
+		}
+
+		message FetchRequest {
+		}
+
+		message FetchResponse {
+			repeated .entity.ShopProduct products = 1;
+			int32 year = 2;
+			int32 month = 3;
+			int32 monthly_total_payment = 4;
+		}
+
+		message PurchaseCashRequest {
+			int64 shop_id = 1;
+			string signature = 2;
+			string receipt = 3;
+		}
+
+		message PurchaseRequest {
+			int64 shop_id = 1;
+			int32 purchase_count = 2;
+		}
+
+		message PurchaseCMRequest {
+			int64 shop_id = 1;
+		}
+
+		message SaveBirthRequest {
+			int32 year = 1;
+			int32 month = 2;
+		}
+
+		message SaveBirthResponse {
+		}
+
+		message PurchaseResponse {
+			.entity.Notification notification = 1;
+		}
+
+		message ResumeResult {
+			int64 shop_id = 1;
+			PaymentResult result = 2;
+		}
+
+		message PurchaseCashResponse {
+			PaymentResult result = 1;
+			.entity.Notification notification = 2;
+		}
+
+		message HistoryRequest {
+		}
+
+		message HistoryResponse {
+			repeated .entity.ShopPurchaseHistory histories = 1;
+		}
+
+		message CheckMaintenanceShopRequest {
+		}
+
+		message CheckMaintenanceShopResponse {
+		}
+
+		message ResumeRequest {
+		}
+
+		message ResumeResponse {
+			repeated ResumeResult results = 1;
+			.entity.Notification notification = 2;
+		}
+
+		service ShopService {
+			rpc Fetch (.app.shop.FetchRequest) returns (.app.shop.FetchResponse) {
+				option (entity.method_options.maintenance_features).shop = true;
+			}
+
+			rpc SaveBirth (.app.shop.SaveBirthRequest) returns (.app.shop.SaveBirthResponse) {
+				option (entity.method_options.maintenance_features).shop = true;
+			}
+
+			rpc PurchaseCash (.app.shop.PurchaseCashRequest) returns (.app.shop.PurchaseCashResponse) {
+				option (entity.method_options.maintenance_features).shop = true;
+			}
+
+			rpc PurchaseCM (.app.shop.PurchaseCMRequest) returns (.app.shop.PurchaseResponse) {
+				option (entity.method_options.maintenance_features).shop = true;
+			}
+
+			rpc Purchase (.app.shop.PurchaseRequest) returns (.app.shop.PurchaseResponse) {
+				option (entity.method_options.maintenance_features).shop = true;
+			}
+
+			rpc History (.app.shop.HistoryRequest) returns (.app.shop.HistoryResponse) {
+				option (entity.method_options.maintenance_features).shop = true;
+			}
+
+			rpc CheckMaintenanceShop (.app.shop.CheckMaintenanceShopRequest) returns (.app.shop.CheckMaintenanceShopResponse) {
+				option (entity.method_options.maintenance_features).shop = true;
+			}
+
+			rpc Resume (.app.shop.ResumeRequest) returns (.app.shop.ResumeResponse) {
+				option (entity.method_options.maintenance_features).shop = true;
+			}
+		}
+	}
+
+	message spot {
+		message UpdateSpotFavoritesRequest {
+			repeated int64 spot_ids = 1;
+		}
+
+		message UpdateSpotFavoritesResponse {
+		}
+
+		service SpotService {
+			rpc UpdateSpotFavorites (.app.spot.UpdateSpotFavoritesRequest) returns (.app.spot.UpdateSpotFavoritesResponse);
+		}
+	}
+
+	message stamp {
+		message UpdateStampFavoritesRequest {
+			repeated .entity.UpdateStampFavorite favorites = 1;
+		}
+
+		message UpdateStampFavoritesResponse {
+		}
+
+		message UpdateStampFavoriteNameRequest {
+			int32 favorite_id = 1;
+			string name = 2;
+		}
+
+		message UpdateStampFavoriteNameResponse {
+		}
+
+		service StampService {
+			rpc UpdateStampFavorites (.app.stamp.UpdateStampFavoritesRequest) returns (.app.stamp.UpdateStampFavoritesResponse);
+			rpc UpdateStampFavoriteName (.app.stamp.UpdateStampFavoriteNameRequest) returns (.app.stamp.UpdateStampFavoriteNameResponse);
+		}
+	}
+
+	message story {
+		message ReadStoryEpisodeRequest {
+			int64 episode_id = 1;
+			bool is_skipped = 2;
+		}
+
+		message ReadStoryEpisodeResponse {
+			bool is_valid_band_rank = 1;
+			.entity.Notification notification = 2;
+		}
+
+		message ReadFriendshipEpisodeRequest {
+			int64 episode_id = 1;
+			bool is_skipped = 2;
+		}
+
+		message ReadFriendshipEpisodeResponse {
+			.entity.Notification notification = 1;
+		}
+
+		message CheckMaintenanceStoryRequest {
+		}
+
+		message CheckMaintenanceStoryResponse {
+		}
+
+		service StoryService {
+			rpc ReadStoryEpisode (.app.story.ReadStoryEpisodeRequest) returns (.app.story.ReadStoryEpisodeResponse) {
+				option (entity.method_options.maintenance_features).story = true;
+			}
+
+			rpc ReadFriendshipEpisode (.app.story.ReadFriendshipEpisodeRequest) returns (.app.story.ReadFriendshipEpisodeResponse) {
+				option (entity.method_options.maintenance_features).story = true;
+			}
+
+			rpc CheckMaintenanceStory (.app.story.CheckMaintenanceStoryRequest) returns (.app.story.CheckMaintenanceStoryResponse) {
+				option (entity.method_options.maintenance_features).story = true;
+			}
+		}
+	}
+
+	message supportcard {
+		message LevelUpRequest {
+			int64 support_card_master_id = 1;
+			int32 to_level = 2;
+			int32 highest_total_power = 3;
+		}
+
+		message LevelUpResponse {
+			.entity.Notification notification = 1;
+		}
+
+		message RankUpRequest {
+			int64 support_card_master_id = 1;
+			int32 to_card_rank = 2;
+			int32 highest_total_power = 3;
+		}
+
+		message RankUpResponse {
+			.entity.Notification notification = 1;
+		}
+
+		service SupportCardService {
+			rpc LevelUp (.app.supportcard.LevelUpRequest) returns (.app.supportcard.LevelUpResponse);
+			rpc RankUp (.app.supportcard.RankUpRequest) returns (.app.supportcard.RankUpResponse);
+		}
+	}
+
+	message supports_terms {
+		message GetFaqRequest {
+		}
+
+		message GetFaqResponse {
+			repeated .entity.Faqs faqs = 1;
+		}
+
+		message TermsAgreementRequest {
+			repeated .entity.TermsIds terms_ids = 1;
+		}
+
+		message TermsAgreementResponse {
+		}
+
+		message TermsAgreementHistoriesRequest {
+		}
+
+		message TermsAgreementHistoriesResponse {
+			repeated .entity.TermsHistories histories = 1;
+		}
+
+		service SupportsTermsService {
+			rpc GetFaq (.app.supports_terms.GetFaqRequest) returns (.app.supports_terms.GetFaqResponse);
+			rpc TermsAgreement (.app.supports_terms.TermsAgreementRequest) returns (.app.supports_terms.TermsAgreementResponse);
+			rpc TermsAgreementHistories (.app.supports_terms.TermsAgreementHistoriesRequest) returns (.app.supports_terms.TermsAgreementHistoriesResponse);
+		}
+	}
+
+	message vip {
+		message FetchVipRequest {
+		}
+
+		message FetchVipResponse {
+			.entity.Vip vip = 1;
+			repeated int32 purchased_vip_pack_ranks = 2;
+		}
+
+		message ReceivePointRequest {
+			int32 consecutive_login_count = 1;
+		}
+
+		message ReceivePointResponse {
+			.entity.Vip vip = 1;
+			.entity.Notification notification = 2;
+		}
+
+		message ReceiveRankupRewardRequest {
+			int32 vip_rank = 1;
+		}
+
+		message ReceiveRankupRewardResponse {
+			.entity.Vip vip = 1;
+			.entity.Notification notification = 2;
+		}
+
+		message ReceiveRewardRequest {
+			int32 vip_rank = 1;
+			int32 day_number = 2;
+		}
+
+		message ReceiveRewardResponse {
+			.entity.Vip vip = 1;
+			.entity.Notification notification = 2;
+		}
+
+		message PurchaseRankPackRequest {
+			int32 vip_rank = 1;
+		}
+
+		message PurchaseRankPackResponse {
+			.entity.Vip vip = 1;
+			repeated int32 purchased_vip_pack_ranks = 2;
+			.entity.Notification notification = 3;
+		}
+
+		service VipService {
+			rpc Fetch (.app.vip.FetchVipRequest) returns (.app.vip.FetchVipResponse);
+			rpc ReceivePoint (.app.vip.ReceivePointRequest) returns (.app.vip.ReceivePointResponse);
+			rpc ReceiveReward (.app.vip.ReceiveRewardRequest) returns (.app.vip.ReceiveRewardResponse);
+			rpc PurchaseRankPack (.app.vip.PurchaseRankPackRequest) returns (.app.vip.PurchaseRankPackResponse);
+			rpc ReceiveRankupReward (.app.vip.ReceiveRankupRewardRequest) returns (.app.vip.ReceiveRankupRewardResponse);
+		}
+	}
+}
+
+message entity {
+	message method_options {
+	}
+
+	enum AdminRole {
+		ADMINROLE_DEVELOPER = 0;
+		ADMINROLE_OPERATORADMIN = 1;
+		ADMINROLE_OPERATOR = 2;
+		ADMINROLE_SPECIFIC = 3;
+		ADMINROLE_VIEWONLY = 4;
+	}
+
+	message AdminUser {
+		string mail_address = 1;
+		string name = 2;
+		AdminRole role = 3;
+		uint32 access_token_count = 4;
+		string google_id = 5;
+	}
+
+	enum AnnouncementCategory {
+		UNSPECIFIED = 0;
+		OTHER = 1;
+		EVENT = 2;
+		GACHA = 3;
+		CAMPAIGN = 4;
+		UPDATE = 5;
+		MAINTENANCE = 6;
+		BUG = 7;
+	}
+
+	enum AnnouncementPlatform {
+		ANNOUNCEMENT_PLATFORM_ALL = 0;
+		ANNOUNCEMENT_PLATFORM_IOS = 1;
+		ANNOUNCEMENT_PLATFORM_ANDROID = 2;
+	}
+
+	message Announcement {
+		int64 id = 1;
+		AnnouncementCategory category = 2;
+		string title = 3;
+		string banner_path = 4;
+		string banner_url = 5;
+		string body = 6;
+		int64 start_at = 7;
+		int64 end_at = 8;
+		int32 sort_order = 9;
+		string pickup_banner_path = 10;
+		string pickup_banner_url = 11;
+		int64 pickup_start_at = 12;
+		int64 pickup_end_at = 13;
+		int64 last_updated_at = 14;
+		int64 stylesheet_id = 15;
+		AnnouncementPlatform platform = 16;
+	}
+
+	message AnnouncementExternalContent {
+		int64 id = 1;
+		string banner_path = 2;
+	}
+
+	message ArenaLp {
+		int64 band_id = 1;
+		int64 point = 2;
+	}
+
+	message ArenaLpRankDiff {
+		int64 band_id = 1;
+		int64 before_rank_id = 2;
+		int64 after_rank_id = 3;
+	}
+
+	message ArenaTopLastStatus {
+		optional int64 band_id = 1;
+	}
+
+	message ArenaTopDailyRewards {
+		int64 arena_daily_reward_id = 1;
+	}
+
+	message ArenaConsecutiveWins {
+		int64 band_id = 1;
+		int32 count = 2;
+	}
+
+	message ArenaDeckTrendMemberCard {
+		int64 member_card_id = 1;
+	}
+
+	message ArenaDeckTrendSupportCard {
+		int64 support_card_id = 1;
+	}
+
+	message ArenaSeason {
+		int64 mp = 1;
+		repeated ArenaLp lp = 2;
+		int64 max_point = 3;
+	}
+
+	message ArenaMasterRanking {
+		int64 my_rank = 1;
+		int64 max_rank = 2;
+	}
+
+	message ArenaBandRankings {
+		int64 band_id = 1;
+		int64 my_rank = 2;
+		int64 max_rank = 3;
+	}
+
+	message ArenaMasterPromotionRewards {
+		int64 arena_promotion_reward_id = 1;
+	}
+
+	message ArenaBandPromotionRewards {
+		int64 band_id = 1;
+		int64 arena_promotion_reward_id = 2;
+	}
+
+	message ArenaRankingEntry {
+		PlayerSimpleProfile profile = 1;
+		DeckDetail deck = 2;
+		int32 rank = 3;
+		int32 point = 4;
+	}
+
+	message ArenaMyRankMasterPoint {
+		int64 point = 1;
+		int32 rank = 2;
+	}
+
+	message ArenaMyRankLeaguePoint {
+		int64 band_id = 1;
+		int64 point = 2;
+		int32 rank = 3;
+	}
+
+	message ArenaMatchingHistories {
+		string matching_at = 1;
+		repeated string matching_players = 2;
+	}
+
+	message ArenaDedicatedDecks {
+		int32 arena_dedicated_deck_id = 1;
+		string name = 2;
+		repeated DeckCard cards = 3;
+		bool is_new = 4;
+	}
+
+	message BandItem {
+		int64 master_id = 1;
+		int32 level = 2;
+	}
+
+	message CarouselHelp {
+		int64 master_id = 1;
+	}
+
+	message CharacterRank {
+		int64 character_id = 1;
+		int32 exp = 2;
+	}
+
+	message CharacterFriendship {
+		int64 friendship_id = 1;
+		int32 exp = 2;
+	}
+
+	message CharacterRankReward {
+		int64 reward_id = 1;
+		bool gained = 2;
+	}
+
+	message CharacterFriendshipRankReward {
+		int64 friendship_id = 1;
+		int64 reward_id = 2;
+	}
+
+	message CharacterCurrentCostume {
+		int64 character_id = 1;
+		int32 costume_target = 2;
+		int64 costume_group_id = 3;
+	}
+
+	message CharacterUnlockedCostume {
+		int64 character_id = 1;
+		int64 costume_group_id = 2;
+		int64 got_at = 3;
+	}
+
+	enum MemberRange {
+		MEMBER_RANGE_UNSPECIFIED = 0;
+		MEMBER_RANGE_1 = 1;
+		MEMBER_RANGE_2 = 2;
+		MEMBER_RANGE_3 = 3;
+	}
+
+	enum JoinRule {
+		JOIN_RULE_UNSPECIFIED = 0;
+		AUTO = 1;
+		REQUEST = 2;
+		INVITE = 3;
+	}
+
+	enum PlayStyle {
+		PLAY_STYLE_UNSPECIFIED = 0;
+		FREE = 1;
+		CASUAL = 2;
+		HARD = 3;
+		BEGINNER = 4;
+	}
+
+	message Circle {
+		uint64 id = 1;
+		string name = 2;
+		string description = 3;
+		uint32 join_rule = 4;
+		uint32 play_style = 5;
+		uint32 total_point = 6;
+		uint32 weekly_total_point = 7;
+		uint32 member_count = 8;
+		int64 master_last_login_at = 9;
+		optional uint32 current_rank = 10;
+		optional uint32 next_rank_point = 11;
+	}
+
+	message SaveCircleParams {
+		optional string name = 1;
+		optional string description = 2;
+		optional JoinRule join_rule = 3;
+		optional PlayStyle play_style = 4;
+	}
+
+	message SearchOptions {
+		string name = 1;
+		MemberRange member_range = 2;
+		JoinRule join_rule = 3;
+		PlayStyle play_style = 4;
+	}
+
+	message CircleDetailWithPlayerList {
+		Circle detail = 1;
+		repeated CirclePlayer players = 2;
+		int32 circle_ranking = 3;
+	}
+
+	message CircleWithMasterPlayer {
+		Circle circle = 1;
+		PlayerSimpleProfile profile = 4;
+	}
+
+	message UpdateCircleTop {
+		Circle circle = 1;
+		CirclePlayer current_player = 2;
+		repeated CirclePlayer players = 3;
+		int32 circle_mission_reward_count = 4;
+		int32 circle_ranking = 5;
+		uint32 circle_rank_reward_received = 6;
+		optional string new_master_player_id = 7;
+	}
+
+	message CircleInvitation {
+		uint64 circle_id = 1;
+		string player_id = 2;
+		Circle circle_detail = 3;
+		PlayerSimpleProfile profile = 4;
+	}
+
+	message CircleJoinRequest {
+		string player_id = 1;
+		PlayerSimpleProfile profile = 2;
+	}
+
+	message CircleMissionProgress {
+		int64 mission_id = 1;
+		int64 progress = 2;
+		bool is_completed = 3;
+		bool is_received = 4;
+		int64 start_at = 5;
+	}
+
+	enum CircleAuth {
+		NORMAL = 0;
+		SUBMASTER = 1;
+		MASTER = 2;
+	}
+
+	message CirclePlayer {
+		string player_id = 1;
+		uint64 circle_id = 2;
+		uint32 auth = 3;
+		uint32 point = 4;
+		uint32 weekly_total_point = 5;
+		PlayerSimpleProfile profile = 7;
+	}
+
+	message CircleRankUpRewardReceived {
+		string player_id = 1;
+		uint64 circle_id = 2;
+		uint32 circle_rank = 3;
+	}
+
+	message CircleRankUpRewardDetail {
+		uint64 id = 1;
+	}
+
+	message Comeback {
+		int64 last_login_date = 1;
+		int64 comeback_at = 2;
+		int32 comeback_days = 3;
+	}
+
+	message ContentUnlock {
+		int64 master_id = 1;
+	}
+
+	message Deck {
+		int32 id = 1;
+		string name = 2;
+		repeated DeckCard cards = 3;
+		int32 total_power = 4;
+	}
+
+	message DeckCard {
+		int32 slot_index = 1;
+		int32 performance_order_index = 2;
+		int64 member_card_id = 3;
+		int64 support_card_id = 4;
+	}
+
+	message DeckDetail {
+		int32 id = 1;
+		string name = 2;
+		repeated DeckCardDetail cards = 3;
+		int32 total_power = 4;
+	}
+
+	message DeckMemberCardDetail {
+		int64 card_id = 1;
+		int32 exp = 2;
+		int32 awake_count = 3;
+		int32 card_rank = 4;
+		int32 live_skill_level = 5;
+		int32 performance_skill_level = 6;
+	}
+
+	message DeckSupportCardDetail {
+		int64 card_id = 1;
+		int32 exp = 2;
+		int32 rank = 3;
+	}
+
+	message DeckCardDetail {
+		int32 slot_index = 1;
+		int32 performance_order_index = 2;
+		DeckMemberCardDetail member_card = 3;
+		DeckSupportCardDetail support_card = 4;
+	}
+
+	message Degree {
+		int64 master_id = 1;
+		int32 amount = 2;
+		int64 acquired_at = 3;
+	}
+
+	message LiveEventReward {
+		int64 event_id = 1;
+		int64 reward_id = 2;
+	}
+
+	message Event {
+		int64 event_id = 1;
+		int32 point = 2;
+		int32 medal = 3;
+		int32 box_gacha_step = 4;
+	}
+
+	message EventBoxGachaReward {
+		int64 event_id = 1;
+		int64 reward_id = 2;
+		int32 count = 3;
+	}
+
+	message ChallengeLive {
+		int64 event_id = 1;
+		int32 point = 2;
+	}
+
+	message ExchangeCount {
+		int64 product_id = 1;
+		int32 count = 2;
+		int64 last_exchange = 3;
+	}
+
+	message Friends {
+		FriendProfiles accepted = 1;
+		FriendProfiles pending_sent = 2;
+		FriendProfiles receive = 3;
+	}
+
+	message FriendProfiles {
+		int32 limit = 2;
+		repeated PlayerSimpleProfile player_profiles = 3;
+
+		reserved 1;
+	}
+
+	message GachaHistory {
+		int64 prize_id = 1;
+		int64 gain_at = 2;
+		bool converted = 3;
+	}
+
+	message GachaExecutionHistory {
+		int64 gacha_id = 1;
+		int64 product_id = 2;
+		int32 free_gem = 3;
+		int32 paid_gem = 4;
+		int32 ticket = 5;
+		int64 executed_at = 6;
+		repeated GachaPrizeHistory prize = 7;
+	}
+
+	message GachaPrizeHistory {
+		int64 prize_id = 1;
+		bool converted = 2;
+	}
+
+	message GachaCount {
+		int64 product_id = 1;
+		int32 count = 2;
+		int64 last_execute = 3;
+		int64 gacha_id = 4;
+	}
+
+	message GachaPoint {
+		int64 gacha_id = 1;
+		int32 point = 2;
+	}
+
+	message LotProbability {
+		int64 lot_id = 1;
+		string probability_percent = 2;
+	}
+
+	message PrizeProbability {
+		int64 prize_id = 1;
+		string probability_percent = 2;
+	}
+
+	message Probability {
+		repeated LotProbability lot = 1;
+		repeated PrizeProbability prize = 2;
+	}
+
+	enum GemHistoryReason {
+		GEM_HISTORY_REASON_UNSPECIFIED = 0;
+		GEM_HISTORY_REASON_PRESENT_TYPE = 1;
+		GEM_HISTORY_REASON_SHOP_PURCHASE = 2;
+		GEM_HISTORY_REASON_MONTHLY_PASS = 3;
+		GEM_HISTORY_REASON_EVENT_BOX_GACHA = 4;
+		GEM_HISTORY_REASON_STORY = 5;
+		GEM_HISTORY_REASON_INITIAL_DATA = 6;
+		GEM_HISTORY_REASON_ADMIN = 7;
+		GEM_HISTORY_REASON_DEBUG = 8;
+		GEM_HISTORY_REASON_FRIENDSHIP_STORY = 9;
+		GEM_HISTORY_REASON_SHOP = 11;
+		GEM_HISTORY_REASON_GACHA = 12;
+		GEM_HISTORY_REASON_LIVE_BOOST = 13;
+		GEM_HISTORY_REASON_VIP_RANK_PACK = 14;
+		GEM_HISTORY_REASON_SEASON_PASS = 15;
+		GEM_HISTORY_REASON_CIRCLE_CREATE = 16;
+	}
+
+	message Gem {
+		int32 free = 1;
+		int32 paid = 2;
+		int32 platform_android = 3;
+		int32 platform_ios = 4;
+		int32 platform_ex = 5;
+	}
+
+	message GemHistory {
+		int64 changed_at = 1;
+		int32 free_amount = 2;
+		int32 paid_amount = 3;
+		GemHistoryReason reason = 4;
+		int64 reason_id = 5;
+		bool via_present_box = 6;
+	}
+
+	message RequestDetails {
+		string request_package_name = 1;
+		int64 timestamp_millis = 2;
+	}
+
+	message AppIntegrity {
+		string app_recognition_verdict = 1;
+		string package_name = 2;
+		repeated string certificate_sha256_digest = 3;
+		int64 version_code = 4;
+	}
+
+	message DeviceIntegrity {
+		repeated string device_recognition_verdict = 1;
+	}
+
+	message AccountDetails {
+		string app_licensing_verdict = 1;
+	}
+
+	message InvitationProfile {
+		PlayerSimpleProfile player_profile = 1;
+		int64 establishment_at = 2;
+	}
+
+	message Invitation {
+		repeated string new_invitation_player_ids = 1;
+		bool is_invitation_code_input_already = 2;
+	}
+
+	message Item {
+		int64 master_id = 1;
+		int32 amount = 2;
+	}
+
+	enum LimitationType {
+		NONE = 0;
+		WARNING = 1;
+		BAN_BILLING = 2;
+		BAN_ACCOUNT = 3;
+	}
+
+	message Limitation {
+		LimitationType limitation_type = 1;
+		string message = 2;
+		int64 limitation_id = 3;
+	}
+
+	enum GekisouRankigType {
+		GEKISOU_RANKING_TYPE_UNSPECIFIED = 0;
+		GEKISOU_RANKING_TYPE_SCORE = 1;
+		GEKISOU_RANKING_TYPE_01 = 2;
+		GEKISOU_RANKING_TYPE_02 = 3;
+		GEKISOU_RANKING_TYPE_03 = 4;
+	}
+
+	enum GekisouRankingRewardState {
+		GEKISOU_RANKING_REWARD_UNSPECIFIED = 0;
+		GEKISOU_RANKING_REWARD_COMPLETE_SUCCESSFULLY = 1;
+		GEKISOU_RANKING_REWARD_COMPLETE_TIMEOUT = 2;
+		GEKISOU_RANKING_REWARD_COMPLETED = 3;
+	}
+
+	message LiveScore {
+		int32 high_score = 1;
+		int32 clear_status = 2;
+		int64 music_id = 3;
+		int32 difficulty = 4;
+		int32 mode = 5;
+		int32 max_combo = 6;
+	}
+
+	message LiveMusicReward {
+		int64 music_id = 1;
+		int32 score_rank_reward_gained = 2;
+		int32 combo_reward_gained = 3;
+	}
+
+	message LiveMusicComboReward {
+		int64 music_id = 1;
+		int32 difficulty = 2;
+		int32 combo_reward_gained = 3;
+	}
+
+	message LiveSkip {
+		int32 count = 1;
+		int64 last_skip = 2;
+	}
+
+	message LiveMusic {
+		int64 music_id = 1;
+		int64 got_at = 2;
+	}
+
+	message LiveGekisouSkill {
+		int64 member_id = 1;
+		int64 skill_id = 2;
+	}
+
+	message LiveGekisouSupportSkill {
+		int64 support_card_id = 1;
+		int64 skill_id = 2;
+	}
+
+	message LiveSupportSkill {
+		int64 support_card_id = 1;
+		int64 skill_id = 2;
+	}
+
+	message LiveFinish {
+		int32 clear_status = 1;
+		int32 solo_score = 2;
+		int32 combo = 3;
+		repeated int32 judgements = 4 [deprecated = true];
+		repeated LiveSupportSkill support_skills = 5;
+		repeated LiveGekisouSkill gekisou_skills = 6;
+		repeated LiveGekisouSupportSkill gekisou_support_skills = 7;
+		repeated JudgementCount judgement_counts = 9;
+		int32 current_deck_total_power = 10;
+		string live_unique_id = 11;
+		bytes live_score_report = 12;
+	}
+
+	message JudgementCount {
+		int32 judgement = 1;
+		int32 total_count = 2;
+	}
+
+	message JudgementSummary {
+		int32 clear_status = 1;
+		int32 solo_score = 2;
+		int32 combo = 3;
+		repeated JudgementCount judgement_counts = 4;
+	}
+
+	message BattleLivePlayerResult {
+		string player_id = 1;
+		int32 battle_live_score = 2;
+		repeated int32 gekisou_score = 3;
+		bytes battle_live_log = 4;
+		JudgementSummary judgement = 5;
+	}
+
+	message GekisouRankingPlayer {
+		string player_id = 1;
+		int32 rank = 2;
+	}
+
+	message GekisouRanking {
+		GekisouRankigType ranking_type = 1;
+		repeated GekisouRankingPlayer ranking = 2;
+	}
+
+	message BattleLiveRewardResource {
+		RewardResource resource = 1;
+		GekisouRankigType ranking_type = 2;
+	}
+
+	message LiveSetting {
+		bytes setting_all = 1;
+	}
+
+	message LiveLaneSkin {
+		int64 master_id = 1;
+	}
+
+	message LiveNoteSkin {
+		int64 master_id = 1;
+	}
+
+	message LiveNoteEffectSkin {
+		int64 master_id = 1;
+	}
+
+	message LiveNoteSeGroup {
+		int64 master_id = 1;
+	}
+
+	message LiveStampReward {
+		int32 live_completed = 1;
+		int32 reward_gained = 2;
+		int64 last_live_completed_at = 3;
+	}
+
+	message BandHighScoreRatingReward {
+		int64 band_id = 1;
+		repeated int64 reward_ids = 2;
+	}
+
+	message BattleLiveInvitation {
+		PlayerSimpleProfile sender = 1;
+		int64 lobby_id = 2;
+		int64 send_at = 3;
+		PlayerSimpleProfile host = 4;
+	}
+
+	message LiveBoost {
+		int32 amount = 1;
+		int64 previous_recovery_at = 2;
+		int32 daily_ad_view = 3;
+		int32 daily_full_consume_count = 4;
+		int64 last_daily_reset_at = 5;
+		int32 campaign_daily_count = 6;
+	}
+
+	message MusicPuzzle {
+		int64 music_id = 1;
+		string result_json = 2;
+	}
+
+	message LoginBonusSheet {
+		int64 login_bonus_id = 1;
+		int64 sheet_no = 2;
+		int64 slot_no = 3;
+		int32 login_days = 4;
+	}
+
+	message Maintenance {
+		string id = 1;
+		int64 start_at = 2;
+		int64 end_at = 3;
+		bool is_total = 4;
+		MaintenanceFeatures features = 5;
+		MaintenancePlatforms platforms = 6;
+		string free_text = 7;
+		bool is_emergency = 8;
+	}
+
+	message MaintenanceFeatures {
+		bool shop = 1;
+		bool gacha = 2;
+		bool story = 3;
+		bool rank_match = 4;
+		bool casual_match = 5;
+		bool circle = 6;
+		bool anontokyo_game = 7;
+		bool chat = 8;
+		bool personal_live = 9;
+	}
+
+	message MaintenancePlatforms {
+		bool ios = 1;
+		bool android = 2;
+		bool others = 3;
+	}
+
+	message MemberCard {
+		int32 id = 1 [deprecated = true];
+		int64 master_id = 2;
+		int32 exp = 3;
+		int32 awake_count = 4;
+		int32 card_rank = 5;
+		int32 leader_skill_level = 6;
+		int32 live_skill_level = 7;
+		int32 performance_skill_level = 8;
+		int64 gain_at = 9;
+		int32 link_skill_level = 10;
+		int32 gekisou_skill_level = 11;
+	}
+
+	message MemoryMusics {
+		int64 memory_music_bonus_group = 1;
+	}
+
+	message MemoryMembers {
+		int64 member_card_id = 1;
+	}
+
+	message MemorySupports {
+		int64 support_card_id = 1;
+	}
+
+	message MemoryStatus {
+		repeated MemoryMusics memory_musics = 1;
+		repeated MemoryMembers memory_members = 2;
+		repeated MemorySupports memory_supports = 3;
+	}
+
+	message MissionCounter {
+		int32 mission_type = 1;
+		int64 param_1 = 2;
+		int64 param_2 = 3;
+		int64 progress = 4;
+	}
+
+	message MissionProgress {
+		int64 mission_id = 1;
+		int64 start_count = 2;
+		bool is_completed = 3;
+		bool is_received = 4;
+		int64 start_at = 5;
+	}
+
+	message CharacterMissionReceived {
+		int64 character_id = 1;
+		repeated int64 mission_ids = 2;
+	}
+
+	message PlayerMissionData {
+		repeated MissionCounter mission_counters = 1;
+		repeated MissionProgress normal_missions = 2;
+		repeated MissionProgress limited_missions = 3;
+		repeated CharacterMissionReceived character_missions = 4;
+	}
+
+	message MonthlyPassState {
+		int64 monthly_pass_id = 1;
+		int64 purchased_at = 2;
+		int64 expire_at = 3;
+		int32 last_daily_reward_day_number = 4;
+		int32 group_purchase_count = 5;
+		int64 free_gacha_used_at = 6;
+		bool is_extension_purchased = 7;
+	}
+
+	message MonthlyPassDailyReward {
+		int64 monthly_pass_id = 1;
+		int32 day_number = 2;
+		int64 target_at = 3;
+	}
+
+	message VipPointChange {
+		int32 before = 1;
+		int32 after = 2;
+	}
+
+	message ConvertedResource {
+		PresentResource original_resource = 1;
+		PresentResource converted_resource = 2;
+	}
+
+	message OfflineBonusStartAt {
+		int64 offline_bonus_unit_id = 1;
+		int64 start_at = 2;
+	}
+
+	message Notification {
+		repeated Present posted_presents = 1;
+		repeated MissionCounter mission_counter_diffs = 2;
+		repeated MissionCounter mission_counter_updates = 3;
+		repeated Item item_diffs = 4;
+		VipPointChange vip_point_change = 5;
+		repeated ConvertedResource converted_resources = 6;
+		bool has_exceeded_present = 7;
+		repeated OfflineBonusStartAt offline_bonus_start_ats = 8;
+		repeated CharacterUnlockedCostume character_unlocked_costumes = 9;
+		repeated PresentResource discarded_resources = 10;
+	}
+
+	message OfflineBonusResource {
+		ResourceType resource_type = 1;
+		int64 resource_id = 2;
+		int32 resource_count = 3;
+	}
+
+	message OfflineBonus {
+		int32 ad_view_count = 1;
+		optional int64 last_ad_viewed_at = 2;
+	}
+
+	message OfflineBonusUnit {
+		int64 offline_bonus_unit_id = 1;
+		int32 exp = 2;
+		int64 start_at = 3;
+		int32 reward_coin = 4;
+		int32 reward_member_exp = 5;
+		int32 reward_support_exp = 6;
+		int32 reward_offline_bonus_exp = 7;
+		repeated OfflineBonusResource reward_resources = 8;
+	}
+
+	message OfflineBonusUnitLite {
+		int64 offline_bonus_unit_id = 1;
+		int32 exp = 2;
+		int64 start_at = 3;
+		bool is_stock_rewards = 4;
+	}
+
+	message OfflineBonusUnitResult {
+		OfflineBonusUnit offline_bonus_unit = 1;
+		repeated OfflineBonusResource accumulated_rewards = 2;
+		repeated OfflineBonusResource lot_rewards = 3;
+	}
+
+	message PagingInfo {
+		int64 limit = 1;
+		int64 total_count = 2;
+		uint32 total_page = 3;
+		uint32 current_page = 4;
+	}
+
+	message ExshopPayment {
+		int64 claim_id = 1;
+		int64 shop_id = 2;
+	}
+
+	message PersonalNotification {
+		repeated ExshopPayment ex_shop_payments = 1;
+	}
+
+	enum LinkedAccountType {
+		LINKED_ACCOUNT_TYPE_UNSPECIFIED = 0;
+		LINKED_ACCOUNT_TYPE_APPLE = 1;
+		LINKED_ACCOUNT_TYPE_GOOGLE = 2;
+		LINKED_ACCOUNT_TYPE_GAME_CENTER = 3;
+		LINKED_ACCOUNT_TYPE_BUSHIROAD = 4;
+	}
+
+	message PlayerCredential {
+		string id = 1;
+		string credential = 2;
+		string device_id = 3;
+		int64 profile_id = 4;
+	}
+
+	message PlayerData {
+		repeated Item items = 1;
+		repeated MemberCard member_cards = 2;
+		repeated SupportCard support_cards = 3;
+		repeated Deck decks = 4;
+		int32 main_deck = 5;
+		Gem gem = 6;
+		LiveBoost live_boost = 7;
+		repeated BandItem band_items = 8;
+		int32 player_rank_exp = 9 [deprecated = true];
+		repeated LiveScore live_score = 10;
+		repeated LiveMusicReward live_music_reward = 11;
+		repeated CharacterRank character_rank = 12;
+		repeated CharacterFriendship character_friendship = 13;
+		repeated CharacterRankReward character_rank_reward = 14 [deprecated = true];
+		repeated CharacterFriendshipRankReward character_friendship_rank_reward = 15;
+		repeated StoryEpisode seen_story_episodes = 16;
+		repeated StoryEpisode seen_story_friendship_episodes = 17;
+		LiveSkip live_skip = 18;
+		repeated GachaCount gacha_count = 19;
+		repeated LiveMusic live_music = 20;
+		repeated ExchangeCount exchange_count = 21;
+		repeated GachaPoint gacha_point = 22;
+		repeated LoginBonusSheet login_bonus_update = 23;
+		PlayerMissionData player_mission_data = 24;
+		repeated Event events = 25;
+		repeated EventBoxGachaReward event_box_gacha_rewards = 26;
+		repeated Stamp stamps = 27;
+		LiveSetting live_setting = 28;
+		repeated LiveLaneSkin live_lane_skins = 29;
+		repeated LiveNoteSkin live_note_skins = 30;
+		repeated LiveNoteEffectSkin live_note_effect_skins = 31;
+		repeated LiveNoteSeGroup live_note_se_groups = 32;
+		repeated CarouselHelp shown_carousel_helps = 33;
+		PlayerSimpleProfile my_profile = 34;
+		LiveStampReward live_stamp_reward = 35;
+		repeated LiveMusicComboReward live_music_combo_reward = 36;
+		Comeback comeback = 37;
+		repeated StampFavoriteName stamp_favorite_names = 38;
+		repeated ContentUnlock shown_content_unlocks = 39;
+		optional uint64 circle_id = 40;
+		repeated ChallengeLive challenge_live = 41;
+		repeated PurchaseTransaction remain_transactions = 42;
+		repeated Degree degrees = 43;
+		repeated int64 chat_themes = 44;
+		repeated int64 chat_bubbles = 45;
+		repeated int64 chat_frames = 46;
+		bool has_password = 47;
+		repeated LinkedAccountType linked_account_types = 48;
+		MemoryStatus memory_status = 49;
+		Vip vip = 50;
+		repeated ProfileCardDetail profile_card_details = 51;
+		repeated MonthlyPassState monthly_passes = 52;
+		TutorialProgress tutorial_progress = 53;
+		repeated int64 background_ids = 54;
+		repeated int64 character_orders = 55;
+		repeated int64 favorite_spot_ids = 56;
+		repeated Spot spots = 57;
+		bool is_night_notice_off = 58;
+		repeated MusicPuzzle puzzles = 59;
+		PersonalNotification personal_notification = 60;
+		repeated CharacterCurrentCostume character_current_costumes = 61;
+		repeated CharacterUnlockedCostume character_unlocked_costumes = 62;
+	}
+
+	message PlayerSimpleProfile {
+		string id = 1;
+		string name = 2;
+		int32 rank_exp = 3;
+		int64 last_updated_at = 4;
+		DeckMemberCardDetail favorite_member_card = 5;
+		int64 profile_id = 6;
+		int64 favorite_member_card_master_id = 7;
+		SimpleProfileCard profile_card = 8;
+	}
+
+	message PlayerDetailProfile {
+		string id = 1;
+		string name = 2;
+		int32 rank_exp = 3;
+		int64 last_updated_at = 4;
+		DeckMemberCardDetail favorite_member_card = 5;
+		int64 profile_id = 6;
+		int64 favorite_member_card_master_id = 7;
+	}
+
+	message PlayerBriefInfo {
+		int64 account_id = 1;
+		string player_id = 2;
+		string nickname = 3;
+		int32 level = 4;
+		int64 chat_frame_id = 5;
+		int64 chat_bubble_id = 6;
+		int64 chat_theme_id = 7;
+		int64 avatar_id = 8;
+	}
+
+	enum UnreceiveReason {
+		UNRECEIVE_REASON_UNSPECIFIED = 0;
+		UNRECEIVE_REASON_LIMIT_REACHED = 1;
+		UNRECEIVE_REASON_EXPIRED = 2;
+	}
+
+	message PresentResource {
+		ResourceType resource_type = 1;
+		int64 resource_id = 2;
+		int32 resource_count = 3;
+	}
+
+	message Present {
+		uint64 present_id = 1;
+		int64 post_at = 2;
+		optional int64 expire_at = 3;
+		PresentResource present_resource = 4;
+		PresentTitle title = 5;
+	}
+
+	message PresentTitle {
+		int64 present_type_id = 1;
+		string present_param_1 = 2;
+		string present_param_2 = 3;
+	}
+
+	message PresentUnreceived {
+		uint64 present_id = 1;
+		UnreceiveReason reason = 2;
+	}
+
+	message PresentHistory {
+		uint64 present_id = 1;
+		int64 post_at = 2;
+		int64 got_at = 3;
+		PresentResource present_resource = 4;
+		PresentTitle title = 5;
+		PresentResource converted_resource = 6;
+	}
+
+	message ProfileCardDetail {
+		int32 slot = 1;
+		string name = 2;
+		bool is_setting = 3;
+		repeated ProfileObject profile_objects = 4;
+	}
+
+	message ProfileObject {
+		int32 index = 1;
+		string profile_object_json = 2;
+		string thumbnail_url = 3;
+		int32 disp_order = 4;
+	}
+
+	message SimpleProfileCard {
+		int32 slot = 1;
+		string name = 2;
+		repeated string thumbnail_url = 3;
+	}
+
+	enum ResourceType {
+		RESOURCE_TYPE_UNSPECIFIED = 0;
+		RESOURCE_TYPE_ITEM = 1;
+		RESOURCE_TYPE_MEMBER_CARD = 2;
+		RESOURCE_TYPE_SUPPORT_CARD = 3;
+		RESOURCE_TYPE_VOICE = 4;
+		RESOURCE_TYPE_LOGIN_BONUS = 5;
+		RESOURCE_TYPE_SUBSCRIPTION = 6;
+		RESOURCE_TYPE_GACHA_POINT = 7;
+		RESOURCE_TYPE_MUSIC = 8;
+		RESOURCE_TYPE_STAMP = 9;
+		RESOURCE_TYPE_PREMIUM_PASS = 10;
+		RESOURCE_TYPE_EVENT_MEDAL = 11;
+		RESOURCE_TYPE_LANE_SKIN = 12;
+		RESOURCE_TYPE_NOTE_SKIN = 13;
+		RESOURCE_TYPE_NOTE_EFFECT_SKIN = 14;
+		RESOURCE_TYPE_NOTE_SE_GROUP = 15;
+		RESOURCE_TYPE_VIP_POINT = 16;
+		RESOURCE_TYPE_DEGREE = 17;
+		RESOURCE_TYPE_BACKGROUND = 18;
+		RESOURCE_TYPE_SPOT = 19;
+		RESOURCE_TYPE_CHARACTER_UNLOCKED_COSTUME = 20;
+	}
+
+	message RewardResource {
+		ResourceType resource_type = 1;
+		int64 resource_id = 2;
+		int32 resource_count = 3;
+	}
+
+	message SeasonPass {
+		int64 season_pass_id = 1;
+		int32 point = 2;
+		bool is_premium = 3;
+		int32 last_received_level = 4;
+		int32 premium_last_received_level = 5;
+	}
+
+	message SeasonPassMission {
+		int64 season_pass_id = 1;
+		int64 season_pass_mission_id = 2;
+		int64 start_count = 3;
+		bool is_completed = 4;
+		bool is_received = 5;
+		int64 start_at = 6;
+	}
+
+	message SeasonPassDetail {
+		SeasonPass season_pass = 1;
+		repeated SeasonPassMission missions = 2;
+		int32 auto_granted_point = 3;
+	}
+
+	enum ChatType {
+		CHAT_TYPE_UNSPECIFIED = 0;
+		ALL = 1;
+		CIRCLE = 2;
+		FRIEND = 3;
+		SYSTEM = 4;
+		IMPORTANT = 5;
+	}
+
+	message SendChat {
+		ChatType chat_type = 1;
+		optional int64 friend_profile_id = 2;
+		optional string text = 3;
+		optional uint32 stamp_id = 4;
+	}
+
+	message SerialCodeRewards {
+		ResourceType resource_type = 1;
+		int64 resource_id = 2;
+		int64 count = 3;
+	}
+
+	message SerialCode {
+		string id = 1;
+		string serial_code = 2;
+		int32 serial_code_type = 3;
+		int64 reward_group = 4;
+		string start_at = 5;
+		string end_at = 6;
+	}
+
+	enum PurchasePlatform {
+		PURCHASE_PLATFORM_NONE = 0;
+		PURCHASE_PLATFORM_APPLE = 1;
+		PURCHASE_PLATFORM_ANDROID = 2;
+		PURCHASE_PLATFORM_EXTERNAL = 3;
+		PURCHASE_PLATFORM_DEBUG = 99;
+	}
+
+	message ShopTriggerProgress {
+		int64 trigger_id = 1;
+		int32 progress_count = 2;
+	}
+
+	message ShopProduct {
+		int64 shop_id = 1;
+		int32 total_purchase_count = 2;
+		int32 daily_purchase_count = 3;
+		int32 weekly_purchase_count = 4;
+		int32 monthly_purchase_count = 5;
+		repeated ShopTriggerProgress progresses = 6;
+		int64 expire_at = 7;
+	}
+
+	message ShopPurchaseHistory {
+		int64 shop_id = 1;
+		int64 purchase_at = 2;
+	}
+
+	message PurchaseTransaction {
+		PurchasePlatform platform = 1;
+		string receipt_id = 2;
+		int64 shop_id = 3;
+	}
+
+	message Spot {
+		int64 id = 1;
+		optional int64 got_at = 2;
+	}
+
+	message Stamp {
+		int64 id = 1;
+		repeated FavoriteIndex favorites = 2;
+		optional int64 got_at = 3;
+	}
+
+	message FavoriteIndex {
+		int32 favorite_id = 1;
+		int32 slot_index = 2;
+	}
+
+	message UpdateStampFavorite {
+		int32 favorite_id = 1;
+		repeated int64 stamp_ids = 2;
+	}
+
+	message StampFavoriteName {
+		int32 favorite_id = 1;
+		string name = 2;
+	}
+
+	message StoryEpisode {
+		int64 episode_id = 1;
+		bool is_skipped = 2;
+		int64 last_read_at = 3;
+	}
+
+	message SupportCard {
+		int32 id = 1 [deprecated = true];
+		int64 master_id = 2;
+		int32 exp = 3;
+		int32 card_rank = 5;
+		int64 gain_at = 6;
+		int32 duplicate_count = 7;
+	}
+
+	message Faqs {
+		int64 id = 1;
+		string title = 2;
+		string detail = 3;
+	}
+
+	message TermsIds {
+		string id = 1;
+	}
+
+	message TermsHistories {
+		string id = 1;
+		string agreed_version = 2;
+	}
+
+	message TutorialProgress {
+		int64 finished_at = 1;
+	}
+
+	message Vip {
+		int32 point = 1;
+		int32 consecutive_login_count = 2;
+		optional int64 last_login_count_at = 3;
+		optional int64 last_daily_point_at = 4;
+		int32 last_daily_reward_day_number = 5;
+		optional int64 last_daily_reward_at = 6;
+		int32 gained_reward_rank = 7;
+	}
+}
+
+message google {
+	message protobuf {
+		message Any {
+			string type_url = 1;
+			bytes value = 2;
+		}
+
+		enum Edition {
+			EDITION_UNKNOWN = 0;
+			EDITION_LEGACY = 900;
+			EDITION_PROTO2 = 998;
+			EDITION_PROTO3 = 999;
+			EDITION_2023 = 1000;
+			EDITION_2024 = 1001;
+			EDITION_1_TEST_ONLY = 1;
+			EDITION_2_TEST_ONLY = 2;
+			EDITION_99997_TEST_ONLY = 99997;
+			EDITION_99998_TEST_ONLY = 99998;
+			EDITION_99999_TEST_ONLY = 99999;
+			EDITION_MAX = 2147483647;
+		}
+
+		message FileDescriptorSet {
+			repeated FileDescriptorProto file = 1;
+
+			extensions 536000000 to 536000000;
+		}
+
+		message FileDescriptorProto {
+			optional string name = 1;
+			optional string package = 2;
+			repeated string dependency = 3;
+			repeated int32 public_dependency = 10;
+			repeated int32 weak_dependency = 11;
+			repeated DescriptorProto message_type = 4;
+			repeated EnumDescriptorProto enum_type = 5;
+			repeated ServiceDescriptorProto service = 6;
+			repeated FieldDescriptorProto extension = 7;
+			optional FileOptions options = 8;
+			optional SourceCodeInfo source_code_info = 9;
+			optional string syntax = 12;
+			optional Edition edition = 14;
+		}
+
+		message DescriptorProto {
+			message ExtensionRange {
+				optional int32 start = 1;
+				optional int32 end = 2;
+				optional ExtensionRangeOptions options = 3;
+			}
+
+			message ReservedRange {
+				optional int32 start = 1;
+				optional int32 end = 2;
+			}
+
+			optional string name = 1;
+			repeated FieldDescriptorProto field = 2;
+			repeated FieldDescriptorProto extension = 6;
+			repeated DescriptorProto nested_type = 3;
+			repeated EnumDescriptorProto enum_type = 4;
+			repeated DescriptorProto.ExtensionRange extension_range = 5;
+			repeated OneofDescriptorProto oneof_decl = 8;
+			optional MessageOptions options = 7;
+			repeated DescriptorProto.ReservedRange reserved_range = 9;
+			repeated string reserved_name = 10;
+		}
+
+		message ExtensionRangeOptions {
+			message Declaration {
+				optional int32 number = 1;
+				optional string full_name = 2;
+				optional string type = 3;
+				optional bool reserved = 5;
+				optional bool repeated = 6;
+
+				reserved 4;
+			}
+
+			enum VerificationState {
+				DECLARATION = 0;
+				UNVERIFIED = 1;
+			}
+
+			repeated UninterpretedOption uninterpreted_option = 999;
+			repeated ExtensionRangeOptions.Declaration declaration = 2 [retention = RETENTION_SOURCE];
+			optional FeatureSet features = 50;
+			optional ExtensionRangeOptions.VerificationState verification = 3 [retention = RETENTION_SOURCE];
+
+			extensions 1000 to max;
+		}
+
+		message FieldDescriptorProto {
+			enum Type {
+				TYPE_DOUBLE = 1;
+				TYPE_FLOAT = 2;
+				TYPE_INT64 = 3;
+				TYPE_UINT64 = 4;
+				TYPE_INT32 = 5;
+				TYPE_FIXED64 = 6;
+				TYPE_FIXED32 = 7;
+				TYPE_BOOL = 8;
+				TYPE_STRING = 9;
+				TYPE_GROUP = 10;
+				TYPE_MESSAGE = 11;
+				TYPE_BYTES = 12;
+				TYPE_UINT32 = 13;
+				TYPE_ENUM = 14;
+				TYPE_SFIXED32 = 15;
+				TYPE_SFIXED64 = 16;
+				TYPE_SINT32 = 17;
+				TYPE_SINT64 = 18;
+			}
+
+			enum Label {
+				LABEL_OPTIONAL = 1;
+				LABEL_REPEATED = 3;
+				LABEL_REQUIRED = 2;
+			}
+
+			optional string name = 1;
+			optional int32 number = 3;
+			optional FieldDescriptorProto.Label label = 4;
+			optional FieldDescriptorProto.Type type = 5;
+			optional string type_name = 6;
+			optional string extendee = 2;
+			optional string default_value = 7;
+			optional int32 oneof_index = 9;
+			optional string json_name = 10;
+			optional FieldOptions options = 8;
+			optional bool proto3_optional = 17;
+		}
+
+		message OneofDescriptorProto {
+			optional string name = 1;
+			optional OneofOptions options = 2;
+		}
+
+		message EnumDescriptorProto {
+			message EnumReservedRange {
+				optional int32 start = 1;
+				optional int32 end = 2;
+			}
+
+			optional string name = 1;
+			repeated EnumValueDescriptorProto value = 2;
+			optional EnumOptions options = 3;
+			repeated EnumDescriptorProto.EnumReservedRange reserved_range = 4;
+			repeated string reserved_name = 5;
+		}
+
+		message EnumValueDescriptorProto {
+			optional string name = 1;
+			optional int32 number = 2;
+			optional EnumValueOptions options = 3;
+		}
+
+		message ServiceDescriptorProto {
+			optional string name = 1;
+			repeated MethodDescriptorProto method = 2;
+			optional ServiceOptions options = 3;
+		}
+
+		message MethodDescriptorProto {
+			optional string name = 1;
+			optional string input_type = 2;
+			optional string output_type = 3;
+			optional MethodOptions options = 4;
+			optional bool client_streaming = 5;
+			optional bool server_streaming = 6;
+		}
+
+		message FileOptions {
+			enum OptimizeMode {
+				SPEED = 1;
+				CODE_SIZE = 2;
+				LITE_RUNTIME = 3;
+			}
+
+			optional string java_package = 1;
+			optional string java_outer_classname = 8;
+			optional bool java_multiple_files = 10;
+			optional bool java_generate_equals_and_hash = 20 [deprecated = true];
+			optional bool java_string_check_utf8 = 27;
+			optional FileOptions.OptimizeMode optimize_for = 9;
+			optional string go_package = 11;
+			optional bool cc_generic_services = 16;
+			optional bool java_generic_services = 17;
+			optional bool py_generic_services = 18;
+			optional bool deprecated = 23;
+			optional bool cc_enable_arenas = 31;
+			optional string objc_class_prefix = 36;
+			optional string csharp_namespace = 37;
+			optional string swift_prefix = 39;
+			optional string php_class_prefix = 40;
+			optional string php_namespace = 41;
+			optional string php_metadata_namespace = 44;
+			optional string ruby_package = 45;
+			optional FeatureSet features = 50;
+			repeated UninterpretedOption uninterpreted_option = 999;
+
+			extensions 1000 to max;
+
+			reserved 42;
+			reserved 38;
+			reserved "php_generic_services";
+		}
+
+		message MessageOptions {
+			optional bool message_set_wire_format = 1;
+			optional bool no_standard_descriptor_accessor = 2;
+			optional bool deprecated = 3;
+			optional bool map_entry = 7;
+			optional bool deprecated_legacy_json_field_conflicts = 11 [deprecated = true];
+			optional FeatureSet features = 12;
+			repeated UninterpretedOption uninterpreted_option = 999;
+
+			extensions 1000 to max;
+
+			reserved 4;
+			reserved 5;
+			reserved 6;
+			reserved 8;
+			reserved 9;
+		}
+
+		message FieldOptions {
+			message EditionDefault {
+				optional Edition edition = 3;
+				optional string value = 2;
+			}
+
+			message FeatureSupport {
+				optional Edition edition_introduced = 1;
+				optional Edition edition_deprecated = 2;
+				optional string deprecation_warning = 3;
+				optional Edition edition_removed = 4;
+			}
+
+			enum CType {
+				STRING = 0;
+				CORD = 1;
+				STRING_PIECE = 2;
+			}
+
+			enum JSType {
+				JS_NORMAL = 0;
+				JS_STRING = 1;
+				JS_NUMBER = 2;
+			}
+
+			enum OptionRetention {
+				RETENTION_UNKNOWN = 0;
+				RETENTION_RUNTIME = 1;
+				RETENTION_SOURCE = 2;
+			}
+
+			enum OptionTargetType {
+				TARGET_TYPE_UNKNOWN = 0;
+				TARGET_TYPE_FILE = 1;
+				TARGET_TYPE_EXTENSION_RANGE = 2;
+				TARGET_TYPE_MESSAGE = 3;
+				TARGET_TYPE_FIELD = 4;
+				TARGET_TYPE_ONEOF = 5;
+				TARGET_TYPE_ENUM = 6;
+				TARGET_TYPE_ENUM_ENTRY = 7;
+				TARGET_TYPE_SERVICE = 8;
+				TARGET_TYPE_METHOD = 9;
+			}
+
+			optional FieldOptions.CType ctype = 1;
+			optional bool packed = 2;
+			optional FieldOptions.JSType jstype = 6;
+			optional bool lazy = 5;
+			optional bool unverified_lazy = 15;
+			optional bool deprecated = 3;
+			optional bool weak = 10;
+			optional bool debug_redact = 16;
+			optional FieldOptions.OptionRetention retention = 17;
+			repeated FieldOptions.OptionTargetType targets = 19;
+			repeated FieldOptions.EditionDefault edition_defaults = 20;
+			optional FeatureSet features = 21;
+			optional FieldOptions.FeatureSupport feature_support = 22;
+			repeated UninterpretedOption uninterpreted_option = 999;
+
+			extensions 1000 to max;
+
+			reserved 4;
+			reserved 18;
+		}
+
+		message OneofOptions {
+			optional FeatureSet features = 1;
+			repeated UninterpretedOption uninterpreted_option = 999;
+
+			extensions 1000 to max;
+		}
+
+		message EnumOptions {
+			optional bool allow_alias = 2;
+			optional bool deprecated = 3;
+			optional bool deprecated_legacy_json_field_conflicts = 6 [deprecated = true];
+			optional FeatureSet features = 7;
+			repeated UninterpretedOption uninterpreted_option = 999;
+
+			extensions 1000 to max;
+
+			reserved 5;
+		}
+
+		message EnumValueOptions {
+			optional bool deprecated = 1;
+			optional FeatureSet features = 2;
+			optional bool debug_redact = 3;
+			optional FieldOptions.FeatureSupport feature_support = 4;
+			repeated UninterpretedOption uninterpreted_option = 999;
+
+			extensions 1000 to max;
+		}
+
+		message ServiceOptions {
+			optional FeatureSet features = 34;
+			optional bool deprecated = 33;
+			repeated UninterpretedOption uninterpreted_option = 999;
+
+			extensions 1000 to max;
+		}
+
+		message MethodOptions {
+			enum IdempotencyLevel {
+				IDEMPOTENCY_UNKNOWN = 0;
+				NO_SIDE_EFFECTS = 1;
+				IDEMPOTENT = 2;
+			}
+
+			optional bool deprecated = 33;
+			optional MethodOptions.IdempotencyLevel idempotency_level = 34;
+			optional FeatureSet features = 35;
+			repeated UninterpretedOption uninterpreted_option = 999;
+
+			extensions 1000 to max;
+		}
+
+		message UninterpretedOption {
+			message NamePart {
+				required string name_part = 1;
+				required bool is_extension = 2;
+			}
+
+			repeated UninterpretedOption.NamePart name = 2;
+			optional string identifier_value = 3;
+			optional uint64 positive_int_value = 4;
+			optional int64 negative_int_value = 5;
+			optional double double_value = 6;
+			optional bytes string_value = 7;
+			optional string aggregate_value = 8;
+		}
+
+		message FeatureSet {
+			enum FieldPresence {
+				FIELD_PRESENCE_UNKNOWN = 0;
+				EXPLICIT = 1;
+				IMPLICIT = 2;
+				LEGACY_REQUIRED = 3;
+			}
+
+			enum EnumType {
+				ENUM_TYPE_UNKNOWN = 0;
+				OPEN = 1;
+				CLOSED = 2;
+			}
+
+			enum RepeatedFieldEncoding {
+				REPEATED_FIELD_ENCODING_UNKNOWN = 0;
+				PACKED = 1;
+				EXPANDED = 2;
+			}
+
+			enum Utf8Validation {
+				UTF8_VALIDATION_UNKNOWN = 0;
+				VERIFY = 2;
+				NONE = 3;
+			}
+
+			enum MessageEncoding {
+				MESSAGE_ENCODING_UNKNOWN = 0;
+				LENGTH_PREFIXED = 1;
+				DELIMITED = 2;
+			}
+
+			enum JsonFormat {
+				JSON_FORMAT_UNKNOWN = 0;
+				ALLOW = 1;
+				LEGACY_BEST_EFFORT = 2;
+			}
+
+			optional FeatureSet.FieldPresence field_presence = 1 [retention = RETENTION_RUNTIME, targets = TARGET_TYPE_FIELD, targets = TARGET_TYPE_FILE, edition_defaults.value = "EXPLICIT", edition_defaults.edition = EDITION_LEGACY, edition_defaults.value = "IMPLICIT", edition_defaults.edition = EDITION_PROTO3, edition_defaults.value = "EXPLICIT", edition_defaults.edition = EDITION_2023, feature_support.edition_introduced = EDITION_2023];
+			optional FeatureSet.EnumType enum_type = 2 [retention = RETENTION_RUNTIME, targets = TARGET_TYPE_ENUM, targets = TARGET_TYPE_FILE, edition_defaults.value = "CLOSED", edition_defaults.edition = EDITION_LEGACY, edition_defaults.value = "OPEN", edition_defaults.edition = EDITION_PROTO3, feature_support.edition_introduced = EDITION_2023];
+			optional FeatureSet.RepeatedFieldEncoding repeated_field_encoding = 3 [retention = RETENTION_RUNTIME, targets = TARGET_TYPE_FIELD, targets = TARGET_TYPE_FILE, edition_defaults.value = "EXPANDED", edition_defaults.edition = EDITION_LEGACY, edition_defaults.value = "PACKED", edition_defaults.edition = EDITION_PROTO3, feature_support.edition_introduced = EDITION_2023];
+			optional FeatureSet.Utf8Validation utf8_validation = 4 [retention = RETENTION_RUNTIME, targets = TARGET_TYPE_FIELD, targets = TARGET_TYPE_FILE, edition_defaults.value = "NONE", edition_defaults.edition = EDITION_LEGACY, edition_defaults.value = "VERIFY", edition_defaults.edition = EDITION_PROTO3, feature_support.edition_introduced = EDITION_2023];
+			optional FeatureSet.MessageEncoding message_encoding = 5 [retention = RETENTION_RUNTIME, targets = TARGET_TYPE_FIELD, targets = TARGET_TYPE_FILE, edition_defaults.value = "LENGTH_PREFIXED", edition_defaults.edition = EDITION_LEGACY, feature_support.edition_introduced = EDITION_2023];
+			optional FeatureSet.JsonFormat json_format = 6 [retention = RETENTION_RUNTIME, targets = TARGET_TYPE_MESSAGE, targets = TARGET_TYPE_ENUM, targets = TARGET_TYPE_FILE, edition_defaults.value = "LEGACY_BEST_EFFORT", edition_defaults.edition = EDITION_LEGACY, edition_defaults.value = "ALLOW", edition_defaults.edition = EDITION_PROTO3, feature_support.edition_introduced = EDITION_2023];
+
+			extensions 1000 to 9994;
+			extensions 9995 to 9999;
+			extensions 10000 to 10000;
+
+			reserved 999;
+		}
+
+		message FeatureSetDefaults {
+			message FeatureSetEditionDefault {
+				optional Edition edition = 3;
+				optional FeatureSet overridable_features = 4;
+				optional FeatureSet fixed_features = 5;
+
+				reserved 1;
+				reserved 2;
+				reserved "features";
+			}
+
+			repeated FeatureSetDefaults.FeatureSetEditionDefault defaults = 1;
+			optional Edition minimum_edition = 4;
+			optional Edition maximum_edition = 5;
+		}
+
+		message SourceCodeInfo {
+			message Location {
+				repeated int32 path = 1 [packed = true];
+				repeated int32 span = 2 [packed = true];
+				optional string leading_comments = 3;
+				optional string trailing_comments = 4;
+				repeated string leading_detached_comments = 6;
+			}
+
+			repeated SourceCodeInfo.Location location = 1;
+
+			extensions 536000000 to 536000000;
+		}
+
+		message GeneratedCodeInfo {
+			message Annotation {
+				enum Semantic {
+					NONE = 0;
+					SET = 1;
+					ALIAS = 2;
+				}
+
+				repeated int32 path = 1 [packed = true];
+				optional string source_file = 2;
+				optional int32 begin = 3;
+				optional int32 end = 4;
+				optional GeneratedCodeInfo.Annotation.Semantic semantic = 5;
+			}
+
+			repeated GeneratedCodeInfo.Annotation annotation = 1;
+		}
+
+		message Duration {
+			int64 seconds = 1;
+			int32 nanos = 2;
+		}
+
+		message Empty {
+		}
+
+		message FieldMask {
+			repeated string paths = 1;
+		}
+
+		message SourceContext {
+			string file_name = 1;
+		}
+
+		enum NullValue {
+			NULL_VALUE = 0;
+		}
+
+		message Struct {
+			map<string, Value> fields = 1;
+		}
+
+		message Value {
+			oneof kind {
+				NullValue null_value = 1;
+				double number_value = 2;
+				string string_value = 3;
+				bool bool_value = 4;
+				Struct struct_value = 5;
+				ListValue list_value = 6;
+			}
+		}
+
+		message ListValue {
+			repeated Value values = 1;
+		}
+
+		message Timestamp {
+			int64 seconds = 1;
+			int32 nanos = 2;
+		}
+
+		enum Syntax {
+			SYNTAX_PROTO2 = 0;
+			SYNTAX_PROTO3 = 1;
+			SYNTAX_EDITIONS = 2;
+		}
+
+		message Type {
+			string name = 1;
+			repeated Field fields = 2;
+			repeated string oneofs = 3;
+			repeated Option options = 4;
+			SourceContext source_context = 5;
+			Syntax syntax = 6;
+			string edition = 7;
+		}
+
+		message Field {
+			enum Kind {
+				TYPE_UNKNOWN = 0;
+				TYPE_DOUBLE = 1;
+				TYPE_FLOAT = 2;
+				TYPE_INT64 = 3;
+				TYPE_UINT64 = 4;
+				TYPE_INT32 = 5;
+				TYPE_FIXED64 = 6;
+				TYPE_FIXED32 = 7;
+				TYPE_BOOL = 8;
+				TYPE_STRING = 9;
+				TYPE_GROUP = 10;
+				TYPE_MESSAGE = 11;
+				TYPE_BYTES = 12;
+				TYPE_UINT32 = 13;
+				TYPE_ENUM = 14;
+				TYPE_SFIXED32 = 15;
+				TYPE_SFIXED64 = 16;
+				TYPE_SINT32 = 17;
+				TYPE_SINT64 = 18;
+			}
+
+			enum Cardinality {
+				CARDINALITY_UNKNOWN = 0;
+				CARDINALITY_OPTIONAL = 1;
+				CARDINALITY_REQUIRED = 2;
+				CARDINALITY_REPEATED = 3;
+			}
+
+			Field.Kind kind = 1;
+			Field.Cardinality cardinality = 2;
+			int32 number = 3;
+			string name = 4;
+			string type_url = 6;
+			int32 oneof_index = 7;
+			bool packed = 8;
+			repeated Option options = 9;
+			string json_name = 10;
+			string default_value = 11;
+		}
+
+		message Enum {
+			string name = 1;
+			repeated EnumValue enumvalue = 2;
+			repeated Option options = 3;
+			SourceContext source_context = 4;
+			Syntax syntax = 5;
+			string edition = 6;
+		}
+
+		message EnumValue {
+			string name = 1;
+			int32 number = 2;
+			repeated Option options = 3;
+		}
+
+		message Option {
+			string name = 1;
+			Any value = 2;
+		}
+	}
+}

@@ -15,6 +15,12 @@ enum AnnouncementCategory {
 	BUG = 7;
 }
 
+enum AnnouncementPlatform {
+	ANNOUNCEMENT_PLATFORM_ALL = 0;
+	ANNOUNCEMENT_PLATFORM_IOS = 1;
+	ANNOUNCEMENT_PLATFORM_ANDROID = 2;
+}
+
 message Announcement {
 	int64 id = 1;
 	AnnouncementCategory category = 2;
@@ -31,6 +37,7 @@ message Announcement {
 	int64 pickup_end_at = 13;
 	int64 last_updated_at = 14;
 	int64 stylesheet_id = 15;
+	AnnouncementPlatform platform = 16;
 }
 
 message AnnouncementExternalContent {

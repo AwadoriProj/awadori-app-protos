@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package entity;
+
+option csharp_namespace = "App.Protobuf.Entity";
+
+message MusicPuzzle {
+	int64 music_id = 1;
+	string result_json = 2;
+}

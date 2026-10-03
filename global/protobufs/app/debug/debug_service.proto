@@ -223,6 +223,11 @@ message GainGachaPointRequest {
 message GainGachaPointResponse {
 }
 
+message SetChallengePointRequest {
+	int64 event_id = 1;
+	int32 point = 2;
+}
+
 service DebugService {
 	rpc GainItem (.app.debug.GainItemRequest) returns (.app.debug.GainItemResponse);
 	rpc GainGem (.app.debug.GainGemRequest) returns (.app.debug.GainGemResponse);
@@ -256,4 +261,5 @@ service DebugService {
 	rpc ResetAllCircleWeeklyPoint (.google.protobuf.Empty) returns (.google.protobuf.Empty);
 	rpc ResetCircleRankingRewardReceived (.google.protobuf.Empty) returns (.google.protobuf.Empty);
 	rpc GainGachaPoint (.app.debug.GainGachaPointRequest) returns (.app.debug.GainGachaPointResponse);
+	rpc SetChallengePoint (.app.debug.SetChallengePointRequest) returns (.app.debug.EmptyResponse);
 }

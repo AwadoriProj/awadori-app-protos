@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package entity;
+
+option csharp_namespace = "App.Protobuf.Entity";
+
+message TutorialProgress {
+	int64 finished_at = 1;
+}

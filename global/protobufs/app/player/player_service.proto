@@ -1,5 +1,6 @@
 syntax = "proto3";
 
+import "entity/character_costume.proto";
 import "entity/friend.proto";
 import "entity/gem.proto";
 import "entity/invitation.proto";
@@ -222,6 +223,13 @@ message GetPlayerFavoriteStatusResponse {
 	bool is_sent_favorite = 2;
 }
 
+message SetCurrentCostumesRequest {
+	repeated .entity.CharacterCurrentCostume character_current_costumes = 1;
+}
+
+message SetCurrentCostumesResponse {
+}
+
 service PlayerService {
 	rpc Register (.app.player.RegisterRequest) returns (.app.player.RegisterResponse) {
 		option (entity.method_options.skip_authentication) = true;
@@ -276,4 +284,5 @@ service PlayerService {
 	rpc SaveCharacterOrders (.app.player.SaveCharacterOrdersRequest) returns (.app.player.SaveCharacterOrdersResponse);
 	rpc SetNotificationSetting (.app.player.SetNotificationSettingRequest) returns (.app.player.SetNotificationSettingResponse);
 	rpc GetPlayerFavoriteStatus (.app.player.GetPlayerFavoriteStatusRequest) returns (.app.player.GetPlayerFavoriteStatusResponse);
+	rpc SetCurrentCostumes (.app.player.SetCurrentCostumesRequest) returns (.app.player.SetCurrentCostumesResponse);
 }

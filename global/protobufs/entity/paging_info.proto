@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package entity;
+
+option csharp_namespace = "App.Protobuf.Entity";
+
+message PagingInfo {
+	int64 limit = 1;
+	int64 total_count = 2;
+	uint32 total_page = 3;
+	uint32 current_page = 4;
+}

@@ -1,5 +1,6 @@
 syntax = "proto3";
 
+import "entity/character_costume.proto";
 import "entity/item.proto";
 import "entity/mission.proto";
 import "entity/present.proto";
@@ -32,5 +33,6 @@ message Notification {
 	repeated ConvertedResource converted_resources = 6;
 	bool has_exceeded_present = 7;
 	repeated OfflineBonusStartAt offline_bonus_start_ats = 8;
+	repeated CharacterUnlockedCostume character_unlocked_costumes = 9;
 	repeated PresentResource discarded_resources = 10;
 }

@@ -3,6 +3,7 @@ syntax = "proto3";
 import "entity/band_item.proto";
 import "entity/carousel_help.proto";
 import "entity/character.proto";
+import "entity/character_costume.proto";
 import "entity/comeback.proto";
 import "entity/content_unlock.proto";
 import "entity/deck.proto";
@@ -111,4 +112,6 @@ message PlayerData {
 	bool is_night_notice_off = 58;
 	repeated MusicPuzzle puzzles = 59;
 	PersonalNotification personal_notification = 60;
+	repeated CharacterCurrentCostume character_current_costumes = 61;
+	repeated CharacterUnlockedCostume character_unlocked_costumes = 62;
 }
