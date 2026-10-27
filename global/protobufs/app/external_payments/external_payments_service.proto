@@ -2,6 +2,7 @@ syntax = "proto3";
 
 import "entity/method_options/method_options.proto";
 import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
 
 package app.external_payments;
 
@@ -72,6 +73,18 @@ message GetProductListResponse {
 	repeated ProductListItem items = 1;
 }
 
+message ReserveProvisionalPurchaseRequest {
+	int64 shop_item_id = 1;
+	.google.protobuf.Timestamp expires_at = 2;
+}
+
+message ReserveProvisionalPurchaseResponse {
+	PaymentDenyReason status = 1;
+}
+
+message ReleaseProvisionalPurchaseRequest {
+}
+
 service ExternalPaymentsService {
 	rpc Nop (.google.protobuf.Empty) returns (.google.protobuf.Empty) {
 		option (entity.method_options.external_payments) = true;
@@ -89,6 +102,16 @@ service ExternalPaymentsService {
 	}
 
 	rpc GetProductList (.app.external_payments.GetProductListRequest) returns (.app.external_payments.GetProductListResponse) {
+		option (entity.method_options.external_payments) = true;
+		option (entity.method_options.skip_authentication) = true;
+	}
+
+	rpc ReserveProvisionalPurchase (.app.external_payments.ReserveProvisionalPurchaseRequest) returns (.app.external_payments.ReserveProvisionalPurchaseResponse) {
+		option (entity.method_options.external_payments) = true;
+		option (entity.method_options.skip_authentication) = true;
+	}
+
+	rpc ReleaseProvisionalPurchase (.app.external_payments.ReleaseProvisionalPurchaseRequest) returns (.google.protobuf.Empty) {
 		option (entity.method_options.external_payments) = true;
 		option (entity.method_options.skip_authentication) = true;
 	}

@@ -710,11 +710,359 @@ func (x *GetChallengeMusicRankingResponse) GetMyScore() int32 {
 	return 0
 }
 
+type GetChallengeMusicTotalRankingRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	EventId       int64                  `protobuf:"varint,1,opt,name=event_id,json=eventId,proto3" json:"event_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetChallengeMusicTotalRankingRequest) Reset() {
+	*x = GetChallengeMusicTotalRankingRequest{}
+	mi := &file_app_event_event_service_proto_msgTypes[14]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetChallengeMusicTotalRankingRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetChallengeMusicTotalRankingRequest) ProtoMessage() {}
+
+func (x *GetChallengeMusicTotalRankingRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_app_event_event_service_proto_msgTypes[14]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetChallengeMusicTotalRankingRequest.ProtoReflect.Descriptor instead.
+func (*GetChallengeMusicTotalRankingRequest) Descriptor() ([]byte, []int) {
+	return file_app_event_event_service_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *GetChallengeMusicTotalRankingRequest) GetEventId() int64 {
+	if x != nil {
+		return x.EventId
+	}
+	return 0
+}
+
+type ChallengeMusicTotalRankingPlayer struct {
+	state         protoimpl.MessageState      `protogen:"open.v1"`
+	PlayerData    *entity.PlayerSimpleProfile `protobuf:"bytes,1,opt,name=player_data,json=playerData,proto3" json:"player_data,omitempty"`
+	Score         int32                       `protobuf:"varint,2,opt,name=score,proto3" json:"score,omitempty"`
+	HighScoreDeck *entity.DeckDetail          `protobuf:"bytes,3,opt,name=high_score_deck,json=highScoreDeck,proto3" json:"high_score_deck,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ChallengeMusicTotalRankingPlayer) Reset() {
+	*x = ChallengeMusicTotalRankingPlayer{}
+	mi := &file_app_event_event_service_proto_msgTypes[15]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ChallengeMusicTotalRankingPlayer) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ChallengeMusicTotalRankingPlayer) ProtoMessage() {}
+
+func (x *ChallengeMusicTotalRankingPlayer) ProtoReflect() protoreflect.Message {
+	mi := &file_app_event_event_service_proto_msgTypes[15]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ChallengeMusicTotalRankingPlayer.ProtoReflect.Descriptor instead.
+func (*ChallengeMusicTotalRankingPlayer) Descriptor() ([]byte, []int) {
+	return file_app_event_event_service_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *ChallengeMusicTotalRankingPlayer) GetPlayerData() *entity.PlayerSimpleProfile {
+	if x != nil {
+		return x.PlayerData
+	}
+	return nil
+}
+
+func (x *ChallengeMusicTotalRankingPlayer) GetScore() int32 {
+	if x != nil {
+		return x.Score
+	}
+	return 0
+}
+
+func (x *ChallengeMusicTotalRankingPlayer) GetHighScoreDeck() *entity.DeckDetail {
+	if x != nil {
+		return x.HighScoreDeck
+	}
+	return nil
+}
+
+type GetChallengeMusicTotalRankingResponse struct {
+	state         protoimpl.MessageState              `protogen:"open.v1"`
+	Players       []*ChallengeMusicTotalRankingPlayer `protobuf:"bytes,1,rep,name=players,proto3" json:"players,omitempty"`
+	MyRank        int32                               `protobuf:"varint,2,opt,name=my_rank,json=myRank,proto3" json:"my_rank,omitempty"`
+	MyScore       int32                               `protobuf:"varint,3,opt,name=my_score,json=myScore,proto3" json:"my_score,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetChallengeMusicTotalRankingResponse) Reset() {
+	*x = GetChallengeMusicTotalRankingResponse{}
+	mi := &file_app_event_event_service_proto_msgTypes[16]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetChallengeMusicTotalRankingResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetChallengeMusicTotalRankingResponse) ProtoMessage() {}
+
+func (x *GetChallengeMusicTotalRankingResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_app_event_event_service_proto_msgTypes[16]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetChallengeMusicTotalRankingResponse.ProtoReflect.Descriptor instead.
+func (*GetChallengeMusicTotalRankingResponse) Descriptor() ([]byte, []int) {
+	return file_app_event_event_service_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *GetChallengeMusicTotalRankingResponse) GetPlayers() []*ChallengeMusicTotalRankingPlayer {
+	if x != nil {
+		return x.Players
+	}
+	return nil
+}
+
+func (x *GetChallengeMusicTotalRankingResponse) GetMyRank() int32 {
+	if x != nil {
+		return x.MyRank
+	}
+	return 0
+}
+
+func (x *GetChallengeMusicTotalRankingResponse) GetMyScore() int32 {
+	if x != nil {
+		return x.MyScore
+	}
+	return 0
+}
+
+type GetTryEventRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	EventId       int64                  `protobuf:"varint,1,opt,name=event_id,json=eventId,proto3" json:"event_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetTryEventRequest) Reset() {
+	*x = GetTryEventRequest{}
+	mi := &file_app_event_event_service_proto_msgTypes[17]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetTryEventRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetTryEventRequest) ProtoMessage() {}
+
+func (x *GetTryEventRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_app_event_event_service_proto_msgTypes[17]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetTryEventRequest.ProtoReflect.Descriptor instead.
+func (*GetTryEventRequest) Descriptor() ([]byte, []int) {
+	return file_app_event_event_service_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *GetTryEventRequest) GetEventId() int64 {
+	if x != nil {
+		return x.EventId
+	}
+	return 0
+}
+
+type GetTryEventResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	TryEvent      *entity.TryEvent       `protobuf:"bytes,1,opt,name=try_event,json=tryEvent,proto3" json:"try_event,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetTryEventResponse) Reset() {
+	*x = GetTryEventResponse{}
+	mi := &file_app_event_event_service_proto_msgTypes[18]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetTryEventResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetTryEventResponse) ProtoMessage() {}
+
+func (x *GetTryEventResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_app_event_event_service_proto_msgTypes[18]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetTryEventResponse.ProtoReflect.Descriptor instead.
+func (*GetTryEventResponse) Descriptor() ([]byte, []int) {
+	return file_app_event_event_service_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *GetTryEventResponse) GetTryEvent() *entity.TryEvent {
+	if x != nil {
+		return x.TryEvent
+	}
+	return nil
+}
+
+type VisitTopRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	EventId       int64                  `protobuf:"varint,1,opt,name=event_id,json=eventId,proto3" json:"event_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *VisitTopRequest) Reset() {
+	*x = VisitTopRequest{}
+	mi := &file_app_event_event_service_proto_msgTypes[19]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *VisitTopRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*VisitTopRequest) ProtoMessage() {}
+
+func (x *VisitTopRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_app_event_event_service_proto_msgTypes[19]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use VisitTopRequest.ProtoReflect.Descriptor instead.
+func (*VisitTopRequest) Descriptor() ([]byte, []int) {
+	return file_app_event_event_service_proto_rawDescGZIP(), []int{19}
+}
+
+func (x *VisitTopRequest) GetEventId() int64 {
+	if x != nil {
+		return x.EventId
+	}
+	return 0
+}
+
+type VisitTopResponse struct {
+	state                     protoimpl.MessageState `protogen:"open.v1"`
+	Notification              *entity.Notification   `protobuf:"bytes,1,opt,name=notification,proto3" json:"notification,omitempty"`
+	ChallengeMusicTotalMyRank int32                  `protobuf:"varint,2,opt,name=challenge_music_total_my_rank,json=challengeMusicTotalMyRank,proto3" json:"challenge_music_total_my_rank,omitempty"`
+	unknownFields             protoimpl.UnknownFields
+	sizeCache                 protoimpl.SizeCache
+}
+
+func (x *VisitTopResponse) Reset() {
+	*x = VisitTopResponse{}
+	mi := &file_app_event_event_service_proto_msgTypes[20]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *VisitTopResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*VisitTopResponse) ProtoMessage() {}
+
+func (x *VisitTopResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_app_event_event_service_proto_msgTypes[20]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use VisitTopResponse.ProtoReflect.Descriptor instead.
+func (*VisitTopResponse) Descriptor() ([]byte, []int) {
+	return file_app_event_event_service_proto_rawDescGZIP(), []int{20}
+}
+
+func (x *VisitTopResponse) GetNotification() *entity.Notification {
+	if x != nil {
+		return x.Notification
+	}
+	return nil
+}
+
+func (x *VisitTopResponse) GetChallengeMusicTotalMyRank() int32 {
+	if x != nil {
+		return x.ChallengeMusicTotalMyRank
+	}
+	return 0
+}
+
 var File_app_event_event_service_proto protoreflect.FileDescriptor
 
 const file_app_event_event_service_proto_rawDesc = "" +
 	"\n" +
-	"\x1dapp/event/event_service.proto\x12\tapp.event\x1a\x11entity/deck.proto\x1a\x19entity/notification.proto\x1a\x1bentity/player_profile.proto\"I\n" +
+	"\x1dapp/event/event_service.proto\x12\tapp.event\x1a\x11entity/deck.proto\x1a\x12entity/event.proto\x1a\x19entity/notification.proto\x1a\x1bentity/player_profile.proto\"I\n" +
 	"\x16ExecuteBoxGachaRequest\x12\x19\n" +
 	"\bevent_id\x18\x01 \x01(\x03R\aeventId\x12\x14\n" +
 	"\x05count\x18\x02 \x01(\x05R\x05count\"p\n" +
@@ -752,14 +1100,37 @@ const file_app_event_event_service_proto_rawDesc = "" +
 	" GetChallengeMusicRankingResponse\x12?\n" +
 	"\aplayers\x18\x01 \x03(\v2%.app.event.ChallengeLiveRankingPlayerR\aplayers\x12\x17\n" +
 	"\amy_rank\x18\x02 \x01(\x05R\x06myRank\x12\x19\n" +
-	"\bmy_score\x18\x03 \x01(\x05R\amyScore2\x8c\x04\n" +
+	"\bmy_score\x18\x03 \x01(\x05R\amyScore\"A\n" +
+	"$GetChallengeMusicTotalRankingRequest\x12\x19\n" +
+	"\bevent_id\x18\x01 \x01(\x03R\aeventId\"\xb2\x01\n" +
+	" ChallengeMusicTotalRankingPlayer\x12<\n" +
+	"\vplayer_data\x18\x01 \x01(\v2\x1b.entity.PlayerSimpleProfileR\n" +
+	"playerData\x12\x14\n" +
+	"\x05score\x18\x02 \x01(\x05R\x05score\x12:\n" +
+	"\x0fhigh_score_deck\x18\x03 \x01(\v2\x12.entity.DeckDetailR\rhighScoreDeck\"\xa2\x01\n" +
+	"%GetChallengeMusicTotalRankingResponse\x12E\n" +
+	"\aplayers\x18\x01 \x03(\v2+.app.event.ChallengeMusicTotalRankingPlayerR\aplayers\x12\x17\n" +
+	"\amy_rank\x18\x02 \x01(\x05R\x06myRank\x12\x19\n" +
+	"\bmy_score\x18\x03 \x01(\x05R\amyScore\"/\n" +
+	"\x12GetTryEventRequest\x12\x19\n" +
+	"\bevent_id\x18\x01 \x01(\x03R\aeventId\"D\n" +
+	"\x13GetTryEventResponse\x12-\n" +
+	"\ttry_event\x18\x01 \x01(\v2\x10.entity.TryEventR\btryEvent\",\n" +
+	"\x0fVisitTopRequest\x12\x19\n" +
+	"\bevent_id\x18\x01 \x01(\x03R\aeventId\"\x8e\x01\n" +
+	"\x10VisitTopResponse\x128\n" +
+	"\fnotification\x18\x01 \x01(\v2\x14.entity.NotificationR\fnotification\x12@\n" +
+	"\x1dchallenge_music_total_my_rank\x18\x02 \x01(\x05R\x19challengeMusicTotalMyRank2\xa4\x06\n" +
 	"\fEventService\x12X\n" +
 	"\x0fExecuteBoxGacha\x12!.app.event.ExecuteBoxGachaRequest\x1a\".app.event.ExecuteBoxGachaResponse\x12R\n" +
 	"\rResetBoxGacha\x12\x1f.app.event.ResetBoxGachaRequest\x1a .app.event.ResetBoxGachaResponse\x12@\n" +
 	"\aGetRank\x12\x19.app.event.GetRankRequest\x1a\x1a.app.event.GetRankResponse\x12@\n" +
 	"\aGetDeck\x12\x19.app.event.GetDeckRequest\x1a\x1a.app.event.GetDeckResponse\x12U\n" +
 	"\x0eGetRankingList\x12 .app.event.GetRankingListRequest\x1a!.app.event.GetRankingListResponse\x12s\n" +
-	"\x18GetChallengeMusicRanking\x12*.app.event.GetChallengeMusicRankingRequest\x1a+.app.event.GetChallengeMusicRankingResponseB\x15\xaa\x02\x12App.Protobuf.Eventb\x06proto3"
+	"\x18GetChallengeMusicRanking\x12*.app.event.GetChallengeMusicRankingRequest\x1a+.app.event.GetChallengeMusicRankingResponse\x12\x82\x01\n" +
+	"\x1dGetChallengeMusicTotalRanking\x12/.app.event.GetChallengeMusicTotalRankingRequest\x1a0.app.event.GetChallengeMusicTotalRankingResponse\x12L\n" +
+	"\vGetTryEvent\x12\x1d.app.event.GetTryEventRequest\x1a\x1e.app.event.GetTryEventResponse\x12C\n" +
+	"\bVisitTop\x12\x1a.app.event.VisitTopRequest\x1a\x1b.app.event.VisitTopResponseB\x15\xaa\x02\x12App.Protobuf.Eventb\x06proto3"
 
 var (
 	file_app_event_event_service_proto_rawDescOnce sync.Once
@@ -773,51 +1144,70 @@ func file_app_event_event_service_proto_rawDescGZIP() []byte {
 	return file_app_event_event_service_proto_rawDescData
 }
 
-var file_app_event_event_service_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
+var file_app_event_event_service_proto_msgTypes = make([]protoimpl.MessageInfo, 21)
 var file_app_event_event_service_proto_goTypes = []any{
-	(*ExecuteBoxGachaRequest)(nil),           // 0: app.event.ExecuteBoxGachaRequest
-	(*ExecuteBoxGachaResponse)(nil),          // 1: app.event.ExecuteBoxGachaResponse
-	(*ResetBoxGachaRequest)(nil),             // 2: app.event.ResetBoxGachaRequest
-	(*ResetBoxGachaResponse)(nil),            // 3: app.event.ResetBoxGachaResponse
-	(*GetRankRequest)(nil),                   // 4: app.event.GetRankRequest
-	(*GetRankResponse)(nil),                  // 5: app.event.GetRankResponse
-	(*GetDeckRequest)(nil),                   // 6: app.event.GetDeckRequest
-	(*GetDeckResponse)(nil),                  // 7: app.event.GetDeckResponse
-	(*GetRankingListRequest)(nil),            // 8: app.event.GetRankingListRequest
-	(*EventRankingEntry)(nil),                // 9: app.event.EventRankingEntry
-	(*GetRankingListResponse)(nil),           // 10: app.event.GetRankingListResponse
-	(*GetChallengeMusicRankingRequest)(nil),  // 11: app.event.GetChallengeMusicRankingRequest
-	(*ChallengeLiveRankingPlayer)(nil),       // 12: app.event.ChallengeLiveRankingPlayer
-	(*GetChallengeMusicRankingResponse)(nil), // 13: app.event.GetChallengeMusicRankingResponse
-	(*entity.Notification)(nil),              // 14: entity.Notification
-	(*entity.DeckDetail)(nil),                // 15: entity.DeckDetail
-	(*entity.PlayerSimpleProfile)(nil),       // 16: entity.PlayerSimpleProfile
+	(*ExecuteBoxGachaRequest)(nil),                // 0: app.event.ExecuteBoxGachaRequest
+	(*ExecuteBoxGachaResponse)(nil),               // 1: app.event.ExecuteBoxGachaResponse
+	(*ResetBoxGachaRequest)(nil),                  // 2: app.event.ResetBoxGachaRequest
+	(*ResetBoxGachaResponse)(nil),                 // 3: app.event.ResetBoxGachaResponse
+	(*GetRankRequest)(nil),                        // 4: app.event.GetRankRequest
+	(*GetRankResponse)(nil),                       // 5: app.event.GetRankResponse
+	(*GetDeckRequest)(nil),                        // 6: app.event.GetDeckRequest
+	(*GetDeckResponse)(nil),                       // 7: app.event.GetDeckResponse
+	(*GetRankingListRequest)(nil),                 // 8: app.event.GetRankingListRequest
+	(*EventRankingEntry)(nil),                     // 9: app.event.EventRankingEntry
+	(*GetRankingListResponse)(nil),                // 10: app.event.GetRankingListResponse
+	(*GetChallengeMusicRankingRequest)(nil),       // 11: app.event.GetChallengeMusicRankingRequest
+	(*ChallengeLiveRankingPlayer)(nil),            // 12: app.event.ChallengeLiveRankingPlayer
+	(*GetChallengeMusicRankingResponse)(nil),      // 13: app.event.GetChallengeMusicRankingResponse
+	(*GetChallengeMusicTotalRankingRequest)(nil),  // 14: app.event.GetChallengeMusicTotalRankingRequest
+	(*ChallengeMusicTotalRankingPlayer)(nil),      // 15: app.event.ChallengeMusicTotalRankingPlayer
+	(*GetChallengeMusicTotalRankingResponse)(nil), // 16: app.event.GetChallengeMusicTotalRankingResponse
+	(*GetTryEventRequest)(nil),                    // 17: app.event.GetTryEventRequest
+	(*GetTryEventResponse)(nil),                   // 18: app.event.GetTryEventResponse
+	(*VisitTopRequest)(nil),                       // 19: app.event.VisitTopRequest
+	(*VisitTopResponse)(nil),                      // 20: app.event.VisitTopResponse
+	(*entity.Notification)(nil),                   // 21: entity.Notification
+	(*entity.DeckDetail)(nil),                     // 22: entity.DeckDetail
+	(*entity.PlayerSimpleProfile)(nil),            // 23: entity.PlayerSimpleProfile
+	(*entity.TryEvent)(nil),                       // 24: entity.TryEvent
 }
 var file_app_event_event_service_proto_depIdxs = []int32{
-	14, // 0: app.event.ExecuteBoxGachaResponse.notification:type_name -> entity.Notification
-	15, // 1: app.event.GetDeckResponse.deck:type_name -> entity.DeckDetail
-	16, // 2: app.event.EventRankingEntry.profile:type_name -> entity.PlayerSimpleProfile
+	21, // 0: app.event.ExecuteBoxGachaResponse.notification:type_name -> entity.Notification
+	22, // 1: app.event.GetDeckResponse.deck:type_name -> entity.DeckDetail
+	23, // 2: app.event.EventRankingEntry.profile:type_name -> entity.PlayerSimpleProfile
 	9,  // 3: app.event.GetRankingListResponse.ranking:type_name -> app.event.EventRankingEntry
-	16, // 4: app.event.ChallengeLiveRankingPlayer.player_data:type_name -> entity.PlayerSimpleProfile
-	15, // 5: app.event.ChallengeLiveRankingPlayer.high_score_deck:type_name -> entity.DeckDetail
+	23, // 4: app.event.ChallengeLiveRankingPlayer.player_data:type_name -> entity.PlayerSimpleProfile
+	22, // 5: app.event.ChallengeLiveRankingPlayer.high_score_deck:type_name -> entity.DeckDetail
 	12, // 6: app.event.GetChallengeMusicRankingResponse.players:type_name -> app.event.ChallengeLiveRankingPlayer
-	0,  // 7: app.event.EventService.ExecuteBoxGacha:input_type -> app.event.ExecuteBoxGachaRequest
-	2,  // 8: app.event.EventService.ResetBoxGacha:input_type -> app.event.ResetBoxGachaRequest
-	4,  // 9: app.event.EventService.GetRank:input_type -> app.event.GetRankRequest
-	6,  // 10: app.event.EventService.GetDeck:input_type -> app.event.GetDeckRequest
-	8,  // 11: app.event.EventService.GetRankingList:input_type -> app.event.GetRankingListRequest
-	11, // 12: app.event.EventService.GetChallengeMusicRanking:input_type -> app.event.GetChallengeMusicRankingRequest
-	1,  // 13: app.event.EventService.ExecuteBoxGacha:output_type -> app.event.ExecuteBoxGachaResponse
-	3,  // 14: app.event.EventService.ResetBoxGacha:output_type -> app.event.ResetBoxGachaResponse
-	5,  // 15: app.event.EventService.GetRank:output_type -> app.event.GetRankResponse
-	7,  // 16: app.event.EventService.GetDeck:output_type -> app.event.GetDeckResponse
-	10, // 17: app.event.EventService.GetRankingList:output_type -> app.event.GetRankingListResponse
-	13, // 18: app.event.EventService.GetChallengeMusicRanking:output_type -> app.event.GetChallengeMusicRankingResponse
-	13, // [13:19] is the sub-list for method output_type
-	7,  // [7:13] is the sub-list for method input_type
-	7,  // [7:7] is the sub-list for extension type_name
-	7,  // [7:7] is the sub-list for extension extendee
-	0,  // [0:7] is the sub-list for field type_name
+	23, // 7: app.event.ChallengeMusicTotalRankingPlayer.player_data:type_name -> entity.PlayerSimpleProfile
+	22, // 8: app.event.ChallengeMusicTotalRankingPlayer.high_score_deck:type_name -> entity.DeckDetail
+	15, // 9: app.event.GetChallengeMusicTotalRankingResponse.players:type_name -> app.event.ChallengeMusicTotalRankingPlayer
+	24, // 10: app.event.GetTryEventResponse.try_event:type_name -> entity.TryEvent
+	21, // 11: app.event.VisitTopResponse.notification:type_name -> entity.Notification
+	0,  // 12: app.event.EventService.ExecuteBoxGacha:input_type -> app.event.ExecuteBoxGachaRequest
+	2,  // 13: app.event.EventService.ResetBoxGacha:input_type -> app.event.ResetBoxGachaRequest
+	4,  // 14: app.event.EventService.GetRank:input_type -> app.event.GetRankRequest
+	6,  // 15: app.event.EventService.GetDeck:input_type -> app.event.GetDeckRequest
+	8,  // 16: app.event.EventService.GetRankingList:input_type -> app.event.GetRankingListRequest
+	11, // 17: app.event.EventService.GetChallengeMusicRanking:input_type -> app.event.GetChallengeMusicRankingRequest
+	14, // 18: app.event.EventService.GetChallengeMusicTotalRanking:input_type -> app.event.GetChallengeMusicTotalRankingRequest
+	17, // 19: app.event.EventService.GetTryEvent:input_type -> app.event.GetTryEventRequest
+	19, // 20: app.event.EventService.VisitTop:input_type -> app.event.VisitTopRequest
+	1,  // 21: app.event.EventService.ExecuteBoxGacha:output_type -> app.event.ExecuteBoxGachaResponse
+	3,  // 22: app.event.EventService.ResetBoxGacha:output_type -> app.event.ResetBoxGachaResponse
+	5,  // 23: app.event.EventService.GetRank:output_type -> app.event.GetRankResponse
+	7,  // 24: app.event.EventService.GetDeck:output_type -> app.event.GetDeckResponse
+	10, // 25: app.event.EventService.GetRankingList:output_type -> app.event.GetRankingListResponse
+	13, // 26: app.event.EventService.GetChallengeMusicRanking:output_type -> app.event.GetChallengeMusicRankingResponse
+	16, // 27: app.event.EventService.GetChallengeMusicTotalRanking:output_type -> app.event.GetChallengeMusicTotalRankingResponse
+	18, // 28: app.event.EventService.GetTryEvent:output_type -> app.event.GetTryEventResponse
+	20, // 29: app.event.EventService.VisitTop:output_type -> app.event.VisitTopResponse
+	21, // [21:30] is the sub-list for method output_type
+	12, // [12:21] is the sub-list for method input_type
+	12, // [12:12] is the sub-list for extension type_name
+	12, // [12:12] is the sub-list for extension extendee
+	0,  // [0:12] is the sub-list for field type_name
 }
 
 func init() { file_app_event_event_service_proto_init() }
@@ -831,7 +1221,7 @@ func file_app_event_event_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_app_event_event_service_proto_rawDesc), len(file_app_event_event_service_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   14,
+			NumMessages:   21,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

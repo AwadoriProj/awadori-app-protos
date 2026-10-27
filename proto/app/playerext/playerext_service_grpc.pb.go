@@ -21,6 +21,7 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	PlayerExtService_SyncData_FullMethodName      = "/app.playerext.PlayerExtService/SyncData"
 	PlayerExtService_GetPlayerList_FullMethodName = "/app.playerext.PlayerExtService/GetPlayerList"
+	PlayerExtService_ReportLog_FullMethodName     = "/app.playerext.PlayerExtService/ReportLog"
 )
 
 // PlayerExtServiceClient is the client API for PlayerExtService service.
@@ -29,6 +30,7 @@ const (
 type PlayerExtServiceClient interface {
 	SyncData(ctx context.Context, in *SyncDataRequest, opts ...grpc.CallOption) (*SyncDataResponse, error)
 	GetPlayerList(ctx context.Context, in *GetPlayerListRequest, opts ...grpc.CallOption) (*GetPlayerListResponse, error)
+	ReportLog(ctx context.Context, in *ReportLogRequest, opts ...grpc.CallOption) (*ReportLogResponse, error)
 }
 
 type playerExtServiceClient struct {
@@ -59,12 +61,23 @@ func (c *playerExtServiceClient) GetPlayerList(ctx context.Context, in *GetPlaye
 	return out, nil
 }
 
+func (c *playerExtServiceClient) ReportLog(ctx context.Context, in *ReportLogRequest, opts ...grpc.CallOption) (*ReportLogResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ReportLogResponse)
+	err := c.cc.Invoke(ctx, PlayerExtService_ReportLog_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // PlayerExtServiceServer is the server API for PlayerExtService service.
 // All implementations must embed UnimplementedPlayerExtServiceServer
 // for forward compatibility.
 type PlayerExtServiceServer interface {
 	SyncData(context.Context, *SyncDataRequest) (*SyncDataResponse, error)
 	GetPlayerList(context.Context, *GetPlayerListRequest) (*GetPlayerListResponse, error)
+	ReportLog(context.Context, *ReportLogRequest) (*ReportLogResponse, error)
 	mustEmbedUnimplementedPlayerExtServiceServer()
 }
 
@@ -80,6 +93,9 @@ func (UnimplementedPlayerExtServiceServer) SyncData(context.Context, *SyncDataRe
 }
 func (UnimplementedPlayerExtServiceServer) GetPlayerList(context.Context, *GetPlayerListRequest) (*GetPlayerListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPlayerList not implemented")
+}
+func (UnimplementedPlayerExtServiceServer) ReportLog(context.Context, *ReportLogRequest) (*ReportLogResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ReportLog not implemented")
 }
 func (UnimplementedPlayerExtServiceServer) mustEmbedUnimplementedPlayerExtServiceServer() {}
 func (UnimplementedPlayerExtServiceServer) testEmbeddedByValue()                          {}
@@ -138,6 +154,24 @@ func _PlayerExtService_GetPlayerList_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PlayerExtService_ReportLog_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReportLogRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PlayerExtServiceServer).ReportLog(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PlayerExtService_ReportLog_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PlayerExtServiceServer).ReportLog(ctx, req.(*ReportLogRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // PlayerExtService_ServiceDesc is the grpc.ServiceDesc for PlayerExtService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -152,6 +186,10 @@ var PlayerExtService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetPlayerList",
 			Handler:    _PlayerExtService_GetPlayerList_Handler,
+		},
+		{
+			MethodName: "ReportLog",
+			Handler:    _PlayerExtService_ReportLog_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

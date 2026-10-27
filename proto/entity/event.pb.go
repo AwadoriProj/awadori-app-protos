@@ -253,11 +253,283 @@ func (x *ChallengeLive) GetPoint() int32 {
 	return 0
 }
 
+type TryProgress struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	TryType       int32                  `protobuf:"varint,1,opt,name=try_type,json=tryType,proto3" json:"try_type,omitempty"`
+	Level         int32                  `protobuf:"varint,2,opt,name=level,proto3" json:"level,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *TryProgress) Reset() {
+	*x = TryProgress{}
+	mi := &file_entity_event_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *TryProgress) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TryProgress) ProtoMessage() {}
+
+func (x *TryProgress) ProtoReflect() protoreflect.Message {
+	mi := &file_entity_event_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TryProgress.ProtoReflect.Descriptor instead.
+func (*TryProgress) Descriptor() ([]byte, []int) {
+	return file_entity_event_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *TryProgress) GetTryType() int32 {
+	if x != nil {
+		return x.TryType
+	}
+	return 0
+}
+
+func (x *TryProgress) GetLevel() int32 {
+	if x != nil {
+		return x.Level
+	}
+	return 0
+}
+
+type TryMusicScore struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	TryMusicId    int64                  `protobuf:"varint,1,opt,name=try_music_id,json=tryMusicId,proto3" json:"try_music_id,omitempty"`
+	HighScore     int32                  `protobuf:"varint,2,opt,name=high_score,json=highScore,proto3" json:"high_score,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *TryMusicScore) Reset() {
+	*x = TryMusicScore{}
+	mi := &file_entity_event_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *TryMusicScore) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TryMusicScore) ProtoMessage() {}
+
+func (x *TryMusicScore) ProtoReflect() protoreflect.Message {
+	mi := &file_entity_event_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TryMusicScore.ProtoReflect.Descriptor instead.
+func (*TryMusicScore) Descriptor() ([]byte, []int) {
+	return file_entity_event_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *TryMusicScore) GetTryMusicId() int64 {
+	if x != nil {
+		return x.TryMusicId
+	}
+	return 0
+}
+
+func (x *TryMusicScore) GetHighScore() int32 {
+	if x != nil {
+		return x.HighScore
+	}
+	return 0
+}
+
+type TryEvent struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	EventId       int64                  `protobuf:"varint,1,opt,name=event_id,json=eventId,proto3" json:"event_id,omitempty"`
+	Progresses    []*TryProgress         `protobuf:"bytes,2,rep,name=progresses,proto3" json:"progresses,omitempty"`
+	MusicScores   []*TryMusicScore       `protobuf:"bytes,3,rep,name=music_scores,json=musicScores,proto3" json:"music_scores,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *TryEvent) Reset() {
+	*x = TryEvent{}
+	mi := &file_entity_event_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *TryEvent) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TryEvent) ProtoMessage() {}
+
+func (x *TryEvent) ProtoReflect() protoreflect.Message {
+	mi := &file_entity_event_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TryEvent.ProtoReflect.Descriptor instead.
+func (*TryEvent) Descriptor() ([]byte, []int) {
+	return file_entity_event_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *TryEvent) GetEventId() int64 {
+	if x != nil {
+		return x.EventId
+	}
+	return 0
+}
+
+func (x *TryEvent) GetProgresses() []*TryProgress {
+	if x != nil {
+		return x.Progresses
+	}
+	return nil
+}
+
+func (x *TryEvent) GetMusicScores() []*TryMusicScore {
+	if x != nil {
+		return x.MusicScores
+	}
+	return nil
+}
+
+type TryLiveResult struct {
+	state                     protoimpl.MessageState `protogen:"open.v1"`
+	ClearedTryMissionIds      []int64                `protobuf:"varint,1,rep,packed,name=cleared_try_mission_ids,json=clearedTryMissionIds,proto3" json:"cleared_try_mission_ids,omitempty"`
+	GainedEventPoint          int32                  `protobuf:"varint,2,opt,name=gained_event_point,json=gainedEventPoint,proto3" json:"gained_event_point,omitempty"`
+	GainedRewards             []*RewardResource      `protobuf:"bytes,3,rep,name=gained_rewards,json=gainedRewards,proto3" json:"gained_rewards,omitempty"`
+	Progresses                []*TryProgress         `protobuf:"bytes,4,rep,name=progresses,proto3" json:"progresses,omitempty"`
+	TryLevelRewards           []*RewardResource      `protobuf:"bytes,5,rep,name=try_level_rewards,json=tryLevelRewards,proto3" json:"try_level_rewards,omitempty"`
+	TryMusicId                int64                  `protobuf:"varint,6,opt,name=try_music_id,json=tryMusicId,proto3" json:"try_music_id,omitempty"`
+	TryMusicHighScore         int32                  `protobuf:"varint,7,opt,name=try_music_high_score,json=tryMusicHighScore,proto3" json:"try_music_high_score,omitempty"`
+	TryMusicTotalScore        int64                  `protobuf:"varint,8,opt,name=try_music_total_score,json=tryMusicTotalScore,proto3" json:"try_music_total_score,omitempty"`
+	TryMusicTotalScoreRewards []*RewardResource      `protobuf:"bytes,9,rep,name=try_music_total_score_rewards,json=tryMusicTotalScoreRewards,proto3" json:"try_music_total_score_rewards,omitempty"`
+	unknownFields             protoimpl.UnknownFields
+	sizeCache                 protoimpl.SizeCache
+}
+
+func (x *TryLiveResult) Reset() {
+	*x = TryLiveResult{}
+	mi := &file_entity_event_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *TryLiveResult) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TryLiveResult) ProtoMessage() {}
+
+func (x *TryLiveResult) ProtoReflect() protoreflect.Message {
+	mi := &file_entity_event_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TryLiveResult.ProtoReflect.Descriptor instead.
+func (*TryLiveResult) Descriptor() ([]byte, []int) {
+	return file_entity_event_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *TryLiveResult) GetClearedTryMissionIds() []int64 {
+	if x != nil {
+		return x.ClearedTryMissionIds
+	}
+	return nil
+}
+
+func (x *TryLiveResult) GetGainedEventPoint() int32 {
+	if x != nil {
+		return x.GainedEventPoint
+	}
+	return 0
+}
+
+func (x *TryLiveResult) GetGainedRewards() []*RewardResource {
+	if x != nil {
+		return x.GainedRewards
+	}
+	return nil
+}
+
+func (x *TryLiveResult) GetProgresses() []*TryProgress {
+	if x != nil {
+		return x.Progresses
+	}
+	return nil
+}
+
+func (x *TryLiveResult) GetTryLevelRewards() []*RewardResource {
+	if x != nil {
+		return x.TryLevelRewards
+	}
+	return nil
+}
+
+func (x *TryLiveResult) GetTryMusicId() int64 {
+	if x != nil {
+		return x.TryMusicId
+	}
+	return 0
+}
+
+func (x *TryLiveResult) GetTryMusicHighScore() int32 {
+	if x != nil {
+		return x.TryMusicHighScore
+	}
+	return 0
+}
+
+func (x *TryLiveResult) GetTryMusicTotalScore() int64 {
+	if x != nil {
+		return x.TryMusicTotalScore
+	}
+	return 0
+}
+
+func (x *TryLiveResult) GetTryMusicTotalScoreRewards() []*RewardResource {
+	if x != nil {
+		return x.TryMusicTotalScoreRewards
+	}
+	return nil
+}
+
 var File_entity_event_proto protoreflect.FileDescriptor
 
 const file_entity_event_proto_rawDesc = "" +
 	"\n" +
-	"\x12entity/event.proto\x12\x06entity\"I\n" +
+	"\x12entity/event.proto\x12\x06entity\x1a\x13entity/reward.proto\"I\n" +
 	"\x0fLiveEventReward\x12\x19\n" +
 	"\bevent_id\x18\x01 \x01(\x03R\aeventId\x12\x1b\n" +
 	"\treward_id\x18\x02 \x01(\x03R\brewardId\"t\n" +
@@ -272,7 +544,34 @@ const file_entity_event_proto_rawDesc = "" +
 	"\x05count\x18\x03 \x01(\x05R\x05count\"@\n" +
 	"\rChallengeLive\x12\x19\n" +
 	"\bevent_id\x18\x01 \x01(\x03R\aeventId\x12\x14\n" +
-	"\x05point\x18\x02 \x01(\x05R\x05pointB\x16\xaa\x02\x13App.Protobuf.Entityb\x06proto3"
+	"\x05point\x18\x02 \x01(\x05R\x05point\">\n" +
+	"\vTryProgress\x12\x19\n" +
+	"\btry_type\x18\x01 \x01(\x05R\atryType\x12\x14\n" +
+	"\x05level\x18\x02 \x01(\x05R\x05level\"P\n" +
+	"\rTryMusicScore\x12 \n" +
+	"\ftry_music_id\x18\x01 \x01(\x03R\n" +
+	"tryMusicId\x12\x1d\n" +
+	"\n" +
+	"high_score\x18\x02 \x01(\x05R\thighScore\"\x94\x01\n" +
+	"\bTryEvent\x12\x19\n" +
+	"\bevent_id\x18\x01 \x01(\x03R\aeventId\x123\n" +
+	"\n" +
+	"progresses\x18\x02 \x03(\v2\x13.entity.TryProgressR\n" +
+	"progresses\x128\n" +
+	"\fmusic_scores\x18\x03 \x03(\v2\x15.entity.TryMusicScoreR\vmusicScores\"\x8c\x04\n" +
+	"\rTryLiveResult\x125\n" +
+	"\x17cleared_try_mission_ids\x18\x01 \x03(\x03R\x14clearedTryMissionIds\x12,\n" +
+	"\x12gained_event_point\x18\x02 \x01(\x05R\x10gainedEventPoint\x12=\n" +
+	"\x0egained_rewards\x18\x03 \x03(\v2\x16.entity.RewardResourceR\rgainedRewards\x123\n" +
+	"\n" +
+	"progresses\x18\x04 \x03(\v2\x13.entity.TryProgressR\n" +
+	"progresses\x12B\n" +
+	"\x11try_level_rewards\x18\x05 \x03(\v2\x16.entity.RewardResourceR\x0ftryLevelRewards\x12 \n" +
+	"\ftry_music_id\x18\x06 \x01(\x03R\n" +
+	"tryMusicId\x12/\n" +
+	"\x14try_music_high_score\x18\a \x01(\x05R\x11tryMusicHighScore\x121\n" +
+	"\x15try_music_total_score\x18\b \x01(\x03R\x12tryMusicTotalScore\x12X\n" +
+	"\x1dtry_music_total_score_rewards\x18\t \x03(\v2\x16.entity.RewardResourceR\x19tryMusicTotalScoreRewardsB\x16\xaa\x02\x13App.Protobuf.Entityb\x06proto3"
 
 var (
 	file_entity_event_proto_rawDescOnce sync.Once
@@ -286,19 +585,30 @@ func file_entity_event_proto_rawDescGZIP() []byte {
 	return file_entity_event_proto_rawDescData
 }
 
-var file_entity_event_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_entity_event_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_entity_event_proto_goTypes = []any{
 	(*LiveEventReward)(nil),     // 0: entity.LiveEventReward
 	(*Event)(nil),               // 1: entity.Event
 	(*EventBoxGachaReward)(nil), // 2: entity.EventBoxGachaReward
 	(*ChallengeLive)(nil),       // 3: entity.ChallengeLive
+	(*TryProgress)(nil),         // 4: entity.TryProgress
+	(*TryMusicScore)(nil),       // 5: entity.TryMusicScore
+	(*TryEvent)(nil),            // 6: entity.TryEvent
+	(*TryLiveResult)(nil),       // 7: entity.TryLiveResult
+	(*RewardResource)(nil),      // 8: entity.RewardResource
 }
 var file_entity_event_proto_depIdxs = []int32{
-	0, // [0:0] is the sub-list for method output_type
-	0, // [0:0] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	4, // 0: entity.TryEvent.progresses:type_name -> entity.TryProgress
+	5, // 1: entity.TryEvent.music_scores:type_name -> entity.TryMusicScore
+	8, // 2: entity.TryLiveResult.gained_rewards:type_name -> entity.RewardResource
+	4, // 3: entity.TryLiveResult.progresses:type_name -> entity.TryProgress
+	8, // 4: entity.TryLiveResult.try_level_rewards:type_name -> entity.RewardResource
+	8, // 5: entity.TryLiveResult.try_music_total_score_rewards:type_name -> entity.RewardResource
+	6, // [6:6] is the sub-list for method output_type
+	6, // [6:6] is the sub-list for method input_type
+	6, // [6:6] is the sub-list for extension type_name
+	6, // [6:6] is the sub-list for extension extendee
+	0, // [0:6] is the sub-list for field type_name
 }
 
 func init() { file_entity_event_proto_init() }
@@ -306,13 +616,14 @@ func file_entity_event_proto_init() {
 	if File_entity_event_proto != nil {
 		return
 	}
+	file_entity_reward_proto_init()
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_entity_event_proto_rawDesc), len(file_entity_event_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   4,
+			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

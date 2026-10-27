@@ -22,7 +22,6 @@ const (
 	MemberCardService_LevelUp_FullMethodName                 = "/app.membercard.MemberCardService/LevelUp"
 	MemberCardService_Awake_FullMethodName                   = "/app.membercard.MemberCardService/Awake"
 	MemberCardService_LeaderSkillLevelUp_FullMethodName      = "/app.membercard.MemberCardService/LeaderSkillLevelUp"
-	MemberCardService_LinkSkillLevelUp_FullMethodName        = "/app.membercard.MemberCardService/LinkSkillLevelUp"
 	MemberCardService_LiveSkillLevelUp_FullMethodName        = "/app.membercard.MemberCardService/LiveSkillLevelUp"
 	MemberCardService_PerformanceSkillLevelUp_FullMethodName = "/app.membercard.MemberCardService/PerformanceSkillLevelUp"
 	MemberCardService_GekisouSkillLevelUp_FullMethodName     = "/app.membercard.MemberCardService/GekisouSkillLevelUp"
@@ -36,7 +35,6 @@ type MemberCardServiceClient interface {
 	LevelUp(ctx context.Context, in *LevelUpRequest, opts ...grpc.CallOption) (*LevelUpResponse, error)
 	Awake(ctx context.Context, in *AwakeRequest, opts ...grpc.CallOption) (*AwakeResponse, error)
 	LeaderSkillLevelUp(ctx context.Context, in *SkillLevelUpRequest, opts ...grpc.CallOption) (*SkillLevelUpResponse, error)
-	LinkSkillLevelUp(ctx context.Context, in *SkillLevelUpRequest, opts ...grpc.CallOption) (*SkillLevelUpResponse, error)
 	LiveSkillLevelUp(ctx context.Context, in *SkillLevelUpRequest, opts ...grpc.CallOption) (*SkillLevelUpResponse, error)
 	PerformanceSkillLevelUp(ctx context.Context, in *SkillLevelUpRequest, opts ...grpc.CallOption) (*SkillLevelUpResponse, error)
 	GekisouSkillLevelUp(ctx context.Context, in *SkillLevelUpRequest, opts ...grpc.CallOption) (*SkillLevelUpResponse, error)
@@ -75,16 +73,6 @@ func (c *memberCardServiceClient) LeaderSkillLevelUp(ctx context.Context, in *Sk
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(SkillLevelUpResponse)
 	err := c.cc.Invoke(ctx, MemberCardService_LeaderSkillLevelUp_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *memberCardServiceClient) LinkSkillLevelUp(ctx context.Context, in *SkillLevelUpRequest, opts ...grpc.CallOption) (*SkillLevelUpResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(SkillLevelUpResponse)
-	err := c.cc.Invoke(ctx, MemberCardService_LinkSkillLevelUp_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -138,7 +126,6 @@ type MemberCardServiceServer interface {
 	LevelUp(context.Context, *LevelUpRequest) (*LevelUpResponse, error)
 	Awake(context.Context, *AwakeRequest) (*AwakeResponse, error)
 	LeaderSkillLevelUp(context.Context, *SkillLevelUpRequest) (*SkillLevelUpResponse, error)
-	LinkSkillLevelUp(context.Context, *SkillLevelUpRequest) (*SkillLevelUpResponse, error)
 	LiveSkillLevelUp(context.Context, *SkillLevelUpRequest) (*SkillLevelUpResponse, error)
 	PerformanceSkillLevelUp(context.Context, *SkillLevelUpRequest) (*SkillLevelUpResponse, error)
 	GekisouSkillLevelUp(context.Context, *SkillLevelUpRequest) (*SkillLevelUpResponse, error)
@@ -161,9 +148,6 @@ func (UnimplementedMemberCardServiceServer) Awake(context.Context, *AwakeRequest
 }
 func (UnimplementedMemberCardServiceServer) LeaderSkillLevelUp(context.Context, *SkillLevelUpRequest) (*SkillLevelUpResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method LeaderSkillLevelUp not implemented")
-}
-func (UnimplementedMemberCardServiceServer) LinkSkillLevelUp(context.Context, *SkillLevelUpRequest) (*SkillLevelUpResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method LinkSkillLevelUp not implemented")
 }
 func (UnimplementedMemberCardServiceServer) LiveSkillLevelUp(context.Context, *SkillLevelUpRequest) (*SkillLevelUpResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method LiveSkillLevelUp not implemented")
@@ -248,24 +232,6 @@ func _MemberCardService_LeaderSkillLevelUp_Handler(srv interface{}, ctx context.
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MemberCardServiceServer).LeaderSkillLevelUp(ctx, req.(*SkillLevelUpRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _MemberCardService_LinkSkillLevelUp_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SkillLevelUpRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(MemberCardServiceServer).LinkSkillLevelUp(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: MemberCardService_LinkSkillLevelUp_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MemberCardServiceServer).LinkSkillLevelUp(ctx, req.(*SkillLevelUpRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -360,10 +326,6 @@ var MemberCardService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "LeaderSkillLevelUp",
 			Handler:    _MemberCardService_LeaderSkillLevelUp_Handler,
-		},
-		{
-			MethodName: "LinkSkillLevelUp",
-			Handler:    _MemberCardService_LinkSkillLevelUp_Handler,
 		},
 		{
 			MethodName: "LiveSkillLevelUp",

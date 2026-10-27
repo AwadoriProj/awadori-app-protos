@@ -19,15 +19,17 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	ArenaService_ReportPenalty_FullMethodName      = "/app.arena.ArenaService/ReportPenalty"
-	ArenaService_ArenaTop_FullMethodName           = "/app.arena.ArenaService/ArenaTop"
-	ArenaService_ConsecutiveWins_FullMethodName    = "/app.arena.ArenaService/ConsecutiveWins"
-	ArenaService_DeckTrend_FullMethodName          = "/app.arena.ArenaService/DeckTrend"
-	ArenaService_ArenaRewards_FullMethodName       = "/app.arena.ArenaService/ArenaRewards"
-	ArenaService_ArenaRanking_FullMethodName       = "/app.arena.ArenaService/ArenaRanking"
-	ArenaService_ArenaMyRank_FullMethodName        = "/app.arena.ArenaService/ArenaMyRank"
-	ArenaService_MatchingHistories_FullMethodName  = "/app.arena.ArenaService/MatchingHistories"
-	ArenaService_SaveDedicatedDecks_FullMethodName = "/app.arena.ArenaService/SaveDedicatedDecks"
+	ArenaService_ReportPenalty_FullMethodName           = "/app.arena.ArenaService/ReportPenalty"
+	ArenaService_ArenaTop_FullMethodName                = "/app.arena.ArenaService/ArenaTop"
+	ArenaService_ConsecutiveWins_FullMethodName         = "/app.arena.ArenaService/ConsecutiveWins"
+	ArenaService_DeckTrend_FullMethodName               = "/app.arena.ArenaService/DeckTrend"
+	ArenaService_ArenaRewards_FullMethodName            = "/app.arena.ArenaService/ArenaRewards"
+	ArenaService_ArenaRanking_FullMethodName            = "/app.arena.ArenaService/ArenaRanking"
+	ArenaService_ArenaMyRank_FullMethodName             = "/app.arena.ArenaService/ArenaMyRank"
+	ArenaService_MatchingHistories_FullMethodName       = "/app.arena.ArenaService/MatchingHistories"
+	ArenaService_SaveDedicatedDecks_FullMethodName      = "/app.arena.ArenaService/SaveDedicatedDecks"
+	ArenaService_ReportSeasonResultShown_FullMethodName = "/app.arena.ArenaService/ReportSeasonResultShown"
+	ArenaService_ReceivePromotionReward_FullMethodName  = "/app.arena.ArenaService/ReceivePromotionReward"
 )
 
 // ArenaServiceClient is the client API for ArenaService service.
@@ -43,6 +45,8 @@ type ArenaServiceClient interface {
 	ArenaMyRank(ctx context.Context, in *ArenaMyRankRequest, opts ...grpc.CallOption) (*ArenaMyRankResponse, error)
 	MatchingHistories(ctx context.Context, in *MatchingHistoriesRequest, opts ...grpc.CallOption) (*MatchingHistoriesResponse, error)
 	SaveDedicatedDecks(ctx context.Context, in *SaveDedicatedDecksRequest, opts ...grpc.CallOption) (*SaveDedicatedDecksResponse, error)
+	ReportSeasonResultShown(ctx context.Context, in *ReportSeasonResultShownRequest, opts ...grpc.CallOption) (*ReportSeasonResultShownResponse, error)
+	ReceivePromotionReward(ctx context.Context, in *ReceivePromotionRewardRequest, opts ...grpc.CallOption) (*ReceivePromotionRewardResponse, error)
 }
 
 type arenaServiceClient struct {
@@ -143,6 +147,26 @@ func (c *arenaServiceClient) SaveDedicatedDecks(ctx context.Context, in *SaveDed
 	return out, nil
 }
 
+func (c *arenaServiceClient) ReportSeasonResultShown(ctx context.Context, in *ReportSeasonResultShownRequest, opts ...grpc.CallOption) (*ReportSeasonResultShownResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ReportSeasonResultShownResponse)
+	err := c.cc.Invoke(ctx, ArenaService_ReportSeasonResultShown_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *arenaServiceClient) ReceivePromotionReward(ctx context.Context, in *ReceivePromotionRewardRequest, opts ...grpc.CallOption) (*ReceivePromotionRewardResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ReceivePromotionRewardResponse)
+	err := c.cc.Invoke(ctx, ArenaService_ReceivePromotionReward_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ArenaServiceServer is the server API for ArenaService service.
 // All implementations must embed UnimplementedArenaServiceServer
 // for forward compatibility.
@@ -156,6 +180,8 @@ type ArenaServiceServer interface {
 	ArenaMyRank(context.Context, *ArenaMyRankRequest) (*ArenaMyRankResponse, error)
 	MatchingHistories(context.Context, *MatchingHistoriesRequest) (*MatchingHistoriesResponse, error)
 	SaveDedicatedDecks(context.Context, *SaveDedicatedDecksRequest) (*SaveDedicatedDecksResponse, error)
+	ReportSeasonResultShown(context.Context, *ReportSeasonResultShownRequest) (*ReportSeasonResultShownResponse, error)
+	ReceivePromotionReward(context.Context, *ReceivePromotionRewardRequest) (*ReceivePromotionRewardResponse, error)
 	mustEmbedUnimplementedArenaServiceServer()
 }
 
@@ -192,6 +218,12 @@ func (UnimplementedArenaServiceServer) MatchingHistories(context.Context, *Match
 }
 func (UnimplementedArenaServiceServer) SaveDedicatedDecks(context.Context, *SaveDedicatedDecksRequest) (*SaveDedicatedDecksResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SaveDedicatedDecks not implemented")
+}
+func (UnimplementedArenaServiceServer) ReportSeasonResultShown(context.Context, *ReportSeasonResultShownRequest) (*ReportSeasonResultShownResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ReportSeasonResultShown not implemented")
+}
+func (UnimplementedArenaServiceServer) ReceivePromotionReward(context.Context, *ReceivePromotionRewardRequest) (*ReceivePromotionRewardResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ReceivePromotionReward not implemented")
 }
 func (UnimplementedArenaServiceServer) mustEmbedUnimplementedArenaServiceServer() {}
 func (UnimplementedArenaServiceServer) testEmbeddedByValue()                      {}
@@ -376,6 +408,42 @@ func _ArenaService_SaveDedicatedDecks_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ArenaService_ReportSeasonResultShown_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReportSeasonResultShownRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ArenaServiceServer).ReportSeasonResultShown(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ArenaService_ReportSeasonResultShown_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ArenaServiceServer).ReportSeasonResultShown(ctx, req.(*ReportSeasonResultShownRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ArenaService_ReceivePromotionReward_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReceivePromotionRewardRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ArenaServiceServer).ReceivePromotionReward(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ArenaService_ReceivePromotionReward_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ArenaServiceServer).ReceivePromotionReward(ctx, req.(*ReceivePromotionRewardRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ArenaService_ServiceDesc is the grpc.ServiceDesc for ArenaService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -418,6 +486,14 @@ var ArenaService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SaveDedicatedDecks",
 			Handler:    _ArenaService_SaveDedicatedDecks_Handler,
+		},
+		{
+			MethodName: "ReportSeasonResultShown",
+			Handler:    _ArenaService_ReportSeasonResultShown_Handler,
+		},
+		{
+			MethodName: "ReceivePromotionReward",
+			Handler:    _ArenaService_ReceivePromotionReward_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

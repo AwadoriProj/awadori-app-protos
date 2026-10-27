@@ -57,7 +57,6 @@ service MemberCardService {
 	rpc LevelUp (.app.membercard.LevelUpRequest) returns (.app.membercard.LevelUpResponse);
 	rpc Awake (.app.membercard.AwakeRequest) returns (.app.membercard.AwakeResponse);
 	rpc LeaderSkillLevelUp (.app.membercard.SkillLevelUpRequest) returns (.app.membercard.SkillLevelUpResponse);
-	rpc LinkSkillLevelUp (.app.membercard.SkillLevelUpRequest) returns (.app.membercard.SkillLevelUpResponse);
 	rpc LiveSkillLevelUp (.app.membercard.SkillLevelUpRequest) returns (.app.membercard.SkillLevelUpResponse);
 	rpc PerformanceSkillLevelUp (.app.membercard.SkillLevelUpRequest) returns (.app.membercard.SkillLevelUpResponse);
 	rpc GekisouSkillLevelUp (.app.membercard.SkillLevelUpRequest) returns (.app.membercard.SkillLevelUpResponse);

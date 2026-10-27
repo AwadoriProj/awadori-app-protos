@@ -1,15 +1,18 @@
 syntax = "proto3";
 
 import "entity/character_costume.proto";
+import "entity/comeback.proto";
 import "entity/friend.proto";
 import "entity/gem.proto";
 import "entity/invitation.proto";
 import "entity/limitation.proto";
 import "entity/liveboost.proto";
+import "entity/login_bonus.proto";
 import "entity/method_options/method_options.proto";
 import "entity/notification.proto";
 import "entity/player.proto";
 import "entity/player_profile.proto";
+import "entity/vip.proto";
 import "google/protobuf/empty.proto";
 
 package app.player;
@@ -25,14 +28,18 @@ message RegisterResponse {
 	int64 profile_id = 2;
 }
 
-message WhoamiRequest {
-}
-
-message WhoamiResponse {
-	string player_id = 1;
-}
-
 message GetPlayerDataRequest {
+	bool skip_login_process = 1;
+}
+
+message LoginRequest {
+}
+
+message LoginResponse {
+	repeated .entity.LoginBonusSheet login_bonus_update = 1;
+	.entity.Comeback comeback = 2;
+	.entity.Vip vip = 3;
+	.entity.Notification notification = 4;
 }
 
 message GetPlayerDataResponse {
@@ -235,8 +242,8 @@ service PlayerService {
 		option (entity.method_options.skip_authentication) = true;
 	}
 
-	rpc Whoami (.app.player.WhoamiRequest) returns (.app.player.WhoamiResponse);
 	rpc GetPlayerData (.app.player.GetPlayerDataRequest) returns (.app.player.GetPlayerDataResponse);
+	rpc Login (.app.player.LoginRequest) returns (.app.player.LoginResponse);
 	rpc FinishTutorial (.google.protobuf.Empty) returns (.google.protobuf.Empty);
 	rpc EditProfile (.app.player.EditProfileRequest) returns (.app.player.EditProfileResponse);
 	rpc ChangeFavoriteMember (.app.player.ChangeFavoriteMemberRequest) returns (.app.player.ChangeFavoriteMemberResponse);

@@ -19,12 +19,15 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	EventService_ExecuteBoxGacha_FullMethodName          = "/app.event.EventService/ExecuteBoxGacha"
-	EventService_ResetBoxGacha_FullMethodName            = "/app.event.EventService/ResetBoxGacha"
-	EventService_GetRank_FullMethodName                  = "/app.event.EventService/GetRank"
-	EventService_GetDeck_FullMethodName                  = "/app.event.EventService/GetDeck"
-	EventService_GetRankingList_FullMethodName           = "/app.event.EventService/GetRankingList"
-	EventService_GetChallengeMusicRanking_FullMethodName = "/app.event.EventService/GetChallengeMusicRanking"
+	EventService_ExecuteBoxGacha_FullMethodName               = "/app.event.EventService/ExecuteBoxGacha"
+	EventService_ResetBoxGacha_FullMethodName                 = "/app.event.EventService/ResetBoxGacha"
+	EventService_GetRank_FullMethodName                       = "/app.event.EventService/GetRank"
+	EventService_GetDeck_FullMethodName                       = "/app.event.EventService/GetDeck"
+	EventService_GetRankingList_FullMethodName                = "/app.event.EventService/GetRankingList"
+	EventService_GetChallengeMusicRanking_FullMethodName      = "/app.event.EventService/GetChallengeMusicRanking"
+	EventService_GetChallengeMusicTotalRanking_FullMethodName = "/app.event.EventService/GetChallengeMusicTotalRanking"
+	EventService_GetTryEvent_FullMethodName                   = "/app.event.EventService/GetTryEvent"
+	EventService_VisitTop_FullMethodName                      = "/app.event.EventService/VisitTop"
 )
 
 // EventServiceClient is the client API for EventService service.
@@ -37,6 +40,9 @@ type EventServiceClient interface {
 	GetDeck(ctx context.Context, in *GetDeckRequest, opts ...grpc.CallOption) (*GetDeckResponse, error)
 	GetRankingList(ctx context.Context, in *GetRankingListRequest, opts ...grpc.CallOption) (*GetRankingListResponse, error)
 	GetChallengeMusicRanking(ctx context.Context, in *GetChallengeMusicRankingRequest, opts ...grpc.CallOption) (*GetChallengeMusicRankingResponse, error)
+	GetChallengeMusicTotalRanking(ctx context.Context, in *GetChallengeMusicTotalRankingRequest, opts ...grpc.CallOption) (*GetChallengeMusicTotalRankingResponse, error)
+	GetTryEvent(ctx context.Context, in *GetTryEventRequest, opts ...grpc.CallOption) (*GetTryEventResponse, error)
+	VisitTop(ctx context.Context, in *VisitTopRequest, opts ...grpc.CallOption) (*VisitTopResponse, error)
 }
 
 type eventServiceClient struct {
@@ -107,6 +113,36 @@ func (c *eventServiceClient) GetChallengeMusicRanking(ctx context.Context, in *G
 	return out, nil
 }
 
+func (c *eventServiceClient) GetChallengeMusicTotalRanking(ctx context.Context, in *GetChallengeMusicTotalRankingRequest, opts ...grpc.CallOption) (*GetChallengeMusicTotalRankingResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetChallengeMusicTotalRankingResponse)
+	err := c.cc.Invoke(ctx, EventService_GetChallengeMusicTotalRanking_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *eventServiceClient) GetTryEvent(ctx context.Context, in *GetTryEventRequest, opts ...grpc.CallOption) (*GetTryEventResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetTryEventResponse)
+	err := c.cc.Invoke(ctx, EventService_GetTryEvent_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *eventServiceClient) VisitTop(ctx context.Context, in *VisitTopRequest, opts ...grpc.CallOption) (*VisitTopResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(VisitTopResponse)
+	err := c.cc.Invoke(ctx, EventService_VisitTop_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // EventServiceServer is the server API for EventService service.
 // All implementations must embed UnimplementedEventServiceServer
 // for forward compatibility.
@@ -117,6 +153,9 @@ type EventServiceServer interface {
 	GetDeck(context.Context, *GetDeckRequest) (*GetDeckResponse, error)
 	GetRankingList(context.Context, *GetRankingListRequest) (*GetRankingListResponse, error)
 	GetChallengeMusicRanking(context.Context, *GetChallengeMusicRankingRequest) (*GetChallengeMusicRankingResponse, error)
+	GetChallengeMusicTotalRanking(context.Context, *GetChallengeMusicTotalRankingRequest) (*GetChallengeMusicTotalRankingResponse, error)
+	GetTryEvent(context.Context, *GetTryEventRequest) (*GetTryEventResponse, error)
+	VisitTop(context.Context, *VisitTopRequest) (*VisitTopResponse, error)
 	mustEmbedUnimplementedEventServiceServer()
 }
 
@@ -144,6 +183,15 @@ func (UnimplementedEventServiceServer) GetRankingList(context.Context, *GetRanki
 }
 func (UnimplementedEventServiceServer) GetChallengeMusicRanking(context.Context, *GetChallengeMusicRankingRequest) (*GetChallengeMusicRankingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetChallengeMusicRanking not implemented")
+}
+func (UnimplementedEventServiceServer) GetChallengeMusicTotalRanking(context.Context, *GetChallengeMusicTotalRankingRequest) (*GetChallengeMusicTotalRankingResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetChallengeMusicTotalRanking not implemented")
+}
+func (UnimplementedEventServiceServer) GetTryEvent(context.Context, *GetTryEventRequest) (*GetTryEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTryEvent not implemented")
+}
+func (UnimplementedEventServiceServer) VisitTop(context.Context, *VisitTopRequest) (*VisitTopResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method VisitTop not implemented")
 }
 func (UnimplementedEventServiceServer) mustEmbedUnimplementedEventServiceServer() {}
 func (UnimplementedEventServiceServer) testEmbeddedByValue()                      {}
@@ -274,6 +322,60 @@ func _EventService_GetChallengeMusicRanking_Handler(srv interface{}, ctx context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _EventService_GetChallengeMusicTotalRanking_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetChallengeMusicTotalRankingRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EventServiceServer).GetChallengeMusicTotalRanking(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: EventService_GetChallengeMusicTotalRanking_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EventServiceServer).GetChallengeMusicTotalRanking(ctx, req.(*GetChallengeMusicTotalRankingRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _EventService_GetTryEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTryEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EventServiceServer).GetTryEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: EventService_GetTryEvent_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EventServiceServer).GetTryEvent(ctx, req.(*GetTryEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _EventService_VisitTop_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(VisitTopRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EventServiceServer).VisitTop(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: EventService_VisitTop_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EventServiceServer).VisitTop(ctx, req.(*VisitTopRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // EventService_ServiceDesc is the grpc.ServiceDesc for EventService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -304,6 +406,18 @@ var EventService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetChallengeMusicRanking",
 			Handler:    _EventService_GetChallengeMusicRanking_Handler,
+		},
+		{
+			MethodName: "GetChallengeMusicTotalRanking",
+			Handler:    _EventService_GetChallengeMusicTotalRanking_Handler,
+		},
+		{
+			MethodName: "GetTryEvent",
+			Handler:    _EventService_GetTryEvent_Handler,
+		},
+		{
+			MethodName: "VisitTop",
+			Handler:    _EventService_VisitTop_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

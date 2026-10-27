@@ -63,6 +63,15 @@ message app {
 		}
 
 		message ReportPenaltyResponse {
+			bool is_applied = 1;
+			int64 band_id = 2;
+			int64 diff_league_point = 3;
+			int64 current_league_point = 4;
+			int64 diff_master_point = 5;
+			int64 current_master_point = 6;
+			int64 before_rank_id = 7;
+			int64 current_rank_id = 8;
+			.entity.Notification notification = 9;
 		}
 
 		message ArenaTopRequest {
@@ -80,6 +89,10 @@ message app {
 			repeated int64 arena_promotion_reward_ids = 8;
 			repeated .entity.ArenaLpRankDiff lp_rank_diff = 9;
 			repeated .entity.ArenaDedicatedDecks arena_dedicated_decks = 10;
+			.entity.Notification notification = 11;
+			repeated int64 arena_season_reward_ids = 12;
+			repeated int64 arena_ranking_reward_ids = 13;
+			repeated .entity.ArenaConsecutiveWins arena_consecutive_wins = 14;
 		}
 
 		message ConsecutiveWinsRequest {
@@ -91,8 +104,9 @@ message app {
 		}
 
 		message DeckTrendRequest {
-			int64 music_id = 1;
+			int64 music_id = 1 [deprecated = true];
 			int64 arena_season_id = 2;
+			int64 band_id = 3;
 		}
 
 		message DeckTrendResponse {
@@ -148,6 +162,22 @@ message app {
 		message SaveDedicatedDecksResponse {
 		}
 
+		message ReportSeasonResultShownRequest {
+			int64 arena_season_id = 1;
+		}
+
+		message ReportSeasonResultShownResponse {
+		}
+
+		message ReceivePromotionRewardRequest {
+			int64 arena_promotion_reward_id = 1;
+		}
+
+		message ReceivePromotionRewardResponse {
+			int64 arena_promotion_reward_id = 1;
+			.entity.Notification notification = 2;
+		}
+
 		service ArenaService {
 			rpc ReportPenalty (.app.arena.ReportPenaltyRequest) returns (.app.arena.ReportPenaltyResponse);
 			rpc ArenaTop (.app.arena.ArenaTopRequest) returns (.app.arena.ArenaTopResponse);
@@ -158,6 +188,8 @@ message app {
 			rpc ArenaMyRank (.app.arena.ArenaMyRankRequest) returns (.app.arena.ArenaMyRankResponse);
 			rpc MatchingHistories (.app.arena.MatchingHistoriesRequest) returns (.app.arena.MatchingHistoriesResponse);
 			rpc SaveDedicatedDecks (.app.arena.SaveDedicatedDecksRequest) returns (.app.arena.SaveDedicatedDecksResponse);
+			rpc ReportSeasonResultShown (.app.arena.ReportSeasonResultShownRequest) returns (.app.arena.ReportSeasonResultShownResponse);
+			rpc ReceivePromotionReward (.app.arena.ReceivePromotionRewardRequest) returns (.app.arena.ReceivePromotionRewardResponse);
 		}
 	}
 
@@ -1271,6 +1303,39 @@ message app {
 			int32 my_score = 3;
 		}
 
+		message GetChallengeMusicTotalRankingRequest {
+			int64 event_id = 1;
+		}
+
+		message ChallengeMusicTotalRankingPlayer {
+			.entity.PlayerSimpleProfile player_data = 1;
+			int32 score = 2;
+			.entity.DeckDetail high_score_deck = 3;
+		}
+
+		message GetChallengeMusicTotalRankingResponse {
+			repeated ChallengeMusicTotalRankingPlayer players = 1;
+			int32 my_rank = 2;
+			int32 my_score = 3;
+		}
+
+		message GetTryEventRequest {
+			int64 event_id = 1;
+		}
+
+		message GetTryEventResponse {
+			.entity.TryEvent try_event = 1;
+		}
+
+		message VisitTopRequest {
+			int64 event_id = 1;
+		}
+
+		message VisitTopResponse {
+			.entity.Notification notification = 1;
+			int32 challenge_music_total_my_rank = 2;
+		}
+
 		service EventService {
 			rpc ExecuteBoxGacha (.app.event.ExecuteBoxGachaRequest) returns (.app.event.ExecuteBoxGachaResponse);
 			rpc ResetBoxGacha (.app.event.ResetBoxGachaRequest) returns (.app.event.ResetBoxGachaResponse);
@@ -1278,6 +1343,9 @@ message app {
 			rpc GetDeck (.app.event.GetDeckRequest) returns (.app.event.GetDeckResponse);
 			rpc GetRankingList (.app.event.GetRankingListRequest) returns (.app.event.GetRankingListResponse);
 			rpc GetChallengeMusicRanking (.app.event.GetChallengeMusicRankingRequest) returns (.app.event.GetChallengeMusicRankingResponse);
+			rpc GetChallengeMusicTotalRanking (.app.event.GetChallengeMusicTotalRankingRequest) returns (.app.event.GetChallengeMusicTotalRankingResponse);
+			rpc GetTryEvent (.app.event.GetTryEventRequest) returns (.app.event.GetTryEventResponse);
+			rpc VisitTop (.app.event.VisitTopRequest) returns (.app.event.VisitTopResponse);
 		}
 	}
 
@@ -1362,6 +1430,18 @@ message app {
 			repeated ProductListItem items = 1;
 		}
 
+		message ReserveProvisionalPurchaseRequest {
+			int64 shop_item_id = 1;
+			.google.protobuf.Timestamp expires_at = 2;
+		}
+
+		message ReserveProvisionalPurchaseResponse {
+			PaymentDenyReason status = 1;
+		}
+
+		message ReleaseProvisionalPurchaseRequest {
+		}
+
 		service ExternalPaymentsService {
 			rpc Nop (.google.protobuf.Empty) returns (.google.protobuf.Empty) {
 				option (entity.method_options.external_payments) = true;
@@ -1379,6 +1459,16 @@ message app {
 			}
 
 			rpc GetProductList (.app.external_payments.GetProductListRequest) returns (.app.external_payments.GetProductListResponse) {
+				option (entity.method_options.external_payments) = true;
+				option (entity.method_options.skip_authentication) = true;
+			}
+
+			rpc ReserveProvisionalPurchase (.app.external_payments.ReserveProvisionalPurchaseRequest) returns (.app.external_payments.ReserveProvisionalPurchaseResponse) {
+				option (entity.method_options.external_payments) = true;
+				option (entity.method_options.skip_authentication) = true;
+			}
+
+			rpc ReleaseProvisionalPurchase (.app.external_payments.ReleaseProvisionalPurchaseRequest) returns (.google.protobuf.Empty) {
 				option (entity.method_options.external_payments) = true;
 				option (entity.method_options.skip_authentication) = true;
 			}
@@ -1686,6 +1776,7 @@ message app {
 			repeated .entity.RewardResource music_rewards = 5;
 			.entity.Notification notification = 6;
 			repeated .entity.RewardResource campaign_drop_rewards = 7;
+			.entity.TryLiveResult try_result = 8;
 		}
 
 		message StartChallengeLiveRequest {
@@ -1711,6 +1802,32 @@ message app {
 			repeated .entity.RewardResource music_rewards = 5;
 			.entity.Notification notification = 6;
 			repeated .entity.RewardResource campaign_drop_rewards = 7;
+		}
+
+		message StartTryLiveRequest {
+			int64 try_music_id = 1;
+			int32 difficulty = 2;
+			int32 boost = 3;
+			int32 deck_id = 4;
+		}
+
+		message StartTryLiveResponse {
+		}
+
+		message FinishTryLiveRequest {
+			int64 event_id = 1;
+			.entity.LiveFinish live_finish = 2;
+		}
+
+		message FinishTryLiveResponse {
+			repeated int64 reward_id = 1;
+			repeated .entity.LiveEventReward event_reward = 2;
+			repeated int64 total_highscore_rating_reward_ids = 3;
+			repeated .entity.BandHighScoreRatingReward band_highscore_rating_rewards = 4;
+			repeated .entity.RewardResource music_rewards = 5;
+			.entity.Notification notification = 6;
+			repeated .entity.RewardResource campaign_drop_rewards = 7;
+			.entity.TryLiveResult try_result = 8;
 		}
 
 		message StartBattleLiveRequest {
@@ -1756,6 +1873,9 @@ message app {
 			.entity.Notification notification = 6;
 			repeated .entity.BattleLiveRewardResource battle_live_rewards = 7;
 			repeated .entity.RewardResource campaign_drop_rewards = 8;
+			int32 gekisou_ranking_event_rank = 9;
+			repeated .entity.RewardResource gekisou_ranking_event_rewards = 10;
+			.entity.TryLiveResult try_result = 11;
 		}
 
 		message SkipFreeRequest {
@@ -1782,6 +1902,21 @@ message app {
 		}
 
 		message SkipChallengeLiveResponse {
+			repeated int64 reward_id = 1;
+			repeated .entity.LiveEventReward event_reward = 2;
+			.entity.Notification notification = 3;
+			repeated .entity.RewardResource campaign_drop_rewards = 4;
+		}
+
+		message SkipTryLiveRequest {
+			int64 try_music_id = 1;
+			int32 difficulty = 2;
+			int32 boost = 3;
+			int32 deck_id = 4;
+			int32 current_deck_total_power = 5;
+		}
+
+		message SkipTryLiveResponse {
 			repeated int64 reward_id = 1;
 			repeated .entity.LiveEventReward event_reward = 2;
 			.entity.Notification notification = 3;
@@ -1844,13 +1979,14 @@ message app {
 
 		message StartArenaLiveRequest {
 			int64 arena_season_id = 1;
-			int64 arena_music_id = 2;
+			int64 arena_music_id = 2 [deprecated = true];
 			int32 difficulty = 3;
 			int32 boost = 4;
 			int32 arena_dedicated_deck_id = 5;
 			string room_id = 6;
 			repeated int64 arena_support_item_ids = 7;
 			int64 lobby_id = 8;
+			int64 music_id = 9;
 		}
 
 		message StartArenaLiveResponse {
@@ -1858,7 +1994,7 @@ message app {
 
 		message FinishArenaLiveRequest {
 			int64 arena_season_id = 1;
-			int64 arena_music_id = 2;
+			int64 arena_music_id = 2 [deprecated = true];
 			.entity.LiveFinish live_finish = 3;
 			.entity.BattleLivePlayerResult player_result = 4;
 			repeated .entity.GekisouRanking gekisou_rankings = 5;
@@ -1876,7 +2012,7 @@ message app {
 
 		message GetArenaLiveResultRequest {
 			int64 arena_season_id = 1;
-			int64 arena_music_id = 2;
+			int64 arena_music_id = 2 [deprecated = true];
 			int64 arena_league_id = 3;
 		}
 
@@ -1893,6 +2029,10 @@ message app {
 			int64 diff_master_point = 10;
 			repeated .entity.LiveEventReward event_reward = 11;
 			repeated .entity.RewardResource campaign_drop_rewards = 12;
+			int32 gekisou_ranking_event_rank = 13;
+			repeated .entity.RewardResource gekisou_ranking_event_rewards = 14;
+			.entity.TryLiveResult try_result = 15;
+			.entity.Notification notification = 16;
 		}
 
 		service LiveService {
@@ -1903,8 +2043,11 @@ message app {
 			rpc FinishFree (.app.live.FinishFreeRequest) returns (.app.live.FinishFreeResponse);
 			rpc StartChallengeLive (.app.live.StartChallengeLiveRequest) returns (.app.live.StartChallengeLiveResponse);
 			rpc FinishChallengeLive (.app.live.FinishChallengeLiveRequest) returns (.app.live.FinishChallengeLiveResponse);
+			rpc StartTryLive (.app.live.StartTryLiveRequest) returns (.app.live.StartTryLiveResponse);
+			rpc FinishTryLive (.app.live.FinishTryLiveRequest) returns (.app.live.FinishTryLiveResponse);
 			rpc SkipFree (.app.live.SkipFreeRequest) returns (.app.live.SkipFreeResponse);
 			rpc SkipChallengeLive (.app.live.SkipChallengeLiveRequest) returns (.app.live.SkipChallengeLiveResponse);
+			rpc SkipTryLive (.app.live.SkipTryLiveRequest) returns (.app.live.SkipTryLiveResponse);
 
 			rpc StartBattleLive (.app.live.StartBattleLiveRequest) returns (.app.live.StartBattleLiveResponse) {
 				option (entity.method_options.maintenance_features).casual_match = true;
@@ -2088,7 +2231,6 @@ message app {
 			rpc LevelUp (.app.membercard.LevelUpRequest) returns (.app.membercard.LevelUpResponse);
 			rpc Awake (.app.membercard.AwakeRequest) returns (.app.membercard.AwakeResponse);
 			rpc LeaderSkillLevelUp (.app.membercard.SkillLevelUpRequest) returns (.app.membercard.SkillLevelUpResponse);
-			rpc LinkSkillLevelUp (.app.membercard.SkillLevelUpRequest) returns (.app.membercard.SkillLevelUpResponse);
 			rpc LiveSkillLevelUp (.app.membercard.SkillLevelUpRequest) returns (.app.membercard.SkillLevelUpResponse);
 			rpc PerformanceSkillLevelUp (.app.membercard.SkillLevelUpRequest) returns (.app.membercard.SkillLevelUpResponse);
 			rpc GekisouSkillLevelUp (.app.membercard.SkillLevelUpRequest) returns (.app.membercard.SkillLevelUpResponse);
@@ -2343,14 +2485,18 @@ message app {
 			int64 profile_id = 2;
 		}
 
-		message WhoamiRequest {
-		}
-
-		message WhoamiResponse {
-			string player_id = 1;
-		}
-
 		message GetPlayerDataRequest {
+			bool skip_login_process = 1;
+		}
+
+		message LoginRequest {
+		}
+
+		message LoginResponse {
+			repeated .entity.LoginBonusSheet login_bonus_update = 1;
+			.entity.Comeback comeback = 2;
+			.entity.Vip vip = 3;
+			.entity.Notification notification = 4;
 		}
 
 		message GetPlayerDataResponse {
@@ -2553,8 +2699,8 @@ message app {
 				option (entity.method_options.skip_authentication) = true;
 			}
 
-			rpc Whoami (.app.player.WhoamiRequest) returns (.app.player.WhoamiResponse);
 			rpc GetPlayerData (.app.player.GetPlayerDataRequest) returns (.app.player.GetPlayerDataResponse);
+			rpc Login (.app.player.LoginRequest) returns (.app.player.LoginResponse);
 			rpc FinishTutorial (.google.protobuf.Empty) returns (.google.protobuf.Empty);
 			rpc EditProfile (.app.player.EditProfileRequest) returns (.app.player.EditProfileResponse);
 			rpc ChangeFavoriteMember (.app.player.ChangeFavoriteMemberRequest) returns (.app.player.ChangeFavoriteMemberResponse);
@@ -2625,9 +2771,22 @@ message app {
 			repeated .entity.PlayerBriefInfo players = 1;
 		}
 
+		message ReportLogRequest {
+			string tag = 1;
+			string content = 2;
+		}
+
+		message ReportLogResponse {
+			bool accepted = 1;
+		}
+
 		service PlayerExtService {
 			rpc SyncData (.app.playerext.SyncDataRequest) returns (.app.playerext.SyncDataResponse);
 			rpc GetPlayerList (.app.playerext.GetPlayerListRequest) returns (.app.playerext.GetPlayerListResponse);
+
+			rpc ReportLog (.app.playerext.ReportLogRequest) returns (.app.playerext.ReportLogResponse) {
+				option (entity.method_options.skip_authentication) = true;
+			}
 		}
 	}
 
@@ -3559,6 +3718,34 @@ message entity {
 		int32 point = 2;
 	}
 
+	message TryProgress {
+		int32 try_type = 1;
+		int32 level = 2;
+	}
+
+	message TryMusicScore {
+		int64 try_music_id = 1;
+		int32 high_score = 2;
+	}
+
+	message TryEvent {
+		int64 event_id = 1;
+		repeated TryProgress progresses = 2;
+		repeated TryMusicScore music_scores = 3;
+	}
+
+	message TryLiveResult {
+		repeated int64 cleared_try_mission_ids = 1;
+		int32 gained_event_point = 2;
+		repeated RewardResource gained_rewards = 3;
+		repeated TryProgress progresses = 4;
+		repeated RewardResource try_level_rewards = 5;
+		int64 try_music_id = 6;
+		int32 try_music_high_score = 7;
+		int64 try_music_total_score = 8;
+		repeated RewardResource try_music_total_score_rewards = 9;
+	}
+
 	message ExchangeCount {
 		int64 product_id = 1;
 		int32 count = 2;
@@ -3783,11 +3970,23 @@ message entity {
 		int32 current_deck_total_power = 10;
 		string live_unique_id = 11;
 		bytes live_score_report = 12;
+		int32 life = 13;
+		repeated GekisouSectionResult gekisou_section_results = 14;
+		bool is_assist = 15;
+
+		reserved 8;
 	}
 
 	message JudgementCount {
 		int32 judgement = 1;
 		int32 total_count = 2;
+	}
+
+	message GekisouSectionResult {
+		int32 section_index = 1;
+		int32 just_count = 2;
+		int32 combo = 3;
+		int32 luck_point = 4;
 	}
 
 	message JudgementSummary {
@@ -4140,6 +4339,8 @@ message entity {
 		PersonalNotification personal_notification = 60;
 		repeated CharacterCurrentCostume character_current_costumes = 61;
 		repeated CharacterUnlockedCostume character_unlocked_costumes = 62;
+		repeated TryEvent try_events = 63;
+		int32 battle_live_consecutive_wins = 64;
 	}
 
 	message PlayerSimpleProfile {

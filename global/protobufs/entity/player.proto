@@ -114,4 +114,6 @@ message PlayerData {
 	PersonalNotification personal_notification = 60;
 	repeated CharacterCurrentCostume character_current_costumes = 61;
 	repeated CharacterUnlockedCostume character_unlocked_costumes = 62;
+	repeated TryEvent try_events = 63;
+	int32 battle_live_consecutive_wins = 64;
 }

@@ -606,6 +606,9 @@ type LiveFinish struct {
 	CurrentDeckTotalPower int32                      `protobuf:"varint,10,opt,name=current_deck_total_power,json=currentDeckTotalPower,proto3" json:"current_deck_total_power,omitempty"`
 	LiveUniqueId          string                     `protobuf:"bytes,11,opt,name=live_unique_id,json=liveUniqueId,proto3" json:"live_unique_id,omitempty"`
 	LiveScoreReport       []byte                     `protobuf:"bytes,12,opt,name=live_score_report,json=liveScoreReport,proto3" json:"live_score_report,omitempty"`
+	Life                  int32                      `protobuf:"varint,13,opt,name=life,proto3" json:"life,omitempty"`
+	GekisouSectionResults []*GekisouSectionResult    `protobuf:"bytes,14,rep,name=gekisou_section_results,json=gekisouSectionResults,proto3" json:"gekisou_section_results,omitempty"`
+	IsAssist              bool                       `protobuf:"varint,15,opt,name=is_assist,json=isAssist,proto3" json:"is_assist,omitempty"`
 	unknownFields         protoimpl.UnknownFields
 	sizeCache             protoimpl.SizeCache
 }
@@ -718,6 +721,27 @@ func (x *LiveFinish) GetLiveScoreReport() []byte {
 	return nil
 }
 
+func (x *LiveFinish) GetLife() int32 {
+	if x != nil {
+		return x.Life
+	}
+	return 0
+}
+
+func (x *LiveFinish) GetGekisouSectionResults() []*GekisouSectionResult {
+	if x != nil {
+		return x.GekisouSectionResults
+	}
+	return nil
+}
+
+func (x *LiveFinish) GetIsAssist() bool {
+	if x != nil {
+		return x.IsAssist
+	}
+	return false
+}
+
 type JudgementCount struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Judgement     int32                  `protobuf:"varint,1,opt,name=judgement,proto3" json:"judgement,omitempty"`
@@ -770,6 +794,74 @@ func (x *JudgementCount) GetTotalCount() int32 {
 	return 0
 }
 
+type GekisouSectionResult struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	SectionIndex  int32                  `protobuf:"varint,1,opt,name=section_index,json=sectionIndex,proto3" json:"section_index,omitempty"`
+	JustCount     int32                  `protobuf:"varint,2,opt,name=just_count,json=justCount,proto3" json:"just_count,omitempty"`
+	Combo         int32                  `protobuf:"varint,3,opt,name=combo,proto3" json:"combo,omitempty"`
+	LuckPoint     int32                  `protobuf:"varint,4,opt,name=luck_point,json=luckPoint,proto3" json:"luck_point,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GekisouSectionResult) Reset() {
+	*x = GekisouSectionResult{}
+	mi := &file_entity_live_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GekisouSectionResult) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GekisouSectionResult) ProtoMessage() {}
+
+func (x *GekisouSectionResult) ProtoReflect() protoreflect.Message {
+	mi := &file_entity_live_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GekisouSectionResult.ProtoReflect.Descriptor instead.
+func (*GekisouSectionResult) Descriptor() ([]byte, []int) {
+	return file_entity_live_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *GekisouSectionResult) GetSectionIndex() int32 {
+	if x != nil {
+		return x.SectionIndex
+	}
+	return 0
+}
+
+func (x *GekisouSectionResult) GetJustCount() int32 {
+	if x != nil {
+		return x.JustCount
+	}
+	return 0
+}
+
+func (x *GekisouSectionResult) GetCombo() int32 {
+	if x != nil {
+		return x.Combo
+	}
+	return 0
+}
+
+func (x *GekisouSectionResult) GetLuckPoint() int32 {
+	if x != nil {
+		return x.LuckPoint
+	}
+	return 0
+}
+
 type JudgementSummary struct {
 	state           protoimpl.MessageState `protogen:"open.v1"`
 	ClearStatus     int32                  `protobuf:"varint,1,opt,name=clear_status,json=clearStatus,proto3" json:"clear_status,omitempty"`
@@ -782,7 +874,7 @@ type JudgementSummary struct {
 
 func (x *JudgementSummary) Reset() {
 	*x = JudgementSummary{}
-	mi := &file_entity_live_proto_msgTypes[10]
+	mi := &file_entity_live_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -794,7 +886,7 @@ func (x *JudgementSummary) String() string {
 func (*JudgementSummary) ProtoMessage() {}
 
 func (x *JudgementSummary) ProtoReflect() protoreflect.Message {
-	mi := &file_entity_live_proto_msgTypes[10]
+	mi := &file_entity_live_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -807,7 +899,7 @@ func (x *JudgementSummary) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use JudgementSummary.ProtoReflect.Descriptor instead.
 func (*JudgementSummary) Descriptor() ([]byte, []int) {
-	return file_entity_live_proto_rawDescGZIP(), []int{10}
+	return file_entity_live_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *JudgementSummary) GetClearStatus() int32 {
@@ -851,7 +943,7 @@ type BattleLivePlayerResult struct {
 
 func (x *BattleLivePlayerResult) Reset() {
 	*x = BattleLivePlayerResult{}
-	mi := &file_entity_live_proto_msgTypes[11]
+	mi := &file_entity_live_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -863,7 +955,7 @@ func (x *BattleLivePlayerResult) String() string {
 func (*BattleLivePlayerResult) ProtoMessage() {}
 
 func (x *BattleLivePlayerResult) ProtoReflect() protoreflect.Message {
-	mi := &file_entity_live_proto_msgTypes[11]
+	mi := &file_entity_live_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -876,7 +968,7 @@ func (x *BattleLivePlayerResult) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use BattleLivePlayerResult.ProtoReflect.Descriptor instead.
 func (*BattleLivePlayerResult) Descriptor() ([]byte, []int) {
-	return file_entity_live_proto_rawDescGZIP(), []int{11}
+	return file_entity_live_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *BattleLivePlayerResult) GetPlayerId() string {
@@ -924,7 +1016,7 @@ type GekisouRankingPlayer struct {
 
 func (x *GekisouRankingPlayer) Reset() {
 	*x = GekisouRankingPlayer{}
-	mi := &file_entity_live_proto_msgTypes[12]
+	mi := &file_entity_live_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -936,7 +1028,7 @@ func (x *GekisouRankingPlayer) String() string {
 func (*GekisouRankingPlayer) ProtoMessage() {}
 
 func (x *GekisouRankingPlayer) ProtoReflect() protoreflect.Message {
-	mi := &file_entity_live_proto_msgTypes[12]
+	mi := &file_entity_live_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -949,7 +1041,7 @@ func (x *GekisouRankingPlayer) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GekisouRankingPlayer.ProtoReflect.Descriptor instead.
 func (*GekisouRankingPlayer) Descriptor() ([]byte, []int) {
-	return file_entity_live_proto_rawDescGZIP(), []int{12}
+	return file_entity_live_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *GekisouRankingPlayer) GetPlayerId() string {
@@ -976,7 +1068,7 @@ type GekisouRanking struct {
 
 func (x *GekisouRanking) Reset() {
 	*x = GekisouRanking{}
-	mi := &file_entity_live_proto_msgTypes[13]
+	mi := &file_entity_live_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -988,7 +1080,7 @@ func (x *GekisouRanking) String() string {
 func (*GekisouRanking) ProtoMessage() {}
 
 func (x *GekisouRanking) ProtoReflect() protoreflect.Message {
-	mi := &file_entity_live_proto_msgTypes[13]
+	mi := &file_entity_live_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1001,7 +1093,7 @@ func (x *GekisouRanking) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GekisouRanking.ProtoReflect.Descriptor instead.
 func (*GekisouRanking) Descriptor() ([]byte, []int) {
-	return file_entity_live_proto_rawDescGZIP(), []int{13}
+	return file_entity_live_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *GekisouRanking) GetRankingType() GekisouRankigType {
@@ -1028,7 +1120,7 @@ type BattleLiveRewardResource struct {
 
 func (x *BattleLiveRewardResource) Reset() {
 	*x = BattleLiveRewardResource{}
-	mi := &file_entity_live_proto_msgTypes[14]
+	mi := &file_entity_live_proto_msgTypes[15]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1040,7 +1132,7 @@ func (x *BattleLiveRewardResource) String() string {
 func (*BattleLiveRewardResource) ProtoMessage() {}
 
 func (x *BattleLiveRewardResource) ProtoReflect() protoreflect.Message {
-	mi := &file_entity_live_proto_msgTypes[14]
+	mi := &file_entity_live_proto_msgTypes[15]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1053,7 +1145,7 @@ func (x *BattleLiveRewardResource) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use BattleLiveRewardResource.ProtoReflect.Descriptor instead.
 func (*BattleLiveRewardResource) Descriptor() ([]byte, []int) {
-	return file_entity_live_proto_rawDescGZIP(), []int{14}
+	return file_entity_live_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *BattleLiveRewardResource) GetResource() *RewardResource {
@@ -1079,7 +1171,7 @@ type LiveSetting struct {
 
 func (x *LiveSetting) Reset() {
 	*x = LiveSetting{}
-	mi := &file_entity_live_proto_msgTypes[15]
+	mi := &file_entity_live_proto_msgTypes[16]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1091,7 +1183,7 @@ func (x *LiveSetting) String() string {
 func (*LiveSetting) ProtoMessage() {}
 
 func (x *LiveSetting) ProtoReflect() protoreflect.Message {
-	mi := &file_entity_live_proto_msgTypes[15]
+	mi := &file_entity_live_proto_msgTypes[16]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1104,7 +1196,7 @@ func (x *LiveSetting) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LiveSetting.ProtoReflect.Descriptor instead.
 func (*LiveSetting) Descriptor() ([]byte, []int) {
-	return file_entity_live_proto_rawDescGZIP(), []int{15}
+	return file_entity_live_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *LiveSetting) GetSettingAll() []byte {
@@ -1123,7 +1215,7 @@ type LiveLaneSkin struct {
 
 func (x *LiveLaneSkin) Reset() {
 	*x = LiveLaneSkin{}
-	mi := &file_entity_live_proto_msgTypes[16]
+	mi := &file_entity_live_proto_msgTypes[17]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1135,7 +1227,7 @@ func (x *LiveLaneSkin) String() string {
 func (*LiveLaneSkin) ProtoMessage() {}
 
 func (x *LiveLaneSkin) ProtoReflect() protoreflect.Message {
-	mi := &file_entity_live_proto_msgTypes[16]
+	mi := &file_entity_live_proto_msgTypes[17]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1148,7 +1240,7 @@ func (x *LiveLaneSkin) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LiveLaneSkin.ProtoReflect.Descriptor instead.
 func (*LiveLaneSkin) Descriptor() ([]byte, []int) {
-	return file_entity_live_proto_rawDescGZIP(), []int{16}
+	return file_entity_live_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *LiveLaneSkin) GetMasterId() int64 {
@@ -1167,7 +1259,7 @@ type LiveNoteSkin struct {
 
 func (x *LiveNoteSkin) Reset() {
 	*x = LiveNoteSkin{}
-	mi := &file_entity_live_proto_msgTypes[17]
+	mi := &file_entity_live_proto_msgTypes[18]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1179,7 +1271,7 @@ func (x *LiveNoteSkin) String() string {
 func (*LiveNoteSkin) ProtoMessage() {}
 
 func (x *LiveNoteSkin) ProtoReflect() protoreflect.Message {
-	mi := &file_entity_live_proto_msgTypes[17]
+	mi := &file_entity_live_proto_msgTypes[18]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1192,7 +1284,7 @@ func (x *LiveNoteSkin) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LiveNoteSkin.ProtoReflect.Descriptor instead.
 func (*LiveNoteSkin) Descriptor() ([]byte, []int) {
-	return file_entity_live_proto_rawDescGZIP(), []int{17}
+	return file_entity_live_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *LiveNoteSkin) GetMasterId() int64 {
@@ -1211,7 +1303,7 @@ type LiveNoteEffectSkin struct {
 
 func (x *LiveNoteEffectSkin) Reset() {
 	*x = LiveNoteEffectSkin{}
-	mi := &file_entity_live_proto_msgTypes[18]
+	mi := &file_entity_live_proto_msgTypes[19]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1223,7 +1315,7 @@ func (x *LiveNoteEffectSkin) String() string {
 func (*LiveNoteEffectSkin) ProtoMessage() {}
 
 func (x *LiveNoteEffectSkin) ProtoReflect() protoreflect.Message {
-	mi := &file_entity_live_proto_msgTypes[18]
+	mi := &file_entity_live_proto_msgTypes[19]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1236,7 +1328,7 @@ func (x *LiveNoteEffectSkin) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LiveNoteEffectSkin.ProtoReflect.Descriptor instead.
 func (*LiveNoteEffectSkin) Descriptor() ([]byte, []int) {
-	return file_entity_live_proto_rawDescGZIP(), []int{18}
+	return file_entity_live_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *LiveNoteEffectSkin) GetMasterId() int64 {
@@ -1255,7 +1347,7 @@ type LiveNoteSeGroup struct {
 
 func (x *LiveNoteSeGroup) Reset() {
 	*x = LiveNoteSeGroup{}
-	mi := &file_entity_live_proto_msgTypes[19]
+	mi := &file_entity_live_proto_msgTypes[20]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1267,7 +1359,7 @@ func (x *LiveNoteSeGroup) String() string {
 func (*LiveNoteSeGroup) ProtoMessage() {}
 
 func (x *LiveNoteSeGroup) ProtoReflect() protoreflect.Message {
-	mi := &file_entity_live_proto_msgTypes[19]
+	mi := &file_entity_live_proto_msgTypes[20]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1280,7 +1372,7 @@ func (x *LiveNoteSeGroup) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LiveNoteSeGroup.ProtoReflect.Descriptor instead.
 func (*LiveNoteSeGroup) Descriptor() ([]byte, []int) {
-	return file_entity_live_proto_rawDescGZIP(), []int{19}
+	return file_entity_live_proto_rawDescGZIP(), []int{20}
 }
 
 func (x *LiveNoteSeGroup) GetMasterId() int64 {
@@ -1301,7 +1393,7 @@ type LiveStampReward struct {
 
 func (x *LiveStampReward) Reset() {
 	*x = LiveStampReward{}
-	mi := &file_entity_live_proto_msgTypes[20]
+	mi := &file_entity_live_proto_msgTypes[21]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1313,7 +1405,7 @@ func (x *LiveStampReward) String() string {
 func (*LiveStampReward) ProtoMessage() {}
 
 func (x *LiveStampReward) ProtoReflect() protoreflect.Message {
-	mi := &file_entity_live_proto_msgTypes[20]
+	mi := &file_entity_live_proto_msgTypes[21]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1326,7 +1418,7 @@ func (x *LiveStampReward) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LiveStampReward.ProtoReflect.Descriptor instead.
 func (*LiveStampReward) Descriptor() ([]byte, []int) {
-	return file_entity_live_proto_rawDescGZIP(), []int{20}
+	return file_entity_live_proto_rawDescGZIP(), []int{21}
 }
 
 func (x *LiveStampReward) GetLiveCompleted() int32 {
@@ -1360,7 +1452,7 @@ type BandHighScoreRatingReward struct {
 
 func (x *BandHighScoreRatingReward) Reset() {
 	*x = BandHighScoreRatingReward{}
-	mi := &file_entity_live_proto_msgTypes[21]
+	mi := &file_entity_live_proto_msgTypes[22]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1372,7 +1464,7 @@ func (x *BandHighScoreRatingReward) String() string {
 func (*BandHighScoreRatingReward) ProtoMessage() {}
 
 func (x *BandHighScoreRatingReward) ProtoReflect() protoreflect.Message {
-	mi := &file_entity_live_proto_msgTypes[21]
+	mi := &file_entity_live_proto_msgTypes[22]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1385,7 +1477,7 @@ func (x *BandHighScoreRatingReward) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use BandHighScoreRatingReward.ProtoReflect.Descriptor instead.
 func (*BandHighScoreRatingReward) Descriptor() ([]byte, []int) {
-	return file_entity_live_proto_rawDescGZIP(), []int{21}
+	return file_entity_live_proto_rawDescGZIP(), []int{22}
 }
 
 func (x *BandHighScoreRatingReward) GetBandId() int64 {
@@ -1414,7 +1506,7 @@ type BattleLiveInvitation struct {
 
 func (x *BattleLiveInvitation) Reset() {
 	*x = BattleLiveInvitation{}
-	mi := &file_entity_live_proto_msgTypes[22]
+	mi := &file_entity_live_proto_msgTypes[23]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1426,7 +1518,7 @@ func (x *BattleLiveInvitation) String() string {
 func (*BattleLiveInvitation) ProtoMessage() {}
 
 func (x *BattleLiveInvitation) ProtoReflect() protoreflect.Message {
-	mi := &file_entity_live_proto_msgTypes[22]
+	mi := &file_entity_live_proto_msgTypes[23]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1439,7 +1531,7 @@ func (x *BattleLiveInvitation) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use BattleLiveInvitation.ProtoReflect.Descriptor instead.
 func (*BattleLiveInvitation) Descriptor() ([]byte, []int) {
-	return file_entity_live_proto_rawDescGZIP(), []int{22}
+	return file_entity_live_proto_rawDescGZIP(), []int{23}
 }
 
 func (x *BattleLiveInvitation) GetSender() *PlayerSimpleProfile {
@@ -1509,7 +1601,7 @@ const file_entity_live_proto_rawDesc = "" +
 	"\bskill_id\x18\x02 \x01(\x03R\askillId\"U\n" +
 	"\x10LiveSupportSkill\x12&\n" +
 	"\x0fsupport_card_id\x18\x01 \x01(\x03R\rsupportCardId\x12\x19\n" +
-	"\bskill_id\x18\x02 \x01(\x03R\askillId\"\xaf\x04\n" +
+	"\bskill_id\x18\x02 \x01(\x03R\askillId\"\xbc\x05\n" +
 	"\n" +
 	"LiveFinish\x12!\n" +
 	"\fclear_status\x18\x01 \x01(\x05R\vclearStatus\x12\x1d\n" +
@@ -1526,11 +1618,21 @@ const file_entity_live_proto_rawDesc = "" +
 	"\x18current_deck_total_power\x18\n" +
 	" \x01(\x05R\x15currentDeckTotalPower\x12$\n" +
 	"\x0elive_unique_id\x18\v \x01(\tR\fliveUniqueId\x12*\n" +
-	"\x11live_score_report\x18\f \x01(\fR\x0fliveScoreReport\"O\n" +
+	"\x11live_score_report\x18\f \x01(\fR\x0fliveScoreReport\x12\x12\n" +
+	"\x04life\x18\r \x01(\x05R\x04life\x12T\n" +
+	"\x17gekisou_section_results\x18\x0e \x03(\v2\x1c.entity.GekisouSectionResultR\x15gekisouSectionResults\x12\x1b\n" +
+	"\tis_assist\x18\x0f \x01(\bR\bisAssistJ\x04\b\b\x10\t\"O\n" +
 	"\x0eJudgementCount\x12\x1c\n" +
 	"\tjudgement\x18\x01 \x01(\x05R\tjudgement\x12\x1f\n" +
 	"\vtotal_count\x18\x02 \x01(\x05R\n" +
-	"totalCount\"\xad\x01\n" +
+	"totalCount\"\x8f\x01\n" +
+	"\x14GekisouSectionResult\x12#\n" +
+	"\rsection_index\x18\x01 \x01(\x05R\fsectionIndex\x12\x1d\n" +
+	"\n" +
+	"just_count\x18\x02 \x01(\x05R\tjustCount\x12\x14\n" +
+	"\x05combo\x18\x03 \x01(\x05R\x05combo\x12\x1d\n" +
+	"\n" +
+	"luck_point\x18\x04 \x01(\x05R\tluckPoint\"\xad\x01\n" +
 	"\x10JudgementSummary\x12!\n" +
 	"\fclear_status\x18\x01 \x01(\x05R\vclearStatus\x12\x1d\n" +
 	"\n" +
@@ -1601,7 +1703,7 @@ func file_entity_live_proto_rawDescGZIP() []byte {
 }
 
 var file_entity_live_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
-var file_entity_live_proto_msgTypes = make([]protoimpl.MessageInfo, 23)
+var file_entity_live_proto_msgTypes = make([]protoimpl.MessageInfo, 24)
 var file_entity_live_proto_goTypes = []any{
 	(GekisouRankigType)(0),            // 0: entity.GekisouRankigType
 	(GekisouRankingRewardState)(0),    // 1: entity.GekisouRankingRewardState
@@ -1615,40 +1717,42 @@ var file_entity_live_proto_goTypes = []any{
 	(*LiveSupportSkill)(nil),          // 9: entity.LiveSupportSkill
 	(*LiveFinish)(nil),                // 10: entity.LiveFinish
 	(*JudgementCount)(nil),            // 11: entity.JudgementCount
-	(*JudgementSummary)(nil),          // 12: entity.JudgementSummary
-	(*BattleLivePlayerResult)(nil),    // 13: entity.BattleLivePlayerResult
-	(*GekisouRankingPlayer)(nil),      // 14: entity.GekisouRankingPlayer
-	(*GekisouRanking)(nil),            // 15: entity.GekisouRanking
-	(*BattleLiveRewardResource)(nil),  // 16: entity.BattleLiveRewardResource
-	(*LiveSetting)(nil),               // 17: entity.LiveSetting
-	(*LiveLaneSkin)(nil),              // 18: entity.LiveLaneSkin
-	(*LiveNoteSkin)(nil),              // 19: entity.LiveNoteSkin
-	(*LiveNoteEffectSkin)(nil),        // 20: entity.LiveNoteEffectSkin
-	(*LiveNoteSeGroup)(nil),           // 21: entity.LiveNoteSeGroup
-	(*LiveStampReward)(nil),           // 22: entity.LiveStampReward
-	(*BandHighScoreRatingReward)(nil), // 23: entity.BandHighScoreRatingReward
-	(*BattleLiveInvitation)(nil),      // 24: entity.BattleLiveInvitation
-	(*RewardResource)(nil),            // 25: entity.RewardResource
-	(*PlayerSimpleProfile)(nil),       // 26: entity.PlayerSimpleProfile
+	(*GekisouSectionResult)(nil),      // 12: entity.GekisouSectionResult
+	(*JudgementSummary)(nil),          // 13: entity.JudgementSummary
+	(*BattleLivePlayerResult)(nil),    // 14: entity.BattleLivePlayerResult
+	(*GekisouRankingPlayer)(nil),      // 15: entity.GekisouRankingPlayer
+	(*GekisouRanking)(nil),            // 16: entity.GekisouRanking
+	(*BattleLiveRewardResource)(nil),  // 17: entity.BattleLiveRewardResource
+	(*LiveSetting)(nil),               // 18: entity.LiveSetting
+	(*LiveLaneSkin)(nil),              // 19: entity.LiveLaneSkin
+	(*LiveNoteSkin)(nil),              // 20: entity.LiveNoteSkin
+	(*LiveNoteEffectSkin)(nil),        // 21: entity.LiveNoteEffectSkin
+	(*LiveNoteSeGroup)(nil),           // 22: entity.LiveNoteSeGroup
+	(*LiveStampReward)(nil),           // 23: entity.LiveStampReward
+	(*BandHighScoreRatingReward)(nil), // 24: entity.BandHighScoreRatingReward
+	(*BattleLiveInvitation)(nil),      // 25: entity.BattleLiveInvitation
+	(*RewardResource)(nil),            // 26: entity.RewardResource
+	(*PlayerSimpleProfile)(nil),       // 27: entity.PlayerSimpleProfile
 }
 var file_entity_live_proto_depIdxs = []int32{
 	9,  // 0: entity.LiveFinish.support_skills:type_name -> entity.LiveSupportSkill
 	7,  // 1: entity.LiveFinish.gekisou_skills:type_name -> entity.LiveGekisouSkill
 	8,  // 2: entity.LiveFinish.gekisou_support_skills:type_name -> entity.LiveGekisouSupportSkill
 	11, // 3: entity.LiveFinish.judgement_counts:type_name -> entity.JudgementCount
-	11, // 4: entity.JudgementSummary.judgement_counts:type_name -> entity.JudgementCount
-	12, // 5: entity.BattleLivePlayerResult.judgement:type_name -> entity.JudgementSummary
-	0,  // 6: entity.GekisouRanking.ranking_type:type_name -> entity.GekisouRankigType
-	14, // 7: entity.GekisouRanking.ranking:type_name -> entity.GekisouRankingPlayer
-	25, // 8: entity.BattleLiveRewardResource.resource:type_name -> entity.RewardResource
-	0,  // 9: entity.BattleLiveRewardResource.ranking_type:type_name -> entity.GekisouRankigType
-	26, // 10: entity.BattleLiveInvitation.sender:type_name -> entity.PlayerSimpleProfile
-	26, // 11: entity.BattleLiveInvitation.host:type_name -> entity.PlayerSimpleProfile
-	12, // [12:12] is the sub-list for method output_type
-	12, // [12:12] is the sub-list for method input_type
-	12, // [12:12] is the sub-list for extension type_name
-	12, // [12:12] is the sub-list for extension extendee
-	0,  // [0:12] is the sub-list for field type_name
+	12, // 4: entity.LiveFinish.gekisou_section_results:type_name -> entity.GekisouSectionResult
+	11, // 5: entity.JudgementSummary.judgement_counts:type_name -> entity.JudgementCount
+	13, // 6: entity.BattleLivePlayerResult.judgement:type_name -> entity.JudgementSummary
+	0,  // 7: entity.GekisouRanking.ranking_type:type_name -> entity.GekisouRankigType
+	15, // 8: entity.GekisouRanking.ranking:type_name -> entity.GekisouRankingPlayer
+	26, // 9: entity.BattleLiveRewardResource.resource:type_name -> entity.RewardResource
+	0,  // 10: entity.BattleLiveRewardResource.ranking_type:type_name -> entity.GekisouRankigType
+	27, // 11: entity.BattleLiveInvitation.sender:type_name -> entity.PlayerSimpleProfile
+	27, // 12: entity.BattleLiveInvitation.host:type_name -> entity.PlayerSimpleProfile
+	13, // [13:13] is the sub-list for method output_type
+	13, // [13:13] is the sub-list for method input_type
+	13, // [13:13] is the sub-list for extension type_name
+	13, // [13:13] is the sub-list for extension extendee
+	0,  // [0:13] is the sub-list for field type_name
 }
 
 func init() { file_entity_live_proto_init() }
@@ -1664,7 +1768,7 @@ func file_entity_live_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_entity_live_proto_rawDesc), len(file_entity_live_proto_rawDesc)),
 			NumEnums:      2,
-			NumMessages:   23,
+			NumMessages:   24,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

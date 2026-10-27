@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 import "entity/arena.proto";
+import "entity/notification.proto";
 
 package app.arena;
 
@@ -11,6 +12,15 @@ message ReportPenaltyRequest {
 }
 
 message ReportPenaltyResponse {
+	bool is_applied = 1;
+	int64 band_id = 2;
+	int64 diff_league_point = 3;
+	int64 current_league_point = 4;
+	int64 diff_master_point = 5;
+	int64 current_master_point = 6;
+	int64 before_rank_id = 7;
+	int64 current_rank_id = 8;
+	.entity.Notification notification = 9;
 }
 
 message ArenaTopRequest {
@@ -28,6 +38,10 @@ message ArenaTopResponse {
 	repeated int64 arena_promotion_reward_ids = 8;
 	repeated .entity.ArenaLpRankDiff lp_rank_diff = 9;
 	repeated .entity.ArenaDedicatedDecks arena_dedicated_decks = 10;
+	.entity.Notification notification = 11;
+	repeated int64 arena_season_reward_ids = 12;
+	repeated int64 arena_ranking_reward_ids = 13;
+	repeated .entity.ArenaConsecutiveWins arena_consecutive_wins = 14;
 }
 
 message ConsecutiveWinsRequest {
@@ -39,8 +53,9 @@ message ConsecutiveWinsResponse {
 }
 
 message DeckTrendRequest {
-	int64 music_id = 1;
+	int64 music_id = 1 [deprecated = true];
 	int64 arena_season_id = 2;
+	int64 band_id = 3;
 }
 
 message DeckTrendResponse {
@@ -96,6 +111,22 @@ message SaveDedicatedDecksRequest {
 message SaveDedicatedDecksResponse {
 }
 
+message ReportSeasonResultShownRequest {
+	int64 arena_season_id = 1;
+}
+
+message ReportSeasonResultShownResponse {
+}
+
+message ReceivePromotionRewardRequest {
+	int64 arena_promotion_reward_id = 1;
+}
+
+message ReceivePromotionRewardResponse {
+	int64 arena_promotion_reward_id = 1;
+	.entity.Notification notification = 2;
+}
+
 service ArenaService {
 	rpc ReportPenalty (.app.arena.ReportPenaltyRequest) returns (.app.arena.ReportPenaltyResponse);
 	rpc ArenaTop (.app.arena.ArenaTopRequest) returns (.app.arena.ArenaTopResponse);
@@ -106,4 +137,6 @@ service ArenaService {
 	rpc ArenaMyRank (.app.arena.ArenaMyRankRequest) returns (.app.arena.ArenaMyRankResponse);
 	rpc MatchingHistories (.app.arena.MatchingHistoriesRequest) returns (.app.arena.MatchingHistoriesResponse);
 	rpc SaveDedicatedDecks (.app.arena.SaveDedicatedDecksRequest) returns (.app.arena.SaveDedicatedDecksResponse);
+	rpc ReportSeasonResultShown (.app.arena.ReportSeasonResultShownRequest) returns (.app.arena.ReportSeasonResultShownResponse);
+	rpc ReceivePromotionReward (.app.arena.ReceivePromotionRewardRequest) returns (.app.arena.ReceivePromotionRewardResponse);
 }

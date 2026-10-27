@@ -120,95 +120,16 @@ func (x *RegisterResponse) GetProfileId() int64 {
 	return 0
 }
 
-type WhoamiRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *WhoamiRequest) Reset() {
-	*x = WhoamiRequest{}
-	mi := &file_app_player_player_service_proto_msgTypes[2]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *WhoamiRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*WhoamiRequest) ProtoMessage() {}
-
-func (x *WhoamiRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_app_player_player_service_proto_msgTypes[2]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use WhoamiRequest.ProtoReflect.Descriptor instead.
-func (*WhoamiRequest) Descriptor() ([]byte, []int) {
-	return file_app_player_player_service_proto_rawDescGZIP(), []int{2}
-}
-
-type WhoamiResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	PlayerId      string                 `protobuf:"bytes,1,opt,name=player_id,json=playerId,proto3" json:"player_id,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *WhoamiResponse) Reset() {
-	*x = WhoamiResponse{}
-	mi := &file_app_player_player_service_proto_msgTypes[3]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *WhoamiResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*WhoamiResponse) ProtoMessage() {}
-
-func (x *WhoamiResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_app_player_player_service_proto_msgTypes[3]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use WhoamiResponse.ProtoReflect.Descriptor instead.
-func (*WhoamiResponse) Descriptor() ([]byte, []int) {
-	return file_app_player_player_service_proto_rawDescGZIP(), []int{3}
-}
-
-func (x *WhoamiResponse) GetPlayerId() string {
-	if x != nil {
-		return x.PlayerId
-	}
-	return ""
-}
-
 type GetPlayerDataRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state            protoimpl.MessageState `protogen:"open.v1"`
+	SkipLoginProcess bool                   `protobuf:"varint,1,opt,name=skip_login_process,json=skipLoginProcess,proto3" json:"skip_login_process,omitempty"`
+	unknownFields    protoimpl.UnknownFields
+	sizeCache        protoimpl.SizeCache
 }
 
 func (x *GetPlayerDataRequest) Reset() {
 	*x = GetPlayerDataRequest{}
-	mi := &file_app_player_player_service_proto_msgTypes[4]
+	mi := &file_app_player_player_service_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -220,7 +141,7 @@ func (x *GetPlayerDataRequest) String() string {
 func (*GetPlayerDataRequest) ProtoMessage() {}
 
 func (x *GetPlayerDataRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_app_player_player_service_proto_msgTypes[4]
+	mi := &file_app_player_player_service_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -233,7 +154,118 @@ func (x *GetPlayerDataRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetPlayerDataRequest.ProtoReflect.Descriptor instead.
 func (*GetPlayerDataRequest) Descriptor() ([]byte, []int) {
+	return file_app_player_player_service_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *GetPlayerDataRequest) GetSkipLoginProcess() bool {
+	if x != nil {
+		return x.SkipLoginProcess
+	}
+	return false
+}
+
+type LoginRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LoginRequest) Reset() {
+	*x = LoginRequest{}
+	mi := &file_app_player_player_service_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LoginRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LoginRequest) ProtoMessage() {}
+
+func (x *LoginRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_app_player_player_service_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LoginRequest.ProtoReflect.Descriptor instead.
+func (*LoginRequest) Descriptor() ([]byte, []int) {
+	return file_app_player_player_service_proto_rawDescGZIP(), []int{3}
+}
+
+type LoginResponse struct {
+	state            protoimpl.MessageState    `protogen:"open.v1"`
+	LoginBonusUpdate []*entity.LoginBonusSheet `protobuf:"bytes,1,rep,name=login_bonus_update,json=loginBonusUpdate,proto3" json:"login_bonus_update,omitempty"`
+	Comeback         *entity.Comeback          `protobuf:"bytes,2,opt,name=comeback,proto3" json:"comeback,omitempty"`
+	Vip              *entity.Vip               `protobuf:"bytes,3,opt,name=vip,proto3" json:"vip,omitempty"`
+	Notification     *entity.Notification      `protobuf:"bytes,4,opt,name=notification,proto3" json:"notification,omitempty"`
+	unknownFields    protoimpl.UnknownFields
+	sizeCache        protoimpl.SizeCache
+}
+
+func (x *LoginResponse) Reset() {
+	*x = LoginResponse{}
+	mi := &file_app_player_player_service_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LoginResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LoginResponse) ProtoMessage() {}
+
+func (x *LoginResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_app_player_player_service_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LoginResponse.ProtoReflect.Descriptor instead.
+func (*LoginResponse) Descriptor() ([]byte, []int) {
 	return file_app_player_player_service_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *LoginResponse) GetLoginBonusUpdate() []*entity.LoginBonusSheet {
+	if x != nil {
+		return x.LoginBonusUpdate
+	}
+	return nil
+}
+
+func (x *LoginResponse) GetComeback() *entity.Comeback {
+	if x != nil {
+		return x.Comeback
+	}
+	return nil
+}
+
+func (x *LoginResponse) GetVip() *entity.Vip {
+	if x != nil {
+		return x.Vip
+	}
+	return nil
+}
+
+func (x *LoginResponse) GetNotification() *entity.Notification {
+	if x != nil {
+		return x.Notification
+	}
+	return nil
 }
 
 type GetPlayerDataResponse struct {
@@ -2341,7 +2373,7 @@ var File_app_player_player_service_proto protoreflect.FileDescriptor
 const file_app_player_player_service_proto_rawDesc = "" +
 	"\n" +
 	"\x1fapp/player/player_service.proto\x12\n" +
-	"app.player\x1a\x1eentity/character_costume.proto\x1a\x13entity/friend.proto\x1a\x10entity/gem.proto\x1a\x17entity/invitation.proto\x1a\x17entity/limitation.proto\x1a\x16entity/liveboost.proto\x1a*entity/method_options/method_options.proto\x1a\x19entity/notification.proto\x1a\x13entity/player.proto\x1a\x1bentity/player_profile.proto\x1a\x1bgoogle/protobuf/empty.proto\"?\n" +
+	"app.player\x1a\x1eentity/character_costume.proto\x1a\x15entity/comeback.proto\x1a\x13entity/friend.proto\x1a\x10entity/gem.proto\x1a\x17entity/invitation.proto\x1a\x17entity/limitation.proto\x1a\x16entity/liveboost.proto\x1a\x18entity/login_bonus.proto\x1a*entity/method_options/method_options.proto\x1a\x19entity/notification.proto\x1a\x13entity/player.proto\x1a\x1bentity/player_profile.proto\x1a\x10entity/vip.proto\x1a\x1bgoogle/protobuf/empty.proto\"?\n" +
 	"\x0fRegisterRequest\x12,\n" +
 	"\x12initial_data_group\x18\x01 \x01(\tR\x10initialDataGroup\"k\n" +
 	"\x10RegisterResponse\x128\n" +
@@ -2349,11 +2381,15 @@ const file_app_player_player_service_proto_rawDesc = "" +
 	"credential\x18\x01 \x01(\v2\x18.entity.PlayerCredentialR\n" +
 	"credential\x12\x1d\n" +
 	"\n" +
-	"profile_id\x18\x02 \x01(\x03R\tprofileId\"\x0f\n" +
-	"\rWhoamiRequest\"-\n" +
-	"\x0eWhoamiResponse\x12\x1b\n" +
-	"\tplayer_id\x18\x01 \x01(\tR\bplayerId\"\x16\n" +
-	"\x14GetPlayerDataRequest\"\xa3\x04\n" +
+	"profile_id\x18\x02 \x01(\x03R\tprofileId\"D\n" +
+	"\x14GetPlayerDataRequest\x12,\n" +
+	"\x12skip_login_process\x18\x01 \x01(\bR\x10skipLoginProcess\"\x0e\n" +
+	"\fLoginRequest\"\xdd\x01\n" +
+	"\rLoginResponse\x12E\n" +
+	"\x12login_bonus_update\x18\x01 \x03(\v2\x17.entity.LoginBonusSheetR\x10loginBonusUpdate\x12,\n" +
+	"\bcomeback\x18\x02 \x01(\v2\x10.entity.ComebackR\bcomeback\x12\x1d\n" +
+	"\x03vip\x18\x03 \x01(\v2\v.entity.VipR\x03vip\x128\n" +
+	"\fnotification\x18\x04 \x01(\v2\x14.entity.NotificationR\fnotification\"\xa3\x04\n" +
 	"\x15GetPlayerDataResponse\x123\n" +
 	"\vplayer_data\x18\x01 \x01(\v2\x12.entity.PlayerDataR\n" +
 	"playerData\x128\n" +
@@ -2483,11 +2519,11 @@ const file_app_player_player_service_proto_rawDesc = "" +
 	"\x10is_sent_favorite\x18\x02 \x01(\bR\x0eisSentFavorite\"z\n" +
 	"\x19SetCurrentCostumesRequest\x12]\n" +
 	"\x1acharacter_current_costumes\x18\x01 \x03(\v2\x1f.entity.CharacterCurrentCostumeR\x18characterCurrentCostumes\"\x1c\n" +
-	"\x1aSetCurrentCostumesResponse2\xe0\x14\n" +
+	"\x1aSetCurrentCostumesResponse2\xdd\x14\n" +
 	"\rPlayerService\x12K\n" +
-	"\bRegister\x12\x1b.app.player.RegisterRequest\x1a\x1c.app.player.RegisterResponse\"\x04\x88\xb5\x18\x01\x12?\n" +
-	"\x06Whoami\x12\x19.app.player.WhoamiRequest\x1a\x1a.app.player.WhoamiResponse\x12T\n" +
-	"\rGetPlayerData\x12 .app.player.GetPlayerDataRequest\x1a!.app.player.GetPlayerDataResponse\x12@\n" +
+	"\bRegister\x12\x1b.app.player.RegisterRequest\x1a\x1c.app.player.RegisterResponse\"\x04\x88\xb5\x18\x01\x12T\n" +
+	"\rGetPlayerData\x12 .app.player.GetPlayerDataRequest\x1a!.app.player.GetPlayerDataResponse\x12<\n" +
+	"\x05Login\x12\x18.app.player.LoginRequest\x1a\x19.app.player.LoginResponse\x12@\n" +
 	"\x0eFinishTutorial\x12\x16.google.protobuf.Empty\x1a\x16.google.protobuf.Empty\x12N\n" +
 	"\vEditProfile\x12\x1e.app.player.EditProfileRequest\x1a\x1f.app.player.EditProfileResponse\x12i\n" +
 	"\x14ChangeFavoriteMember\x12'.app.player.ChangeFavoriteMemberRequest\x1a(.app.player.ChangeFavoriteMemberResponse\x12T\n" +
@@ -2528,9 +2564,9 @@ var file_app_player_player_service_proto_msgTypes = make([]protoimpl.MessageInfo
 var file_app_player_player_service_proto_goTypes = []any{
 	(*RegisterRequest)(nil),                       // 0: app.player.RegisterRequest
 	(*RegisterResponse)(nil),                      // 1: app.player.RegisterResponse
-	(*WhoamiRequest)(nil),                         // 2: app.player.WhoamiRequest
-	(*WhoamiResponse)(nil),                        // 3: app.player.WhoamiResponse
-	(*GetPlayerDataRequest)(nil),                  // 4: app.player.GetPlayerDataRequest
+	(*GetPlayerDataRequest)(nil),                  // 2: app.player.GetPlayerDataRequest
+	(*LoginRequest)(nil),                          // 3: app.player.LoginRequest
+	(*LoginResponse)(nil),                         // 4: app.player.LoginResponse
 	(*GetPlayerDataResponse)(nil),                 // 5: app.player.GetPlayerDataResponse
 	(*EditProfileRequest)(nil),                    // 6: app.player.EditProfileRequest
 	(*EditProfileResponse)(nil),                   // 7: app.player.EditProfileResponse
@@ -2577,94 +2613,101 @@ var file_app_player_player_service_proto_goTypes = []any{
 	(*SetCurrentCostumesRequest)(nil),             // 48: app.player.SetCurrentCostumesRequest
 	(*SetCurrentCostumesResponse)(nil),            // 49: app.player.SetCurrentCostumesResponse
 	(*entity.PlayerCredential)(nil),               // 50: entity.PlayerCredential
-	(*entity.PlayerData)(nil),                     // 51: entity.PlayerData
-	(*entity.Notification)(nil),                   // 52: entity.Notification
-	(*entity.Limitation)(nil),                     // 53: entity.Limitation
-	(*entity.Friends)(nil),                        // 54: entity.Friends
-	(*entity.Invitation)(nil),                     // 55: entity.Invitation
-	(entity.LinkedAccountType)(0),                 // 56: entity.LinkedAccountType
-	(*entity.CharacterCurrentCostume)(nil),        // 57: entity.CharacterCurrentCostume
-	(*emptypb.Empty)(nil),                         // 58: google.protobuf.Empty
+	(*entity.LoginBonusSheet)(nil),                // 51: entity.LoginBonusSheet
+	(*entity.Comeback)(nil),                       // 52: entity.Comeback
+	(*entity.Vip)(nil),                            // 53: entity.Vip
+	(*entity.Notification)(nil),                   // 54: entity.Notification
+	(*entity.PlayerData)(nil),                     // 55: entity.PlayerData
+	(*entity.Limitation)(nil),                     // 56: entity.Limitation
+	(*entity.Friends)(nil),                        // 57: entity.Friends
+	(*entity.Invitation)(nil),                     // 58: entity.Invitation
+	(entity.LinkedAccountType)(0),                 // 59: entity.LinkedAccountType
+	(*entity.CharacterCurrentCostume)(nil),        // 60: entity.CharacterCurrentCostume
+	(*emptypb.Empty)(nil),                         // 61: google.protobuf.Empty
 }
 var file_app_player_player_service_proto_depIdxs = []int32{
 	50, // 0: app.player.RegisterResponse.credential:type_name -> entity.PlayerCredential
-	51, // 1: app.player.GetPlayerDataResponse.player_data:type_name -> entity.PlayerData
-	52, // 2: app.player.GetPlayerDataResponse.notification:type_name -> entity.Notification
-	53, // 3: app.player.GetPlayerDataResponse.limitation:type_name -> entity.Limitation
-	54, // 4: app.player.GetPlayerDataResponse.friends:type_name -> entity.Friends
-	55, // 5: app.player.GetPlayerDataResponse.invitation:type_name -> entity.Invitation
-	50, // 6: app.player.RegisterDeviceResponse.credential:type_name -> entity.PlayerCredential
-	52, // 7: app.player.RegisterPasswordResponse.notification:type_name -> entity.Notification
-	50, // 8: app.player.RegisterDeviceByPasswordResponse.credential:type_name -> entity.PlayerCredential
-	56, // 9: app.player.RegisterLinkedAccountRequest.account_type:type_name -> entity.LinkedAccountType
-	52, // 10: app.player.RegisterLinkedAccountResponse.notification:type_name -> entity.Notification
-	56, // 11: app.player.UnregisterLinkedAccountRequest.account_type:type_name -> entity.LinkedAccountType
-	56, // 12: app.player.GetLinkedPlayerRequest.account_type:type_name -> entity.LinkedAccountType
-	56, // 13: app.player.RegisterDeviceForLinkedPlayerRequest.account_type:type_name -> entity.LinkedAccountType
-	50, // 14: app.player.RegisterDeviceForLinkedPlayerResponse.credential:type_name -> entity.PlayerCredential
-	27, // 15: app.player.RegisterGameCenterAccountRequest.credential:type_name -> app.player.GameCenterCredential
-	52, // 16: app.player.RegisterGameCenterAccountResponse.notification:type_name -> entity.Notification
-	27, // 17: app.player.GetPlayerByGameCenterRequest.credential:type_name -> app.player.GameCenterCredential
-	27, // 18: app.player.RegisterDeviceByGameCenterRequest.credential:type_name -> app.player.GameCenterCredential
-	50, // 19: app.player.RegisterDeviceByGameCenterResponse.credential:type_name -> entity.PlayerCredential
-	57, // 20: app.player.SetCurrentCostumesRequest.character_current_costumes:type_name -> entity.CharacterCurrentCostume
-	0,  // 21: app.player.PlayerService.Register:input_type -> app.player.RegisterRequest
-	2,  // 22: app.player.PlayerService.Whoami:input_type -> app.player.WhoamiRequest
-	4,  // 23: app.player.PlayerService.GetPlayerData:input_type -> app.player.GetPlayerDataRequest
-	58, // 24: app.player.PlayerService.FinishTutorial:input_type -> google.protobuf.Empty
-	6,  // 25: app.player.PlayerService.EditProfile:input_type -> app.player.EditProfileRequest
-	8,  // 26: app.player.PlayerService.ChangeFavoriteMember:input_type -> app.player.ChangeFavoriteMemberRequest
-	34, // 27: app.player.PlayerService.CheckNgWord:input_type -> app.player.CheckNgWordRequest
-	36, // 28: app.player.PlayerService.RemovePlayerData:input_type -> app.player.RemovePlayerDataRequest
-	10, // 29: app.player.PlayerService.RegisterDevice:input_type -> app.player.RegisterDeviceRequest
-	12, // 30: app.player.PlayerService.RegisterPassword:input_type -> app.player.RegisterPasswordRequest
-	14, // 31: app.player.PlayerService.GetPlayerByPassword:input_type -> app.player.GetPlayerByPasswordRequest
-	16, // 32: app.player.PlayerService.RegisterDeviceByPassword:input_type -> app.player.RegisterDeviceByPasswordRequest
-	18, // 33: app.player.PlayerService.RegisterLinkedAccount:input_type -> app.player.RegisterLinkedAccountRequest
-	20, // 34: app.player.PlayerService.UnregisterLinkedAccount:input_type -> app.player.UnregisterLinkedAccountRequest
-	23, // 35: app.player.PlayerService.GetLinkedPlayer:input_type -> app.player.GetLinkedPlayerRequest
-	25, // 36: app.player.PlayerService.RegisterDeviceForLinkedPlayer:input_type -> app.player.RegisterDeviceForLinkedPlayerRequest
-	28, // 37: app.player.PlayerService.RegisterGameCenterAccount:input_type -> app.player.RegisterGameCenterAccountRequest
-	30, // 38: app.player.PlayerService.GetPlayerByGameCenter:input_type -> app.player.GetPlayerByGameCenterRequest
-	32, // 39: app.player.PlayerService.RegisterDeviceByGameCenter:input_type -> app.player.RegisterDeviceByGameCenterRequest
-	38, // 40: app.player.PlayerService.UpdatePlayerFavorite:input_type -> app.player.UpdatePlayerFavoriteRequest
-	22, // 41: app.player.PlayerService.UnlinkBushiroadId:input_type -> app.player.UnlinkBushiroadIdRequest
-	40, // 42: app.player.PlayerService.GetCharacterOrders:input_type -> app.player.GetCharacterOrdersRequest
-	42, // 43: app.player.PlayerService.SaveCharacterOrders:input_type -> app.player.SaveCharacterOrdersRequest
-	44, // 44: app.player.PlayerService.SetNotificationSetting:input_type -> app.player.SetNotificationSettingRequest
-	46, // 45: app.player.PlayerService.GetPlayerFavoriteStatus:input_type -> app.player.GetPlayerFavoriteStatusRequest
-	48, // 46: app.player.PlayerService.SetCurrentCostumes:input_type -> app.player.SetCurrentCostumesRequest
-	1,  // 47: app.player.PlayerService.Register:output_type -> app.player.RegisterResponse
-	3,  // 48: app.player.PlayerService.Whoami:output_type -> app.player.WhoamiResponse
-	5,  // 49: app.player.PlayerService.GetPlayerData:output_type -> app.player.GetPlayerDataResponse
-	58, // 50: app.player.PlayerService.FinishTutorial:output_type -> google.protobuf.Empty
-	7,  // 51: app.player.PlayerService.EditProfile:output_type -> app.player.EditProfileResponse
-	9,  // 52: app.player.PlayerService.ChangeFavoriteMember:output_type -> app.player.ChangeFavoriteMemberResponse
-	35, // 53: app.player.PlayerService.CheckNgWord:output_type -> app.player.CheckNgWordResponse
-	37, // 54: app.player.PlayerService.RemovePlayerData:output_type -> app.player.RemovePlayerDataResponse
-	11, // 55: app.player.PlayerService.RegisterDevice:output_type -> app.player.RegisterDeviceResponse
-	13, // 56: app.player.PlayerService.RegisterPassword:output_type -> app.player.RegisterPasswordResponse
-	15, // 57: app.player.PlayerService.GetPlayerByPassword:output_type -> app.player.GetPlayerByPasswordResponse
-	17, // 58: app.player.PlayerService.RegisterDeviceByPassword:output_type -> app.player.RegisterDeviceByPasswordResponse
-	19, // 59: app.player.PlayerService.RegisterLinkedAccount:output_type -> app.player.RegisterLinkedAccountResponse
-	21, // 60: app.player.PlayerService.UnregisterLinkedAccount:output_type -> app.player.UnregisterLinkedAccountResponse
-	24, // 61: app.player.PlayerService.GetLinkedPlayer:output_type -> app.player.GetLinkedPlayerResponse
-	26, // 62: app.player.PlayerService.RegisterDeviceForLinkedPlayer:output_type -> app.player.RegisterDeviceForLinkedPlayerResponse
-	29, // 63: app.player.PlayerService.RegisterGameCenterAccount:output_type -> app.player.RegisterGameCenterAccountResponse
-	31, // 64: app.player.PlayerService.GetPlayerByGameCenter:output_type -> app.player.GetPlayerByGameCenterResponse
-	33, // 65: app.player.PlayerService.RegisterDeviceByGameCenter:output_type -> app.player.RegisterDeviceByGameCenterResponse
-	39, // 66: app.player.PlayerService.UpdatePlayerFavorite:output_type -> app.player.UpdatePlayerFavoriteResponse
-	58, // 67: app.player.PlayerService.UnlinkBushiroadId:output_type -> google.protobuf.Empty
-	41, // 68: app.player.PlayerService.GetCharacterOrders:output_type -> app.player.GetCharacterOrdersResponse
-	43, // 69: app.player.PlayerService.SaveCharacterOrders:output_type -> app.player.SaveCharacterOrdersResponse
-	45, // 70: app.player.PlayerService.SetNotificationSetting:output_type -> app.player.SetNotificationSettingResponse
-	47, // 71: app.player.PlayerService.GetPlayerFavoriteStatus:output_type -> app.player.GetPlayerFavoriteStatusResponse
-	49, // 72: app.player.PlayerService.SetCurrentCostumes:output_type -> app.player.SetCurrentCostumesResponse
-	47, // [47:73] is the sub-list for method output_type
-	21, // [21:47] is the sub-list for method input_type
-	21, // [21:21] is the sub-list for extension type_name
-	21, // [21:21] is the sub-list for extension extendee
-	0,  // [0:21] is the sub-list for field type_name
+	51, // 1: app.player.LoginResponse.login_bonus_update:type_name -> entity.LoginBonusSheet
+	52, // 2: app.player.LoginResponse.comeback:type_name -> entity.Comeback
+	53, // 3: app.player.LoginResponse.vip:type_name -> entity.Vip
+	54, // 4: app.player.LoginResponse.notification:type_name -> entity.Notification
+	55, // 5: app.player.GetPlayerDataResponse.player_data:type_name -> entity.PlayerData
+	54, // 6: app.player.GetPlayerDataResponse.notification:type_name -> entity.Notification
+	56, // 7: app.player.GetPlayerDataResponse.limitation:type_name -> entity.Limitation
+	57, // 8: app.player.GetPlayerDataResponse.friends:type_name -> entity.Friends
+	58, // 9: app.player.GetPlayerDataResponse.invitation:type_name -> entity.Invitation
+	50, // 10: app.player.RegisterDeviceResponse.credential:type_name -> entity.PlayerCredential
+	54, // 11: app.player.RegisterPasswordResponse.notification:type_name -> entity.Notification
+	50, // 12: app.player.RegisterDeviceByPasswordResponse.credential:type_name -> entity.PlayerCredential
+	59, // 13: app.player.RegisterLinkedAccountRequest.account_type:type_name -> entity.LinkedAccountType
+	54, // 14: app.player.RegisterLinkedAccountResponse.notification:type_name -> entity.Notification
+	59, // 15: app.player.UnregisterLinkedAccountRequest.account_type:type_name -> entity.LinkedAccountType
+	59, // 16: app.player.GetLinkedPlayerRequest.account_type:type_name -> entity.LinkedAccountType
+	59, // 17: app.player.RegisterDeviceForLinkedPlayerRequest.account_type:type_name -> entity.LinkedAccountType
+	50, // 18: app.player.RegisterDeviceForLinkedPlayerResponse.credential:type_name -> entity.PlayerCredential
+	27, // 19: app.player.RegisterGameCenterAccountRequest.credential:type_name -> app.player.GameCenterCredential
+	54, // 20: app.player.RegisterGameCenterAccountResponse.notification:type_name -> entity.Notification
+	27, // 21: app.player.GetPlayerByGameCenterRequest.credential:type_name -> app.player.GameCenterCredential
+	27, // 22: app.player.RegisterDeviceByGameCenterRequest.credential:type_name -> app.player.GameCenterCredential
+	50, // 23: app.player.RegisterDeviceByGameCenterResponse.credential:type_name -> entity.PlayerCredential
+	60, // 24: app.player.SetCurrentCostumesRequest.character_current_costumes:type_name -> entity.CharacterCurrentCostume
+	0,  // 25: app.player.PlayerService.Register:input_type -> app.player.RegisterRequest
+	2,  // 26: app.player.PlayerService.GetPlayerData:input_type -> app.player.GetPlayerDataRequest
+	3,  // 27: app.player.PlayerService.Login:input_type -> app.player.LoginRequest
+	61, // 28: app.player.PlayerService.FinishTutorial:input_type -> google.protobuf.Empty
+	6,  // 29: app.player.PlayerService.EditProfile:input_type -> app.player.EditProfileRequest
+	8,  // 30: app.player.PlayerService.ChangeFavoriteMember:input_type -> app.player.ChangeFavoriteMemberRequest
+	34, // 31: app.player.PlayerService.CheckNgWord:input_type -> app.player.CheckNgWordRequest
+	36, // 32: app.player.PlayerService.RemovePlayerData:input_type -> app.player.RemovePlayerDataRequest
+	10, // 33: app.player.PlayerService.RegisterDevice:input_type -> app.player.RegisterDeviceRequest
+	12, // 34: app.player.PlayerService.RegisterPassword:input_type -> app.player.RegisterPasswordRequest
+	14, // 35: app.player.PlayerService.GetPlayerByPassword:input_type -> app.player.GetPlayerByPasswordRequest
+	16, // 36: app.player.PlayerService.RegisterDeviceByPassword:input_type -> app.player.RegisterDeviceByPasswordRequest
+	18, // 37: app.player.PlayerService.RegisterLinkedAccount:input_type -> app.player.RegisterLinkedAccountRequest
+	20, // 38: app.player.PlayerService.UnregisterLinkedAccount:input_type -> app.player.UnregisterLinkedAccountRequest
+	23, // 39: app.player.PlayerService.GetLinkedPlayer:input_type -> app.player.GetLinkedPlayerRequest
+	25, // 40: app.player.PlayerService.RegisterDeviceForLinkedPlayer:input_type -> app.player.RegisterDeviceForLinkedPlayerRequest
+	28, // 41: app.player.PlayerService.RegisterGameCenterAccount:input_type -> app.player.RegisterGameCenterAccountRequest
+	30, // 42: app.player.PlayerService.GetPlayerByGameCenter:input_type -> app.player.GetPlayerByGameCenterRequest
+	32, // 43: app.player.PlayerService.RegisterDeviceByGameCenter:input_type -> app.player.RegisterDeviceByGameCenterRequest
+	38, // 44: app.player.PlayerService.UpdatePlayerFavorite:input_type -> app.player.UpdatePlayerFavoriteRequest
+	22, // 45: app.player.PlayerService.UnlinkBushiroadId:input_type -> app.player.UnlinkBushiroadIdRequest
+	40, // 46: app.player.PlayerService.GetCharacterOrders:input_type -> app.player.GetCharacterOrdersRequest
+	42, // 47: app.player.PlayerService.SaveCharacterOrders:input_type -> app.player.SaveCharacterOrdersRequest
+	44, // 48: app.player.PlayerService.SetNotificationSetting:input_type -> app.player.SetNotificationSettingRequest
+	46, // 49: app.player.PlayerService.GetPlayerFavoriteStatus:input_type -> app.player.GetPlayerFavoriteStatusRequest
+	48, // 50: app.player.PlayerService.SetCurrentCostumes:input_type -> app.player.SetCurrentCostumesRequest
+	1,  // 51: app.player.PlayerService.Register:output_type -> app.player.RegisterResponse
+	5,  // 52: app.player.PlayerService.GetPlayerData:output_type -> app.player.GetPlayerDataResponse
+	4,  // 53: app.player.PlayerService.Login:output_type -> app.player.LoginResponse
+	61, // 54: app.player.PlayerService.FinishTutorial:output_type -> google.protobuf.Empty
+	7,  // 55: app.player.PlayerService.EditProfile:output_type -> app.player.EditProfileResponse
+	9,  // 56: app.player.PlayerService.ChangeFavoriteMember:output_type -> app.player.ChangeFavoriteMemberResponse
+	35, // 57: app.player.PlayerService.CheckNgWord:output_type -> app.player.CheckNgWordResponse
+	37, // 58: app.player.PlayerService.RemovePlayerData:output_type -> app.player.RemovePlayerDataResponse
+	11, // 59: app.player.PlayerService.RegisterDevice:output_type -> app.player.RegisterDeviceResponse
+	13, // 60: app.player.PlayerService.RegisterPassword:output_type -> app.player.RegisterPasswordResponse
+	15, // 61: app.player.PlayerService.GetPlayerByPassword:output_type -> app.player.GetPlayerByPasswordResponse
+	17, // 62: app.player.PlayerService.RegisterDeviceByPassword:output_type -> app.player.RegisterDeviceByPasswordResponse
+	19, // 63: app.player.PlayerService.RegisterLinkedAccount:output_type -> app.player.RegisterLinkedAccountResponse
+	21, // 64: app.player.PlayerService.UnregisterLinkedAccount:output_type -> app.player.UnregisterLinkedAccountResponse
+	24, // 65: app.player.PlayerService.GetLinkedPlayer:output_type -> app.player.GetLinkedPlayerResponse
+	26, // 66: app.player.PlayerService.RegisterDeviceForLinkedPlayer:output_type -> app.player.RegisterDeviceForLinkedPlayerResponse
+	29, // 67: app.player.PlayerService.RegisterGameCenterAccount:output_type -> app.player.RegisterGameCenterAccountResponse
+	31, // 68: app.player.PlayerService.GetPlayerByGameCenter:output_type -> app.player.GetPlayerByGameCenterResponse
+	33, // 69: app.player.PlayerService.RegisterDeviceByGameCenter:output_type -> app.player.RegisterDeviceByGameCenterResponse
+	39, // 70: app.player.PlayerService.UpdatePlayerFavorite:output_type -> app.player.UpdatePlayerFavoriteResponse
+	61, // 71: app.player.PlayerService.UnlinkBushiroadId:output_type -> google.protobuf.Empty
+	41, // 72: app.player.PlayerService.GetCharacterOrders:output_type -> app.player.GetCharacterOrdersResponse
+	43, // 73: app.player.PlayerService.SaveCharacterOrders:output_type -> app.player.SaveCharacterOrdersResponse
+	45, // 74: app.player.PlayerService.SetNotificationSetting:output_type -> app.player.SetNotificationSettingResponse
+	47, // 75: app.player.PlayerService.GetPlayerFavoriteStatus:output_type -> app.player.GetPlayerFavoriteStatusResponse
+	49, // 76: app.player.PlayerService.SetCurrentCostumes:output_type -> app.player.SetCurrentCostumesResponse
+	51, // [51:77] is the sub-list for method output_type
+	25, // [25:51] is the sub-list for method input_type
+	25, // [25:25] is the sub-list for extension type_name
+	25, // [25:25] is the sub-list for extension extendee
+	0,  // [0:25] is the sub-list for field type_name
 }
 
 func init() { file_app_player_player_service_proto_init() }

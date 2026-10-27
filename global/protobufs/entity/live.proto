@@ -80,11 +80,23 @@ message LiveFinish {
 	int32 current_deck_total_power = 10;
 	string live_unique_id = 11;
 	bytes live_score_report = 12;
+	int32 life = 13;
+	repeated GekisouSectionResult gekisou_section_results = 14;
+	bool is_assist = 15;
+
+	reserved 8;
 }
 
 message JudgementCount {
 	int32 judgement = 1;
 	int32 total_count = 2;
+}
+
+message GekisouSectionResult {
+	int32 section_index = 1;
+	int32 just_count = 2;
+	int32 combo = 3;
+	int32 luck_point = 4;
 }
 
 message JudgementSummary {

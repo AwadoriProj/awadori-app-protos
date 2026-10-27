@@ -1,9 +1,9 @@
 {
   "package": "com.bilibili.sirius",
-  "version_name": "1.0.3",
-  "version_code": 56,
+  "version_name": "1.1.0",
+  "version_code": 86,
   "source": "https://d.apkpure.net/b/XAPK/com.bilibili.sirius?version=latest",
-  "xapk_sha256": "bfa6aad4eb0313df077230f2e8a9d106994c5b1ffefbb8f62bff41aa68249191",
+  "xapk_sha256": "f8f217ed8f63fb4aa6b60fd10f30715b421bd454dd0924690104c0bcaf81e0d9",
   "protobuf_count": 125,
   "proto_file_count": 116,
   "go_generated_files": 173

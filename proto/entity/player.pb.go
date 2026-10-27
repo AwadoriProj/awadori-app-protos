@@ -210,6 +210,8 @@ type PlayerData struct {
 	PersonalNotification          *PersonalNotification            `protobuf:"bytes,60,opt,name=personal_notification,json=personalNotification,proto3" json:"personal_notification,omitempty"`
 	CharacterCurrentCostumes      []*CharacterCurrentCostume       `protobuf:"bytes,61,rep,name=character_current_costumes,json=characterCurrentCostumes,proto3" json:"character_current_costumes,omitempty"`
 	CharacterUnlockedCostumes     []*CharacterUnlockedCostume      `protobuf:"bytes,62,rep,name=character_unlocked_costumes,json=characterUnlockedCostumes,proto3" json:"character_unlocked_costumes,omitempty"`
+	TryEvents                     []*TryEvent                      `protobuf:"bytes,63,rep,name=try_events,json=tryEvents,proto3" json:"try_events,omitempty"`
+	BattleLiveConsecutiveWins     int32                            `protobuf:"varint,64,opt,name=battle_live_consecutive_wins,json=battleLiveConsecutiveWins,proto3" json:"battle_live_consecutive_wins,omitempty"`
 	unknownFields                 protoimpl.UnknownFields
 	sizeCache                     protoimpl.SizeCache
 }
@@ -680,6 +682,20 @@ func (x *PlayerData) GetCharacterUnlockedCostumes() []*CharacterUnlockedCostume 
 	return nil
 }
 
+func (x *PlayerData) GetTryEvents() []*TryEvent {
+	if x != nil {
+		return x.TryEvents
+	}
+	return nil
+}
+
+func (x *PlayerData) GetBattleLiveConsecutiveWins() int32 {
+	if x != nil {
+		return x.BattleLiveConsecutiveWins
+	}
+	return 0
+}
+
 var File_entity_player_proto protoreflect.FileDescriptor
 
 const file_entity_player_proto_rawDesc = "" +
@@ -692,7 +708,7 @@ const file_entity_player_proto_rawDesc = "" +
 	"credential\x12\x1b\n" +
 	"\tdevice_id\x18\x03 \x01(\tR\bdeviceId\x12\x1d\n" +
 	"\n" +
-	"profile_id\x18\x04 \x01(\x03R\tprofileId\"\xe7\x1c\n" +
+	"profile_id\x18\x04 \x01(\x03R\tprofileId\"\xd9\x1d\n" +
 	"\n" +
 	"PlayerData\x12\"\n" +
 	"\x05items\x18\x01 \x03(\v2\f.entity.ItemR\x05items\x125\n" +
@@ -766,7 +782,10 @@ const file_entity_player_proto_rawDesc = "" +
 	"\apuzzles\x18; \x03(\v2\x13.entity.MusicPuzzleR\apuzzles\x12Q\n" +
 	"\x15personal_notification\x18< \x01(\v2\x1c.entity.PersonalNotificationR\x14personalNotification\x12]\n" +
 	"\x1acharacter_current_costumes\x18= \x03(\v2\x1f.entity.CharacterCurrentCostumeR\x18characterCurrentCostumes\x12`\n" +
-	"\x1bcharacter_unlocked_costumes\x18> \x03(\v2 .entity.CharacterUnlockedCostumeR\x19characterUnlockedCostumesB\f\n" +
+	"\x1bcharacter_unlocked_costumes\x18> \x03(\v2 .entity.CharacterUnlockedCostumeR\x19characterUnlockedCostumes\x12/\n" +
+	"\n" +
+	"try_events\x18? \x03(\v2\x10.entity.TryEventR\ttryEvents\x12?\n" +
+	"\x1cbattle_live_consecutive_wins\x18@ \x01(\x05R\x19battleLiveConsecutiveWinsB\f\n" +
 	"\n" +
 	"_circle_id*\xbf\x01\n" +
 	"\x11LinkedAccountType\x12#\n" +
@@ -843,6 +862,7 @@ var file_entity_player_proto_goTypes = []any{
 	(*PersonalNotification)(nil),          // 49: entity.PersonalNotification
 	(*CharacterCurrentCostume)(nil),       // 50: entity.CharacterCurrentCostume
 	(*CharacterUnlockedCostume)(nil),      // 51: entity.CharacterUnlockedCostume
+	(*TryEvent)(nil),                      // 52: entity.TryEvent
 }
 var file_entity_player_proto_depIdxs = []int32{
 	3,  // 0: entity.PlayerData.items:type_name -> entity.Item
@@ -896,11 +916,12 @@ var file_entity_player_proto_depIdxs = []int32{
 	49, // 48: entity.PlayerData.personal_notification:type_name -> entity.PersonalNotification
 	50, // 49: entity.PlayerData.character_current_costumes:type_name -> entity.CharacterCurrentCostume
 	51, // 50: entity.PlayerData.character_unlocked_costumes:type_name -> entity.CharacterUnlockedCostume
-	51, // [51:51] is the sub-list for method output_type
-	51, // [51:51] is the sub-list for method input_type
-	51, // [51:51] is the sub-list for extension type_name
-	51, // [51:51] is the sub-list for extension extendee
-	0,  // [0:51] is the sub-list for field type_name
+	52, // 51: entity.PlayerData.try_events:type_name -> entity.TryEvent
+	52, // [52:52] is the sub-list for method output_type
+	52, // [52:52] is the sub-list for method input_type
+	52, // [52:52] is the sub-list for extension type_name
+	52, // [52:52] is the sub-list for extension extendee
+	0,  // [0:52] is the sub-list for field type_name
 }
 
 func init() { file_entity_player_proto_init() }

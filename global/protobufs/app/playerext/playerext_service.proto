@@ -2,6 +2,7 @@ syntax = "proto3";
 
 import "entity/gem.proto";
 import "entity/liveboost.proto";
+import "entity/method_options/method_options.proto";
 import "entity/player_profile.proto";
 
 package app.playerext;
@@ -26,7 +27,20 @@ message GetPlayerListResponse {
 	repeated .entity.PlayerBriefInfo players = 1;
 }
 
+message ReportLogRequest {
+	string tag = 1;
+	string content = 2;
+}
+
+message ReportLogResponse {
+	bool accepted = 1;
+}
+
 service PlayerExtService {
 	rpc SyncData (.app.playerext.SyncDataRequest) returns (.app.playerext.SyncDataResponse);
 	rpc GetPlayerList (.app.playerext.GetPlayerListRequest) returns (.app.playerext.GetPlayerListResponse);
+
+	rpc ReportLog (.app.playerext.ReportLogRequest) returns (.app.playerext.ReportLogResponse) {
+		option (entity.method_options.skip_authentication) = true;
+	}
 }

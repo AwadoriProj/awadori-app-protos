@@ -36,6 +36,7 @@ message FinishFreeResponse {
 	repeated .entity.RewardResource music_rewards = 5;
 	.entity.Notification notification = 6;
 	repeated .entity.RewardResource campaign_drop_rewards = 7;
+	.entity.TryLiveResult try_result = 8;
 }
 
 message StartChallengeLiveRequest {
@@ -61,6 +62,32 @@ message FinishChallengeLiveResponse {
 	repeated .entity.RewardResource music_rewards = 5;
 	.entity.Notification notification = 6;
 	repeated .entity.RewardResource campaign_drop_rewards = 7;
+}
+
+message StartTryLiveRequest {
+	int64 try_music_id = 1;
+	int32 difficulty = 2;
+	int32 boost = 3;
+	int32 deck_id = 4;
+}
+
+message StartTryLiveResponse {
+}
+
+message FinishTryLiveRequest {
+	int64 event_id = 1;
+	.entity.LiveFinish live_finish = 2;
+}
+
+message FinishTryLiveResponse {
+	repeated int64 reward_id = 1;
+	repeated .entity.LiveEventReward event_reward = 2;
+	repeated int64 total_highscore_rating_reward_ids = 3;
+	repeated .entity.BandHighScoreRatingReward band_highscore_rating_rewards = 4;
+	repeated .entity.RewardResource music_rewards = 5;
+	.entity.Notification notification = 6;
+	repeated .entity.RewardResource campaign_drop_rewards = 7;
+	.entity.TryLiveResult try_result = 8;
 }
 
 message StartBattleLiveRequest {
@@ -106,6 +133,9 @@ message GetBattleLiveResultResponse {
 	.entity.Notification notification = 6;
 	repeated .entity.BattleLiveRewardResource battle_live_rewards = 7;
 	repeated .entity.RewardResource campaign_drop_rewards = 8;
+	int32 gekisou_ranking_event_rank = 9;
+	repeated .entity.RewardResource gekisou_ranking_event_rewards = 10;
+	.entity.TryLiveResult try_result = 11;
 }
 
 message SkipFreeRequest {
@@ -132,6 +162,21 @@ message SkipChallengeLiveRequest {
 }
 
 message SkipChallengeLiveResponse {
+	repeated int64 reward_id = 1;
+	repeated .entity.LiveEventReward event_reward = 2;
+	.entity.Notification notification = 3;
+	repeated .entity.RewardResource campaign_drop_rewards = 4;
+}
+
+message SkipTryLiveRequest {
+	int64 try_music_id = 1;
+	int32 difficulty = 2;
+	int32 boost = 3;
+	int32 deck_id = 4;
+	int32 current_deck_total_power = 5;
+}
+
+message SkipTryLiveResponse {
 	repeated int64 reward_id = 1;
 	repeated .entity.LiveEventReward event_reward = 2;
 	.entity.Notification notification = 3;
@@ -194,13 +239,14 @@ message FetchBattleLiveInvitationResponse {
 
 message StartArenaLiveRequest {
 	int64 arena_season_id = 1;
-	int64 arena_music_id = 2;
+	int64 arena_music_id = 2 [deprecated = true];
 	int32 difficulty = 3;
 	int32 boost = 4;
 	int32 arena_dedicated_deck_id = 5;
 	string room_id = 6;
 	repeated int64 arena_support_item_ids = 7;
 	int64 lobby_id = 8;
+	int64 music_id = 9;
 }
 
 message StartArenaLiveResponse {
@@ -208,7 +254,7 @@ message StartArenaLiveResponse {
 
 message FinishArenaLiveRequest {
 	int64 arena_season_id = 1;
-	int64 arena_music_id = 2;
+	int64 arena_music_id = 2 [deprecated = true];
 	.entity.LiveFinish live_finish = 3;
 	.entity.BattleLivePlayerResult player_result = 4;
 	repeated .entity.GekisouRanking gekisou_rankings = 5;
@@ -226,7 +272,7 @@ message FinishArenaLiveResponse {
 
 message GetArenaLiveResultRequest {
 	int64 arena_season_id = 1;
-	int64 arena_music_id = 2;
+	int64 arena_music_id = 2 [deprecated = true];
 	int64 arena_league_id = 3;
 }
 
@@ -243,6 +289,10 @@ message GetArenaLiveResultResponse {
 	int64 diff_master_point = 10;
 	repeated .entity.LiveEventReward event_reward = 11;
 	repeated .entity.RewardResource campaign_drop_rewards = 12;
+	int32 gekisou_ranking_event_rank = 13;
+	repeated .entity.RewardResource gekisou_ranking_event_rewards = 14;
+	.entity.TryLiveResult try_result = 15;
+	.entity.Notification notification = 16;
 }
 
 service LiveService {
@@ -253,8 +303,11 @@ service LiveService {
 	rpc FinishFree (.app.live.FinishFreeRequest) returns (.app.live.FinishFreeResponse);
 	rpc StartChallengeLive (.app.live.StartChallengeLiveRequest) returns (.app.live.StartChallengeLiveResponse);
 	rpc FinishChallengeLive (.app.live.FinishChallengeLiveRequest) returns (.app.live.FinishChallengeLiveResponse);
+	rpc StartTryLive (.app.live.StartTryLiveRequest) returns (.app.live.StartTryLiveResponse);
+	rpc FinishTryLive (.app.live.FinishTryLiveRequest) returns (.app.live.FinishTryLiveResponse);
 	rpc SkipFree (.app.live.SkipFreeRequest) returns (.app.live.SkipFreeResponse);
 	rpc SkipChallengeLive (.app.live.SkipChallengeLiveRequest) returns (.app.live.SkipChallengeLiveResponse);
+	rpc SkipTryLive (.app.live.SkipTryLiveRequest) returns (.app.live.SkipTryLiveResponse);
 
 	rpc StartBattleLive (.app.live.StartBattleLiveRequest) returns (.app.live.StartBattleLiveResponse) {
 		option (entity.method_options.maintenance_features).casual_match = true;

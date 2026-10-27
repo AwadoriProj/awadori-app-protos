@@ -10,6 +10,7 @@ import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	entity "private-notes/game/proto/entity"
+	_ "private-notes/game/proto/entity/method_options"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
@@ -214,11 +215,107 @@ func (x *GetPlayerListResponse) GetPlayers() []*entity.PlayerBriefInfo {
 	return nil
 }
 
+type ReportLogRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Tag           string                 `protobuf:"bytes,1,opt,name=tag,proto3" json:"tag,omitempty"`
+	Content       string                 `protobuf:"bytes,2,opt,name=content,proto3" json:"content,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ReportLogRequest) Reset() {
+	*x = ReportLogRequest{}
+	mi := &file_app_playerext_playerext_service_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ReportLogRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReportLogRequest) ProtoMessage() {}
+
+func (x *ReportLogRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_app_playerext_playerext_service_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReportLogRequest.ProtoReflect.Descriptor instead.
+func (*ReportLogRequest) Descriptor() ([]byte, []int) {
+	return file_app_playerext_playerext_service_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *ReportLogRequest) GetTag() string {
+	if x != nil {
+		return x.Tag
+	}
+	return ""
+}
+
+func (x *ReportLogRequest) GetContent() string {
+	if x != nil {
+		return x.Content
+	}
+	return ""
+}
+
+type ReportLogResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Accepted      bool                   `protobuf:"varint,1,opt,name=accepted,proto3" json:"accepted,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ReportLogResponse) Reset() {
+	*x = ReportLogResponse{}
+	mi := &file_app_playerext_playerext_service_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ReportLogResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReportLogResponse) ProtoMessage() {}
+
+func (x *ReportLogResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_app_playerext_playerext_service_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReportLogResponse.ProtoReflect.Descriptor instead.
+func (*ReportLogResponse) Descriptor() ([]byte, []int) {
+	return file_app_playerext_playerext_service_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *ReportLogResponse) GetAccepted() bool {
+	if x != nil {
+		return x.Accepted
+	}
+	return false
+}
+
 var File_app_playerext_playerext_service_proto protoreflect.FileDescriptor
 
 const file_app_playerext_playerext_service_proto_rawDesc = "" +
 	"\n" +
-	"%app/playerext/playerext_service.proto\x12\rapp.playerext\x1a\x10entity/gem.proto\x1a\x16entity/liveboost.proto\x1a\x1bentity/player_profile.proto\"\x11\n" +
+	"%app/playerext/playerext_service.proto\x12\rapp.playerext\x1a\x10entity/gem.proto\x1a\x16entity/liveboost.proto\x1a*entity/method_options/method_options.proto\x1a\x1bentity/player_profile.proto\"\x11\n" +
 	"\x0fSyncDataRequest\"\xa5\x01\n" +
 	"\x10SyncDataResponse\x12\x1c\n" +
 	"\taccountid\x18\x01 \x01(\x03R\taccountid\x12\"\n" +
@@ -230,10 +327,16 @@ const file_app_playerext_playerext_service_proto_rawDesc = "" +
 	"\vaccount_ids\x18\x01 \x03(\x03R\n" +
 	"accountIds\"J\n" +
 	"\x15GetPlayerListResponse\x121\n" +
-	"\aplayers\x18\x01 \x03(\v2\x17.entity.PlayerBriefInfoR\aplayers2\xbb\x01\n" +
+	"\aplayers\x18\x01 \x03(\v2\x17.entity.PlayerBriefInfoR\aplayers\">\n" +
+	"\x10ReportLogRequest\x12\x10\n" +
+	"\x03tag\x18\x01 \x01(\tR\x03tag\x12\x18\n" +
+	"\acontent\x18\x02 \x01(\tR\acontent\"/\n" +
+	"\x11ReportLogResponse\x12\x1a\n" +
+	"\baccepted\x18\x01 \x01(\bR\baccepted2\x91\x02\n" +
 	"\x10PlayerExtService\x12K\n" +
 	"\bSyncData\x12\x1e.app.playerext.SyncDataRequest\x1a\x1f.app.playerext.SyncDataResponse\x12Z\n" +
-	"\rGetPlayerList\x12#.app.playerext.GetPlayerListRequest\x1a$.app.playerext.GetPlayerListResponseB\x19\xaa\x02\x16App.Protobuf.PlayerExtb\x06proto3"
+	"\rGetPlayerList\x12#.app.playerext.GetPlayerListRequest\x1a$.app.playerext.GetPlayerListResponse\x12T\n" +
+	"\tReportLog\x12\x1f.app.playerext.ReportLogRequest\x1a .app.playerext.ReportLogResponse\"\x04\x88\xb5\x18\x01B\x19\xaa\x02\x16App.Protobuf.PlayerExtb\x06proto3"
 
 var (
 	file_app_playerext_playerext_service_proto_rawDescOnce sync.Once
@@ -247,26 +350,30 @@ func file_app_playerext_playerext_service_proto_rawDescGZIP() []byte {
 	return file_app_playerext_playerext_service_proto_rawDescData
 }
 
-var file_app_playerext_playerext_service_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_app_playerext_playerext_service_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_app_playerext_playerext_service_proto_goTypes = []any{
 	(*SyncDataRequest)(nil),        // 0: app.playerext.SyncDataRequest
 	(*SyncDataResponse)(nil),       // 1: app.playerext.SyncDataResponse
 	(*GetPlayerListRequest)(nil),   // 2: app.playerext.GetPlayerListRequest
 	(*GetPlayerListResponse)(nil),  // 3: app.playerext.GetPlayerListResponse
-	(*entity.Gem)(nil),             // 4: entity.Gem
-	(*entity.LiveBoost)(nil),       // 5: entity.LiveBoost
-	(*entity.PlayerBriefInfo)(nil), // 6: entity.PlayerBriefInfo
+	(*ReportLogRequest)(nil),       // 4: app.playerext.ReportLogRequest
+	(*ReportLogResponse)(nil),      // 5: app.playerext.ReportLogResponse
+	(*entity.Gem)(nil),             // 6: entity.Gem
+	(*entity.LiveBoost)(nil),       // 7: entity.LiveBoost
+	(*entity.PlayerBriefInfo)(nil), // 8: entity.PlayerBriefInfo
 }
 var file_app_playerext_playerext_service_proto_depIdxs = []int32{
-	4, // 0: app.playerext.SyncDataResponse.gem:type_name -> entity.Gem
-	5, // 1: app.playerext.SyncDataResponse.live_boost:type_name -> entity.LiveBoost
-	6, // 2: app.playerext.GetPlayerListResponse.players:type_name -> entity.PlayerBriefInfo
+	6, // 0: app.playerext.SyncDataResponse.gem:type_name -> entity.Gem
+	7, // 1: app.playerext.SyncDataResponse.live_boost:type_name -> entity.LiveBoost
+	8, // 2: app.playerext.GetPlayerListResponse.players:type_name -> entity.PlayerBriefInfo
 	0, // 3: app.playerext.PlayerExtService.SyncData:input_type -> app.playerext.SyncDataRequest
 	2, // 4: app.playerext.PlayerExtService.GetPlayerList:input_type -> app.playerext.GetPlayerListRequest
-	1, // 5: app.playerext.PlayerExtService.SyncData:output_type -> app.playerext.SyncDataResponse
-	3, // 6: app.playerext.PlayerExtService.GetPlayerList:output_type -> app.playerext.GetPlayerListResponse
-	5, // [5:7] is the sub-list for method output_type
-	3, // [3:5] is the sub-list for method input_type
+	4, // 5: app.playerext.PlayerExtService.ReportLog:input_type -> app.playerext.ReportLogRequest
+	1, // 6: app.playerext.PlayerExtService.SyncData:output_type -> app.playerext.SyncDataResponse
+	3, // 7: app.playerext.PlayerExtService.GetPlayerList:output_type -> app.playerext.GetPlayerListResponse
+	5, // 8: app.playerext.PlayerExtService.ReportLog:output_type -> app.playerext.ReportLogResponse
+	6, // [6:9] is the sub-list for method output_type
+	3, // [3:6] is the sub-list for method input_type
 	3, // [3:3] is the sub-list for extension type_name
 	3, // [3:3] is the sub-list for extension extendee
 	0, // [0:3] is the sub-list for field type_name
@@ -283,7 +390,7 @@ func file_app_playerext_playerext_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_app_playerext_playerext_service_proto_rawDesc), len(file_app_playerext_playerext_service_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   4,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

@@ -67,9 +67,18 @@ func (x *ReportPenaltyRequest) GetPenalty() int32 {
 }
 
 type ReportPenaltyResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state              protoimpl.MessageState `protogen:"open.v1"`
+	IsApplied          bool                   `protobuf:"varint,1,opt,name=is_applied,json=isApplied,proto3" json:"is_applied,omitempty"`
+	BandId             int64                  `protobuf:"varint,2,opt,name=band_id,json=bandId,proto3" json:"band_id,omitempty"`
+	DiffLeaguePoint    int64                  `protobuf:"varint,3,opt,name=diff_league_point,json=diffLeaguePoint,proto3" json:"diff_league_point,omitempty"`
+	CurrentLeaguePoint int64                  `protobuf:"varint,4,opt,name=current_league_point,json=currentLeaguePoint,proto3" json:"current_league_point,omitempty"`
+	DiffMasterPoint    int64                  `protobuf:"varint,5,opt,name=diff_master_point,json=diffMasterPoint,proto3" json:"diff_master_point,omitempty"`
+	CurrentMasterPoint int64                  `protobuf:"varint,6,opt,name=current_master_point,json=currentMasterPoint,proto3" json:"current_master_point,omitempty"`
+	BeforeRankId       int64                  `protobuf:"varint,7,opt,name=before_rank_id,json=beforeRankId,proto3" json:"before_rank_id,omitempty"`
+	CurrentRankId      int64                  `protobuf:"varint,8,opt,name=current_rank_id,json=currentRankId,proto3" json:"current_rank_id,omitempty"`
+	Notification       *entity.Notification   `protobuf:"bytes,9,opt,name=notification,proto3" json:"notification,omitempty"`
+	unknownFields      protoimpl.UnknownFields
+	sizeCache          protoimpl.SizeCache
 }
 
 func (x *ReportPenaltyResponse) Reset() {
@@ -100,6 +109,69 @@ func (x *ReportPenaltyResponse) ProtoReflect() protoreflect.Message {
 // Deprecated: Use ReportPenaltyResponse.ProtoReflect.Descriptor instead.
 func (*ReportPenaltyResponse) Descriptor() ([]byte, []int) {
 	return file_app_arena_arena_service_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *ReportPenaltyResponse) GetIsApplied() bool {
+	if x != nil {
+		return x.IsApplied
+	}
+	return false
+}
+
+func (x *ReportPenaltyResponse) GetBandId() int64 {
+	if x != nil {
+		return x.BandId
+	}
+	return 0
+}
+
+func (x *ReportPenaltyResponse) GetDiffLeaguePoint() int64 {
+	if x != nil {
+		return x.DiffLeaguePoint
+	}
+	return 0
+}
+
+func (x *ReportPenaltyResponse) GetCurrentLeaguePoint() int64 {
+	if x != nil {
+		return x.CurrentLeaguePoint
+	}
+	return 0
+}
+
+func (x *ReportPenaltyResponse) GetDiffMasterPoint() int64 {
+	if x != nil {
+		return x.DiffMasterPoint
+	}
+	return 0
+}
+
+func (x *ReportPenaltyResponse) GetCurrentMasterPoint() int64 {
+	if x != nil {
+		return x.CurrentMasterPoint
+	}
+	return 0
+}
+
+func (x *ReportPenaltyResponse) GetBeforeRankId() int64 {
+	if x != nil {
+		return x.BeforeRankId
+	}
+	return 0
+}
+
+func (x *ReportPenaltyResponse) GetCurrentRankId() int64 {
+	if x != nil {
+		return x.CurrentRankId
+	}
+	return 0
+}
+
+func (x *ReportPenaltyResponse) GetNotification() *entity.Notification {
+	if x != nil {
+		return x.Notification
+	}
+	return nil
 }
 
 type ArenaTopRequest struct {
@@ -158,6 +230,10 @@ type ArenaTopResponse struct {
 	ArenaPromotionRewardIds []int64                        `protobuf:"varint,8,rep,packed,name=arena_promotion_reward_ids,json=arenaPromotionRewardIds,proto3" json:"arena_promotion_reward_ids,omitempty"`
 	LpRankDiff              []*entity.ArenaLpRankDiff      `protobuf:"bytes,9,rep,name=lp_rank_diff,json=lpRankDiff,proto3" json:"lp_rank_diff,omitempty"`
 	ArenaDedicatedDecks     []*entity.ArenaDedicatedDecks  `protobuf:"bytes,10,rep,name=arena_dedicated_decks,json=arenaDedicatedDecks,proto3" json:"arena_dedicated_decks,omitempty"`
+	Notification            *entity.Notification           `protobuf:"bytes,11,opt,name=notification,proto3" json:"notification,omitempty"`
+	ArenaSeasonRewardIds    []int64                        `protobuf:"varint,12,rep,packed,name=arena_season_reward_ids,json=arenaSeasonRewardIds,proto3" json:"arena_season_reward_ids,omitempty"`
+	ArenaRankingRewardIds   []int64                        `protobuf:"varint,13,rep,packed,name=arena_ranking_reward_ids,json=arenaRankingRewardIds,proto3" json:"arena_ranking_reward_ids,omitempty"`
+	ArenaConsecutiveWins    []*entity.ArenaConsecutiveWins `protobuf:"bytes,14,rep,name=arena_consecutive_wins,json=arenaConsecutiveWins,proto3" json:"arena_consecutive_wins,omitempty"`
 	unknownFields           protoimpl.UnknownFields
 	sizeCache               protoimpl.SizeCache
 }
@@ -262,6 +338,34 @@ func (x *ArenaTopResponse) GetArenaDedicatedDecks() []*entity.ArenaDedicatedDeck
 	return nil
 }
 
+func (x *ArenaTopResponse) GetNotification() *entity.Notification {
+	if x != nil {
+		return x.Notification
+	}
+	return nil
+}
+
+func (x *ArenaTopResponse) GetArenaSeasonRewardIds() []int64 {
+	if x != nil {
+		return x.ArenaSeasonRewardIds
+	}
+	return nil
+}
+
+func (x *ArenaTopResponse) GetArenaRankingRewardIds() []int64 {
+	if x != nil {
+		return x.ArenaRankingRewardIds
+	}
+	return nil
+}
+
+func (x *ArenaTopResponse) GetArenaConsecutiveWins() []*entity.ArenaConsecutiveWins {
+	if x != nil {
+		return x.ArenaConsecutiveWins
+	}
+	return nil
+}
+
 type ConsecutiveWinsRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	ArenaSeasonId int64                  `protobuf:"varint,1,opt,name=arena_season_id,json=arenaSeasonId,proto3" json:"arena_season_id,omitempty"`
@@ -351,9 +455,11 @@ func (x *ConsecutiveWinsResponse) GetArenaConsecutiveWins() []*entity.ArenaConse
 }
 
 type DeckTrendRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	MusicId       int64                  `protobuf:"varint,1,opt,name=music_id,json=musicId,proto3" json:"music_id,omitempty"`
-	ArenaSeasonId int64                  `protobuf:"varint,2,opt,name=arena_season_id,json=arenaSeasonId,proto3" json:"arena_season_id,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// Deprecated: Marked as deprecated in app/arena/arena_service.proto.
+	MusicId       int64 `protobuf:"varint,1,opt,name=music_id,json=musicId,proto3" json:"music_id,omitempty"`
+	ArenaSeasonId int64 `protobuf:"varint,2,opt,name=arena_season_id,json=arenaSeasonId,proto3" json:"arena_season_id,omitempty"`
+	BandId        int64 `protobuf:"varint,3,opt,name=band_id,json=bandId,proto3" json:"band_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -388,6 +494,7 @@ func (*DeckTrendRequest) Descriptor() ([]byte, []int) {
 	return file_app_arena_arena_service_proto_rawDescGZIP(), []int{6}
 }
 
+// Deprecated: Marked as deprecated in app/arena/arena_service.proto.
 func (x *DeckTrendRequest) GetMusicId() int64 {
 	if x != nil {
 		return x.MusicId
@@ -398,6 +505,13 @@ func (x *DeckTrendRequest) GetMusicId() int64 {
 func (x *DeckTrendRequest) GetArenaSeasonId() int64 {
 	if x != nil {
 		return x.ArenaSeasonId
+	}
+	return 0
+}
+
+func (x *DeckTrendRequest) GetBandId() int64 {
+	if x != nil {
+		return x.BandId
 	}
 	return 0
 }
@@ -958,16 +1072,202 @@ func (*SaveDedicatedDecksResponse) Descriptor() ([]byte, []int) {
 	return file_app_arena_arena_service_proto_rawDescGZIP(), []int{17}
 }
 
+type ReportSeasonResultShownRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ArenaSeasonId int64                  `protobuf:"varint,1,opt,name=arena_season_id,json=arenaSeasonId,proto3" json:"arena_season_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ReportSeasonResultShownRequest) Reset() {
+	*x = ReportSeasonResultShownRequest{}
+	mi := &file_app_arena_arena_service_proto_msgTypes[18]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ReportSeasonResultShownRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReportSeasonResultShownRequest) ProtoMessage() {}
+
+func (x *ReportSeasonResultShownRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_app_arena_arena_service_proto_msgTypes[18]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReportSeasonResultShownRequest.ProtoReflect.Descriptor instead.
+func (*ReportSeasonResultShownRequest) Descriptor() ([]byte, []int) {
+	return file_app_arena_arena_service_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *ReportSeasonResultShownRequest) GetArenaSeasonId() int64 {
+	if x != nil {
+		return x.ArenaSeasonId
+	}
+	return 0
+}
+
+type ReportSeasonResultShownResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ReportSeasonResultShownResponse) Reset() {
+	*x = ReportSeasonResultShownResponse{}
+	mi := &file_app_arena_arena_service_proto_msgTypes[19]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ReportSeasonResultShownResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReportSeasonResultShownResponse) ProtoMessage() {}
+
+func (x *ReportSeasonResultShownResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_app_arena_arena_service_proto_msgTypes[19]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReportSeasonResultShownResponse.ProtoReflect.Descriptor instead.
+func (*ReportSeasonResultShownResponse) Descriptor() ([]byte, []int) {
+	return file_app_arena_arena_service_proto_rawDescGZIP(), []int{19}
+}
+
+type ReceivePromotionRewardRequest struct {
+	state                  protoimpl.MessageState `protogen:"open.v1"`
+	ArenaPromotionRewardId int64                  `protobuf:"varint,1,opt,name=arena_promotion_reward_id,json=arenaPromotionRewardId,proto3" json:"arena_promotion_reward_id,omitempty"`
+	unknownFields          protoimpl.UnknownFields
+	sizeCache              protoimpl.SizeCache
+}
+
+func (x *ReceivePromotionRewardRequest) Reset() {
+	*x = ReceivePromotionRewardRequest{}
+	mi := &file_app_arena_arena_service_proto_msgTypes[20]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ReceivePromotionRewardRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReceivePromotionRewardRequest) ProtoMessage() {}
+
+func (x *ReceivePromotionRewardRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_app_arena_arena_service_proto_msgTypes[20]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReceivePromotionRewardRequest.ProtoReflect.Descriptor instead.
+func (*ReceivePromotionRewardRequest) Descriptor() ([]byte, []int) {
+	return file_app_arena_arena_service_proto_rawDescGZIP(), []int{20}
+}
+
+func (x *ReceivePromotionRewardRequest) GetArenaPromotionRewardId() int64 {
+	if x != nil {
+		return x.ArenaPromotionRewardId
+	}
+	return 0
+}
+
+type ReceivePromotionRewardResponse struct {
+	state                  protoimpl.MessageState `protogen:"open.v1"`
+	ArenaPromotionRewardId int64                  `protobuf:"varint,1,opt,name=arena_promotion_reward_id,json=arenaPromotionRewardId,proto3" json:"arena_promotion_reward_id,omitempty"`
+	Notification           *entity.Notification   `protobuf:"bytes,2,opt,name=notification,proto3" json:"notification,omitempty"`
+	unknownFields          protoimpl.UnknownFields
+	sizeCache              protoimpl.SizeCache
+}
+
+func (x *ReceivePromotionRewardResponse) Reset() {
+	*x = ReceivePromotionRewardResponse{}
+	mi := &file_app_arena_arena_service_proto_msgTypes[21]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ReceivePromotionRewardResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReceivePromotionRewardResponse) ProtoMessage() {}
+
+func (x *ReceivePromotionRewardResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_app_arena_arena_service_proto_msgTypes[21]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReceivePromotionRewardResponse.ProtoReflect.Descriptor instead.
+func (*ReceivePromotionRewardResponse) Descriptor() ([]byte, []int) {
+	return file_app_arena_arena_service_proto_rawDescGZIP(), []int{21}
+}
+
+func (x *ReceivePromotionRewardResponse) GetArenaPromotionRewardId() int64 {
+	if x != nil {
+		return x.ArenaPromotionRewardId
+	}
+	return 0
+}
+
+func (x *ReceivePromotionRewardResponse) GetNotification() *entity.Notification {
+	if x != nil {
+		return x.Notification
+	}
+	return nil
+}
+
 var File_app_arena_arena_service_proto protoreflect.FileDescriptor
 
 const file_app_arena_arena_service_proto_rawDesc = "" +
 	"\n" +
-	"\x1dapp/arena/arena_service.proto\x12\tapp.arena\x1a\x12entity/arena.proto\"0\n" +
+	"\x1dapp/arena/arena_service.proto\x12\tapp.arena\x1a\x12entity/arena.proto\x1a\x19entity/notification.proto\"0\n" +
 	"\x14ReportPenaltyRequest\x12\x18\n" +
-	"\apenalty\x18\x01 \x01(\x05R\apenalty\"\x17\n" +
-	"\x15ReportPenaltyResponse\"9\n" +
+	"\apenalty\x18\x01 \x01(\x05R\apenalty\"\x93\x03\n" +
+	"\x15ReportPenaltyResponse\x12\x1d\n" +
+	"\n" +
+	"is_applied\x18\x01 \x01(\bR\tisApplied\x12\x17\n" +
+	"\aband_id\x18\x02 \x01(\x03R\x06bandId\x12*\n" +
+	"\x11diff_league_point\x18\x03 \x01(\x03R\x0fdiffLeaguePoint\x120\n" +
+	"\x14current_league_point\x18\x04 \x01(\x03R\x12currentLeaguePoint\x12*\n" +
+	"\x11diff_master_point\x18\x05 \x01(\x03R\x0fdiffMasterPoint\x120\n" +
+	"\x14current_master_point\x18\x06 \x01(\x03R\x12currentMasterPoint\x12$\n" +
+	"\x0ebefore_rank_id\x18\a \x01(\x03R\fbeforeRankId\x12&\n" +
+	"\x0fcurrent_rank_id\x18\b \x01(\x03R\rcurrentRankId\x128\n" +
+	"\fnotification\x18\t \x01(\v2\x14.entity.NotificationR\fnotification\"9\n" +
 	"\x0fArenaTopRequest\x12&\n" +
-	"\x0farena_season_id\x18\x01 \x01(\x03R\rarenaSeasonId\"\x92\x04\n" +
+	"\x0farena_season_id\x18\x01 \x01(\x03R\rarenaSeasonId\"\x90\x06\n" +
 	"\x10ArenaTopResponse\x12?\n" +
 	"\rlatest_status\x18\x01 \x01(\v2\x1a.entity.ArenaTopLastStatusR\flatestStatus\x12\x0e\n" +
 	"\x02mp\x18\x02 \x01(\x03R\x02mp\x12\x1f\n" +
@@ -980,14 +1280,19 @@ const file_app_arena_arena_service_proto_rawDesc = "" +
 	"\flp_rank_diff\x18\t \x03(\v2\x17.entity.ArenaLpRankDiffR\n" +
 	"lpRankDiff\x12O\n" +
 	"\x15arena_dedicated_decks\x18\n" +
-	" \x03(\v2\x1b.entity.ArenaDedicatedDecksR\x13arenaDedicatedDecks\"@\n" +
+	" \x03(\v2\x1b.entity.ArenaDedicatedDecksR\x13arenaDedicatedDecks\x128\n" +
+	"\fnotification\x18\v \x01(\v2\x14.entity.NotificationR\fnotification\x125\n" +
+	"\x17arena_season_reward_ids\x18\f \x03(\x03R\x14arenaSeasonRewardIds\x127\n" +
+	"\x18arena_ranking_reward_ids\x18\r \x03(\x03R\x15arenaRankingRewardIds\x12R\n" +
+	"\x16arena_consecutive_wins\x18\x0e \x03(\v2\x1c.entity.ArenaConsecutiveWinsR\x14arenaConsecutiveWins\"@\n" +
 	"\x16ConsecutiveWinsRequest\x12&\n" +
 	"\x0farena_season_id\x18\x01 \x01(\x03R\rarenaSeasonId\"m\n" +
 	"\x17ConsecutiveWinsResponse\x12R\n" +
-	"\x16arena_consecutive_wins\x18\x01 \x03(\v2\x1c.entity.ArenaConsecutiveWinsR\x14arenaConsecutiveWins\"U\n" +
-	"\x10DeckTrendRequest\x12\x19\n" +
-	"\bmusic_id\x18\x01 \x01(\x03R\amusicId\x12&\n" +
-	"\x0farena_season_id\x18\x02 \x01(\x03R\rarenaSeasonId\"\xca\x01\n" +
+	"\x16arena_consecutive_wins\x18\x01 \x03(\v2\x1c.entity.ArenaConsecutiveWinsR\x14arenaConsecutiveWins\"r\n" +
+	"\x10DeckTrendRequest\x12\x1d\n" +
+	"\bmusic_id\x18\x01 \x01(\x03B\x02\x18\x01R\amusicId\x12&\n" +
+	"\x0farena_season_id\x18\x02 \x01(\x03R\rarenaSeasonId\x12\x17\n" +
+	"\aband_id\x18\x03 \x01(\x03R\x06bandId\"\xca\x01\n" +
 	"\x11DeckTrendResponse\x12:\n" +
 	"\aleaders\x18\x01 \x03(\v2 .entity.ArenaDeckTrendMemberCardR\aleaders\x12:\n" +
 	"\amembers\x18\x02 \x03(\v2 .entity.ArenaDeckTrendMemberCardR\amembers\x12=\n" +
@@ -1021,7 +1326,15 @@ const file_app_arena_arena_service_proto_rawDesc = "" +
 	"\x12matching_histories\x18\x01 \x03(\v2\x1e.entity.ArenaMatchingHistoriesR\x11matchingHistories\"L\n" +
 	"\x19SaveDedicatedDecksRequest\x12/\n" +
 	"\x04deck\x18\x01 \x01(\v2\x1b.entity.ArenaDedicatedDecksR\x04deck\"\x1c\n" +
-	"\x1aSaveDedicatedDecksResponse2\xfc\x05\n" +
+	"\x1aSaveDedicatedDecksResponse\"H\n" +
+	"\x1eReportSeasonResultShownRequest\x12&\n" +
+	"\x0farena_season_id\x18\x01 \x01(\x03R\rarenaSeasonId\"!\n" +
+	"\x1fReportSeasonResultShownResponse\"Z\n" +
+	"\x1dReceivePromotionRewardRequest\x129\n" +
+	"\x19arena_promotion_reward_id\x18\x01 \x01(\x03R\x16arenaPromotionRewardId\"\x95\x01\n" +
+	"\x1eReceivePromotionRewardResponse\x129\n" +
+	"\x19arena_promotion_reward_id\x18\x01 \x01(\x03R\x16arenaPromotionRewardId\x128\n" +
+	"\fnotification\x18\x02 \x01(\v2\x14.entity.NotificationR\fnotification2\xdd\a\n" +
 	"\fArenaService\x12R\n" +
 	"\rReportPenalty\x12\x1f.app.arena.ReportPenaltyRequest\x1a .app.arena.ReportPenaltyResponse\x12C\n" +
 	"\bArenaTop\x12\x1a.app.arena.ArenaTopRequest\x1a\x1b.app.arena.ArenaTopResponse\x12X\n" +
@@ -1031,7 +1344,9 @@ const file_app_arena_arena_service_proto_rawDesc = "" +
 	"\fArenaRanking\x12\x1e.app.arena.ArenaRankingRequest\x1a\x1f.app.arena.ArenaRankingResponse\x12L\n" +
 	"\vArenaMyRank\x12\x1d.app.arena.ArenaMyRankRequest\x1a\x1e.app.arena.ArenaMyRankResponse\x12^\n" +
 	"\x11MatchingHistories\x12#.app.arena.MatchingHistoriesRequest\x1a$.app.arena.MatchingHistoriesResponse\x12a\n" +
-	"\x12SaveDedicatedDecks\x12$.app.arena.SaveDedicatedDecksRequest\x1a%.app.arena.SaveDedicatedDecksResponseB\x15\xaa\x02\x12App.Protobuf.Arenab\x06proto3"
+	"\x12SaveDedicatedDecks\x12$.app.arena.SaveDedicatedDecksRequest\x1a%.app.arena.SaveDedicatedDecksResponse\x12p\n" +
+	"\x17ReportSeasonResultShown\x12).app.arena.ReportSeasonResultShownRequest\x1a*.app.arena.ReportSeasonResultShownResponse\x12m\n" +
+	"\x16ReceivePromotionReward\x12(.app.arena.ReceivePromotionRewardRequest\x1a).app.arena.ReceivePromotionRewardResponseB\x15\xaa\x02\x12App.Protobuf.Arenab\x06proto3"
 
 var (
 	file_app_arena_arena_service_proto_rawDescOnce sync.Once
@@ -1045,7 +1360,7 @@ func file_app_arena_arena_service_proto_rawDescGZIP() []byte {
 	return file_app_arena_arena_service_proto_rawDescData
 }
 
-var file_app_arena_arena_service_proto_msgTypes = make([]protoimpl.MessageInfo, 18)
+var file_app_arena_arena_service_proto_msgTypes = make([]protoimpl.MessageInfo, 22)
 var file_app_arena_arena_service_proto_goTypes = []any{
 	(*ReportPenaltyRequest)(nil),               // 0: app.arena.ReportPenaltyRequest
 	(*ReportPenaltyResponse)(nil),              // 1: app.arena.ReportPenaltyResponse
@@ -1065,67 +1380,80 @@ var file_app_arena_arena_service_proto_goTypes = []any{
 	(*MatchingHistoriesResponse)(nil),          // 15: app.arena.MatchingHistoriesResponse
 	(*SaveDedicatedDecksRequest)(nil),          // 16: app.arena.SaveDedicatedDecksRequest
 	(*SaveDedicatedDecksResponse)(nil),         // 17: app.arena.SaveDedicatedDecksResponse
-	(*entity.ArenaTopLastStatus)(nil),          // 18: entity.ArenaTopLastStatus
-	(*entity.ArenaLp)(nil),                     // 19: entity.ArenaLp
-	(*entity.ArenaTopDailyRewards)(nil),        // 20: entity.ArenaTopDailyRewards
-	(*entity.ArenaLpRankDiff)(nil),             // 21: entity.ArenaLpRankDiff
-	(*entity.ArenaDedicatedDecks)(nil),         // 22: entity.ArenaDedicatedDecks
-	(*entity.ArenaConsecutiveWins)(nil),        // 23: entity.ArenaConsecutiveWins
-	(*entity.ArenaDeckTrendMemberCard)(nil),    // 24: entity.ArenaDeckTrendMemberCard
-	(*entity.ArenaDeckTrendSupportCard)(nil),   // 25: entity.ArenaDeckTrendSupportCard
-	(*entity.ArenaSeason)(nil),                 // 26: entity.ArenaSeason
-	(*entity.ArenaMasterRanking)(nil),          // 27: entity.ArenaMasterRanking
-	(*entity.ArenaBandRankings)(nil),           // 28: entity.ArenaBandRankings
-	(*entity.ArenaMasterPromotionRewards)(nil), // 29: entity.ArenaMasterPromotionRewards
-	(*entity.ArenaBandPromotionRewards)(nil),   // 30: entity.ArenaBandPromotionRewards
-	(*entity.ArenaRankingEntry)(nil),           // 31: entity.ArenaRankingEntry
-	(*entity.ArenaMyRankMasterPoint)(nil),      // 32: entity.ArenaMyRankMasterPoint
-	(*entity.ArenaMyRankLeaguePoint)(nil),      // 33: entity.ArenaMyRankLeaguePoint
-	(*entity.ArenaMatchingHistories)(nil),      // 34: entity.ArenaMatchingHistories
+	(*ReportSeasonResultShownRequest)(nil),     // 18: app.arena.ReportSeasonResultShownRequest
+	(*ReportSeasonResultShownResponse)(nil),    // 19: app.arena.ReportSeasonResultShownResponse
+	(*ReceivePromotionRewardRequest)(nil),      // 20: app.arena.ReceivePromotionRewardRequest
+	(*ReceivePromotionRewardResponse)(nil),     // 21: app.arena.ReceivePromotionRewardResponse
+	(*entity.Notification)(nil),                // 22: entity.Notification
+	(*entity.ArenaTopLastStatus)(nil),          // 23: entity.ArenaTopLastStatus
+	(*entity.ArenaLp)(nil),                     // 24: entity.ArenaLp
+	(*entity.ArenaTopDailyRewards)(nil),        // 25: entity.ArenaTopDailyRewards
+	(*entity.ArenaLpRankDiff)(nil),             // 26: entity.ArenaLpRankDiff
+	(*entity.ArenaDedicatedDecks)(nil),         // 27: entity.ArenaDedicatedDecks
+	(*entity.ArenaConsecutiveWins)(nil),        // 28: entity.ArenaConsecutiveWins
+	(*entity.ArenaDeckTrendMemberCard)(nil),    // 29: entity.ArenaDeckTrendMemberCard
+	(*entity.ArenaDeckTrendSupportCard)(nil),   // 30: entity.ArenaDeckTrendSupportCard
+	(*entity.ArenaSeason)(nil),                 // 31: entity.ArenaSeason
+	(*entity.ArenaMasterRanking)(nil),          // 32: entity.ArenaMasterRanking
+	(*entity.ArenaBandRankings)(nil),           // 33: entity.ArenaBandRankings
+	(*entity.ArenaMasterPromotionRewards)(nil), // 34: entity.ArenaMasterPromotionRewards
+	(*entity.ArenaBandPromotionRewards)(nil),   // 35: entity.ArenaBandPromotionRewards
+	(*entity.ArenaRankingEntry)(nil),           // 36: entity.ArenaRankingEntry
+	(*entity.ArenaMyRankMasterPoint)(nil),      // 37: entity.ArenaMyRankMasterPoint
+	(*entity.ArenaMyRankLeaguePoint)(nil),      // 38: entity.ArenaMyRankLeaguePoint
+	(*entity.ArenaMatchingHistories)(nil),      // 39: entity.ArenaMatchingHistories
 }
 var file_app_arena_arena_service_proto_depIdxs = []int32{
-	18, // 0: app.arena.ArenaTopResponse.latest_status:type_name -> entity.ArenaTopLastStatus
-	19, // 1: app.arena.ArenaTopResponse.lp:type_name -> entity.ArenaLp
-	20, // 2: app.arena.ArenaTopResponse.daily_rewards:type_name -> entity.ArenaTopDailyRewards
-	21, // 3: app.arena.ArenaTopResponse.lp_rank_diff:type_name -> entity.ArenaLpRankDiff
-	22, // 4: app.arena.ArenaTopResponse.arena_dedicated_decks:type_name -> entity.ArenaDedicatedDecks
-	23, // 5: app.arena.ConsecutiveWinsResponse.arena_consecutive_wins:type_name -> entity.ArenaConsecutiveWins
-	24, // 6: app.arena.DeckTrendResponse.leaders:type_name -> entity.ArenaDeckTrendMemberCard
-	24, // 7: app.arena.DeckTrendResponse.members:type_name -> entity.ArenaDeckTrendMemberCard
-	25, // 8: app.arena.DeckTrendResponse.supports:type_name -> entity.ArenaDeckTrendSupportCard
-	26, // 9: app.arena.ArenaRewardsResponse.season:type_name -> entity.ArenaSeason
-	27, // 10: app.arena.ArenaRewardsResponse.master_ranking:type_name -> entity.ArenaMasterRanking
-	28, // 11: app.arena.ArenaRewardsResponse.band_rankings:type_name -> entity.ArenaBandRankings
-	29, // 12: app.arena.ArenaRewardsResponse.master_promotion_rewards:type_name -> entity.ArenaMasterPromotionRewards
-	30, // 13: app.arena.ArenaRewardsResponse.band_promotion_rewards:type_name -> entity.ArenaBandPromotionRewards
-	31, // 14: app.arena.ArenaRankingResponse.ranking:type_name -> entity.ArenaRankingEntry
-	32, // 15: app.arena.ArenaMyRankResponse.mp:type_name -> entity.ArenaMyRankMasterPoint
-	33, // 16: app.arena.ArenaMyRankResponse.lp:type_name -> entity.ArenaMyRankLeaguePoint
-	34, // 17: app.arena.MatchingHistoriesResponse.matching_histories:type_name -> entity.ArenaMatchingHistories
-	22, // 18: app.arena.SaveDedicatedDecksRequest.deck:type_name -> entity.ArenaDedicatedDecks
-	0,  // 19: app.arena.ArenaService.ReportPenalty:input_type -> app.arena.ReportPenaltyRequest
-	2,  // 20: app.arena.ArenaService.ArenaTop:input_type -> app.arena.ArenaTopRequest
-	4,  // 21: app.arena.ArenaService.ConsecutiveWins:input_type -> app.arena.ConsecutiveWinsRequest
-	6,  // 22: app.arena.ArenaService.DeckTrend:input_type -> app.arena.DeckTrendRequest
-	8,  // 23: app.arena.ArenaService.ArenaRewards:input_type -> app.arena.ArenaRewardsRequest
-	10, // 24: app.arena.ArenaService.ArenaRanking:input_type -> app.arena.ArenaRankingRequest
-	12, // 25: app.arena.ArenaService.ArenaMyRank:input_type -> app.arena.ArenaMyRankRequest
-	14, // 26: app.arena.ArenaService.MatchingHistories:input_type -> app.arena.MatchingHistoriesRequest
-	16, // 27: app.arena.ArenaService.SaveDedicatedDecks:input_type -> app.arena.SaveDedicatedDecksRequest
-	1,  // 28: app.arena.ArenaService.ReportPenalty:output_type -> app.arena.ReportPenaltyResponse
-	3,  // 29: app.arena.ArenaService.ArenaTop:output_type -> app.arena.ArenaTopResponse
-	5,  // 30: app.arena.ArenaService.ConsecutiveWins:output_type -> app.arena.ConsecutiveWinsResponse
-	7,  // 31: app.arena.ArenaService.DeckTrend:output_type -> app.arena.DeckTrendResponse
-	9,  // 32: app.arena.ArenaService.ArenaRewards:output_type -> app.arena.ArenaRewardsResponse
-	11, // 33: app.arena.ArenaService.ArenaRanking:output_type -> app.arena.ArenaRankingResponse
-	13, // 34: app.arena.ArenaService.ArenaMyRank:output_type -> app.arena.ArenaMyRankResponse
-	15, // 35: app.arena.ArenaService.MatchingHistories:output_type -> app.arena.MatchingHistoriesResponse
-	17, // 36: app.arena.ArenaService.SaveDedicatedDecks:output_type -> app.arena.SaveDedicatedDecksResponse
-	28, // [28:37] is the sub-list for method output_type
-	19, // [19:28] is the sub-list for method input_type
-	19, // [19:19] is the sub-list for extension type_name
-	19, // [19:19] is the sub-list for extension extendee
-	0,  // [0:19] is the sub-list for field type_name
+	22, // 0: app.arena.ReportPenaltyResponse.notification:type_name -> entity.Notification
+	23, // 1: app.arena.ArenaTopResponse.latest_status:type_name -> entity.ArenaTopLastStatus
+	24, // 2: app.arena.ArenaTopResponse.lp:type_name -> entity.ArenaLp
+	25, // 3: app.arena.ArenaTopResponse.daily_rewards:type_name -> entity.ArenaTopDailyRewards
+	26, // 4: app.arena.ArenaTopResponse.lp_rank_diff:type_name -> entity.ArenaLpRankDiff
+	27, // 5: app.arena.ArenaTopResponse.arena_dedicated_decks:type_name -> entity.ArenaDedicatedDecks
+	22, // 6: app.arena.ArenaTopResponse.notification:type_name -> entity.Notification
+	28, // 7: app.arena.ArenaTopResponse.arena_consecutive_wins:type_name -> entity.ArenaConsecutiveWins
+	28, // 8: app.arena.ConsecutiveWinsResponse.arena_consecutive_wins:type_name -> entity.ArenaConsecutiveWins
+	29, // 9: app.arena.DeckTrendResponse.leaders:type_name -> entity.ArenaDeckTrendMemberCard
+	29, // 10: app.arena.DeckTrendResponse.members:type_name -> entity.ArenaDeckTrendMemberCard
+	30, // 11: app.arena.DeckTrendResponse.supports:type_name -> entity.ArenaDeckTrendSupportCard
+	31, // 12: app.arena.ArenaRewardsResponse.season:type_name -> entity.ArenaSeason
+	32, // 13: app.arena.ArenaRewardsResponse.master_ranking:type_name -> entity.ArenaMasterRanking
+	33, // 14: app.arena.ArenaRewardsResponse.band_rankings:type_name -> entity.ArenaBandRankings
+	34, // 15: app.arena.ArenaRewardsResponse.master_promotion_rewards:type_name -> entity.ArenaMasterPromotionRewards
+	35, // 16: app.arena.ArenaRewardsResponse.band_promotion_rewards:type_name -> entity.ArenaBandPromotionRewards
+	36, // 17: app.arena.ArenaRankingResponse.ranking:type_name -> entity.ArenaRankingEntry
+	37, // 18: app.arena.ArenaMyRankResponse.mp:type_name -> entity.ArenaMyRankMasterPoint
+	38, // 19: app.arena.ArenaMyRankResponse.lp:type_name -> entity.ArenaMyRankLeaguePoint
+	39, // 20: app.arena.MatchingHistoriesResponse.matching_histories:type_name -> entity.ArenaMatchingHistories
+	27, // 21: app.arena.SaveDedicatedDecksRequest.deck:type_name -> entity.ArenaDedicatedDecks
+	22, // 22: app.arena.ReceivePromotionRewardResponse.notification:type_name -> entity.Notification
+	0,  // 23: app.arena.ArenaService.ReportPenalty:input_type -> app.arena.ReportPenaltyRequest
+	2,  // 24: app.arena.ArenaService.ArenaTop:input_type -> app.arena.ArenaTopRequest
+	4,  // 25: app.arena.ArenaService.ConsecutiveWins:input_type -> app.arena.ConsecutiveWinsRequest
+	6,  // 26: app.arena.ArenaService.DeckTrend:input_type -> app.arena.DeckTrendRequest
+	8,  // 27: app.arena.ArenaService.ArenaRewards:input_type -> app.arena.ArenaRewardsRequest
+	10, // 28: app.arena.ArenaService.ArenaRanking:input_type -> app.arena.ArenaRankingRequest
+	12, // 29: app.arena.ArenaService.ArenaMyRank:input_type -> app.arena.ArenaMyRankRequest
+	14, // 30: app.arena.ArenaService.MatchingHistories:input_type -> app.arena.MatchingHistoriesRequest
+	16, // 31: app.arena.ArenaService.SaveDedicatedDecks:input_type -> app.arena.SaveDedicatedDecksRequest
+	18, // 32: app.arena.ArenaService.ReportSeasonResultShown:input_type -> app.arena.ReportSeasonResultShownRequest
+	20, // 33: app.arena.ArenaService.ReceivePromotionReward:input_type -> app.arena.ReceivePromotionRewardRequest
+	1,  // 34: app.arena.ArenaService.ReportPenalty:output_type -> app.arena.ReportPenaltyResponse
+	3,  // 35: app.arena.ArenaService.ArenaTop:output_type -> app.arena.ArenaTopResponse
+	5,  // 36: app.arena.ArenaService.ConsecutiveWins:output_type -> app.arena.ConsecutiveWinsResponse
+	7,  // 37: app.arena.ArenaService.DeckTrend:output_type -> app.arena.DeckTrendResponse
+	9,  // 38: app.arena.ArenaService.ArenaRewards:output_type -> app.arena.ArenaRewardsResponse
+	11, // 39: app.arena.ArenaService.ArenaRanking:output_type -> app.arena.ArenaRankingResponse
+	13, // 40: app.arena.ArenaService.ArenaMyRank:output_type -> app.arena.ArenaMyRankResponse
+	15, // 41: app.arena.ArenaService.MatchingHistories:output_type -> app.arena.MatchingHistoriesResponse
+	17, // 42: app.arena.ArenaService.SaveDedicatedDecks:output_type -> app.arena.SaveDedicatedDecksResponse
+	19, // 43: app.arena.ArenaService.ReportSeasonResultShown:output_type -> app.arena.ReportSeasonResultShownResponse
+	21, // 44: app.arena.ArenaService.ReceivePromotionReward:output_type -> app.arena.ReceivePromotionRewardResponse
+	34, // [34:45] is the sub-list for method output_type
+	23, // [23:34] is the sub-list for method input_type
+	23, // [23:23] is the sub-list for extension type_name
+	23, // [23:23] is the sub-list for extension extendee
+	0,  // [0:23] is the sub-list for field type_name
 }
 
 func init() { file_app_arena_arena_service_proto_init() }
@@ -1140,7 +1468,7 @@ func file_app_arena_arena_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_app_arena_arena_service_proto_rawDesc), len(file_app_arena_arena_service_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   18,
+			NumMessages:   22,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

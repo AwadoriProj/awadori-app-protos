@@ -205,6 +205,7 @@ type FinishFreeResponse struct {
 	MusicRewards                  []*entity.RewardResource            `protobuf:"bytes,5,rep,name=music_rewards,json=musicRewards,proto3" json:"music_rewards,omitempty"`
 	Notification                  *entity.Notification                `protobuf:"bytes,6,opt,name=notification,proto3" json:"notification,omitempty"`
 	CampaignDropRewards           []*entity.RewardResource            `protobuf:"bytes,7,rep,name=campaign_drop_rewards,json=campaignDropRewards,proto3" json:"campaign_drop_rewards,omitempty"`
+	TryResult                     *entity.TryLiveResult               `protobuf:"bytes,8,opt,name=try_result,json=tryResult,proto3" json:"try_result,omitempty"`
 	unknownFields                 protoimpl.UnknownFields
 	sizeCache                     protoimpl.SizeCache
 }
@@ -284,6 +285,13 @@ func (x *FinishFreeResponse) GetNotification() *entity.Notification {
 func (x *FinishFreeResponse) GetCampaignDropRewards() []*entity.RewardResource {
 	if x != nil {
 		return x.CampaignDropRewards
+	}
+	return nil
+}
+
+func (x *FinishFreeResponse) GetTryResult() *entity.TryLiveResult {
+	if x != nil {
+		return x.TryResult
 	}
 	return nil
 }
@@ -536,6 +544,262 @@ func (x *FinishChallengeLiveResponse) GetCampaignDropRewards() []*entity.RewardR
 	return nil
 }
 
+type StartTryLiveRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	TryMusicId    int64                  `protobuf:"varint,1,opt,name=try_music_id,json=tryMusicId,proto3" json:"try_music_id,omitempty"`
+	Difficulty    int32                  `protobuf:"varint,2,opt,name=difficulty,proto3" json:"difficulty,omitempty"`
+	Boost         int32                  `protobuf:"varint,3,opt,name=boost,proto3" json:"boost,omitempty"`
+	DeckId        int32                  `protobuf:"varint,4,opt,name=deck_id,json=deckId,proto3" json:"deck_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *StartTryLiveRequest) Reset() {
+	*x = StartTryLiveRequest{}
+	mi := &file_app_live_live_service_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *StartTryLiveRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*StartTryLiveRequest) ProtoMessage() {}
+
+func (x *StartTryLiveRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_app_live_live_service_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use StartTryLiveRequest.ProtoReflect.Descriptor instead.
+func (*StartTryLiveRequest) Descriptor() ([]byte, []int) {
+	return file_app_live_live_service_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *StartTryLiveRequest) GetTryMusicId() int64 {
+	if x != nil {
+		return x.TryMusicId
+	}
+	return 0
+}
+
+func (x *StartTryLiveRequest) GetDifficulty() int32 {
+	if x != nil {
+		return x.Difficulty
+	}
+	return 0
+}
+
+func (x *StartTryLiveRequest) GetBoost() int32 {
+	if x != nil {
+		return x.Boost
+	}
+	return 0
+}
+
+func (x *StartTryLiveRequest) GetDeckId() int32 {
+	if x != nil {
+		return x.DeckId
+	}
+	return 0
+}
+
+type StartTryLiveResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *StartTryLiveResponse) Reset() {
+	*x = StartTryLiveResponse{}
+	mi := &file_app_live_live_service_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *StartTryLiveResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*StartTryLiveResponse) ProtoMessage() {}
+
+func (x *StartTryLiveResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_app_live_live_service_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use StartTryLiveResponse.ProtoReflect.Descriptor instead.
+func (*StartTryLiveResponse) Descriptor() ([]byte, []int) {
+	return file_app_live_live_service_proto_rawDescGZIP(), []int{9}
+}
+
+type FinishTryLiveRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	EventId       int64                  `protobuf:"varint,1,opt,name=event_id,json=eventId,proto3" json:"event_id,omitempty"`
+	LiveFinish    *entity.LiveFinish     `protobuf:"bytes,2,opt,name=live_finish,json=liveFinish,proto3" json:"live_finish,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *FinishTryLiveRequest) Reset() {
+	*x = FinishTryLiveRequest{}
+	mi := &file_app_live_live_service_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *FinishTryLiveRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*FinishTryLiveRequest) ProtoMessage() {}
+
+func (x *FinishTryLiveRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_app_live_live_service_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use FinishTryLiveRequest.ProtoReflect.Descriptor instead.
+func (*FinishTryLiveRequest) Descriptor() ([]byte, []int) {
+	return file_app_live_live_service_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *FinishTryLiveRequest) GetEventId() int64 {
+	if x != nil {
+		return x.EventId
+	}
+	return 0
+}
+
+func (x *FinishTryLiveRequest) GetLiveFinish() *entity.LiveFinish {
+	if x != nil {
+		return x.LiveFinish
+	}
+	return nil
+}
+
+type FinishTryLiveResponse struct {
+	state                         protoimpl.MessageState              `protogen:"open.v1"`
+	RewardId                      []int64                             `protobuf:"varint,1,rep,packed,name=reward_id,json=rewardId,proto3" json:"reward_id,omitempty"`
+	EventReward                   []*entity.LiveEventReward           `protobuf:"bytes,2,rep,name=event_reward,json=eventReward,proto3" json:"event_reward,omitempty"`
+	TotalHighscoreRatingRewardIds []int64                             `protobuf:"varint,3,rep,packed,name=total_highscore_rating_reward_ids,json=totalHighscoreRatingRewardIds,proto3" json:"total_highscore_rating_reward_ids,omitempty"`
+	BandHighscoreRatingRewards    []*entity.BandHighScoreRatingReward `protobuf:"bytes,4,rep,name=band_highscore_rating_rewards,json=bandHighscoreRatingRewards,proto3" json:"band_highscore_rating_rewards,omitempty"`
+	MusicRewards                  []*entity.RewardResource            `protobuf:"bytes,5,rep,name=music_rewards,json=musicRewards,proto3" json:"music_rewards,omitempty"`
+	Notification                  *entity.Notification                `protobuf:"bytes,6,opt,name=notification,proto3" json:"notification,omitempty"`
+	CampaignDropRewards           []*entity.RewardResource            `protobuf:"bytes,7,rep,name=campaign_drop_rewards,json=campaignDropRewards,proto3" json:"campaign_drop_rewards,omitempty"`
+	TryResult                     *entity.TryLiveResult               `protobuf:"bytes,8,opt,name=try_result,json=tryResult,proto3" json:"try_result,omitempty"`
+	unknownFields                 protoimpl.UnknownFields
+	sizeCache                     protoimpl.SizeCache
+}
+
+func (x *FinishTryLiveResponse) Reset() {
+	*x = FinishTryLiveResponse{}
+	mi := &file_app_live_live_service_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *FinishTryLiveResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*FinishTryLiveResponse) ProtoMessage() {}
+
+func (x *FinishTryLiveResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_app_live_live_service_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use FinishTryLiveResponse.ProtoReflect.Descriptor instead.
+func (*FinishTryLiveResponse) Descriptor() ([]byte, []int) {
+	return file_app_live_live_service_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *FinishTryLiveResponse) GetRewardId() []int64 {
+	if x != nil {
+		return x.RewardId
+	}
+	return nil
+}
+
+func (x *FinishTryLiveResponse) GetEventReward() []*entity.LiveEventReward {
+	if x != nil {
+		return x.EventReward
+	}
+	return nil
+}
+
+func (x *FinishTryLiveResponse) GetTotalHighscoreRatingRewardIds() []int64 {
+	if x != nil {
+		return x.TotalHighscoreRatingRewardIds
+	}
+	return nil
+}
+
+func (x *FinishTryLiveResponse) GetBandHighscoreRatingRewards() []*entity.BandHighScoreRatingReward {
+	if x != nil {
+		return x.BandHighscoreRatingRewards
+	}
+	return nil
+}
+
+func (x *FinishTryLiveResponse) GetMusicRewards() []*entity.RewardResource {
+	if x != nil {
+		return x.MusicRewards
+	}
+	return nil
+}
+
+func (x *FinishTryLiveResponse) GetNotification() *entity.Notification {
+	if x != nil {
+		return x.Notification
+	}
+	return nil
+}
+
+func (x *FinishTryLiveResponse) GetCampaignDropRewards() []*entity.RewardResource {
+	if x != nil {
+		return x.CampaignDropRewards
+	}
+	return nil
+}
+
+func (x *FinishTryLiveResponse) GetTryResult() *entity.TryLiveResult {
+	if x != nil {
+		return x.TryResult
+	}
+	return nil
+}
+
 type StartBattleLiveRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	MusicId       int64                  `protobuf:"varint,1,opt,name=music_id,json=musicId,proto3" json:"music_id,omitempty"`
@@ -550,7 +814,7 @@ type StartBattleLiveRequest struct {
 
 func (x *StartBattleLiveRequest) Reset() {
 	*x = StartBattleLiveRequest{}
-	mi := &file_app_live_live_service_proto_msgTypes[8]
+	mi := &file_app_live_live_service_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -562,7 +826,7 @@ func (x *StartBattleLiveRequest) String() string {
 func (*StartBattleLiveRequest) ProtoMessage() {}
 
 func (x *StartBattleLiveRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_app_live_live_service_proto_msgTypes[8]
+	mi := &file_app_live_live_service_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -575,7 +839,7 @@ func (x *StartBattleLiveRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StartBattleLiveRequest.ProtoReflect.Descriptor instead.
 func (*StartBattleLiveRequest) Descriptor() ([]byte, []int) {
-	return file_app_live_live_service_proto_rawDescGZIP(), []int{8}
+	return file_app_live_live_service_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *StartBattleLiveRequest) GetMusicId() int64 {
@@ -628,7 +892,7 @@ type StartBattleLiveResponse struct {
 
 func (x *StartBattleLiveResponse) Reset() {
 	*x = StartBattleLiveResponse{}
-	mi := &file_app_live_live_service_proto_msgTypes[9]
+	mi := &file_app_live_live_service_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -640,7 +904,7 @@ func (x *StartBattleLiveResponse) String() string {
 func (*StartBattleLiveResponse) ProtoMessage() {}
 
 func (x *StartBattleLiveResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_app_live_live_service_proto_msgTypes[9]
+	mi := &file_app_live_live_service_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -653,7 +917,7 @@ func (x *StartBattleLiveResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StartBattleLiveResponse.ProtoReflect.Descriptor instead.
 func (*StartBattleLiveResponse) Descriptor() ([]byte, []int) {
-	return file_app_live_live_service_proto_rawDescGZIP(), []int{9}
+	return file_app_live_live_service_proto_rawDescGZIP(), []int{13}
 }
 
 type FinishBattleLiveRequest struct {
@@ -668,7 +932,7 @@ type FinishBattleLiveRequest struct {
 
 func (x *FinishBattleLiveRequest) Reset() {
 	*x = FinishBattleLiveRequest{}
-	mi := &file_app_live_live_service_proto_msgTypes[10]
+	mi := &file_app_live_live_service_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -680,7 +944,7 @@ func (x *FinishBattleLiveRequest) String() string {
 func (*FinishBattleLiveRequest) ProtoMessage() {}
 
 func (x *FinishBattleLiveRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_app_live_live_service_proto_msgTypes[10]
+	mi := &file_app_live_live_service_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -693,7 +957,7 @@ func (x *FinishBattleLiveRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FinishBattleLiveRequest.ProtoReflect.Descriptor instead.
 func (*FinishBattleLiveRequest) Descriptor() ([]byte, []int) {
-	return file_app_live_live_service_proto_rawDescGZIP(), []int{10}
+	return file_app_live_live_service_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *FinishBattleLiveRequest) GetLiveFinish() *entity.LiveFinish {
@@ -745,7 +1009,7 @@ type FinishBattleLiveResponse struct {
 
 func (x *FinishBattleLiveResponse) Reset() {
 	*x = FinishBattleLiveResponse{}
-	mi := &file_app_live_live_service_proto_msgTypes[11]
+	mi := &file_app_live_live_service_proto_msgTypes[15]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -757,7 +1021,7 @@ func (x *FinishBattleLiveResponse) String() string {
 func (*FinishBattleLiveResponse) ProtoMessage() {}
 
 func (x *FinishBattleLiveResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_app_live_live_service_proto_msgTypes[11]
+	mi := &file_app_live_live_service_proto_msgTypes[15]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -770,7 +1034,7 @@ func (x *FinishBattleLiveResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FinishBattleLiveResponse.ProtoReflect.Descriptor instead.
 func (*FinishBattleLiveResponse) Descriptor() ([]byte, []int) {
-	return file_app_live_live_service_proto_rawDescGZIP(), []int{11}
+	return file_app_live_live_service_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *FinishBattleLiveResponse) GetRewardId() []int64 {
@@ -848,7 +1112,7 @@ type GetBattleLiveResultRequest struct {
 
 func (x *GetBattleLiveResultRequest) Reset() {
 	*x = GetBattleLiveResultRequest{}
-	mi := &file_app_live_live_service_proto_msgTypes[12]
+	mi := &file_app_live_live_service_proto_msgTypes[16]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -860,7 +1124,7 @@ func (x *GetBattleLiveResultRequest) String() string {
 func (*GetBattleLiveResultRequest) ProtoMessage() {}
 
 func (x *GetBattleLiveResultRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_app_live_live_service_proto_msgTypes[12]
+	mi := &file_app_live_live_service_proto_msgTypes[16]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -873,7 +1137,7 @@ func (x *GetBattleLiveResultRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetBattleLiveResultRequest.ProtoReflect.Descriptor instead.
 func (*GetBattleLiveResultRequest) Descriptor() ([]byte, []int) {
-	return file_app_live_live_service_proto_rawDescGZIP(), []int{12}
+	return file_app_live_live_service_proto_rawDescGZIP(), []int{16}
 }
 
 type GetBattleLiveResultResponse struct {
@@ -886,13 +1150,16 @@ type GetBattleLiveResultResponse struct {
 	Notification               *entity.Notification               `protobuf:"bytes,6,opt,name=notification,proto3" json:"notification,omitempty"`
 	BattleLiveRewards          []*entity.BattleLiveRewardResource `protobuf:"bytes,7,rep,name=battle_live_rewards,json=battleLiveRewards,proto3" json:"battle_live_rewards,omitempty"`
 	CampaignDropRewards        []*entity.RewardResource           `protobuf:"bytes,8,rep,name=campaign_drop_rewards,json=campaignDropRewards,proto3" json:"campaign_drop_rewards,omitempty"`
+	GekisouRankingEventRank    int32                              `protobuf:"varint,9,opt,name=gekisou_ranking_event_rank,json=gekisouRankingEventRank,proto3" json:"gekisou_ranking_event_rank,omitempty"`
+	GekisouRankingEventRewards []*entity.RewardResource           `protobuf:"bytes,10,rep,name=gekisou_ranking_event_rewards,json=gekisouRankingEventRewards,proto3" json:"gekisou_ranking_event_rewards,omitempty"`
+	TryResult                  *entity.TryLiveResult              `protobuf:"bytes,11,opt,name=try_result,json=tryResult,proto3" json:"try_result,omitempty"`
 	unknownFields              protoimpl.UnknownFields
 	sizeCache                  protoimpl.SizeCache
 }
 
 func (x *GetBattleLiveResultResponse) Reset() {
 	*x = GetBattleLiveResultResponse{}
-	mi := &file_app_live_live_service_proto_msgTypes[13]
+	mi := &file_app_live_live_service_proto_msgTypes[17]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -904,7 +1171,7 @@ func (x *GetBattleLiveResultResponse) String() string {
 func (*GetBattleLiveResultResponse) ProtoMessage() {}
 
 func (x *GetBattleLiveResultResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_app_live_live_service_proto_msgTypes[13]
+	mi := &file_app_live_live_service_proto_msgTypes[17]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -917,7 +1184,7 @@ func (x *GetBattleLiveResultResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetBattleLiveResultResponse.ProtoReflect.Descriptor instead.
 func (*GetBattleLiveResultResponse) Descriptor() ([]byte, []int) {
-	return file_app_live_live_service_proto_rawDescGZIP(), []int{13}
+	return file_app_live_live_service_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *GetBattleLiveResultResponse) GetPlayerResult() []*entity.BattleLivePlayerResult {
@@ -976,6 +1243,27 @@ func (x *GetBattleLiveResultResponse) GetCampaignDropRewards() []*entity.RewardR
 	return nil
 }
 
+func (x *GetBattleLiveResultResponse) GetGekisouRankingEventRank() int32 {
+	if x != nil {
+		return x.GekisouRankingEventRank
+	}
+	return 0
+}
+
+func (x *GetBattleLiveResultResponse) GetGekisouRankingEventRewards() []*entity.RewardResource {
+	if x != nil {
+		return x.GekisouRankingEventRewards
+	}
+	return nil
+}
+
+func (x *GetBattleLiveResultResponse) GetTryResult() *entity.TryLiveResult {
+	if x != nil {
+		return x.TryResult
+	}
+	return nil
+}
+
 type SkipFreeRequest struct {
 	state                 protoimpl.MessageState `protogen:"open.v1"`
 	MusicId               int64                  `protobuf:"varint,1,opt,name=music_id,json=musicId,proto3" json:"music_id,omitempty"`
@@ -989,7 +1277,7 @@ type SkipFreeRequest struct {
 
 func (x *SkipFreeRequest) Reset() {
 	*x = SkipFreeRequest{}
-	mi := &file_app_live_live_service_proto_msgTypes[14]
+	mi := &file_app_live_live_service_proto_msgTypes[18]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1001,7 +1289,7 @@ func (x *SkipFreeRequest) String() string {
 func (*SkipFreeRequest) ProtoMessage() {}
 
 func (x *SkipFreeRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_app_live_live_service_proto_msgTypes[14]
+	mi := &file_app_live_live_service_proto_msgTypes[18]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1014,7 +1302,7 @@ func (x *SkipFreeRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SkipFreeRequest.ProtoReflect.Descriptor instead.
 func (*SkipFreeRequest) Descriptor() ([]byte, []int) {
-	return file_app_live_live_service_proto_rawDescGZIP(), []int{14}
+	return file_app_live_live_service_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *SkipFreeRequest) GetMusicId() int64 {
@@ -1064,7 +1352,7 @@ type SkipFreeResponse struct {
 
 func (x *SkipFreeResponse) Reset() {
 	*x = SkipFreeResponse{}
-	mi := &file_app_live_live_service_proto_msgTypes[15]
+	mi := &file_app_live_live_service_proto_msgTypes[19]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1076,7 +1364,7 @@ func (x *SkipFreeResponse) String() string {
 func (*SkipFreeResponse) ProtoMessage() {}
 
 func (x *SkipFreeResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_app_live_live_service_proto_msgTypes[15]
+	mi := &file_app_live_live_service_proto_msgTypes[19]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1089,7 +1377,7 @@ func (x *SkipFreeResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SkipFreeResponse.ProtoReflect.Descriptor instead.
 func (*SkipFreeResponse) Descriptor() ([]byte, []int) {
-	return file_app_live_live_service_proto_rawDescGZIP(), []int{15}
+	return file_app_live_live_service_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *SkipFreeResponse) GetRewardId() []int64 {
@@ -1133,7 +1421,7 @@ type SkipChallengeLiveRequest struct {
 
 func (x *SkipChallengeLiveRequest) Reset() {
 	*x = SkipChallengeLiveRequest{}
-	mi := &file_app_live_live_service_proto_msgTypes[16]
+	mi := &file_app_live_live_service_proto_msgTypes[20]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1145,7 +1433,7 @@ func (x *SkipChallengeLiveRequest) String() string {
 func (*SkipChallengeLiveRequest) ProtoMessage() {}
 
 func (x *SkipChallengeLiveRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_app_live_live_service_proto_msgTypes[16]
+	mi := &file_app_live_live_service_proto_msgTypes[20]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1158,7 +1446,7 @@ func (x *SkipChallengeLiveRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SkipChallengeLiveRequest.ProtoReflect.Descriptor instead.
 func (*SkipChallengeLiveRequest) Descriptor() ([]byte, []int) {
-	return file_app_live_live_service_proto_rawDescGZIP(), []int{16}
+	return file_app_live_live_service_proto_rawDescGZIP(), []int{20}
 }
 
 func (x *SkipChallengeLiveRequest) GetChallengeMusicId() int64 {
@@ -1208,7 +1496,7 @@ type SkipChallengeLiveResponse struct {
 
 func (x *SkipChallengeLiveResponse) Reset() {
 	*x = SkipChallengeLiveResponse{}
-	mi := &file_app_live_live_service_proto_msgTypes[17]
+	mi := &file_app_live_live_service_proto_msgTypes[21]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1220,7 +1508,7 @@ func (x *SkipChallengeLiveResponse) String() string {
 func (*SkipChallengeLiveResponse) ProtoMessage() {}
 
 func (x *SkipChallengeLiveResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_app_live_live_service_proto_msgTypes[17]
+	mi := &file_app_live_live_service_proto_msgTypes[21]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1233,7 +1521,7 @@ func (x *SkipChallengeLiveResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SkipChallengeLiveResponse.ProtoReflect.Descriptor instead.
 func (*SkipChallengeLiveResponse) Descriptor() ([]byte, []int) {
-	return file_app_live_live_service_proto_rawDescGZIP(), []int{17}
+	return file_app_live_live_service_proto_rawDescGZIP(), []int{21}
 }
 
 func (x *SkipChallengeLiveResponse) GetRewardId() []int64 {
@@ -1264,6 +1552,150 @@ func (x *SkipChallengeLiveResponse) GetCampaignDropRewards() []*entity.RewardRes
 	return nil
 }
 
+type SkipTryLiveRequest struct {
+	state                 protoimpl.MessageState `protogen:"open.v1"`
+	TryMusicId            int64                  `protobuf:"varint,1,opt,name=try_music_id,json=tryMusicId,proto3" json:"try_music_id,omitempty"`
+	Difficulty            int32                  `protobuf:"varint,2,opt,name=difficulty,proto3" json:"difficulty,omitempty"`
+	Boost                 int32                  `protobuf:"varint,3,opt,name=boost,proto3" json:"boost,omitempty"`
+	DeckId                int32                  `protobuf:"varint,4,opt,name=deck_id,json=deckId,proto3" json:"deck_id,omitempty"`
+	CurrentDeckTotalPower int32                  `protobuf:"varint,5,opt,name=current_deck_total_power,json=currentDeckTotalPower,proto3" json:"current_deck_total_power,omitempty"`
+	unknownFields         protoimpl.UnknownFields
+	sizeCache             protoimpl.SizeCache
+}
+
+func (x *SkipTryLiveRequest) Reset() {
+	*x = SkipTryLiveRequest{}
+	mi := &file_app_live_live_service_proto_msgTypes[22]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SkipTryLiveRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SkipTryLiveRequest) ProtoMessage() {}
+
+func (x *SkipTryLiveRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_app_live_live_service_proto_msgTypes[22]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SkipTryLiveRequest.ProtoReflect.Descriptor instead.
+func (*SkipTryLiveRequest) Descriptor() ([]byte, []int) {
+	return file_app_live_live_service_proto_rawDescGZIP(), []int{22}
+}
+
+func (x *SkipTryLiveRequest) GetTryMusicId() int64 {
+	if x != nil {
+		return x.TryMusicId
+	}
+	return 0
+}
+
+func (x *SkipTryLiveRequest) GetDifficulty() int32 {
+	if x != nil {
+		return x.Difficulty
+	}
+	return 0
+}
+
+func (x *SkipTryLiveRequest) GetBoost() int32 {
+	if x != nil {
+		return x.Boost
+	}
+	return 0
+}
+
+func (x *SkipTryLiveRequest) GetDeckId() int32 {
+	if x != nil {
+		return x.DeckId
+	}
+	return 0
+}
+
+func (x *SkipTryLiveRequest) GetCurrentDeckTotalPower() int32 {
+	if x != nil {
+		return x.CurrentDeckTotalPower
+	}
+	return 0
+}
+
+type SkipTryLiveResponse struct {
+	state               protoimpl.MessageState    `protogen:"open.v1"`
+	RewardId            []int64                   `protobuf:"varint,1,rep,packed,name=reward_id,json=rewardId,proto3" json:"reward_id,omitempty"`
+	EventReward         []*entity.LiveEventReward `protobuf:"bytes,2,rep,name=event_reward,json=eventReward,proto3" json:"event_reward,omitempty"`
+	Notification        *entity.Notification      `protobuf:"bytes,3,opt,name=notification,proto3" json:"notification,omitempty"`
+	CampaignDropRewards []*entity.RewardResource  `protobuf:"bytes,4,rep,name=campaign_drop_rewards,json=campaignDropRewards,proto3" json:"campaign_drop_rewards,omitempty"`
+	unknownFields       protoimpl.UnknownFields
+	sizeCache           protoimpl.SizeCache
+}
+
+func (x *SkipTryLiveResponse) Reset() {
+	*x = SkipTryLiveResponse{}
+	mi := &file_app_live_live_service_proto_msgTypes[23]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SkipTryLiveResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SkipTryLiveResponse) ProtoMessage() {}
+
+func (x *SkipTryLiveResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_app_live_live_service_proto_msgTypes[23]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SkipTryLiveResponse.ProtoReflect.Descriptor instead.
+func (*SkipTryLiveResponse) Descriptor() ([]byte, []int) {
+	return file_app_live_live_service_proto_rawDescGZIP(), []int{23}
+}
+
+func (x *SkipTryLiveResponse) GetRewardId() []int64 {
+	if x != nil {
+		return x.RewardId
+	}
+	return nil
+}
+
+func (x *SkipTryLiveResponse) GetEventReward() []*entity.LiveEventReward {
+	if x != nil {
+		return x.EventReward
+	}
+	return nil
+}
+
+func (x *SkipTryLiveResponse) GetNotification() *entity.Notification {
+	if x != nil {
+		return x.Notification
+	}
+	return nil
+}
+
+func (x *SkipTryLiveResponse) GetCampaignDropRewards() []*entity.RewardResource {
+	if x != nil {
+		return x.CampaignDropRewards
+	}
+	return nil
+}
+
 type SaveSettingRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	SettingAll    []byte                 `protobuf:"bytes,1,opt,name=setting_all,json=settingAll,proto3" json:"setting_all,omitempty"`
@@ -1273,7 +1705,7 @@ type SaveSettingRequest struct {
 
 func (x *SaveSettingRequest) Reset() {
 	*x = SaveSettingRequest{}
-	mi := &file_app_live_live_service_proto_msgTypes[18]
+	mi := &file_app_live_live_service_proto_msgTypes[24]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1285,7 +1717,7 @@ func (x *SaveSettingRequest) String() string {
 func (*SaveSettingRequest) ProtoMessage() {}
 
 func (x *SaveSettingRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_app_live_live_service_proto_msgTypes[18]
+	mi := &file_app_live_live_service_proto_msgTypes[24]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1298,7 +1730,7 @@ func (x *SaveSettingRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SaveSettingRequest.ProtoReflect.Descriptor instead.
 func (*SaveSettingRequest) Descriptor() ([]byte, []int) {
-	return file_app_live_live_service_proto_rawDescGZIP(), []int{18}
+	return file_app_live_live_service_proto_rawDescGZIP(), []int{24}
 }
 
 func (x *SaveSettingRequest) GetSettingAll() []byte {
@@ -1316,7 +1748,7 @@ type SaveSettingResponse struct {
 
 func (x *SaveSettingResponse) Reset() {
 	*x = SaveSettingResponse{}
-	mi := &file_app_live_live_service_proto_msgTypes[19]
+	mi := &file_app_live_live_service_proto_msgTypes[25]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1328,7 +1760,7 @@ func (x *SaveSettingResponse) String() string {
 func (*SaveSettingResponse) ProtoMessage() {}
 
 func (x *SaveSettingResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_app_live_live_service_proto_msgTypes[19]
+	mi := &file_app_live_live_service_proto_msgTypes[25]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1341,7 +1773,7 @@ func (x *SaveSettingResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SaveSettingResponse.ProtoReflect.Descriptor instead.
 func (*SaveSettingResponse) Descriptor() ([]byte, []int) {
-	return file_app_live_live_service_proto_rawDescGZIP(), []int{19}
+	return file_app_live_live_service_proto_rawDescGZIP(), []int{25}
 }
 
 type GetBattleLiveSearchIdRequest struct {
@@ -1352,7 +1784,7 @@ type GetBattleLiveSearchIdRequest struct {
 
 func (x *GetBattleLiveSearchIdRequest) Reset() {
 	*x = GetBattleLiveSearchIdRequest{}
-	mi := &file_app_live_live_service_proto_msgTypes[20]
+	mi := &file_app_live_live_service_proto_msgTypes[26]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1364,7 +1796,7 @@ func (x *GetBattleLiveSearchIdRequest) String() string {
 func (*GetBattleLiveSearchIdRequest) ProtoMessage() {}
 
 func (x *GetBattleLiveSearchIdRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_app_live_live_service_proto_msgTypes[20]
+	mi := &file_app_live_live_service_proto_msgTypes[26]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1377,7 +1809,7 @@ func (x *GetBattleLiveSearchIdRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetBattleLiveSearchIdRequest.ProtoReflect.Descriptor instead.
 func (*GetBattleLiveSearchIdRequest) Descriptor() ([]byte, []int) {
-	return file_app_live_live_service_proto_rawDescGZIP(), []int{20}
+	return file_app_live_live_service_proto_rawDescGZIP(), []int{26}
 }
 
 type GetBattleLiveSearchIdResponse struct {
@@ -1389,7 +1821,7 @@ type GetBattleLiveSearchIdResponse struct {
 
 func (x *GetBattleLiveSearchIdResponse) Reset() {
 	*x = GetBattleLiveSearchIdResponse{}
-	mi := &file_app_live_live_service_proto_msgTypes[21]
+	mi := &file_app_live_live_service_proto_msgTypes[27]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1401,7 +1833,7 @@ func (x *GetBattleLiveSearchIdResponse) String() string {
 func (*GetBattleLiveSearchIdResponse) ProtoMessage() {}
 
 func (x *GetBattleLiveSearchIdResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_app_live_live_service_proto_msgTypes[21]
+	mi := &file_app_live_live_service_proto_msgTypes[27]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1414,7 +1846,7 @@ func (x *GetBattleLiveSearchIdResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetBattleLiveSearchIdResponse.ProtoReflect.Descriptor instead.
 func (*GetBattleLiveSearchIdResponse) Descriptor() ([]byte, []int) {
-	return file_app_live_live_service_proto_rawDescGZIP(), []int{21}
+	return file_app_live_live_service_proto_rawDescGZIP(), []int{27}
 }
 
 func (x *GetBattleLiveSearchIdResponse) GetSearchId() int32 {
@@ -1432,7 +1864,7 @@ type CheckMaintenanceCasualMatchRequest struct {
 
 func (x *CheckMaintenanceCasualMatchRequest) Reset() {
 	*x = CheckMaintenanceCasualMatchRequest{}
-	mi := &file_app_live_live_service_proto_msgTypes[22]
+	mi := &file_app_live_live_service_proto_msgTypes[28]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1444,7 +1876,7 @@ func (x *CheckMaintenanceCasualMatchRequest) String() string {
 func (*CheckMaintenanceCasualMatchRequest) ProtoMessage() {}
 
 func (x *CheckMaintenanceCasualMatchRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_app_live_live_service_proto_msgTypes[22]
+	mi := &file_app_live_live_service_proto_msgTypes[28]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1457,7 +1889,7 @@ func (x *CheckMaintenanceCasualMatchRequest) ProtoReflect() protoreflect.Message
 
 // Deprecated: Use CheckMaintenanceCasualMatchRequest.ProtoReflect.Descriptor instead.
 func (*CheckMaintenanceCasualMatchRequest) Descriptor() ([]byte, []int) {
-	return file_app_live_live_service_proto_rawDescGZIP(), []int{22}
+	return file_app_live_live_service_proto_rawDescGZIP(), []int{28}
 }
 
 type CheckMaintenanceCasualMatchResponse struct {
@@ -1468,7 +1900,7 @@ type CheckMaintenanceCasualMatchResponse struct {
 
 func (x *CheckMaintenanceCasualMatchResponse) Reset() {
 	*x = CheckMaintenanceCasualMatchResponse{}
-	mi := &file_app_live_live_service_proto_msgTypes[23]
+	mi := &file_app_live_live_service_proto_msgTypes[29]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1480,7 +1912,7 @@ func (x *CheckMaintenanceCasualMatchResponse) String() string {
 func (*CheckMaintenanceCasualMatchResponse) ProtoMessage() {}
 
 func (x *CheckMaintenanceCasualMatchResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_app_live_live_service_proto_msgTypes[23]
+	mi := &file_app_live_live_service_proto_msgTypes[29]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1493,7 +1925,7 @@ func (x *CheckMaintenanceCasualMatchResponse) ProtoReflect() protoreflect.Messag
 
 // Deprecated: Use CheckMaintenanceCasualMatchResponse.ProtoReflect.Descriptor instead.
 func (*CheckMaintenanceCasualMatchResponse) Descriptor() ([]byte, []int) {
-	return file_app_live_live_service_proto_rawDescGZIP(), []int{23}
+	return file_app_live_live_service_proto_rawDescGZIP(), []int{29}
 }
 
 type CheckMaintenanceRankMatchRequest struct {
@@ -1504,7 +1936,7 @@ type CheckMaintenanceRankMatchRequest struct {
 
 func (x *CheckMaintenanceRankMatchRequest) Reset() {
 	*x = CheckMaintenanceRankMatchRequest{}
-	mi := &file_app_live_live_service_proto_msgTypes[24]
+	mi := &file_app_live_live_service_proto_msgTypes[30]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1516,7 +1948,7 @@ func (x *CheckMaintenanceRankMatchRequest) String() string {
 func (*CheckMaintenanceRankMatchRequest) ProtoMessage() {}
 
 func (x *CheckMaintenanceRankMatchRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_app_live_live_service_proto_msgTypes[24]
+	mi := &file_app_live_live_service_proto_msgTypes[30]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1529,7 +1961,7 @@ func (x *CheckMaintenanceRankMatchRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CheckMaintenanceRankMatchRequest.ProtoReflect.Descriptor instead.
 func (*CheckMaintenanceRankMatchRequest) Descriptor() ([]byte, []int) {
-	return file_app_live_live_service_proto_rawDescGZIP(), []int{24}
+	return file_app_live_live_service_proto_rawDescGZIP(), []int{30}
 }
 
 type CheckMaintenanceRankMatchResponse struct {
@@ -1540,7 +1972,7 @@ type CheckMaintenanceRankMatchResponse struct {
 
 func (x *CheckMaintenanceRankMatchResponse) Reset() {
 	*x = CheckMaintenanceRankMatchResponse{}
-	mi := &file_app_live_live_service_proto_msgTypes[25]
+	mi := &file_app_live_live_service_proto_msgTypes[31]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1552,7 +1984,7 @@ func (x *CheckMaintenanceRankMatchResponse) String() string {
 func (*CheckMaintenanceRankMatchResponse) ProtoMessage() {}
 
 func (x *CheckMaintenanceRankMatchResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_app_live_live_service_proto_msgTypes[25]
+	mi := &file_app_live_live_service_proto_msgTypes[31]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1565,7 +1997,7 @@ func (x *CheckMaintenanceRankMatchResponse) ProtoReflect() protoreflect.Message 
 
 // Deprecated: Use CheckMaintenanceRankMatchResponse.ProtoReflect.Descriptor instead.
 func (*CheckMaintenanceRankMatchResponse) Descriptor() ([]byte, []int) {
-	return file_app_live_live_service_proto_rawDescGZIP(), []int{25}
+	return file_app_live_live_service_proto_rawDescGZIP(), []int{31}
 }
 
 type CheckMaintenanceFreeRequest struct {
@@ -1576,7 +2008,7 @@ type CheckMaintenanceFreeRequest struct {
 
 func (x *CheckMaintenanceFreeRequest) Reset() {
 	*x = CheckMaintenanceFreeRequest{}
-	mi := &file_app_live_live_service_proto_msgTypes[26]
+	mi := &file_app_live_live_service_proto_msgTypes[32]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1588,7 +2020,7 @@ func (x *CheckMaintenanceFreeRequest) String() string {
 func (*CheckMaintenanceFreeRequest) ProtoMessage() {}
 
 func (x *CheckMaintenanceFreeRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_app_live_live_service_proto_msgTypes[26]
+	mi := &file_app_live_live_service_proto_msgTypes[32]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1601,7 +2033,7 @@ func (x *CheckMaintenanceFreeRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CheckMaintenanceFreeRequest.ProtoReflect.Descriptor instead.
 func (*CheckMaintenanceFreeRequest) Descriptor() ([]byte, []int) {
-	return file_app_live_live_service_proto_rawDescGZIP(), []int{26}
+	return file_app_live_live_service_proto_rawDescGZIP(), []int{32}
 }
 
 type CheckMaintenanceFreeResponse struct {
@@ -1612,7 +2044,7 @@ type CheckMaintenanceFreeResponse struct {
 
 func (x *CheckMaintenanceFreeResponse) Reset() {
 	*x = CheckMaintenanceFreeResponse{}
-	mi := &file_app_live_live_service_proto_msgTypes[27]
+	mi := &file_app_live_live_service_proto_msgTypes[33]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1624,7 +2056,7 @@ func (x *CheckMaintenanceFreeResponse) String() string {
 func (*CheckMaintenanceFreeResponse) ProtoMessage() {}
 
 func (x *CheckMaintenanceFreeResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_app_live_live_service_proto_msgTypes[27]
+	mi := &file_app_live_live_service_proto_msgTypes[33]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1637,7 +2069,7 @@ func (x *CheckMaintenanceFreeResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CheckMaintenanceFreeResponse.ProtoReflect.Descriptor instead.
 func (*CheckMaintenanceFreeResponse) Descriptor() ([]byte, []int) {
-	return file_app_live_live_service_proto_rawDescGZIP(), []int{27}
+	return file_app_live_live_service_proto_rawDescGZIP(), []int{33}
 }
 
 type RemoveBattleLiveInvitationRequest struct {
@@ -1649,7 +2081,7 @@ type RemoveBattleLiveInvitationRequest struct {
 
 func (x *RemoveBattleLiveInvitationRequest) Reset() {
 	*x = RemoveBattleLiveInvitationRequest{}
-	mi := &file_app_live_live_service_proto_msgTypes[28]
+	mi := &file_app_live_live_service_proto_msgTypes[34]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1661,7 +2093,7 @@ func (x *RemoveBattleLiveInvitationRequest) String() string {
 func (*RemoveBattleLiveInvitationRequest) ProtoMessage() {}
 
 func (x *RemoveBattleLiveInvitationRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_app_live_live_service_proto_msgTypes[28]
+	mi := &file_app_live_live_service_proto_msgTypes[34]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1674,7 +2106,7 @@ func (x *RemoveBattleLiveInvitationRequest) ProtoReflect() protoreflect.Message 
 
 // Deprecated: Use RemoveBattleLiveInvitationRequest.ProtoReflect.Descriptor instead.
 func (*RemoveBattleLiveInvitationRequest) Descriptor() ([]byte, []int) {
-	return file_app_live_live_service_proto_rawDescGZIP(), []int{28}
+	return file_app_live_live_service_proto_rawDescGZIP(), []int{34}
 }
 
 func (x *RemoveBattleLiveInvitationRequest) GetLobbyId() int64 {
@@ -1693,7 +2125,7 @@ type GainStampRewardRequest struct {
 
 func (x *GainStampRewardRequest) Reset() {
 	*x = GainStampRewardRequest{}
-	mi := &file_app_live_live_service_proto_msgTypes[29]
+	mi := &file_app_live_live_service_proto_msgTypes[35]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1705,7 +2137,7 @@ func (x *GainStampRewardRequest) String() string {
 func (*GainStampRewardRequest) ProtoMessage() {}
 
 func (x *GainStampRewardRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_app_live_live_service_proto_msgTypes[29]
+	mi := &file_app_live_live_service_proto_msgTypes[35]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1718,7 +2150,7 @@ func (x *GainStampRewardRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GainStampRewardRequest.ProtoReflect.Descriptor instead.
 func (*GainStampRewardRequest) Descriptor() ([]byte, []int) {
-	return file_app_live_live_service_proto_rawDescGZIP(), []int{29}
+	return file_app_live_live_service_proto_rawDescGZIP(), []int{35}
 }
 
 func (x *GainStampRewardRequest) GetRewardId() int64 {
@@ -1737,7 +2169,7 @@ type GainStampRewardResponse struct {
 
 func (x *GainStampRewardResponse) Reset() {
 	*x = GainStampRewardResponse{}
-	mi := &file_app_live_live_service_proto_msgTypes[30]
+	mi := &file_app_live_live_service_proto_msgTypes[36]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1749,7 +2181,7 @@ func (x *GainStampRewardResponse) String() string {
 func (*GainStampRewardResponse) ProtoMessage() {}
 
 func (x *GainStampRewardResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_app_live_live_service_proto_msgTypes[30]
+	mi := &file_app_live_live_service_proto_msgTypes[36]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1762,7 +2194,7 @@ func (x *GainStampRewardResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GainStampRewardResponse.ProtoReflect.Descriptor instead.
 func (*GainStampRewardResponse) Descriptor() ([]byte, []int) {
-	return file_app_live_live_service_proto_rawDescGZIP(), []int{30}
+	return file_app_live_live_service_proto_rawDescGZIP(), []int{36}
 }
 
 func (x *GainStampRewardResponse) GetNotification() *entity.Notification {
@@ -1783,7 +2215,7 @@ type SendBattleLiveInvitationRequest struct {
 
 func (x *SendBattleLiveInvitationRequest) Reset() {
 	*x = SendBattleLiveInvitationRequest{}
-	mi := &file_app_live_live_service_proto_msgTypes[31]
+	mi := &file_app_live_live_service_proto_msgTypes[37]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1795,7 +2227,7 @@ func (x *SendBattleLiveInvitationRequest) String() string {
 func (*SendBattleLiveInvitationRequest) ProtoMessage() {}
 
 func (x *SendBattleLiveInvitationRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_app_live_live_service_proto_msgTypes[31]
+	mi := &file_app_live_live_service_proto_msgTypes[37]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1808,7 +2240,7 @@ func (x *SendBattleLiveInvitationRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SendBattleLiveInvitationRequest.ProtoReflect.Descriptor instead.
 func (*SendBattleLiveInvitationRequest) Descriptor() ([]byte, []int) {
-	return file_app_live_live_service_proto_rawDescGZIP(), []int{31}
+	return file_app_live_live_service_proto_rawDescGZIP(), []int{37}
 }
 
 func (x *SendBattleLiveInvitationRequest) GetLobbyId() int64 {
@@ -1841,7 +2273,7 @@ type FetchBattleLiveInvitationResponse struct {
 
 func (x *FetchBattleLiveInvitationResponse) Reset() {
 	*x = FetchBattleLiveInvitationResponse{}
-	mi := &file_app_live_live_service_proto_msgTypes[32]
+	mi := &file_app_live_live_service_proto_msgTypes[38]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1853,7 +2285,7 @@ func (x *FetchBattleLiveInvitationResponse) String() string {
 func (*FetchBattleLiveInvitationResponse) ProtoMessage() {}
 
 func (x *FetchBattleLiveInvitationResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_app_live_live_service_proto_msgTypes[32]
+	mi := &file_app_live_live_service_proto_msgTypes[38]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1866,7 +2298,7 @@ func (x *FetchBattleLiveInvitationResponse) ProtoReflect() protoreflect.Message 
 
 // Deprecated: Use FetchBattleLiveInvitationResponse.ProtoReflect.Descriptor instead.
 func (*FetchBattleLiveInvitationResponse) Descriptor() ([]byte, []int) {
-	return file_app_live_live_service_proto_rawDescGZIP(), []int{32}
+	return file_app_live_live_service_proto_rawDescGZIP(), []int{38}
 }
 
 func (x *FetchBattleLiveInvitationResponse) GetInvitations() []*entity.BattleLiveInvitation {
@@ -1877,22 +2309,24 @@ func (x *FetchBattleLiveInvitationResponse) GetInvitations() []*entity.BattleLiv
 }
 
 type StartArenaLiveRequest struct {
-	state                protoimpl.MessageState `protogen:"open.v1"`
-	ArenaSeasonId        int64                  `protobuf:"varint,1,opt,name=arena_season_id,json=arenaSeasonId,proto3" json:"arena_season_id,omitempty"`
-	ArenaMusicId         int64                  `protobuf:"varint,2,opt,name=arena_music_id,json=arenaMusicId,proto3" json:"arena_music_id,omitempty"`
-	Difficulty           int32                  `protobuf:"varint,3,opt,name=difficulty,proto3" json:"difficulty,omitempty"`
-	Boost                int32                  `protobuf:"varint,4,opt,name=boost,proto3" json:"boost,omitempty"`
-	ArenaDedicatedDeckId int32                  `protobuf:"varint,5,opt,name=arena_dedicated_deck_id,json=arenaDedicatedDeckId,proto3" json:"arena_dedicated_deck_id,omitempty"`
-	RoomId               string                 `protobuf:"bytes,6,opt,name=room_id,json=roomId,proto3" json:"room_id,omitempty"`
-	ArenaSupportItemIds  []int64                `protobuf:"varint,7,rep,packed,name=arena_support_item_ids,json=arenaSupportItemIds,proto3" json:"arena_support_item_ids,omitempty"`
-	LobbyId              int64                  `protobuf:"varint,8,opt,name=lobby_id,json=lobbyId,proto3" json:"lobby_id,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ArenaSeasonId int64                  `protobuf:"varint,1,opt,name=arena_season_id,json=arenaSeasonId,proto3" json:"arena_season_id,omitempty"`
+	// Deprecated: Marked as deprecated in app/live/live_service.proto.
+	ArenaMusicId         int64   `protobuf:"varint,2,opt,name=arena_music_id,json=arenaMusicId,proto3" json:"arena_music_id,omitempty"`
+	Difficulty           int32   `protobuf:"varint,3,opt,name=difficulty,proto3" json:"difficulty,omitempty"`
+	Boost                int32   `protobuf:"varint,4,opt,name=boost,proto3" json:"boost,omitempty"`
+	ArenaDedicatedDeckId int32   `protobuf:"varint,5,opt,name=arena_dedicated_deck_id,json=arenaDedicatedDeckId,proto3" json:"arena_dedicated_deck_id,omitempty"`
+	RoomId               string  `protobuf:"bytes,6,opt,name=room_id,json=roomId,proto3" json:"room_id,omitempty"`
+	ArenaSupportItemIds  []int64 `protobuf:"varint,7,rep,packed,name=arena_support_item_ids,json=arenaSupportItemIds,proto3" json:"arena_support_item_ids,omitempty"`
+	LobbyId              int64   `protobuf:"varint,8,opt,name=lobby_id,json=lobbyId,proto3" json:"lobby_id,omitempty"`
+	MusicId              int64   `protobuf:"varint,9,opt,name=music_id,json=musicId,proto3" json:"music_id,omitempty"`
 	unknownFields        protoimpl.UnknownFields
 	sizeCache            protoimpl.SizeCache
 }
 
 func (x *StartArenaLiveRequest) Reset() {
 	*x = StartArenaLiveRequest{}
-	mi := &file_app_live_live_service_proto_msgTypes[33]
+	mi := &file_app_live_live_service_proto_msgTypes[39]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1904,7 +2338,7 @@ func (x *StartArenaLiveRequest) String() string {
 func (*StartArenaLiveRequest) ProtoMessage() {}
 
 func (x *StartArenaLiveRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_app_live_live_service_proto_msgTypes[33]
+	mi := &file_app_live_live_service_proto_msgTypes[39]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1917,7 +2351,7 @@ func (x *StartArenaLiveRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StartArenaLiveRequest.ProtoReflect.Descriptor instead.
 func (*StartArenaLiveRequest) Descriptor() ([]byte, []int) {
-	return file_app_live_live_service_proto_rawDescGZIP(), []int{33}
+	return file_app_live_live_service_proto_rawDescGZIP(), []int{39}
 }
 
 func (x *StartArenaLiveRequest) GetArenaSeasonId() int64 {
@@ -1927,6 +2361,7 @@ func (x *StartArenaLiveRequest) GetArenaSeasonId() int64 {
 	return 0
 }
 
+// Deprecated: Marked as deprecated in app/live/live_service.proto.
 func (x *StartArenaLiveRequest) GetArenaMusicId() int64 {
 	if x != nil {
 		return x.ArenaMusicId
@@ -1976,6 +2411,13 @@ func (x *StartArenaLiveRequest) GetLobbyId() int64 {
 	return 0
 }
 
+func (x *StartArenaLiveRequest) GetMusicId() int64 {
+	if x != nil {
+		return x.MusicId
+	}
+	return 0
+}
+
 type StartArenaLiveResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	unknownFields protoimpl.UnknownFields
@@ -1984,7 +2426,7 @@ type StartArenaLiveResponse struct {
 
 func (x *StartArenaLiveResponse) Reset() {
 	*x = StartArenaLiveResponse{}
-	mi := &file_app_live_live_service_proto_msgTypes[34]
+	mi := &file_app_live_live_service_proto_msgTypes[40]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1996,7 +2438,7 @@ func (x *StartArenaLiveResponse) String() string {
 func (*StartArenaLiveResponse) ProtoMessage() {}
 
 func (x *StartArenaLiveResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_app_live_live_service_proto_msgTypes[34]
+	mi := &file_app_live_live_service_proto_msgTypes[40]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2009,12 +2451,13 @@ func (x *StartArenaLiveResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StartArenaLiveResponse.ProtoReflect.Descriptor instead.
 func (*StartArenaLiveResponse) Descriptor() ([]byte, []int) {
-	return file_app_live_live_service_proto_rawDescGZIP(), []int{34}
+	return file_app_live_live_service_proto_rawDescGZIP(), []int{40}
 }
 
 type FinishArenaLiveRequest struct {
-	state           protoimpl.MessageState         `protogen:"open.v1"`
-	ArenaSeasonId   int64                          `protobuf:"varint,1,opt,name=arena_season_id,json=arenaSeasonId,proto3" json:"arena_season_id,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ArenaSeasonId int64                  `protobuf:"varint,1,opt,name=arena_season_id,json=arenaSeasonId,proto3" json:"arena_season_id,omitempty"`
+	// Deprecated: Marked as deprecated in app/live/live_service.proto.
 	ArenaMusicId    int64                          `protobuf:"varint,2,opt,name=arena_music_id,json=arenaMusicId,proto3" json:"arena_music_id,omitempty"`
 	LiveFinish      *entity.LiveFinish             `protobuf:"bytes,3,opt,name=live_finish,json=liveFinish,proto3" json:"live_finish,omitempty"`
 	PlayerResult    *entity.BattleLivePlayerResult `protobuf:"bytes,4,opt,name=player_result,json=playerResult,proto3" json:"player_result,omitempty"`
@@ -2026,7 +2469,7 @@ type FinishArenaLiveRequest struct {
 
 func (x *FinishArenaLiveRequest) Reset() {
 	*x = FinishArenaLiveRequest{}
-	mi := &file_app_live_live_service_proto_msgTypes[35]
+	mi := &file_app_live_live_service_proto_msgTypes[41]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2038,7 +2481,7 @@ func (x *FinishArenaLiveRequest) String() string {
 func (*FinishArenaLiveRequest) ProtoMessage() {}
 
 func (x *FinishArenaLiveRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_app_live_live_service_proto_msgTypes[35]
+	mi := &file_app_live_live_service_proto_msgTypes[41]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2051,7 +2494,7 @@ func (x *FinishArenaLiveRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FinishArenaLiveRequest.ProtoReflect.Descriptor instead.
 func (*FinishArenaLiveRequest) Descriptor() ([]byte, []int) {
-	return file_app_live_live_service_proto_rawDescGZIP(), []int{35}
+	return file_app_live_live_service_proto_rawDescGZIP(), []int{41}
 }
 
 func (x *FinishArenaLiveRequest) GetArenaSeasonId() int64 {
@@ -2061,6 +2504,7 @@ func (x *FinishArenaLiveRequest) GetArenaSeasonId() int64 {
 	return 0
 }
 
+// Deprecated: Marked as deprecated in app/live/live_service.proto.
 func (x *FinishArenaLiveRequest) GetArenaMusicId() int64 {
 	if x != nil {
 		return x.ArenaMusicId
@@ -2110,7 +2554,7 @@ type FinishArenaLiveResponse struct {
 
 func (x *FinishArenaLiveResponse) Reset() {
 	*x = FinishArenaLiveResponse{}
-	mi := &file_app_live_live_service_proto_msgTypes[36]
+	mi := &file_app_live_live_service_proto_msgTypes[42]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2122,7 +2566,7 @@ func (x *FinishArenaLiveResponse) String() string {
 func (*FinishArenaLiveResponse) ProtoMessage() {}
 
 func (x *FinishArenaLiveResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_app_live_live_service_proto_msgTypes[36]
+	mi := &file_app_live_live_service_proto_msgTypes[42]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2135,7 +2579,7 @@ func (x *FinishArenaLiveResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FinishArenaLiveResponse.ProtoReflect.Descriptor instead.
 func (*FinishArenaLiveResponse) Descriptor() ([]byte, []int) {
-	return file_app_live_live_service_proto_rawDescGZIP(), []int{36}
+	return file_app_live_live_service_proto_rawDescGZIP(), []int{42}
 }
 
 func (x *FinishArenaLiveResponse) GetRewardId() []int64 {
@@ -2183,15 +2627,16 @@ func (x *FinishArenaLiveResponse) GetBandHighscoreRatingRewards() []*entity.Band
 type GetArenaLiveResultRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	ArenaSeasonId int64                  `protobuf:"varint,1,opt,name=arena_season_id,json=arenaSeasonId,proto3" json:"arena_season_id,omitempty"`
-	ArenaMusicId  int64                  `protobuf:"varint,2,opt,name=arena_music_id,json=arenaMusicId,proto3" json:"arena_music_id,omitempty"`
-	ArenaLeagueId int64                  `protobuf:"varint,3,opt,name=arena_league_id,json=arenaLeagueId,proto3" json:"arena_league_id,omitempty"`
+	// Deprecated: Marked as deprecated in app/live/live_service.proto.
+	ArenaMusicId  int64 `protobuf:"varint,2,opt,name=arena_music_id,json=arenaMusicId,proto3" json:"arena_music_id,omitempty"`
+	ArenaLeagueId int64 `protobuf:"varint,3,opt,name=arena_league_id,json=arenaLeagueId,proto3" json:"arena_league_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *GetArenaLiveResultRequest) Reset() {
 	*x = GetArenaLiveResultRequest{}
-	mi := &file_app_live_live_service_proto_msgTypes[37]
+	mi := &file_app_live_live_service_proto_msgTypes[43]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2203,7 +2648,7 @@ func (x *GetArenaLiveResultRequest) String() string {
 func (*GetArenaLiveResultRequest) ProtoMessage() {}
 
 func (x *GetArenaLiveResultRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_app_live_live_service_proto_msgTypes[37]
+	mi := &file_app_live_live_service_proto_msgTypes[43]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2216,7 +2661,7 @@ func (x *GetArenaLiveResultRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetArenaLiveResultRequest.ProtoReflect.Descriptor instead.
 func (*GetArenaLiveResultRequest) Descriptor() ([]byte, []int) {
-	return file_app_live_live_service_proto_rawDescGZIP(), []int{37}
+	return file_app_live_live_service_proto_rawDescGZIP(), []int{43}
 }
 
 func (x *GetArenaLiveResultRequest) GetArenaSeasonId() int64 {
@@ -2226,6 +2671,7 @@ func (x *GetArenaLiveResultRequest) GetArenaSeasonId() int64 {
 	return 0
 }
 
+// Deprecated: Marked as deprecated in app/live/live_service.proto.
 func (x *GetArenaLiveResultRequest) GetArenaMusicId() int64 {
 	if x != nil {
 		return x.ArenaMusicId
@@ -2241,26 +2687,30 @@ func (x *GetArenaLiveResultRequest) GetArenaLeagueId() int64 {
 }
 
 type GetArenaLiveResultResponse struct {
-	state                     protoimpl.MessageState           `protogen:"open.v1"`
-	PlayerResult              []*entity.BattleLivePlayerResult `protobuf:"bytes,1,rep,name=player_result,json=playerResult,proto3" json:"player_result,omitempty"`
-	ArenaLiveGekisouRewardIds []int64                          `protobuf:"varint,2,rep,packed,name=arena_live_gekisou_reward_ids,json=arenaLiveGekisouRewardIds,proto3" json:"arena_live_gekisou_reward_ids,omitempty"`
-	RewardState               entity.GekisouRankingRewardState `protobuf:"varint,3,opt,name=reward_state,json=rewardState,proto3,enum=entity.GekisouRankingRewardState" json:"reward_state,omitempty"`
-	ArenaPromotionRewardIds   []int64                          `protobuf:"varint,4,rep,packed,name=arena_promotion_reward_ids,json=arenaPromotionRewardIds,proto3" json:"arena_promotion_reward_ids,omitempty"`
-	ArenaLiveRewardIds        []int64                          `protobuf:"varint,5,rep,packed,name=arena_live_reward_ids,json=arenaLiveRewardIds,proto3" json:"arena_live_reward_ids,omitempty"`
-	ArenaDailyReward          int64                            `protobuf:"varint,6,opt,name=arena_daily_reward,json=arenaDailyReward,proto3" json:"arena_daily_reward,omitempty"`
-	CurrentLeaguePoint        int64                            `protobuf:"varint,7,opt,name=current_league_point,json=currentLeaguePoint,proto3" json:"current_league_point,omitempty"`
-	DiffLeaguePoint           int64                            `protobuf:"varint,8,opt,name=diff_league_point,json=diffLeaguePoint,proto3" json:"diff_league_point,omitempty"`
-	CurrentMasterPoint        int64                            `protobuf:"varint,9,opt,name=current_master_point,json=currentMasterPoint,proto3" json:"current_master_point,omitempty"`
-	DiffMasterPoint           int64                            `protobuf:"varint,10,opt,name=diff_master_point,json=diffMasterPoint,proto3" json:"diff_master_point,omitempty"`
-	EventReward               []*entity.LiveEventReward        `protobuf:"bytes,11,rep,name=event_reward,json=eventReward,proto3" json:"event_reward,omitempty"`
-	CampaignDropRewards       []*entity.RewardResource         `protobuf:"bytes,12,rep,name=campaign_drop_rewards,json=campaignDropRewards,proto3" json:"campaign_drop_rewards,omitempty"`
-	unknownFields             protoimpl.UnknownFields
-	sizeCache                 protoimpl.SizeCache
+	state                      protoimpl.MessageState           `protogen:"open.v1"`
+	PlayerResult               []*entity.BattleLivePlayerResult `protobuf:"bytes,1,rep,name=player_result,json=playerResult,proto3" json:"player_result,omitempty"`
+	ArenaLiveGekisouRewardIds  []int64                          `protobuf:"varint,2,rep,packed,name=arena_live_gekisou_reward_ids,json=arenaLiveGekisouRewardIds,proto3" json:"arena_live_gekisou_reward_ids,omitempty"`
+	RewardState                entity.GekisouRankingRewardState `protobuf:"varint,3,opt,name=reward_state,json=rewardState,proto3,enum=entity.GekisouRankingRewardState" json:"reward_state,omitempty"`
+	ArenaPromotionRewardIds    []int64                          `protobuf:"varint,4,rep,packed,name=arena_promotion_reward_ids,json=arenaPromotionRewardIds,proto3" json:"arena_promotion_reward_ids,omitempty"`
+	ArenaLiveRewardIds         []int64                          `protobuf:"varint,5,rep,packed,name=arena_live_reward_ids,json=arenaLiveRewardIds,proto3" json:"arena_live_reward_ids,omitempty"`
+	ArenaDailyReward           int64                            `protobuf:"varint,6,opt,name=arena_daily_reward,json=arenaDailyReward,proto3" json:"arena_daily_reward,omitempty"`
+	CurrentLeaguePoint         int64                            `protobuf:"varint,7,opt,name=current_league_point,json=currentLeaguePoint,proto3" json:"current_league_point,omitempty"`
+	DiffLeaguePoint            int64                            `protobuf:"varint,8,opt,name=diff_league_point,json=diffLeaguePoint,proto3" json:"diff_league_point,omitempty"`
+	CurrentMasterPoint         int64                            `protobuf:"varint,9,opt,name=current_master_point,json=currentMasterPoint,proto3" json:"current_master_point,omitempty"`
+	DiffMasterPoint            int64                            `protobuf:"varint,10,opt,name=diff_master_point,json=diffMasterPoint,proto3" json:"diff_master_point,omitempty"`
+	EventReward                []*entity.LiveEventReward        `protobuf:"bytes,11,rep,name=event_reward,json=eventReward,proto3" json:"event_reward,omitempty"`
+	CampaignDropRewards        []*entity.RewardResource         `protobuf:"bytes,12,rep,name=campaign_drop_rewards,json=campaignDropRewards,proto3" json:"campaign_drop_rewards,omitempty"`
+	GekisouRankingEventRank    int32                            `protobuf:"varint,13,opt,name=gekisou_ranking_event_rank,json=gekisouRankingEventRank,proto3" json:"gekisou_ranking_event_rank,omitempty"`
+	GekisouRankingEventRewards []*entity.RewardResource         `protobuf:"bytes,14,rep,name=gekisou_ranking_event_rewards,json=gekisouRankingEventRewards,proto3" json:"gekisou_ranking_event_rewards,omitempty"`
+	TryResult                  *entity.TryLiveResult            `protobuf:"bytes,15,opt,name=try_result,json=tryResult,proto3" json:"try_result,omitempty"`
+	Notification               *entity.Notification             `protobuf:"bytes,16,opt,name=notification,proto3" json:"notification,omitempty"`
+	unknownFields              protoimpl.UnknownFields
+	sizeCache                  protoimpl.SizeCache
 }
 
 func (x *GetArenaLiveResultResponse) Reset() {
 	*x = GetArenaLiveResultResponse{}
-	mi := &file_app_live_live_service_proto_msgTypes[38]
+	mi := &file_app_live_live_service_proto_msgTypes[44]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2272,7 +2722,7 @@ func (x *GetArenaLiveResultResponse) String() string {
 func (*GetArenaLiveResultResponse) ProtoMessage() {}
 
 func (x *GetArenaLiveResultResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_app_live_live_service_proto_msgTypes[38]
+	mi := &file_app_live_live_service_proto_msgTypes[44]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2285,7 +2735,7 @@ func (x *GetArenaLiveResultResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetArenaLiveResultResponse.ProtoReflect.Descriptor instead.
 func (*GetArenaLiveResultResponse) Descriptor() ([]byte, []int) {
-	return file_app_live_live_service_proto_rawDescGZIP(), []int{38}
+	return file_app_live_live_service_proto_rawDescGZIP(), []int{44}
 }
 
 func (x *GetArenaLiveResultResponse) GetPlayerResult() []*entity.BattleLivePlayerResult {
@@ -2372,6 +2822,34 @@ func (x *GetArenaLiveResultResponse) GetCampaignDropRewards() []*entity.RewardRe
 	return nil
 }
 
+func (x *GetArenaLiveResultResponse) GetGekisouRankingEventRank() int32 {
+	if x != nil {
+		return x.GekisouRankingEventRank
+	}
+	return 0
+}
+
+func (x *GetArenaLiveResultResponse) GetGekisouRankingEventRewards() []*entity.RewardResource {
+	if x != nil {
+		return x.GekisouRankingEventRewards
+	}
+	return nil
+}
+
+func (x *GetArenaLiveResultResponse) GetTryResult() *entity.TryLiveResult {
+	if x != nil {
+		return x.TryResult
+	}
+	return nil
+}
+
+func (x *GetArenaLiveResultResponse) GetNotification() *entity.Notification {
+	if x != nil {
+		return x.Notification
+	}
+	return nil
+}
+
 var File_app_live_live_service_proto protoreflect.FileDescriptor
 
 const file_app_live_live_service_proto_rawDesc = "" +
@@ -2390,7 +2868,7 @@ const file_app_live_live_service_proto_rawDesc = "" +
 	"\x05score\x18\x02 \x01(\x05R\x05score\x12\x14\n" +
 	"\x05combo\x18\x03 \x01(\x05R\x05combo\x123\n" +
 	"\vlive_finish\x18\x04 \x01(\v2\x12.entity.LiveFinishR\n" +
-	"liveFinish\"\xe0\x03\n" +
+	"liveFinish\"\x96\x04\n" +
 	"\x12FinishFreeResponse\x12\x1b\n" +
 	"\treward_id\x18\x01 \x03(\x03R\brewardId\x12:\n" +
 	"\fevent_reward\x18\x02 \x03(\v2\x17.entity.LiveEventRewardR\veventReward\x12H\n" +
@@ -2398,7 +2876,9 @@ const file_app_live_live_service_proto_rawDesc = "" +
 	"\x1dband_highscore_rating_rewards\x18\x04 \x03(\v2!.entity.BandHighScoreRatingRewardR\x1abandHighscoreRatingRewards\x12;\n" +
 	"\rmusic_rewards\x18\x05 \x03(\v2\x16.entity.RewardResourceR\fmusicRewards\x128\n" +
 	"\fnotification\x18\x06 \x01(\v2\x14.entity.NotificationR\fnotification\x12J\n" +
-	"\x15campaign_drop_rewards\x18\a \x03(\v2\x16.entity.RewardResourceR\x13campaignDropRewards\"\xba\x01\n" +
+	"\x15campaign_drop_rewards\x18\a \x03(\v2\x16.entity.RewardResourceR\x13campaignDropRewards\x124\n" +
+	"\n" +
+	"try_result\x18\b \x01(\v2\x15.entity.TryLiveResultR\ttryResult\"\xba\x01\n" +
 	"\x19StartChallengeLiveRequest\x12,\n" +
 	"\x12challenge_music_id\x18\x01 \x01(\x03R\x10challengeMusicId\x12\x1e\n" +
 	"\n" +
@@ -2418,7 +2898,30 @@ const file_app_live_live_service_proto_rawDesc = "" +
 	"\x1dband_highscore_rating_rewards\x18\x04 \x03(\v2!.entity.BandHighScoreRatingRewardR\x1abandHighscoreRatingRewards\x12;\n" +
 	"\rmusic_rewards\x18\x05 \x03(\v2\x16.entity.RewardResourceR\fmusicRewards\x128\n" +
 	"\fnotification\x18\x06 \x01(\v2\x14.entity.NotificationR\fnotification\x12J\n" +
-	"\x15campaign_drop_rewards\x18\a \x03(\v2\x16.entity.RewardResourceR\x13campaignDropRewards\"\xb6\x01\n" +
+	"\x15campaign_drop_rewards\x18\a \x03(\v2\x16.entity.RewardResourceR\x13campaignDropRewards\"\x86\x01\n" +
+	"\x13StartTryLiveRequest\x12 \n" +
+	"\ftry_music_id\x18\x01 \x01(\x03R\n" +
+	"tryMusicId\x12\x1e\n" +
+	"\n" +
+	"difficulty\x18\x02 \x01(\x05R\n" +
+	"difficulty\x12\x14\n" +
+	"\x05boost\x18\x03 \x01(\x05R\x05boost\x12\x17\n" +
+	"\adeck_id\x18\x04 \x01(\x05R\x06deckId\"\x16\n" +
+	"\x14StartTryLiveResponse\"f\n" +
+	"\x14FinishTryLiveRequest\x12\x19\n" +
+	"\bevent_id\x18\x01 \x01(\x03R\aeventId\x123\n" +
+	"\vlive_finish\x18\x02 \x01(\v2\x12.entity.LiveFinishR\n" +
+	"liveFinish\"\x99\x04\n" +
+	"\x15FinishTryLiveResponse\x12\x1b\n" +
+	"\treward_id\x18\x01 \x03(\x03R\brewardId\x12:\n" +
+	"\fevent_reward\x18\x02 \x03(\v2\x17.entity.LiveEventRewardR\veventReward\x12H\n" +
+	"!total_highscore_rating_reward_ids\x18\x03 \x03(\x03R\x1dtotalHighscoreRatingRewardIds\x12d\n" +
+	"\x1dband_highscore_rating_rewards\x18\x04 \x03(\v2!.entity.BandHighScoreRatingRewardR\x1abandHighscoreRatingRewards\x12;\n" +
+	"\rmusic_rewards\x18\x05 \x03(\v2\x16.entity.RewardResourceR\fmusicRewards\x128\n" +
+	"\fnotification\x18\x06 \x01(\v2\x14.entity.NotificationR\fnotification\x12J\n" +
+	"\x15campaign_drop_rewards\x18\a \x03(\v2\x16.entity.RewardResourceR\x13campaignDropRewards\x124\n" +
+	"\n" +
+	"try_result\x18\b \x01(\v2\x15.entity.TryLiveResultR\ttryResult\"\xb6\x01\n" +
 	"\x16StartBattleLiveRequest\x12\x19\n" +
 	"\bmusic_id\x18\x01 \x01(\x03R\amusicId\x12\x1e\n" +
 	"\n" +
@@ -2445,7 +2948,7 @@ const file_app_live_live_service_proto_rawDesc = "" +
 	"\x1ebattle_live_gekisou_reward_ids\x18\a \x03(\x03B\x02\x18\x01R\x1abattleLiveGekisouRewardIds\x12H\n" +
 	"!total_highscore_rating_reward_ids\x18\b \x03(\x03R\x1dtotalHighscoreRatingRewardIds\x12d\n" +
 	"\x1dband_highscore_rating_rewards\x18\t \x03(\v2!.entity.BandHighScoreRatingRewardR\x1abandHighscoreRatingRewards\"\x1c\n" +
-	"\x1aGetBattleLiveResultRequest\"\xb5\x04\n" +
+	"\x1aGetBattleLiveResultRequest\"\x83\x06\n" +
 	"\x1bGetBattleLiveResultResponse\x12C\n" +
 	"\rplayer_result\x18\x01 \x03(\v2\x1e.entity.BattleLivePlayerResultR\fplayerResult\x12B\n" +
 	"\x1ebattle_live_gekisou_reward_ids\x18\x02 \x03(\x03R\x1abattleLiveGekisouRewardIds\x12D\n" +
@@ -2454,7 +2957,12 @@ const file_app_live_live_service_proto_rawDesc = "" +
 	"\fevent_reward\x18\x05 \x03(\v2\x17.entity.LiveEventRewardR\veventReward\x128\n" +
 	"\fnotification\x18\x06 \x01(\v2\x14.entity.NotificationR\fnotification\x12P\n" +
 	"\x13battle_live_rewards\x18\a \x03(\v2 .entity.BattleLiveRewardResourceR\x11battleLiveRewards\x12J\n" +
-	"\x15campaign_drop_rewards\x18\b \x03(\v2\x16.entity.RewardResourceR\x13campaignDropRewards\"\xb4\x01\n" +
+	"\x15campaign_drop_rewards\x18\b \x03(\v2\x16.entity.RewardResourceR\x13campaignDropRewards\x12;\n" +
+	"\x1agekisou_ranking_event_rank\x18\t \x01(\x05R\x17gekisouRankingEventRank\x12Y\n" +
+	"\x1dgekisou_ranking_event_rewards\x18\n" +
+	" \x03(\v2\x16.entity.RewardResourceR\x1agekisouRankingEventRewards\x124\n" +
+	"\n" +
+	"try_result\x18\v \x01(\v2\x15.entity.TryLiveResultR\ttryResult\"\xb4\x01\n" +
 	"\x0fSkipFreeRequest\x12\x19\n" +
 	"\bmusic_id\x18\x01 \x01(\x03R\amusicId\x12\x1e\n" +
 	"\n" +
@@ -2477,6 +2985,20 @@ const file_app_live_live_service_proto_rawDesc = "" +
 	"\adeck_id\x18\x04 \x01(\x05R\x06deckId\x127\n" +
 	"\x18current_deck_total_power\x18\x05 \x01(\x05R\x15currentDeckTotalPower\"\xfa\x01\n" +
 	"\x19SkipChallengeLiveResponse\x12\x1b\n" +
+	"\treward_id\x18\x01 \x03(\x03R\brewardId\x12:\n" +
+	"\fevent_reward\x18\x02 \x03(\v2\x17.entity.LiveEventRewardR\veventReward\x128\n" +
+	"\fnotification\x18\x03 \x01(\v2\x14.entity.NotificationR\fnotification\x12J\n" +
+	"\x15campaign_drop_rewards\x18\x04 \x03(\v2\x16.entity.RewardResourceR\x13campaignDropRewards\"\xbe\x01\n" +
+	"\x12SkipTryLiveRequest\x12 \n" +
+	"\ftry_music_id\x18\x01 \x01(\x03R\n" +
+	"tryMusicId\x12\x1e\n" +
+	"\n" +
+	"difficulty\x18\x02 \x01(\x05R\n" +
+	"difficulty\x12\x14\n" +
+	"\x05boost\x18\x03 \x01(\x05R\x05boost\x12\x17\n" +
+	"\adeck_id\x18\x04 \x01(\x05R\x06deckId\x127\n" +
+	"\x18current_deck_total_power\x18\x05 \x01(\x05R\x15currentDeckTotalPower\"\xf4\x01\n" +
+	"\x13SkipTryLiveResponse\x12\x1b\n" +
 	"\treward_id\x18\x01 \x03(\x03R\brewardId\x12:\n" +
 	"\fevent_reward\x18\x02 \x03(\v2\x17.entity.LiveEventRewardR\veventReward\x128\n" +
 	"\fnotification\x18\x03 \x01(\v2\x14.entity.NotificationR\fnotification\x12J\n" +
@@ -2505,10 +3027,10 @@ const file_app_live_live_service_proto_rawDesc = "" +
 	"\x11target_player_ids\x18\x02 \x03(\tR\x0ftargetPlayerIds\x12$\n" +
 	"\x0ehost_player_id\x18\x03 \x01(\tR\fhostPlayerId\"c\n" +
 	"!FetchBattleLiveInvitationResponse\x12>\n" +
-	"\vinvitations\x18\x01 \x03(\v2\x1c.entity.BattleLiveInvitationR\vinvitations\"\xbb\x02\n" +
+	"\vinvitations\x18\x01 \x03(\v2\x1c.entity.BattleLiveInvitationR\vinvitations\"\xda\x02\n" +
 	"\x15StartArenaLiveRequest\x12&\n" +
-	"\x0farena_season_id\x18\x01 \x01(\x03R\rarenaSeasonId\x12$\n" +
-	"\x0earena_music_id\x18\x02 \x01(\x03R\farenaMusicId\x12\x1e\n" +
+	"\x0farena_season_id\x18\x01 \x01(\x03R\rarenaSeasonId\x12(\n" +
+	"\x0earena_music_id\x18\x02 \x01(\x03B\x02\x18\x01R\farenaMusicId\x12\x1e\n" +
 	"\n" +
 	"difficulty\x18\x03 \x01(\x05R\n" +
 	"difficulty\x12\x14\n" +
@@ -2516,11 +3038,12 @@ const file_app_live_live_service_proto_rawDesc = "" +
 	"\x17arena_dedicated_deck_id\x18\x05 \x01(\x05R\x14arenaDedicatedDeckId\x12\x17\n" +
 	"\aroom_id\x18\x06 \x01(\tR\x06roomId\x123\n" +
 	"\x16arena_support_item_ids\x18\a \x03(\x03R\x13arenaSupportItemIds\x12\x19\n" +
-	"\blobby_id\x18\b \x01(\x03R\alobbyId\"\x18\n" +
-	"\x16StartArenaLiveResponse\"\xc6\x02\n" +
+	"\blobby_id\x18\b \x01(\x03R\alobbyId\x12\x19\n" +
+	"\bmusic_id\x18\t \x01(\x03R\amusicId\"\x18\n" +
+	"\x16StartArenaLiveResponse\"\xca\x02\n" +
 	"\x16FinishArenaLiveRequest\x12&\n" +
-	"\x0farena_season_id\x18\x01 \x01(\x03R\rarenaSeasonId\x12$\n" +
-	"\x0earena_music_id\x18\x02 \x01(\x03R\farenaMusicId\x123\n" +
+	"\x0farena_season_id\x18\x01 \x01(\x03R\rarenaSeasonId\x12(\n" +
+	"\x0earena_music_id\x18\x02 \x01(\x03B\x02\x18\x01R\farenaMusicId\x123\n" +
 	"\vlive_finish\x18\x03 \x01(\v2\x12.entity.LiveFinishR\n" +
 	"liveFinish\x12C\n" +
 	"\rplayer_result\x18\x04 \x01(\v2\x1e.entity.BattleLivePlayerResultR\fplayerResult\x12A\n" +
@@ -2532,11 +3055,11 @@ const file_app_live_live_service_proto_rawDesc = "" +
 	"\rmusic_rewards\x18\x03 \x03(\v2\x16.entity.RewardResourceR\fmusicRewards\x128\n" +
 	"\fnotification\x18\x04 \x01(\v2\x14.entity.NotificationR\fnotification\x12H\n" +
 	"!total_highscore_rating_reward_ids\x18\x05 \x03(\x03R\x1dtotalHighscoreRatingRewardIds\x12d\n" +
-	"\x1dband_highscore_rating_rewards\x18\x06 \x03(\v2!.entity.BandHighScoreRatingRewardR\x1abandHighscoreRatingRewards\"\x91\x01\n" +
+	"\x1dband_highscore_rating_rewards\x18\x06 \x03(\v2!.entity.BandHighScoreRatingRewardR\x1abandHighscoreRatingRewards\"\x95\x01\n" +
 	"\x19GetArenaLiveResultRequest\x12&\n" +
-	"\x0farena_season_id\x18\x01 \x01(\x03R\rarenaSeasonId\x12$\n" +
-	"\x0earena_music_id\x18\x02 \x01(\x03R\farenaMusicId\x12&\n" +
-	"\x0farena_league_id\x18\x03 \x01(\x03R\rarenaLeagueId\"\xcb\x05\n" +
+	"\x0farena_season_id\x18\x01 \x01(\x03R\rarenaSeasonId\x12(\n" +
+	"\x0earena_music_id\x18\x02 \x01(\x03B\x02\x18\x01R\farenaMusicId\x12&\n" +
+	"\x0farena_league_id\x18\x03 \x01(\x03R\rarenaLeagueId\"\xd3\a\n" +
 	"\x1aGetArenaLiveResultResponse\x12C\n" +
 	"\rplayer_result\x18\x01 \x03(\v2\x1e.entity.BattleLivePlayerResultR\fplayerResult\x12@\n" +
 	"\x1darena_live_gekisou_reward_ids\x18\x02 \x03(\x03R\x19arenaLiveGekisouRewardIds\x12D\n" +
@@ -2550,15 +3073,23 @@ const file_app_live_live_service_proto_rawDesc = "" +
 	"\x11diff_master_point\x18\n" +
 	" \x01(\x03R\x0fdiffMasterPoint\x12:\n" +
 	"\fevent_reward\x18\v \x03(\v2\x17.entity.LiveEventRewardR\veventReward\x12J\n" +
-	"\x15campaign_drop_rewards\x18\f \x03(\v2\x16.entity.RewardResourceR\x13campaignDropRewards2\xe3\x0f\n" +
+	"\x15campaign_drop_rewards\x18\f \x03(\v2\x16.entity.RewardResourceR\x13campaignDropRewards\x12;\n" +
+	"\x1agekisou_ranking_event_rank\x18\r \x01(\x05R\x17gekisouRankingEventRank\x12Y\n" +
+	"\x1dgekisou_ranking_event_rewards\x18\x0e \x03(\v2\x16.entity.RewardResourceR\x1agekisouRankingEventRewards\x124\n" +
+	"\n" +
+	"try_result\x18\x0f \x01(\v2\x15.entity.TryLiveResultR\ttryResult\x128\n" +
+	"\fnotification\x18\x10 \x01(\v2\x14.entity.NotificationR\fnotification2\xd0\x11\n" +
 	"\vLiveService\x12L\n" +
 	"\tStartFree\x12\x1a.app.live.StartFreeRequest\x1a\x1b.app.live.StartFreeResponse\"\x06\x92\xb5\x18\x02H\x01\x12G\n" +
 	"\n" +
 	"FinishFree\x12\x1b.app.live.FinishFreeRequest\x1a\x1c.app.live.FinishFreeResponse\x12_\n" +
 	"\x12StartChallengeLive\x12#.app.live.StartChallengeLiveRequest\x1a$.app.live.StartChallengeLiveResponse\x12b\n" +
-	"\x13FinishChallengeLive\x12$.app.live.FinishChallengeLiveRequest\x1a%.app.live.FinishChallengeLiveResponse\x12A\n" +
+	"\x13FinishChallengeLive\x12$.app.live.FinishChallengeLiveRequest\x1a%.app.live.FinishChallengeLiveResponse\x12M\n" +
+	"\fStartTryLive\x12\x1d.app.live.StartTryLiveRequest\x1a\x1e.app.live.StartTryLiveResponse\x12P\n" +
+	"\rFinishTryLive\x12\x1e.app.live.FinishTryLiveRequest\x1a\x1f.app.live.FinishTryLiveResponse\x12A\n" +
 	"\bSkipFree\x12\x19.app.live.SkipFreeRequest\x1a\x1a.app.live.SkipFreeResponse\x12\\\n" +
-	"\x11SkipChallengeLive\x12\".app.live.SkipChallengeLiveRequest\x1a#.app.live.SkipChallengeLiveResponse\x12^\n" +
+	"\x11SkipChallengeLive\x12\".app.live.SkipChallengeLiveRequest\x1a#.app.live.SkipChallengeLiveResponse\x12J\n" +
+	"\vSkipTryLive\x12\x1c.app.live.SkipTryLiveRequest\x1a\x1d.app.live.SkipTryLiveResponse\x12^\n" +
 	"\x0fStartBattleLive\x12 .app.live.StartBattleLiveRequest\x1a!.app.live.StartBattleLiveResponse\"\x06\x92\xb5\x18\x02(\x01\x12\x82\x01\n" +
 	"\x1bCheckMaintenanceCasualMatch\x12,.app.live.CheckMaintenanceCasualMatchRequest\x1a-.app.live.CheckMaintenanceCasualMatchResponse\"\x06\x92\xb5\x18\x02(\x01\x12|\n" +
 	"\x19CheckMaintenanceRankMatch\x12*.app.live.CheckMaintenanceRankMatchRequest\x1a+.app.live.CheckMaintenanceRankMatchResponse\"\x06\x92\xb5\x18\x02 \x01\x12m\n" +
@@ -2587,7 +3118,7 @@ func file_app_live_live_service_proto_rawDescGZIP() []byte {
 	return file_app_live_live_service_proto_rawDescData
 }
 
-var file_app_live_live_service_proto_msgTypes = make([]protoimpl.MessageInfo, 39)
+var file_app_live_live_service_proto_msgTypes = make([]protoimpl.MessageInfo, 45)
 var file_app_live_live_service_proto_goTypes = []any{
 	(*StartFreeRequest)(nil),                    // 0: app.live.StartFreeRequest
 	(*StartFreeResponse)(nil),                   // 1: app.live.StartFreeResponse
@@ -2597,141 +3128,170 @@ var file_app_live_live_service_proto_goTypes = []any{
 	(*StartChallengeLiveResponse)(nil),          // 5: app.live.StartChallengeLiveResponse
 	(*FinishChallengeLiveRequest)(nil),          // 6: app.live.FinishChallengeLiveRequest
 	(*FinishChallengeLiveResponse)(nil),         // 7: app.live.FinishChallengeLiveResponse
-	(*StartBattleLiveRequest)(nil),              // 8: app.live.StartBattleLiveRequest
-	(*StartBattleLiveResponse)(nil),             // 9: app.live.StartBattleLiveResponse
-	(*FinishBattleLiveRequest)(nil),             // 10: app.live.FinishBattleLiveRequest
-	(*FinishBattleLiveResponse)(nil),            // 11: app.live.FinishBattleLiveResponse
-	(*GetBattleLiveResultRequest)(nil),          // 12: app.live.GetBattleLiveResultRequest
-	(*GetBattleLiveResultResponse)(nil),         // 13: app.live.GetBattleLiveResultResponse
-	(*SkipFreeRequest)(nil),                     // 14: app.live.SkipFreeRequest
-	(*SkipFreeResponse)(nil),                    // 15: app.live.SkipFreeResponse
-	(*SkipChallengeLiveRequest)(nil),            // 16: app.live.SkipChallengeLiveRequest
-	(*SkipChallengeLiveResponse)(nil),           // 17: app.live.SkipChallengeLiveResponse
-	(*SaveSettingRequest)(nil),                  // 18: app.live.SaveSettingRequest
-	(*SaveSettingResponse)(nil),                 // 19: app.live.SaveSettingResponse
-	(*GetBattleLiveSearchIdRequest)(nil),        // 20: app.live.GetBattleLiveSearchIdRequest
-	(*GetBattleLiveSearchIdResponse)(nil),       // 21: app.live.GetBattleLiveSearchIdResponse
-	(*CheckMaintenanceCasualMatchRequest)(nil),  // 22: app.live.CheckMaintenanceCasualMatchRequest
-	(*CheckMaintenanceCasualMatchResponse)(nil), // 23: app.live.CheckMaintenanceCasualMatchResponse
-	(*CheckMaintenanceRankMatchRequest)(nil),    // 24: app.live.CheckMaintenanceRankMatchRequest
-	(*CheckMaintenanceRankMatchResponse)(nil),   // 25: app.live.CheckMaintenanceRankMatchResponse
-	(*CheckMaintenanceFreeRequest)(nil),         // 26: app.live.CheckMaintenanceFreeRequest
-	(*CheckMaintenanceFreeResponse)(nil),        // 27: app.live.CheckMaintenanceFreeResponse
-	(*RemoveBattleLiveInvitationRequest)(nil),   // 28: app.live.RemoveBattleLiveInvitationRequest
-	(*GainStampRewardRequest)(nil),              // 29: app.live.GainStampRewardRequest
-	(*GainStampRewardResponse)(nil),             // 30: app.live.GainStampRewardResponse
-	(*SendBattleLiveInvitationRequest)(nil),     // 31: app.live.SendBattleLiveInvitationRequest
-	(*FetchBattleLiveInvitationResponse)(nil),   // 32: app.live.FetchBattleLiveInvitationResponse
-	(*StartArenaLiveRequest)(nil),               // 33: app.live.StartArenaLiveRequest
-	(*StartArenaLiveResponse)(nil),              // 34: app.live.StartArenaLiveResponse
-	(*FinishArenaLiveRequest)(nil),              // 35: app.live.FinishArenaLiveRequest
-	(*FinishArenaLiveResponse)(nil),             // 36: app.live.FinishArenaLiveResponse
-	(*GetArenaLiveResultRequest)(nil),           // 37: app.live.GetArenaLiveResultRequest
-	(*GetArenaLiveResultResponse)(nil),          // 38: app.live.GetArenaLiveResultResponse
-	(*entity.LiveFinish)(nil),                   // 39: entity.LiveFinish
-	(*entity.LiveEventReward)(nil),              // 40: entity.LiveEventReward
-	(*entity.BandHighScoreRatingReward)(nil),    // 41: entity.BandHighScoreRatingReward
-	(*entity.RewardResource)(nil),               // 42: entity.RewardResource
-	(*entity.Notification)(nil),                 // 43: entity.Notification
-	(*entity.BattleLivePlayerResult)(nil),       // 44: entity.BattleLivePlayerResult
-	(*entity.GekisouRanking)(nil),               // 45: entity.GekisouRanking
-	(entity.GekisouRankingRewardState)(0),       // 46: entity.GekisouRankingRewardState
-	(*entity.BattleLiveRewardResource)(nil),     // 47: entity.BattleLiveRewardResource
-	(*entity.BattleLiveInvitation)(nil),         // 48: entity.BattleLiveInvitation
-	(*emptypb.Empty)(nil),                       // 49: google.protobuf.Empty
+	(*StartTryLiveRequest)(nil),                 // 8: app.live.StartTryLiveRequest
+	(*StartTryLiveResponse)(nil),                // 9: app.live.StartTryLiveResponse
+	(*FinishTryLiveRequest)(nil),                // 10: app.live.FinishTryLiveRequest
+	(*FinishTryLiveResponse)(nil),               // 11: app.live.FinishTryLiveResponse
+	(*StartBattleLiveRequest)(nil),              // 12: app.live.StartBattleLiveRequest
+	(*StartBattleLiveResponse)(nil),             // 13: app.live.StartBattleLiveResponse
+	(*FinishBattleLiveRequest)(nil),             // 14: app.live.FinishBattleLiveRequest
+	(*FinishBattleLiveResponse)(nil),            // 15: app.live.FinishBattleLiveResponse
+	(*GetBattleLiveResultRequest)(nil),          // 16: app.live.GetBattleLiveResultRequest
+	(*GetBattleLiveResultResponse)(nil),         // 17: app.live.GetBattleLiveResultResponse
+	(*SkipFreeRequest)(nil),                     // 18: app.live.SkipFreeRequest
+	(*SkipFreeResponse)(nil),                    // 19: app.live.SkipFreeResponse
+	(*SkipChallengeLiveRequest)(nil),            // 20: app.live.SkipChallengeLiveRequest
+	(*SkipChallengeLiveResponse)(nil),           // 21: app.live.SkipChallengeLiveResponse
+	(*SkipTryLiveRequest)(nil),                  // 22: app.live.SkipTryLiveRequest
+	(*SkipTryLiveResponse)(nil),                 // 23: app.live.SkipTryLiveResponse
+	(*SaveSettingRequest)(nil),                  // 24: app.live.SaveSettingRequest
+	(*SaveSettingResponse)(nil),                 // 25: app.live.SaveSettingResponse
+	(*GetBattleLiveSearchIdRequest)(nil),        // 26: app.live.GetBattleLiveSearchIdRequest
+	(*GetBattleLiveSearchIdResponse)(nil),       // 27: app.live.GetBattleLiveSearchIdResponse
+	(*CheckMaintenanceCasualMatchRequest)(nil),  // 28: app.live.CheckMaintenanceCasualMatchRequest
+	(*CheckMaintenanceCasualMatchResponse)(nil), // 29: app.live.CheckMaintenanceCasualMatchResponse
+	(*CheckMaintenanceRankMatchRequest)(nil),    // 30: app.live.CheckMaintenanceRankMatchRequest
+	(*CheckMaintenanceRankMatchResponse)(nil),   // 31: app.live.CheckMaintenanceRankMatchResponse
+	(*CheckMaintenanceFreeRequest)(nil),         // 32: app.live.CheckMaintenanceFreeRequest
+	(*CheckMaintenanceFreeResponse)(nil),        // 33: app.live.CheckMaintenanceFreeResponse
+	(*RemoveBattleLiveInvitationRequest)(nil),   // 34: app.live.RemoveBattleLiveInvitationRequest
+	(*GainStampRewardRequest)(nil),              // 35: app.live.GainStampRewardRequest
+	(*GainStampRewardResponse)(nil),             // 36: app.live.GainStampRewardResponse
+	(*SendBattleLiveInvitationRequest)(nil),     // 37: app.live.SendBattleLiveInvitationRequest
+	(*FetchBattleLiveInvitationResponse)(nil),   // 38: app.live.FetchBattleLiveInvitationResponse
+	(*StartArenaLiveRequest)(nil),               // 39: app.live.StartArenaLiveRequest
+	(*StartArenaLiveResponse)(nil),              // 40: app.live.StartArenaLiveResponse
+	(*FinishArenaLiveRequest)(nil),              // 41: app.live.FinishArenaLiveRequest
+	(*FinishArenaLiveResponse)(nil),             // 42: app.live.FinishArenaLiveResponse
+	(*GetArenaLiveResultRequest)(nil),           // 43: app.live.GetArenaLiveResultRequest
+	(*GetArenaLiveResultResponse)(nil),          // 44: app.live.GetArenaLiveResultResponse
+	(*entity.LiveFinish)(nil),                   // 45: entity.LiveFinish
+	(*entity.LiveEventReward)(nil),              // 46: entity.LiveEventReward
+	(*entity.BandHighScoreRatingReward)(nil),    // 47: entity.BandHighScoreRatingReward
+	(*entity.RewardResource)(nil),               // 48: entity.RewardResource
+	(*entity.Notification)(nil),                 // 49: entity.Notification
+	(*entity.TryLiveResult)(nil),                // 50: entity.TryLiveResult
+	(*entity.BattleLivePlayerResult)(nil),       // 51: entity.BattleLivePlayerResult
+	(*entity.GekisouRanking)(nil),               // 52: entity.GekisouRanking
+	(entity.GekisouRankingRewardState)(0),       // 53: entity.GekisouRankingRewardState
+	(*entity.BattleLiveRewardResource)(nil),     // 54: entity.BattleLiveRewardResource
+	(*entity.BattleLiveInvitation)(nil),         // 55: entity.BattleLiveInvitation
+	(*emptypb.Empty)(nil),                       // 56: google.protobuf.Empty
 }
 var file_app_live_live_service_proto_depIdxs = []int32{
-	39, // 0: app.live.FinishFreeRequest.live_finish:type_name -> entity.LiveFinish
-	40, // 1: app.live.FinishFreeResponse.event_reward:type_name -> entity.LiveEventReward
-	41, // 2: app.live.FinishFreeResponse.band_highscore_rating_rewards:type_name -> entity.BandHighScoreRatingReward
-	42, // 3: app.live.FinishFreeResponse.music_rewards:type_name -> entity.RewardResource
-	43, // 4: app.live.FinishFreeResponse.notification:type_name -> entity.Notification
-	42, // 5: app.live.FinishFreeResponse.campaign_drop_rewards:type_name -> entity.RewardResource
-	39, // 6: app.live.FinishChallengeLiveRequest.live_finish:type_name -> entity.LiveFinish
-	40, // 7: app.live.FinishChallengeLiveResponse.event_reward:type_name -> entity.LiveEventReward
-	41, // 8: app.live.FinishChallengeLiveResponse.band_highscore_rating_rewards:type_name -> entity.BandHighScoreRatingReward
-	42, // 9: app.live.FinishChallengeLiveResponse.music_rewards:type_name -> entity.RewardResource
-	43, // 10: app.live.FinishChallengeLiveResponse.notification:type_name -> entity.Notification
-	42, // 11: app.live.FinishChallengeLiveResponse.campaign_drop_rewards:type_name -> entity.RewardResource
-	39, // 12: app.live.FinishBattleLiveRequest.live_finish:type_name -> entity.LiveFinish
-	44, // 13: app.live.FinishBattleLiveRequest.player_result:type_name -> entity.BattleLivePlayerResult
-	45, // 14: app.live.FinishBattleLiveRequest.gekisou_rankings:type_name -> entity.GekisouRanking
-	40, // 15: app.live.FinishBattleLiveResponse.event_reward:type_name -> entity.LiveEventReward
-	42, // 16: app.live.FinishBattleLiveResponse.music_rewards:type_name -> entity.RewardResource
-	43, // 17: app.live.FinishBattleLiveResponse.notification:type_name -> entity.Notification
-	41, // 18: app.live.FinishBattleLiveResponse.band_highscore_rating_rewards:type_name -> entity.BandHighScoreRatingReward
-	44, // 19: app.live.GetBattleLiveResultResponse.player_result:type_name -> entity.BattleLivePlayerResult
-	46, // 20: app.live.GetBattleLiveResultResponse.reward_state:type_name -> entity.GekisouRankingRewardState
-	40, // 21: app.live.GetBattleLiveResultResponse.event_reward:type_name -> entity.LiveEventReward
-	43, // 22: app.live.GetBattleLiveResultResponse.notification:type_name -> entity.Notification
-	47, // 23: app.live.GetBattleLiveResultResponse.battle_live_rewards:type_name -> entity.BattleLiveRewardResource
-	42, // 24: app.live.GetBattleLiveResultResponse.campaign_drop_rewards:type_name -> entity.RewardResource
-	40, // 25: app.live.SkipFreeResponse.event_reward:type_name -> entity.LiveEventReward
-	43, // 26: app.live.SkipFreeResponse.notification:type_name -> entity.Notification
-	42, // 27: app.live.SkipFreeResponse.campaign_drop_rewards:type_name -> entity.RewardResource
-	40, // 28: app.live.SkipChallengeLiveResponse.event_reward:type_name -> entity.LiveEventReward
-	43, // 29: app.live.SkipChallengeLiveResponse.notification:type_name -> entity.Notification
-	42, // 30: app.live.SkipChallengeLiveResponse.campaign_drop_rewards:type_name -> entity.RewardResource
-	43, // 31: app.live.GainStampRewardResponse.notification:type_name -> entity.Notification
-	48, // 32: app.live.FetchBattleLiveInvitationResponse.invitations:type_name -> entity.BattleLiveInvitation
-	39, // 33: app.live.FinishArenaLiveRequest.live_finish:type_name -> entity.LiveFinish
-	44, // 34: app.live.FinishArenaLiveRequest.player_result:type_name -> entity.BattleLivePlayerResult
-	45, // 35: app.live.FinishArenaLiveRequest.gekisou_rankings:type_name -> entity.GekisouRanking
-	40, // 36: app.live.FinishArenaLiveResponse.event_reward:type_name -> entity.LiveEventReward
-	42, // 37: app.live.FinishArenaLiveResponse.music_rewards:type_name -> entity.RewardResource
-	43, // 38: app.live.FinishArenaLiveResponse.notification:type_name -> entity.Notification
-	41, // 39: app.live.FinishArenaLiveResponse.band_highscore_rating_rewards:type_name -> entity.BandHighScoreRatingReward
-	44, // 40: app.live.GetArenaLiveResultResponse.player_result:type_name -> entity.BattleLivePlayerResult
-	46, // 41: app.live.GetArenaLiveResultResponse.reward_state:type_name -> entity.GekisouRankingRewardState
-	40, // 42: app.live.GetArenaLiveResultResponse.event_reward:type_name -> entity.LiveEventReward
-	42, // 43: app.live.GetArenaLiveResultResponse.campaign_drop_rewards:type_name -> entity.RewardResource
-	0,  // 44: app.live.LiveService.StartFree:input_type -> app.live.StartFreeRequest
-	2,  // 45: app.live.LiveService.FinishFree:input_type -> app.live.FinishFreeRequest
-	4,  // 46: app.live.LiveService.StartChallengeLive:input_type -> app.live.StartChallengeLiveRequest
-	6,  // 47: app.live.LiveService.FinishChallengeLive:input_type -> app.live.FinishChallengeLiveRequest
-	14, // 48: app.live.LiveService.SkipFree:input_type -> app.live.SkipFreeRequest
-	16, // 49: app.live.LiveService.SkipChallengeLive:input_type -> app.live.SkipChallengeLiveRequest
-	8,  // 50: app.live.LiveService.StartBattleLive:input_type -> app.live.StartBattleLiveRequest
-	22, // 51: app.live.LiveService.CheckMaintenanceCasualMatch:input_type -> app.live.CheckMaintenanceCasualMatchRequest
-	24, // 52: app.live.LiveService.CheckMaintenanceRankMatch:input_type -> app.live.CheckMaintenanceRankMatchRequest
-	26, // 53: app.live.LiveService.CheckMaintenanceFree:input_type -> app.live.CheckMaintenanceFreeRequest
-	10, // 54: app.live.LiveService.FinishBattleLive:input_type -> app.live.FinishBattleLiveRequest
-	12, // 55: app.live.LiveService.GetBattleLiveResult:input_type -> app.live.GetBattleLiveResultRequest
-	18, // 56: app.live.LiveService.SaveSetting:input_type -> app.live.SaveSettingRequest
-	29, // 57: app.live.LiveService.GainStampReward:input_type -> app.live.GainStampRewardRequest
-	20, // 58: app.live.LiveService.GetBattleLiveSearchId:input_type -> app.live.GetBattleLiveSearchIdRequest
-	31, // 59: app.live.LiveService.SendBattleLiveInvitation:input_type -> app.live.SendBattleLiveInvitationRequest
-	49, // 60: app.live.LiveService.FetchBattleLiveInvitation:input_type -> google.protobuf.Empty
-	28, // 61: app.live.LiveService.RemoveBattleLiveInvitation:input_type -> app.live.RemoveBattleLiveInvitationRequest
-	33, // 62: app.live.LiveService.StartArenaLive:input_type -> app.live.StartArenaLiveRequest
-	35, // 63: app.live.LiveService.FinishArenaLive:input_type -> app.live.FinishArenaLiveRequest
-	37, // 64: app.live.LiveService.GetArenaLiveResult:input_type -> app.live.GetArenaLiveResultRequest
-	1,  // 65: app.live.LiveService.StartFree:output_type -> app.live.StartFreeResponse
-	3,  // 66: app.live.LiveService.FinishFree:output_type -> app.live.FinishFreeResponse
-	5,  // 67: app.live.LiveService.StartChallengeLive:output_type -> app.live.StartChallengeLiveResponse
-	7,  // 68: app.live.LiveService.FinishChallengeLive:output_type -> app.live.FinishChallengeLiveResponse
-	15, // 69: app.live.LiveService.SkipFree:output_type -> app.live.SkipFreeResponse
-	17, // 70: app.live.LiveService.SkipChallengeLive:output_type -> app.live.SkipChallengeLiveResponse
-	9,  // 71: app.live.LiveService.StartBattleLive:output_type -> app.live.StartBattleLiveResponse
-	23, // 72: app.live.LiveService.CheckMaintenanceCasualMatch:output_type -> app.live.CheckMaintenanceCasualMatchResponse
-	25, // 73: app.live.LiveService.CheckMaintenanceRankMatch:output_type -> app.live.CheckMaintenanceRankMatchResponse
-	27, // 74: app.live.LiveService.CheckMaintenanceFree:output_type -> app.live.CheckMaintenanceFreeResponse
-	11, // 75: app.live.LiveService.FinishBattleLive:output_type -> app.live.FinishBattleLiveResponse
-	13, // 76: app.live.LiveService.GetBattleLiveResult:output_type -> app.live.GetBattleLiveResultResponse
-	19, // 77: app.live.LiveService.SaveSetting:output_type -> app.live.SaveSettingResponse
-	30, // 78: app.live.LiveService.GainStampReward:output_type -> app.live.GainStampRewardResponse
-	21, // 79: app.live.LiveService.GetBattleLiveSearchId:output_type -> app.live.GetBattleLiveSearchIdResponse
-	49, // 80: app.live.LiveService.SendBattleLiveInvitation:output_type -> google.protobuf.Empty
-	32, // 81: app.live.LiveService.FetchBattleLiveInvitation:output_type -> app.live.FetchBattleLiveInvitationResponse
-	49, // 82: app.live.LiveService.RemoveBattleLiveInvitation:output_type -> google.protobuf.Empty
-	34, // 83: app.live.LiveService.StartArenaLive:output_type -> app.live.StartArenaLiveResponse
-	36, // 84: app.live.LiveService.FinishArenaLive:output_type -> app.live.FinishArenaLiveResponse
-	38, // 85: app.live.LiveService.GetArenaLiveResult:output_type -> app.live.GetArenaLiveResultResponse
-	65, // [65:86] is the sub-list for method output_type
-	44, // [44:65] is the sub-list for method input_type
-	44, // [44:44] is the sub-list for extension type_name
-	44, // [44:44] is the sub-list for extension extendee
-	0,  // [0:44] is the sub-list for field type_name
+	45, // 0: app.live.FinishFreeRequest.live_finish:type_name -> entity.LiveFinish
+	46, // 1: app.live.FinishFreeResponse.event_reward:type_name -> entity.LiveEventReward
+	47, // 2: app.live.FinishFreeResponse.band_highscore_rating_rewards:type_name -> entity.BandHighScoreRatingReward
+	48, // 3: app.live.FinishFreeResponse.music_rewards:type_name -> entity.RewardResource
+	49, // 4: app.live.FinishFreeResponse.notification:type_name -> entity.Notification
+	48, // 5: app.live.FinishFreeResponse.campaign_drop_rewards:type_name -> entity.RewardResource
+	50, // 6: app.live.FinishFreeResponse.try_result:type_name -> entity.TryLiveResult
+	45, // 7: app.live.FinishChallengeLiveRequest.live_finish:type_name -> entity.LiveFinish
+	46, // 8: app.live.FinishChallengeLiveResponse.event_reward:type_name -> entity.LiveEventReward
+	47, // 9: app.live.FinishChallengeLiveResponse.band_highscore_rating_rewards:type_name -> entity.BandHighScoreRatingReward
+	48, // 10: app.live.FinishChallengeLiveResponse.music_rewards:type_name -> entity.RewardResource
+	49, // 11: app.live.FinishChallengeLiveResponse.notification:type_name -> entity.Notification
+	48, // 12: app.live.FinishChallengeLiveResponse.campaign_drop_rewards:type_name -> entity.RewardResource
+	45, // 13: app.live.FinishTryLiveRequest.live_finish:type_name -> entity.LiveFinish
+	46, // 14: app.live.FinishTryLiveResponse.event_reward:type_name -> entity.LiveEventReward
+	47, // 15: app.live.FinishTryLiveResponse.band_highscore_rating_rewards:type_name -> entity.BandHighScoreRatingReward
+	48, // 16: app.live.FinishTryLiveResponse.music_rewards:type_name -> entity.RewardResource
+	49, // 17: app.live.FinishTryLiveResponse.notification:type_name -> entity.Notification
+	48, // 18: app.live.FinishTryLiveResponse.campaign_drop_rewards:type_name -> entity.RewardResource
+	50, // 19: app.live.FinishTryLiveResponse.try_result:type_name -> entity.TryLiveResult
+	45, // 20: app.live.FinishBattleLiveRequest.live_finish:type_name -> entity.LiveFinish
+	51, // 21: app.live.FinishBattleLiveRequest.player_result:type_name -> entity.BattleLivePlayerResult
+	52, // 22: app.live.FinishBattleLiveRequest.gekisou_rankings:type_name -> entity.GekisouRanking
+	46, // 23: app.live.FinishBattleLiveResponse.event_reward:type_name -> entity.LiveEventReward
+	48, // 24: app.live.FinishBattleLiveResponse.music_rewards:type_name -> entity.RewardResource
+	49, // 25: app.live.FinishBattleLiveResponse.notification:type_name -> entity.Notification
+	47, // 26: app.live.FinishBattleLiveResponse.band_highscore_rating_rewards:type_name -> entity.BandHighScoreRatingReward
+	51, // 27: app.live.GetBattleLiveResultResponse.player_result:type_name -> entity.BattleLivePlayerResult
+	53, // 28: app.live.GetBattleLiveResultResponse.reward_state:type_name -> entity.GekisouRankingRewardState
+	46, // 29: app.live.GetBattleLiveResultResponse.event_reward:type_name -> entity.LiveEventReward
+	49, // 30: app.live.GetBattleLiveResultResponse.notification:type_name -> entity.Notification
+	54, // 31: app.live.GetBattleLiveResultResponse.battle_live_rewards:type_name -> entity.BattleLiveRewardResource
+	48, // 32: app.live.GetBattleLiveResultResponse.campaign_drop_rewards:type_name -> entity.RewardResource
+	48, // 33: app.live.GetBattleLiveResultResponse.gekisou_ranking_event_rewards:type_name -> entity.RewardResource
+	50, // 34: app.live.GetBattleLiveResultResponse.try_result:type_name -> entity.TryLiveResult
+	46, // 35: app.live.SkipFreeResponse.event_reward:type_name -> entity.LiveEventReward
+	49, // 36: app.live.SkipFreeResponse.notification:type_name -> entity.Notification
+	48, // 37: app.live.SkipFreeResponse.campaign_drop_rewards:type_name -> entity.RewardResource
+	46, // 38: app.live.SkipChallengeLiveResponse.event_reward:type_name -> entity.LiveEventReward
+	49, // 39: app.live.SkipChallengeLiveResponse.notification:type_name -> entity.Notification
+	48, // 40: app.live.SkipChallengeLiveResponse.campaign_drop_rewards:type_name -> entity.RewardResource
+	46, // 41: app.live.SkipTryLiveResponse.event_reward:type_name -> entity.LiveEventReward
+	49, // 42: app.live.SkipTryLiveResponse.notification:type_name -> entity.Notification
+	48, // 43: app.live.SkipTryLiveResponse.campaign_drop_rewards:type_name -> entity.RewardResource
+	49, // 44: app.live.GainStampRewardResponse.notification:type_name -> entity.Notification
+	55, // 45: app.live.FetchBattleLiveInvitationResponse.invitations:type_name -> entity.BattleLiveInvitation
+	45, // 46: app.live.FinishArenaLiveRequest.live_finish:type_name -> entity.LiveFinish
+	51, // 47: app.live.FinishArenaLiveRequest.player_result:type_name -> entity.BattleLivePlayerResult
+	52, // 48: app.live.FinishArenaLiveRequest.gekisou_rankings:type_name -> entity.GekisouRanking
+	46, // 49: app.live.FinishArenaLiveResponse.event_reward:type_name -> entity.LiveEventReward
+	48, // 50: app.live.FinishArenaLiveResponse.music_rewards:type_name -> entity.RewardResource
+	49, // 51: app.live.FinishArenaLiveResponse.notification:type_name -> entity.Notification
+	47, // 52: app.live.FinishArenaLiveResponse.band_highscore_rating_rewards:type_name -> entity.BandHighScoreRatingReward
+	51, // 53: app.live.GetArenaLiveResultResponse.player_result:type_name -> entity.BattleLivePlayerResult
+	53, // 54: app.live.GetArenaLiveResultResponse.reward_state:type_name -> entity.GekisouRankingRewardState
+	46, // 55: app.live.GetArenaLiveResultResponse.event_reward:type_name -> entity.LiveEventReward
+	48, // 56: app.live.GetArenaLiveResultResponse.campaign_drop_rewards:type_name -> entity.RewardResource
+	48, // 57: app.live.GetArenaLiveResultResponse.gekisou_ranking_event_rewards:type_name -> entity.RewardResource
+	50, // 58: app.live.GetArenaLiveResultResponse.try_result:type_name -> entity.TryLiveResult
+	49, // 59: app.live.GetArenaLiveResultResponse.notification:type_name -> entity.Notification
+	0,  // 60: app.live.LiveService.StartFree:input_type -> app.live.StartFreeRequest
+	2,  // 61: app.live.LiveService.FinishFree:input_type -> app.live.FinishFreeRequest
+	4,  // 62: app.live.LiveService.StartChallengeLive:input_type -> app.live.StartChallengeLiveRequest
+	6,  // 63: app.live.LiveService.FinishChallengeLive:input_type -> app.live.FinishChallengeLiveRequest
+	8,  // 64: app.live.LiveService.StartTryLive:input_type -> app.live.StartTryLiveRequest
+	10, // 65: app.live.LiveService.FinishTryLive:input_type -> app.live.FinishTryLiveRequest
+	18, // 66: app.live.LiveService.SkipFree:input_type -> app.live.SkipFreeRequest
+	20, // 67: app.live.LiveService.SkipChallengeLive:input_type -> app.live.SkipChallengeLiveRequest
+	22, // 68: app.live.LiveService.SkipTryLive:input_type -> app.live.SkipTryLiveRequest
+	12, // 69: app.live.LiveService.StartBattleLive:input_type -> app.live.StartBattleLiveRequest
+	28, // 70: app.live.LiveService.CheckMaintenanceCasualMatch:input_type -> app.live.CheckMaintenanceCasualMatchRequest
+	30, // 71: app.live.LiveService.CheckMaintenanceRankMatch:input_type -> app.live.CheckMaintenanceRankMatchRequest
+	32, // 72: app.live.LiveService.CheckMaintenanceFree:input_type -> app.live.CheckMaintenanceFreeRequest
+	14, // 73: app.live.LiveService.FinishBattleLive:input_type -> app.live.FinishBattleLiveRequest
+	16, // 74: app.live.LiveService.GetBattleLiveResult:input_type -> app.live.GetBattleLiveResultRequest
+	24, // 75: app.live.LiveService.SaveSetting:input_type -> app.live.SaveSettingRequest
+	35, // 76: app.live.LiveService.GainStampReward:input_type -> app.live.GainStampRewardRequest
+	26, // 77: app.live.LiveService.GetBattleLiveSearchId:input_type -> app.live.GetBattleLiveSearchIdRequest
+	37, // 78: app.live.LiveService.SendBattleLiveInvitation:input_type -> app.live.SendBattleLiveInvitationRequest
+	56, // 79: app.live.LiveService.FetchBattleLiveInvitation:input_type -> google.protobuf.Empty
+	34, // 80: app.live.LiveService.RemoveBattleLiveInvitation:input_type -> app.live.RemoveBattleLiveInvitationRequest
+	39, // 81: app.live.LiveService.StartArenaLive:input_type -> app.live.StartArenaLiveRequest
+	41, // 82: app.live.LiveService.FinishArenaLive:input_type -> app.live.FinishArenaLiveRequest
+	43, // 83: app.live.LiveService.GetArenaLiveResult:input_type -> app.live.GetArenaLiveResultRequest
+	1,  // 84: app.live.LiveService.StartFree:output_type -> app.live.StartFreeResponse
+	3,  // 85: app.live.LiveService.FinishFree:output_type -> app.live.FinishFreeResponse
+	5,  // 86: app.live.LiveService.StartChallengeLive:output_type -> app.live.StartChallengeLiveResponse
+	7,  // 87: app.live.LiveService.FinishChallengeLive:output_type -> app.live.FinishChallengeLiveResponse
+	9,  // 88: app.live.LiveService.StartTryLive:output_type -> app.live.StartTryLiveResponse
+	11, // 89: app.live.LiveService.FinishTryLive:output_type -> app.live.FinishTryLiveResponse
+	19, // 90: app.live.LiveService.SkipFree:output_type -> app.live.SkipFreeResponse
+	21, // 91: app.live.LiveService.SkipChallengeLive:output_type -> app.live.SkipChallengeLiveResponse
+	23, // 92: app.live.LiveService.SkipTryLive:output_type -> app.live.SkipTryLiveResponse
+	13, // 93: app.live.LiveService.StartBattleLive:output_type -> app.live.StartBattleLiveResponse
+	29, // 94: app.live.LiveService.CheckMaintenanceCasualMatch:output_type -> app.live.CheckMaintenanceCasualMatchResponse
+	31, // 95: app.live.LiveService.CheckMaintenanceRankMatch:output_type -> app.live.CheckMaintenanceRankMatchResponse
+	33, // 96: app.live.LiveService.CheckMaintenanceFree:output_type -> app.live.CheckMaintenanceFreeResponse
+	15, // 97: app.live.LiveService.FinishBattleLive:output_type -> app.live.FinishBattleLiveResponse
+	17, // 98: app.live.LiveService.GetBattleLiveResult:output_type -> app.live.GetBattleLiveResultResponse
+	25, // 99: app.live.LiveService.SaveSetting:output_type -> app.live.SaveSettingResponse
+	36, // 100: app.live.LiveService.GainStampReward:output_type -> app.live.GainStampRewardResponse
+	27, // 101: app.live.LiveService.GetBattleLiveSearchId:output_type -> app.live.GetBattleLiveSearchIdResponse
+	56, // 102: app.live.LiveService.SendBattleLiveInvitation:output_type -> google.protobuf.Empty
+	38, // 103: app.live.LiveService.FetchBattleLiveInvitation:output_type -> app.live.FetchBattleLiveInvitationResponse
+	56, // 104: app.live.LiveService.RemoveBattleLiveInvitation:output_type -> google.protobuf.Empty
+	40, // 105: app.live.LiveService.StartArenaLive:output_type -> app.live.StartArenaLiveResponse
+	42, // 106: app.live.LiveService.FinishArenaLive:output_type -> app.live.FinishArenaLiveResponse
+	44, // 107: app.live.LiveService.GetArenaLiveResult:output_type -> app.live.GetArenaLiveResultResponse
+	84, // [84:108] is the sub-list for method output_type
+	60, // [60:84] is the sub-list for method input_type
+	60, // [60:60] is the sub-list for extension type_name
+	60, // [60:60] is the sub-list for extension extendee
+	0,  // [0:60] is the sub-list for field type_name
 }
 
 func init() { file_app_live_live_service_proto_init() }
@@ -2745,7 +3305,7 @@ func file_app_live_live_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_app_live_live_service_proto_rawDesc), len(file_app_live_live_service_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   39,
+			NumMessages:   45,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

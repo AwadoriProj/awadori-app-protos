@@ -24,8 +24,11 @@ const (
 	LiveService_FinishFree_FullMethodName                  = "/app.live.LiveService/FinishFree"
 	LiveService_StartChallengeLive_FullMethodName          = "/app.live.LiveService/StartChallengeLive"
 	LiveService_FinishChallengeLive_FullMethodName         = "/app.live.LiveService/FinishChallengeLive"
+	LiveService_StartTryLive_FullMethodName                = "/app.live.LiveService/StartTryLive"
+	LiveService_FinishTryLive_FullMethodName               = "/app.live.LiveService/FinishTryLive"
 	LiveService_SkipFree_FullMethodName                    = "/app.live.LiveService/SkipFree"
 	LiveService_SkipChallengeLive_FullMethodName           = "/app.live.LiveService/SkipChallengeLive"
+	LiveService_SkipTryLive_FullMethodName                 = "/app.live.LiveService/SkipTryLive"
 	LiveService_StartBattleLive_FullMethodName             = "/app.live.LiveService/StartBattleLive"
 	LiveService_CheckMaintenanceCasualMatch_FullMethodName = "/app.live.LiveService/CheckMaintenanceCasualMatch"
 	LiveService_CheckMaintenanceRankMatch_FullMethodName   = "/app.live.LiveService/CheckMaintenanceRankMatch"
@@ -51,8 +54,11 @@ type LiveServiceClient interface {
 	FinishFree(ctx context.Context, in *FinishFreeRequest, opts ...grpc.CallOption) (*FinishFreeResponse, error)
 	StartChallengeLive(ctx context.Context, in *StartChallengeLiveRequest, opts ...grpc.CallOption) (*StartChallengeLiveResponse, error)
 	FinishChallengeLive(ctx context.Context, in *FinishChallengeLiveRequest, opts ...grpc.CallOption) (*FinishChallengeLiveResponse, error)
+	StartTryLive(ctx context.Context, in *StartTryLiveRequest, opts ...grpc.CallOption) (*StartTryLiveResponse, error)
+	FinishTryLive(ctx context.Context, in *FinishTryLiveRequest, opts ...grpc.CallOption) (*FinishTryLiveResponse, error)
 	SkipFree(ctx context.Context, in *SkipFreeRequest, opts ...grpc.CallOption) (*SkipFreeResponse, error)
 	SkipChallengeLive(ctx context.Context, in *SkipChallengeLiveRequest, opts ...grpc.CallOption) (*SkipChallengeLiveResponse, error)
+	SkipTryLive(ctx context.Context, in *SkipTryLiveRequest, opts ...grpc.CallOption) (*SkipTryLiveResponse, error)
 	StartBattleLive(ctx context.Context, in *StartBattleLiveRequest, opts ...grpc.CallOption) (*StartBattleLiveResponse, error)
 	CheckMaintenanceCasualMatch(ctx context.Context, in *CheckMaintenanceCasualMatchRequest, opts ...grpc.CallOption) (*CheckMaintenanceCasualMatchResponse, error)
 	CheckMaintenanceRankMatch(ctx context.Context, in *CheckMaintenanceRankMatchRequest, opts ...grpc.CallOption) (*CheckMaintenanceRankMatchResponse, error)
@@ -118,6 +124,26 @@ func (c *liveServiceClient) FinishChallengeLive(ctx context.Context, in *FinishC
 	return out, nil
 }
 
+func (c *liveServiceClient) StartTryLive(ctx context.Context, in *StartTryLiveRequest, opts ...grpc.CallOption) (*StartTryLiveResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(StartTryLiveResponse)
+	err := c.cc.Invoke(ctx, LiveService_StartTryLive_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *liveServiceClient) FinishTryLive(ctx context.Context, in *FinishTryLiveRequest, opts ...grpc.CallOption) (*FinishTryLiveResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(FinishTryLiveResponse)
+	err := c.cc.Invoke(ctx, LiveService_FinishTryLive_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *liveServiceClient) SkipFree(ctx context.Context, in *SkipFreeRequest, opts ...grpc.CallOption) (*SkipFreeResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(SkipFreeResponse)
@@ -132,6 +158,16 @@ func (c *liveServiceClient) SkipChallengeLive(ctx context.Context, in *SkipChall
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(SkipChallengeLiveResponse)
 	err := c.cc.Invoke(ctx, LiveService_SkipChallengeLive_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *liveServiceClient) SkipTryLive(ctx context.Context, in *SkipTryLiveRequest, opts ...grpc.CallOption) (*SkipTryLiveResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(SkipTryLiveResponse)
+	err := c.cc.Invoke(ctx, LiveService_SkipTryLive_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -296,8 +332,11 @@ type LiveServiceServer interface {
 	FinishFree(context.Context, *FinishFreeRequest) (*FinishFreeResponse, error)
 	StartChallengeLive(context.Context, *StartChallengeLiveRequest) (*StartChallengeLiveResponse, error)
 	FinishChallengeLive(context.Context, *FinishChallengeLiveRequest) (*FinishChallengeLiveResponse, error)
+	StartTryLive(context.Context, *StartTryLiveRequest) (*StartTryLiveResponse, error)
+	FinishTryLive(context.Context, *FinishTryLiveRequest) (*FinishTryLiveResponse, error)
 	SkipFree(context.Context, *SkipFreeRequest) (*SkipFreeResponse, error)
 	SkipChallengeLive(context.Context, *SkipChallengeLiveRequest) (*SkipChallengeLiveResponse, error)
+	SkipTryLive(context.Context, *SkipTryLiveRequest) (*SkipTryLiveResponse, error)
 	StartBattleLive(context.Context, *StartBattleLiveRequest) (*StartBattleLiveResponse, error)
 	CheckMaintenanceCasualMatch(context.Context, *CheckMaintenanceCasualMatchRequest) (*CheckMaintenanceCasualMatchResponse, error)
 	CheckMaintenanceRankMatch(context.Context, *CheckMaintenanceRankMatchRequest) (*CheckMaintenanceRankMatchResponse, error)
@@ -335,11 +374,20 @@ func (UnimplementedLiveServiceServer) StartChallengeLive(context.Context, *Start
 func (UnimplementedLiveServiceServer) FinishChallengeLive(context.Context, *FinishChallengeLiveRequest) (*FinishChallengeLiveResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FinishChallengeLive not implemented")
 }
+func (UnimplementedLiveServiceServer) StartTryLive(context.Context, *StartTryLiveRequest) (*StartTryLiveResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method StartTryLive not implemented")
+}
+func (UnimplementedLiveServiceServer) FinishTryLive(context.Context, *FinishTryLiveRequest) (*FinishTryLiveResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FinishTryLive not implemented")
+}
 func (UnimplementedLiveServiceServer) SkipFree(context.Context, *SkipFreeRequest) (*SkipFreeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SkipFree not implemented")
 }
 func (UnimplementedLiveServiceServer) SkipChallengeLive(context.Context, *SkipChallengeLiveRequest) (*SkipChallengeLiveResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SkipChallengeLive not implemented")
+}
+func (UnimplementedLiveServiceServer) SkipTryLive(context.Context, *SkipTryLiveRequest) (*SkipTryLiveResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SkipTryLive not implemented")
 }
 func (UnimplementedLiveServiceServer) StartBattleLive(context.Context, *StartBattleLiveRequest) (*StartBattleLiveResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method StartBattleLive not implemented")
@@ -479,6 +527,42 @@ func _LiveService_FinishChallengeLive_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _LiveService_StartTryLive_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(StartTryLiveRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LiveServiceServer).StartTryLive(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: LiveService_StartTryLive_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LiveServiceServer).StartTryLive(ctx, req.(*StartTryLiveRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _LiveService_FinishTryLive_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FinishTryLiveRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LiveServiceServer).FinishTryLive(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: LiveService_FinishTryLive_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LiveServiceServer).FinishTryLive(ctx, req.(*FinishTryLiveRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _LiveService_SkipFree_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SkipFreeRequest)
 	if err := dec(in); err != nil {
@@ -511,6 +595,24 @@ func _LiveService_SkipChallengeLive_Handler(srv interface{}, ctx context.Context
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(LiveServiceServer).SkipChallengeLive(ctx, req.(*SkipChallengeLiveRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _LiveService_SkipTryLive_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SkipTryLiveRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LiveServiceServer).SkipTryLive(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: LiveService_SkipTryLive_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LiveServiceServer).SkipTryLive(ctx, req.(*SkipTryLiveRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -809,12 +911,24 @@ var LiveService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _LiveService_FinishChallengeLive_Handler,
 		},
 		{
+			MethodName: "StartTryLive",
+			Handler:    _LiveService_StartTryLive_Handler,
+		},
+		{
+			MethodName: "FinishTryLive",
+			Handler:    _LiveService_FinishTryLive_Handler,
+		},
+		{
 			MethodName: "SkipFree",
 			Handler:    _LiveService_SkipFree_Handler,
 		},
 		{
 			MethodName: "SkipChallengeLive",
 			Handler:    _LiveService_SkipChallengeLive_Handler,
+		},
+		{
+			MethodName: "SkipTryLive",
+			Handler:    _LiveService_SkipTryLive_Handler,
 		},
 		{
 			MethodName: "StartBattleLive",

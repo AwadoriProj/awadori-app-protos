@@ -540,12 +540,11 @@ const file_app_membercard_membercard_service_proto_rawDesc = "" +
 	"\x06amount\x18\x02 \x01(\x05R\x06amount\x12\x12\n" +
 	"\x04type\x18\x03 \x01(\x05R\x04type\"J\n" +
 	"\x0eRankUpResponse\x128\n" +
-	"\fnotification\x18\x01 \x01(\v2\x14.entity.NotificationR\fnotification2\xd5\x05\n" +
+	"\fnotification\x18\x01 \x01(\v2\x14.entity.NotificationR\fnotification2\xf6\x04\n" +
 	"\x11MemberCardService\x12J\n" +
 	"\aLevelUp\x12\x1e.app.membercard.LevelUpRequest\x1a\x1f.app.membercard.LevelUpResponse\x12D\n" +
 	"\x05Awake\x12\x1c.app.membercard.AwakeRequest\x1a\x1d.app.membercard.AwakeResponse\x12_\n" +
 	"\x12LeaderSkillLevelUp\x12#.app.membercard.SkillLevelUpRequest\x1a$.app.membercard.SkillLevelUpResponse\x12]\n" +
-	"\x10LinkSkillLevelUp\x12#.app.membercard.SkillLevelUpRequest\x1a$.app.membercard.SkillLevelUpResponse\x12]\n" +
 	"\x10LiveSkillLevelUp\x12#.app.membercard.SkillLevelUpRequest\x1a$.app.membercard.SkillLevelUpResponse\x12d\n" +
 	"\x17PerformanceSkillLevelUp\x12#.app.membercard.SkillLevelUpRequest\x1a$.app.membercard.SkillLevelUpResponse\x12`\n" +
 	"\x13GekisouSkillLevelUp\x12#.app.membercard.SkillLevelUpRequest\x1a$.app.membercard.SkillLevelUpResponse\x12G\n" +
@@ -585,21 +584,19 @@ var file_app_membercard_membercard_service_proto_depIdxs = []int32{
 	0,  // 5: app.membercard.MemberCardService.LevelUp:input_type -> app.membercard.LevelUpRequest
 	2,  // 6: app.membercard.MemberCardService.Awake:input_type -> app.membercard.AwakeRequest
 	4,  // 7: app.membercard.MemberCardService.LeaderSkillLevelUp:input_type -> app.membercard.SkillLevelUpRequest
-	4,  // 8: app.membercard.MemberCardService.LinkSkillLevelUp:input_type -> app.membercard.SkillLevelUpRequest
-	4,  // 9: app.membercard.MemberCardService.LiveSkillLevelUp:input_type -> app.membercard.SkillLevelUpRequest
-	4,  // 10: app.membercard.MemberCardService.PerformanceSkillLevelUp:input_type -> app.membercard.SkillLevelUpRequest
-	4,  // 11: app.membercard.MemberCardService.GekisouSkillLevelUp:input_type -> app.membercard.SkillLevelUpRequest
-	6,  // 12: app.membercard.MemberCardService.RankUp:input_type -> app.membercard.RankUpRequest
-	1,  // 13: app.membercard.MemberCardService.LevelUp:output_type -> app.membercard.LevelUpResponse
-	3,  // 14: app.membercard.MemberCardService.Awake:output_type -> app.membercard.AwakeResponse
-	5,  // 15: app.membercard.MemberCardService.LeaderSkillLevelUp:output_type -> app.membercard.SkillLevelUpResponse
-	5,  // 16: app.membercard.MemberCardService.LinkSkillLevelUp:output_type -> app.membercard.SkillLevelUpResponse
-	5,  // 17: app.membercard.MemberCardService.LiveSkillLevelUp:output_type -> app.membercard.SkillLevelUpResponse
-	5,  // 18: app.membercard.MemberCardService.PerformanceSkillLevelUp:output_type -> app.membercard.SkillLevelUpResponse
-	5,  // 19: app.membercard.MemberCardService.GekisouSkillLevelUp:output_type -> app.membercard.SkillLevelUpResponse
-	8,  // 20: app.membercard.MemberCardService.RankUp:output_type -> app.membercard.RankUpResponse
-	13, // [13:21] is the sub-list for method output_type
-	5,  // [5:13] is the sub-list for method input_type
+	4,  // 8: app.membercard.MemberCardService.LiveSkillLevelUp:input_type -> app.membercard.SkillLevelUpRequest
+	4,  // 9: app.membercard.MemberCardService.PerformanceSkillLevelUp:input_type -> app.membercard.SkillLevelUpRequest
+	4,  // 10: app.membercard.MemberCardService.GekisouSkillLevelUp:input_type -> app.membercard.SkillLevelUpRequest
+	6,  // 11: app.membercard.MemberCardService.RankUp:input_type -> app.membercard.RankUpRequest
+	1,  // 12: app.membercard.MemberCardService.LevelUp:output_type -> app.membercard.LevelUpResponse
+	3,  // 13: app.membercard.MemberCardService.Awake:output_type -> app.membercard.AwakeResponse
+	5,  // 14: app.membercard.MemberCardService.LeaderSkillLevelUp:output_type -> app.membercard.SkillLevelUpResponse
+	5,  // 15: app.membercard.MemberCardService.LiveSkillLevelUp:output_type -> app.membercard.SkillLevelUpResponse
+	5,  // 16: app.membercard.MemberCardService.PerformanceSkillLevelUp:output_type -> app.membercard.SkillLevelUpResponse
+	5,  // 17: app.membercard.MemberCardService.GekisouSkillLevelUp:output_type -> app.membercard.SkillLevelUpResponse
+	8,  // 18: app.membercard.MemberCardService.RankUp:output_type -> app.membercard.RankUpResponse
+	12, // [12:19] is the sub-list for method output_type
+	5,  // [5:12] is the sub-list for method input_type
 	5,  // [5:5] is the sub-list for extension type_name
 	5,  // [5:5] is the sub-list for extension extendee
 	0,  // [0:5] is the sub-list for field type_name

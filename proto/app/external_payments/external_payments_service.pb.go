@@ -10,6 +10,7 @@ import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	emptypb "google.golang.org/protobuf/types/known/emptypb"
+	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 	_ "private-notes/game/proto/entity/method_options"
 	reflect "reflect"
 	sync "sync"
@@ -638,11 +639,143 @@ func (x *GetProductListResponse) GetItems() []*ProductListItem {
 	return nil
 }
 
+type ReserveProvisionalPurchaseRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ShopItemId    int64                  `protobuf:"varint,1,opt,name=shop_item_id,json=shopItemId,proto3" json:"shop_item_id,omitempty"`
+	ExpiresAt     *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=expires_at,json=expiresAt,proto3" json:"expires_at,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ReserveProvisionalPurchaseRequest) Reset() {
+	*x = ReserveProvisionalPurchaseRequest{}
+	mi := &file_app_external_payments_external_payments_service_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ReserveProvisionalPurchaseRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReserveProvisionalPurchaseRequest) ProtoMessage() {}
+
+func (x *ReserveProvisionalPurchaseRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_app_external_payments_external_payments_service_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReserveProvisionalPurchaseRequest.ProtoReflect.Descriptor instead.
+func (*ReserveProvisionalPurchaseRequest) Descriptor() ([]byte, []int) {
+	return file_app_external_payments_external_payments_service_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *ReserveProvisionalPurchaseRequest) GetShopItemId() int64 {
+	if x != nil {
+		return x.ShopItemId
+	}
+	return 0
+}
+
+func (x *ReserveProvisionalPurchaseRequest) GetExpiresAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.ExpiresAt
+	}
+	return nil
+}
+
+type ReserveProvisionalPurchaseResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Status        PaymentDenyReason      `protobuf:"varint,1,opt,name=status,proto3,enum=app.external_payments.PaymentDenyReason" json:"status,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ReserveProvisionalPurchaseResponse) Reset() {
+	*x = ReserveProvisionalPurchaseResponse{}
+	mi := &file_app_external_payments_external_payments_service_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ReserveProvisionalPurchaseResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReserveProvisionalPurchaseResponse) ProtoMessage() {}
+
+func (x *ReserveProvisionalPurchaseResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_app_external_payments_external_payments_service_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReserveProvisionalPurchaseResponse.ProtoReflect.Descriptor instead.
+func (*ReserveProvisionalPurchaseResponse) Descriptor() ([]byte, []int) {
+	return file_app_external_payments_external_payments_service_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *ReserveProvisionalPurchaseResponse) GetStatus() PaymentDenyReason {
+	if x != nil {
+		return x.Status
+	}
+	return PaymentDenyReason_DENY_REASON_NONE
+}
+
+type ReleaseProvisionalPurchaseRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ReleaseProvisionalPurchaseRequest) Reset() {
+	*x = ReleaseProvisionalPurchaseRequest{}
+	mi := &file_app_external_payments_external_payments_service_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ReleaseProvisionalPurchaseRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReleaseProvisionalPurchaseRequest) ProtoMessage() {}
+
+func (x *ReleaseProvisionalPurchaseRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_app_external_payments_external_payments_service_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReleaseProvisionalPurchaseRequest.ProtoReflect.Descriptor instead.
+func (*ReleaseProvisionalPurchaseRequest) Descriptor() ([]byte, []int) {
+	return file_app_external_payments_external_payments_service_proto_rawDescGZIP(), []int{11}
+}
+
 var File_app_external_payments_external_payments_service_proto protoreflect.FileDescriptor
 
 const file_app_external_payments_external_payments_service_proto_rawDesc = "" +
 	"\n" +
-	"5app/external_payments/external_payments_service.proto\x12\x15app.external_payments\x1a*entity/method_options/method_options.proto\x1a\x1bgoogle/protobuf/empty.proto\"\x19\n" +
+	"5app/external_payments/external_payments_service.proto\x12\x15app.external_payments\x1a*entity/method_options/method_options.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\x19\n" +
 	"\x17CheckMaintenanceRequest\"5\n" +
 	"\x18CheckMaintenanceResponse\x12\x19\n" +
 	"\bis_maint\x18\x01 \x01(\bR\aisMaint\"5\n" +
@@ -681,7 +814,15 @@ const file_app_external_payments_external_payments_service_proto_rawDesc = "" +
 	"\n" +
 	"notes_text\x18\x0f \x01(\tR\tnotesText\"V\n" +
 	"\x16GetProductListResponse\x12<\n" +
-	"\x05items\x18\x01 \x03(\v2&.app.external_payments.ProductListItemR\x05items*\x86\x01\n" +
+	"\x05items\x18\x01 \x03(\v2&.app.external_payments.ProductListItemR\x05items\"\x80\x01\n" +
+	"!ReserveProvisionalPurchaseRequest\x12 \n" +
+	"\fshop_item_id\x18\x01 \x01(\x03R\n" +
+	"shopItemId\x129\n" +
+	"\n" +
+	"expires_at\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\texpiresAt\"f\n" +
+	"\"ReserveProvisionalPurchaseResponse\x12@\n" +
+	"\x06status\x18\x01 \x01(\x0e2(.app.external_payments.PaymentDenyReasonR\x06status\"#\n" +
+	"!ReleaseProvisionalPurchaseRequest*\x86\x01\n" +
 	"\x11PaymentDenyReason\x12\x14\n" +
 	"\x10DENY_REASON_NONE\x10\x00\x12\x1d\n" +
 	"\x19DENY_REASON_LIMIT_REACHED\x10\x01\x12 \n" +
@@ -692,13 +833,15 @@ const file_app_external_payments_external_payments_service_proto_rawDesc = "" +
 	"\x15SHOP_RESET_TYPE_TOTAL\x10\x01\x12\x19\n" +
 	"\x15SHOP_RESET_TYPE_DAILY\x10\x02\x12\x1a\n" +
 	"\x16SHOP_RESET_TYPE_WEEKLY\x10\x03\x12\x1b\n" +
-	"\x17SHOP_RESET_TYPE_MONTHLY\x10\x042\xb9\x03\n" +
+	"\x17SHOP_RESET_TYPE_MONTHLY\x10\x042\xd1\x05\n" +
 	"\x17ExternalPaymentsService\x12?\n" +
 	"\x03Nop\x12\x16.google.protobuf.Empty\x1a\x16.google.protobuf.Empty\"\b\x88\xb5\x18\x01\x98\xb5\x18\x01\x12k\n" +
 	"\n" +
 	"ItemStatus\x12(.app.external_payments.ItemStatusRequest\x1a).app.external_payments.ItemStatusResponse\"\b\x88\xb5\x18\x01\x98\xb5\x18\x01\x12w\n" +
 	"\x0eExecutePayment\x12,.app.external_payments.ExecutePaymentRequest\x1a-.app.external_payments.ExecutePaymentResponse\"\b\x88\xb5\x18\x01\x98\xb5\x18\x01\x12w\n" +
-	"\x0eGetProductList\x12,.app.external_payments.GetProductListRequest\x1a-.app.external_payments.GetProductListResponse\"\b\x88\xb5\x18\x01\x98\xb5\x18\x01B \xaa\x02\x1dApp.Protobuf.ExternalPaymentsb\x06proto3"
+	"\x0eGetProductList\x12,.app.external_payments.GetProductListRequest\x1a-.app.external_payments.GetProductListResponse\"\b\x88\xb5\x18\x01\x98\xb5\x18\x01\x12\x9b\x01\n" +
+	"\x1aReserveProvisionalPurchase\x128.app.external_payments.ReserveProvisionalPurchaseRequest\x1a9.app.external_payments.ReserveProvisionalPurchaseResponse\"\b\x88\xb5\x18\x01\x98\xb5\x18\x01\x12x\n" +
+	"\x1aReleaseProvisionalPurchase\x128.app.external_payments.ReleaseProvisionalPurchaseRequest\x1a\x16.google.protobuf.Empty\"\b\x88\xb5\x18\x01\x98\xb5\x18\x01B \xaa\x02\x1dApp.Protobuf.ExternalPaymentsb\x06proto3"
 
 var (
 	file_app_external_payments_external_payments_service_proto_rawDescOnce sync.Once
@@ -713,20 +856,24 @@ func file_app_external_payments_external_payments_service_proto_rawDescGZIP() []
 }
 
 var file_app_external_payments_external_payments_service_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
-var file_app_external_payments_external_payments_service_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+var file_app_external_payments_external_payments_service_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
 var file_app_external_payments_external_payments_service_proto_goTypes = []any{
-	(PaymentDenyReason)(0),           // 0: app.external_payments.PaymentDenyReason
-	(ShopResetType)(0),               // 1: app.external_payments.ShopResetType
-	(*CheckMaintenanceRequest)(nil),  // 2: app.external_payments.CheckMaintenanceRequest
-	(*CheckMaintenanceResponse)(nil), // 3: app.external_payments.CheckMaintenanceResponse
-	(*ItemStatusRequest)(nil),        // 4: app.external_payments.ItemStatusRequest
-	(*ItemStatusResponse)(nil),       // 5: app.external_payments.ItemStatusResponse
-	(*ExecutePaymentRequest)(nil),    // 6: app.external_payments.ExecutePaymentRequest
-	(*ExecutePaymentResponse)(nil),   // 7: app.external_payments.ExecutePaymentResponse
-	(*GetProductListRequest)(nil),    // 8: app.external_payments.GetProductListRequest
-	(*ProductListItem)(nil),          // 9: app.external_payments.ProductListItem
-	(*GetProductListResponse)(nil),   // 10: app.external_payments.GetProductListResponse
-	(*emptypb.Empty)(nil),            // 11: google.protobuf.Empty
+	(PaymentDenyReason)(0),                     // 0: app.external_payments.PaymentDenyReason
+	(ShopResetType)(0),                         // 1: app.external_payments.ShopResetType
+	(*CheckMaintenanceRequest)(nil),            // 2: app.external_payments.CheckMaintenanceRequest
+	(*CheckMaintenanceResponse)(nil),           // 3: app.external_payments.CheckMaintenanceResponse
+	(*ItemStatusRequest)(nil),                  // 4: app.external_payments.ItemStatusRequest
+	(*ItemStatusResponse)(nil),                 // 5: app.external_payments.ItemStatusResponse
+	(*ExecutePaymentRequest)(nil),              // 6: app.external_payments.ExecutePaymentRequest
+	(*ExecutePaymentResponse)(nil),             // 7: app.external_payments.ExecutePaymentResponse
+	(*GetProductListRequest)(nil),              // 8: app.external_payments.GetProductListRequest
+	(*ProductListItem)(nil),                    // 9: app.external_payments.ProductListItem
+	(*GetProductListResponse)(nil),             // 10: app.external_payments.GetProductListResponse
+	(*ReserveProvisionalPurchaseRequest)(nil),  // 11: app.external_payments.ReserveProvisionalPurchaseRequest
+	(*ReserveProvisionalPurchaseResponse)(nil), // 12: app.external_payments.ReserveProvisionalPurchaseResponse
+	(*ReleaseProvisionalPurchaseRequest)(nil),  // 13: app.external_payments.ReleaseProvisionalPurchaseRequest
+	(*timestamppb.Timestamp)(nil),              // 14: google.protobuf.Timestamp
+	(*emptypb.Empty)(nil),                      // 15: google.protobuf.Empty
 }
 var file_app_external_payments_external_payments_service_proto_depIdxs = []int32{
 	0,  // 0: app.external_payments.ItemStatusResponse.status:type_name -> app.external_payments.PaymentDenyReason
@@ -735,19 +882,25 @@ var file_app_external_payments_external_payments_service_proto_depIdxs = []int32
 	0,  // 3: app.external_payments.ProductListItem.status:type_name -> app.external_payments.PaymentDenyReason
 	1,  // 4: app.external_payments.ProductListItem.reset_type:type_name -> app.external_payments.ShopResetType
 	9,  // 5: app.external_payments.GetProductListResponse.items:type_name -> app.external_payments.ProductListItem
-	11, // 6: app.external_payments.ExternalPaymentsService.Nop:input_type -> google.protobuf.Empty
-	4,  // 7: app.external_payments.ExternalPaymentsService.ItemStatus:input_type -> app.external_payments.ItemStatusRequest
-	6,  // 8: app.external_payments.ExternalPaymentsService.ExecutePayment:input_type -> app.external_payments.ExecutePaymentRequest
-	8,  // 9: app.external_payments.ExternalPaymentsService.GetProductList:input_type -> app.external_payments.GetProductListRequest
-	11, // 10: app.external_payments.ExternalPaymentsService.Nop:output_type -> google.protobuf.Empty
-	5,  // 11: app.external_payments.ExternalPaymentsService.ItemStatus:output_type -> app.external_payments.ItemStatusResponse
-	7,  // 12: app.external_payments.ExternalPaymentsService.ExecutePayment:output_type -> app.external_payments.ExecutePaymentResponse
-	10, // 13: app.external_payments.ExternalPaymentsService.GetProductList:output_type -> app.external_payments.GetProductListResponse
-	10, // [10:14] is the sub-list for method output_type
-	6,  // [6:10] is the sub-list for method input_type
-	6,  // [6:6] is the sub-list for extension type_name
-	6,  // [6:6] is the sub-list for extension extendee
-	0,  // [0:6] is the sub-list for field type_name
+	14, // 6: app.external_payments.ReserveProvisionalPurchaseRequest.expires_at:type_name -> google.protobuf.Timestamp
+	0,  // 7: app.external_payments.ReserveProvisionalPurchaseResponse.status:type_name -> app.external_payments.PaymentDenyReason
+	15, // 8: app.external_payments.ExternalPaymentsService.Nop:input_type -> google.protobuf.Empty
+	4,  // 9: app.external_payments.ExternalPaymentsService.ItemStatus:input_type -> app.external_payments.ItemStatusRequest
+	6,  // 10: app.external_payments.ExternalPaymentsService.ExecutePayment:input_type -> app.external_payments.ExecutePaymentRequest
+	8,  // 11: app.external_payments.ExternalPaymentsService.GetProductList:input_type -> app.external_payments.GetProductListRequest
+	11, // 12: app.external_payments.ExternalPaymentsService.ReserveProvisionalPurchase:input_type -> app.external_payments.ReserveProvisionalPurchaseRequest
+	13, // 13: app.external_payments.ExternalPaymentsService.ReleaseProvisionalPurchase:input_type -> app.external_payments.ReleaseProvisionalPurchaseRequest
+	15, // 14: app.external_payments.ExternalPaymentsService.Nop:output_type -> google.protobuf.Empty
+	5,  // 15: app.external_payments.ExternalPaymentsService.ItemStatus:output_type -> app.external_payments.ItemStatusResponse
+	7,  // 16: app.external_payments.ExternalPaymentsService.ExecutePayment:output_type -> app.external_payments.ExecutePaymentResponse
+	10, // 17: app.external_payments.ExternalPaymentsService.GetProductList:output_type -> app.external_payments.GetProductListResponse
+	12, // 18: app.external_payments.ExternalPaymentsService.ReserveProvisionalPurchase:output_type -> app.external_payments.ReserveProvisionalPurchaseResponse
+	15, // 19: app.external_payments.ExternalPaymentsService.ReleaseProvisionalPurchase:output_type -> google.protobuf.Empty
+	14, // [14:20] is the sub-list for method output_type
+	8,  // [8:14] is the sub-list for method input_type
+	8,  // [8:8] is the sub-list for extension type_name
+	8,  // [8:8] is the sub-list for extension extendee
+	0,  // [0:8] is the sub-list for field type_name
 }
 
 func init() { file_app_external_payments_external_payments_service_proto_init() }
@@ -761,7 +914,7 @@ func file_app_external_payments_external_payments_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_app_external_payments_external_payments_service_proto_rawDesc), len(file_app_external_payments_external_payments_service_proto_rawDesc)),
 			NumEnums:      2,
-			NumMessages:   9,
+			NumMessages:   12,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

@@ -21,8 +21,8 @@ const _ = grpc.SupportPackageIsVersion9
 
 const (
 	PlayerService_Register_FullMethodName                      = "/app.player.PlayerService/Register"
-	PlayerService_Whoami_FullMethodName                        = "/app.player.PlayerService/Whoami"
 	PlayerService_GetPlayerData_FullMethodName                 = "/app.player.PlayerService/GetPlayerData"
+	PlayerService_Login_FullMethodName                         = "/app.player.PlayerService/Login"
 	PlayerService_FinishTutorial_FullMethodName                = "/app.player.PlayerService/FinishTutorial"
 	PlayerService_EditProfile_FullMethodName                   = "/app.player.PlayerService/EditProfile"
 	PlayerService_ChangeFavoriteMember_FullMethodName          = "/app.player.PlayerService/ChangeFavoriteMember"
@@ -53,8 +53,8 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type PlayerServiceClient interface {
 	Register(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterResponse, error)
-	Whoami(ctx context.Context, in *WhoamiRequest, opts ...grpc.CallOption) (*WhoamiResponse, error)
 	GetPlayerData(ctx context.Context, in *GetPlayerDataRequest, opts ...grpc.CallOption) (*GetPlayerDataResponse, error)
+	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
 	FinishTutorial(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	EditProfile(ctx context.Context, in *EditProfileRequest, opts ...grpc.CallOption) (*EditProfileResponse, error)
 	ChangeFavoriteMember(ctx context.Context, in *ChangeFavoriteMemberRequest, opts ...grpc.CallOption) (*ChangeFavoriteMemberResponse, error)
@@ -98,20 +98,20 @@ func (c *playerServiceClient) Register(ctx context.Context, in *RegisterRequest,
 	return out, nil
 }
 
-func (c *playerServiceClient) Whoami(ctx context.Context, in *WhoamiRequest, opts ...grpc.CallOption) (*WhoamiResponse, error) {
+func (c *playerServiceClient) GetPlayerData(ctx context.Context, in *GetPlayerDataRequest, opts ...grpc.CallOption) (*GetPlayerDataResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(WhoamiResponse)
-	err := c.cc.Invoke(ctx, PlayerService_Whoami_FullMethodName, in, out, cOpts...)
+	out := new(GetPlayerDataResponse)
+	err := c.cc.Invoke(ctx, PlayerService_GetPlayerData_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *playerServiceClient) GetPlayerData(ctx context.Context, in *GetPlayerDataRequest, opts ...grpc.CallOption) (*GetPlayerDataResponse, error) {
+func (c *playerServiceClient) Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetPlayerDataResponse)
-	err := c.cc.Invoke(ctx, PlayerService_GetPlayerData_FullMethodName, in, out, cOpts...)
+	out := new(LoginResponse)
+	err := c.cc.Invoke(ctx, PlayerService_Login_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -353,8 +353,8 @@ func (c *playerServiceClient) SetCurrentCostumes(ctx context.Context, in *SetCur
 // for forward compatibility.
 type PlayerServiceServer interface {
 	Register(context.Context, *RegisterRequest) (*RegisterResponse, error)
-	Whoami(context.Context, *WhoamiRequest) (*WhoamiResponse, error)
 	GetPlayerData(context.Context, *GetPlayerDataRequest) (*GetPlayerDataResponse, error)
+	Login(context.Context, *LoginRequest) (*LoginResponse, error)
 	FinishTutorial(context.Context, *emptypb.Empty) (*emptypb.Empty, error)
 	EditProfile(context.Context, *EditProfileRequest) (*EditProfileResponse, error)
 	ChangeFavoriteMember(context.Context, *ChangeFavoriteMemberRequest) (*ChangeFavoriteMemberResponse, error)
@@ -391,11 +391,11 @@ type UnimplementedPlayerServiceServer struct{}
 func (UnimplementedPlayerServiceServer) Register(context.Context, *RegisterRequest) (*RegisterResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Register not implemented")
 }
-func (UnimplementedPlayerServiceServer) Whoami(context.Context, *WhoamiRequest) (*WhoamiResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Whoami not implemented")
-}
 func (UnimplementedPlayerServiceServer) GetPlayerData(context.Context, *GetPlayerDataRequest) (*GetPlayerDataResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPlayerData not implemented")
+}
+func (UnimplementedPlayerServiceServer) Login(context.Context, *LoginRequest) (*LoginResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
 }
 func (UnimplementedPlayerServiceServer) FinishTutorial(context.Context, *emptypb.Empty) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FinishTutorial not implemented")
@@ -505,24 +505,6 @@ func _PlayerService_Register_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
-func _PlayerService_Whoami_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(WhoamiRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(PlayerServiceServer).Whoami(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: PlayerService_Whoami_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PlayerServiceServer).Whoami(ctx, req.(*WhoamiRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _PlayerService_GetPlayerData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetPlayerDataRequest)
 	if err := dec(in); err != nil {
@@ -537,6 +519,24 @@ func _PlayerService_GetPlayerData_Handler(srv interface{}, ctx context.Context, 
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PlayerServiceServer).GetPlayerData(ctx, req.(*GetPlayerDataRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PlayerService_Login_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LoginRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PlayerServiceServer).Login(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PlayerService_Login_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PlayerServiceServer).Login(ctx, req.(*LoginRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -967,12 +967,12 @@ var PlayerService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _PlayerService_Register_Handler,
 		},
 		{
-			MethodName: "Whoami",
-			Handler:    _PlayerService_Whoami_Handler,
-		},
-		{
 			MethodName: "GetPlayerData",
 			Handler:    _PlayerService_GetPlayerData_Handler,
+		},
+		{
+			MethodName: "Login",
+			Handler:    _PlayerService_Login_Handler,
 		},
 		{
 			MethodName: "FinishTutorial",

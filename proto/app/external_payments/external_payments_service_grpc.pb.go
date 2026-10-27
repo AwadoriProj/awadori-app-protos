@@ -20,10 +20,12 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	ExternalPaymentsService_Nop_FullMethodName            = "/app.external_payments.ExternalPaymentsService/Nop"
-	ExternalPaymentsService_ItemStatus_FullMethodName     = "/app.external_payments.ExternalPaymentsService/ItemStatus"
-	ExternalPaymentsService_ExecutePayment_FullMethodName = "/app.external_payments.ExternalPaymentsService/ExecutePayment"
-	ExternalPaymentsService_GetProductList_FullMethodName = "/app.external_payments.ExternalPaymentsService/GetProductList"
+	ExternalPaymentsService_Nop_FullMethodName                        = "/app.external_payments.ExternalPaymentsService/Nop"
+	ExternalPaymentsService_ItemStatus_FullMethodName                 = "/app.external_payments.ExternalPaymentsService/ItemStatus"
+	ExternalPaymentsService_ExecutePayment_FullMethodName             = "/app.external_payments.ExternalPaymentsService/ExecutePayment"
+	ExternalPaymentsService_GetProductList_FullMethodName             = "/app.external_payments.ExternalPaymentsService/GetProductList"
+	ExternalPaymentsService_ReserveProvisionalPurchase_FullMethodName = "/app.external_payments.ExternalPaymentsService/ReserveProvisionalPurchase"
+	ExternalPaymentsService_ReleaseProvisionalPurchase_FullMethodName = "/app.external_payments.ExternalPaymentsService/ReleaseProvisionalPurchase"
 )
 
 // ExternalPaymentsServiceClient is the client API for ExternalPaymentsService service.
@@ -34,6 +36,8 @@ type ExternalPaymentsServiceClient interface {
 	ItemStatus(ctx context.Context, in *ItemStatusRequest, opts ...grpc.CallOption) (*ItemStatusResponse, error)
 	ExecutePayment(ctx context.Context, in *ExecutePaymentRequest, opts ...grpc.CallOption) (*ExecutePaymentResponse, error)
 	GetProductList(ctx context.Context, in *GetProductListRequest, opts ...grpc.CallOption) (*GetProductListResponse, error)
+	ReserveProvisionalPurchase(ctx context.Context, in *ReserveProvisionalPurchaseRequest, opts ...grpc.CallOption) (*ReserveProvisionalPurchaseResponse, error)
+	ReleaseProvisionalPurchase(ctx context.Context, in *ReleaseProvisionalPurchaseRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type externalPaymentsServiceClient struct {
@@ -84,6 +88,26 @@ func (c *externalPaymentsServiceClient) GetProductList(ctx context.Context, in *
 	return out, nil
 }
 
+func (c *externalPaymentsServiceClient) ReserveProvisionalPurchase(ctx context.Context, in *ReserveProvisionalPurchaseRequest, opts ...grpc.CallOption) (*ReserveProvisionalPurchaseResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ReserveProvisionalPurchaseResponse)
+	err := c.cc.Invoke(ctx, ExternalPaymentsService_ReserveProvisionalPurchase_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *externalPaymentsServiceClient) ReleaseProvisionalPurchase(ctx context.Context, in *ReleaseProvisionalPurchaseRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, ExternalPaymentsService_ReleaseProvisionalPurchase_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ExternalPaymentsServiceServer is the server API for ExternalPaymentsService service.
 // All implementations must embed UnimplementedExternalPaymentsServiceServer
 // for forward compatibility.
@@ -92,6 +116,8 @@ type ExternalPaymentsServiceServer interface {
 	ItemStatus(context.Context, *ItemStatusRequest) (*ItemStatusResponse, error)
 	ExecutePayment(context.Context, *ExecutePaymentRequest) (*ExecutePaymentResponse, error)
 	GetProductList(context.Context, *GetProductListRequest) (*GetProductListResponse, error)
+	ReserveProvisionalPurchase(context.Context, *ReserveProvisionalPurchaseRequest) (*ReserveProvisionalPurchaseResponse, error)
+	ReleaseProvisionalPurchase(context.Context, *ReleaseProvisionalPurchaseRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedExternalPaymentsServiceServer()
 }
 
@@ -113,6 +139,12 @@ func (UnimplementedExternalPaymentsServiceServer) ExecutePayment(context.Context
 }
 func (UnimplementedExternalPaymentsServiceServer) GetProductList(context.Context, *GetProductListRequest) (*GetProductListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetProductList not implemented")
+}
+func (UnimplementedExternalPaymentsServiceServer) ReserveProvisionalPurchase(context.Context, *ReserveProvisionalPurchaseRequest) (*ReserveProvisionalPurchaseResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ReserveProvisionalPurchase not implemented")
+}
+func (UnimplementedExternalPaymentsServiceServer) ReleaseProvisionalPurchase(context.Context, *ReleaseProvisionalPurchaseRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ReleaseProvisionalPurchase not implemented")
 }
 func (UnimplementedExternalPaymentsServiceServer) mustEmbedUnimplementedExternalPaymentsServiceServer() {
 }
@@ -208,6 +240,42 @@ func _ExternalPaymentsService_GetProductList_Handler(srv interface{}, ctx contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ExternalPaymentsService_ReserveProvisionalPurchase_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReserveProvisionalPurchaseRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ExternalPaymentsServiceServer).ReserveProvisionalPurchase(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ExternalPaymentsService_ReserveProvisionalPurchase_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ExternalPaymentsServiceServer).ReserveProvisionalPurchase(ctx, req.(*ReserveProvisionalPurchaseRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ExternalPaymentsService_ReleaseProvisionalPurchase_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReleaseProvisionalPurchaseRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ExternalPaymentsServiceServer).ReleaseProvisionalPurchase(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ExternalPaymentsService_ReleaseProvisionalPurchase_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ExternalPaymentsServiceServer).ReleaseProvisionalPurchase(ctx, req.(*ReleaseProvisionalPurchaseRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ExternalPaymentsService_ServiceDesc is the grpc.ServiceDesc for ExternalPaymentsService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -230,6 +298,14 @@ var ExternalPaymentsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetProductList",
 			Handler:    _ExternalPaymentsService_GetProductList_Handler,
+		},
+		{
+			MethodName: "ReserveProvisionalPurchase",
+			Handler:    _ExternalPaymentsService_ReserveProvisionalPurchase_Handler,
+		},
+		{
+			MethodName: "ReleaseProvisionalPurchase",
+			Handler:    _ExternalPaymentsService_ReleaseProvisionalPurchase_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
